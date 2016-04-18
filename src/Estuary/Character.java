@@ -19,4 +19,10 @@ public abstract class Character implements Serializable{
 	public void setyCoord(int yCoord) {
 		this.yCoord = yCoord;
 	}
+	
+	public Character(int xCoord, int yCoord)
+	{
+		this.xCoord = xCoord;
+		this.yCoord = yCoord;
+	}
 }
