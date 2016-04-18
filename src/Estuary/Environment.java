@@ -1,3 +1,4 @@
+package Estuary;
 
 public class Environment {
 	private Species[] animals;

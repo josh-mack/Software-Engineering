@@ -1,3 +1,4 @@
+package Estuary;
 
 public class BlazingStar extends  Native{
 

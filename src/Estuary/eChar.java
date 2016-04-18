@@ -1,3 +1,4 @@
+package Estuary;
 
 public enum eChar {
 	//x13 characters

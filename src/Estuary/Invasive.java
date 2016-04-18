@@ -1,3 +1,4 @@
+package Estuary;
 
 public abstract class Invasive extends Species {
 	private int ecoReward;

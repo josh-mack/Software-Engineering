@@ -1,3 +1,4 @@
+package Estuary;
 public abstract class Character {
 	private int xCoord;
 	private int yCoord;

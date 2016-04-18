@@ -1,3 +1,4 @@
+package Estuary;
 
 public abstract class Species {
 	private int amount;

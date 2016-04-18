@@ -1,3 +1,4 @@
+package Estuary;
 import java.awt.Image;
 
 public class Animation {
