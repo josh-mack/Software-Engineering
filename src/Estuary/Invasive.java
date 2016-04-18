@@ -1,6 +1,7 @@
 package Estuary;
 
 public abstract class Invasive extends Species {
+	private static final long serialVersionUID = 200;
 	private int ecoReward;
 	
 	public Invasive(int amount, int XCoord, int yCoord, int growthRate, int ecoReward) {
