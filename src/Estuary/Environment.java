@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Environment implements Serializable{
+	private static final long serialVersionUID = 0;
+	
 	private Species[] animals;
 	private Character[] characters;
 	private eChar[][] board;
@@ -50,7 +52,7 @@ public class Environment implements Serializable{
 		this.animals = animals;
 	}
 	
-	public void setCharacters(int[] charcters) {
+	public void setCharacters(Character[] characters) {
 		this.characters = characters;
 	}
 	
