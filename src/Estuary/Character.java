@@ -1,5 +1,10 @@
 package Estuary;
-public abstract class Character {
+
+import java.io.Serializable;
+
+public abstract class Character implements Serializable{
+	private static final long serialVersionUID = 400;
+	
 	private int xCoord;
 	private int yCoord;
 	public int getxCoord() {
