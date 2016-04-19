@@ -15,15 +15,11 @@ public class MyDraggableComponent
 
   public MyDraggableComponent(String link) {
 	  
-//    setBorder(new LineBorder(Color.BLUE, 3));
-//    setBackground(Color.WHITE);
-//    setBounds(0, 0, 100, 100);
-	  
 	  
 	  JLabel label;
-	  setLayout(null);
-      ImageIcon image = null;
-      image = new ImageIcon(link);
+	  setLayout(new BorderLayout());
+      //ImageIcon image = null;
+      ImageIcon image = new ImageIcon(link);
      
       label = new JLabel(image);
       label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
@@ -36,6 +32,8 @@ public class MyDraggableComponent
 	  
 	  
     setOpaque(false);
+    
+    setVisible(true);
 
     addMouseListener(new MouseListener() {
 
@@ -78,24 +76,21 @@ public class MyDraggableComponent
     });
   }
 
-//}
-
-//public class Main {
-
-  public static void main(String[] args) {
-    JFrame f = new JFrame("Swing Hello World");
-
-    // by doing this, we prevent Swing from resizing
-    // our nice component
-    f.setLayout(null);
-
-    MyDraggableComponent mc = new MyDraggableComponent("characer-color.png");
-    f.add(mc);
-
-    f.setSize(500, 500);
-
-    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    f.setVisible(true);
-  }
+//
+//  public static void main(String[] args) {
+//    JFrame f = new JFrame("Swing Hello World");
+//
+//    // by doing this, we prevent Swing from resizing
+//    // our nice component
+//    f.setLayout(null);
+//
+//    MyDraggableComponent mc = new MyDraggableComponent("character-color.png");
+//    f.add(mc);
+//
+//    f.setSize(500, 500);
+//
+//    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//    f.setVisible(true);
+//  }
 
 }

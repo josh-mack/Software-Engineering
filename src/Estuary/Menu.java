@@ -35,7 +35,7 @@ public class Menu{
 	private JLabel charLabel;
 	private JPanel backgroundPanel;
 	static Point mouseDownCompCoords;
-	
+
 	public Menu(){
 		loadMenu();
 	}	
@@ -159,13 +159,20 @@ public class Menu{
 		timeFrame.add(timeLabel);
 		timeFrame.add(scoreLabel);
 
+		
 		mainMenu.add(exitBar, BorderLayout.CENTER);
 		mainMenu.add(charFrame, BorderLayout.LINE_START);
 		mainMenu.add(timeFrame, BorderLayout.LINE_END);
+		
+
+		mainMenu.add(new MyDraggableComponent("character-color.png"), BorderLayout.PAGE_END);
+		
+		
 		mainMenu.add(backgroundPanel, BorderLayout.PAGE_END);	
 
 
 		mainMenu.pack();
+		mainMenu.setLocationRelativeTo(null);
 		
 	}
 	private void makeMoveable() {
@@ -213,6 +220,5 @@ public class Menu{
 	public JFrame getMainMenu() {
 		return(mainMenu);
 	}
-
 	
 }

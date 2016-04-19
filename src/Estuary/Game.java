@@ -1,9 +1,15 @@
 package Estuary;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+
 public class Game {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
 		Environment mainEnviro = new Environment();
 		eChar[][] temp = mainEnviro.getBoard();
 		int i = 0;
@@ -18,7 +24,7 @@ public class Game {
 		}
 		Menu mainFrame = new Menu();
 		mainFrame.showMenu();
-		
+
 		long startTime = System.currentTimeMillis();
 		int seconds = 00;
 		int minutes = 0;
