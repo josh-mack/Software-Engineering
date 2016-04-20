@@ -165,7 +165,7 @@ public class Menu{
 		mainMenu.add(timeFrame, BorderLayout.LINE_END);
 		
 
-		mainMenu.add(new MyDraggableComponent("character-color.png"), BorderLayout.PAGE_END);
+		mainMenu.add(new DragComponent("character-color.png"), BorderLayout.PAGE_END);
 		
 		
 		mainMenu.add(backgroundPanel, BorderLayout.PAGE_END);	
