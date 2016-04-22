@@ -79,7 +79,7 @@ public class Menu{
 		charSelection.add(new JLabel("Steward"));
 		BufferedImage stewardIcon = null;
 		try {
-			stewardIcon = ImageIO.read(new File("stewardIcon.jpg"));
+			stewardIcon = ImageIO.read(new File("imgs/stewardIcon.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,7 +92,7 @@ public class Menu{
 		charSelection.add(new JLabel("Researcher"));
 		BufferedImage researcherIcon = null;
 		try {
-			researcherIcon = ImageIO.read(new File("researcherIcon.jpg"));
+			researcherIcon = ImageIO.read(new File("imgs/researcherIcon.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +106,7 @@ public class Menu{
 		charSelection.add(new JLabel("Volunteer"));
 		BufferedImage volunteerIcon = null;
 		try {
-			volunteerIcon = ImageIO.read(new File("volunteerIcon.jpg"));
+			volunteerIcon = ImageIO.read(new File("imgs/volunteerIcon.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -165,7 +165,7 @@ public class Menu{
 		backgroundPanel = new JPanel();
 		BufferedImage backgroundImage = null;
 		try {
-			backgroundImage = ImageIO.read(new File("background.jpg"));
+			backgroundImage = ImageIO.read(new File("imgs/background.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -182,8 +182,12 @@ public class Menu{
 		mainMenu.add(charFrame, BorderLayout.PAGE_END);
 		mainMenu.add(timeFrame, BorderLayout.PAGE_END);
 
+<<<<<<< HEAD
 		
 		mainMenu.add(new DragComponent("character-color.png"), BorderLayout.PAGE_END);
+=======
+		mainMenu.add(new MyDraggableComponent("imgs/character-color.png"), BorderLayout.PAGE_END);
+>>>>>>> refs/remotes/origin/master
 		
 		
 		mainMenu.add(backgroundPanel, BorderLayout.PAGE_END);	
