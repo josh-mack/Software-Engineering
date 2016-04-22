@@ -2,11 +2,13 @@ package Estuary;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -46,6 +48,17 @@ public class Menu{
 		mainMenu.setLocationRelativeTo( null );
 		makeMoveable();
 		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int height = (int)screenSize.getHeight();
+		int width = (int)screenSize.getWidth();
+		
+//		int height = 1800;
+//		int width = 2880;
+		
+		
+		//mainMenu.setBounds(0, 0, width, height);
+		mainMenu.setSize(width, height);
+		
 		timeLabel = new JLabel("TIME: 0:00", JLabel.CENTER);
 		
 		scoreLabel = new JLabel("SCORE: $0", JLabel.CENTER);
@@ -54,11 +67,11 @@ public class Menu{
 		
 		JPanel charFrame = new JPanel();
 		charFrame.setBackground(Color.BLACK);
-		charFrame.setSize(200, 500);
+		charFrame.setSize(width/5, height/10);
 		
 		JFrame charSel = new JFrame();
 		charSel.setUndecorated(true);
-		charSel.setSize(200, 500);
+		charSel.setSize(width/5, height/4);
 		JPanel charSelection = new JPanel();
 		charSelection.setLayout(new GridLayout(3, 2));
 		
@@ -123,7 +136,7 @@ public class Menu{
 		});
 
 		
-		charLabel.setSize(900, 100);
+		charLabel.setSize(width/5, height/10);
 		mainMenu.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent windowEvent){
 				System.exit(0);
@@ -133,7 +146,12 @@ public class Menu{
 		
 		JPanel timeFrame = new JPanel();
 		timeFrame.setBackground(Color.RED);
-		timeFrame.setSize(200, 500);
+		timeFrame.setSize(width/5, height/10);
+		
+		
+		//Dimension timeDimension = new Dimension(width, height);
+		//timeFrame.setPreferredSize(timeDimension);
+		
 		
 		JPanel exitBar = new JPanel();
 		JButton exit = new JButton("Exit");
@@ -153,25 +171,27 @@ public class Menu{
 			e.printStackTrace();
 		}
 		JLabel image = new JLabel(new ImageIcon(backgroundImage));
-		backgroundPanel.setSize(800, 800);
+		backgroundPanel.setSize(width, (height*9)/10);
+		//backgroundPanel.set;
 		backgroundPanel.add(image);
 		charFrame.add(charLabel);
 		timeFrame.add(timeLabel);
 		timeFrame.add(scoreLabel);
-
 		
 		mainMenu.add(exitBar, BorderLayout.CENTER);
-		mainMenu.add(charFrame, BorderLayout.LINE_START);
-		mainMenu.add(timeFrame, BorderLayout.LINE_END);
-		
+		mainMenu.add(charFrame, BorderLayout.PAGE_END);
+		mainMenu.add(timeFrame, BorderLayout.PAGE_END);
 
+		
 		mainMenu.add(new DragComponent("character-color.png"), BorderLayout.PAGE_END);
 		
 		
 		mainMenu.add(backgroundPanel, BorderLayout.PAGE_END);	
 
 
-		mainMenu.pack();
+		
+		//mainMenu.pack();
+		
 		mainMenu.setLocationRelativeTo(null);
 		
 	}
@@ -220,5 +240,7 @@ public class Menu{
 	public JFrame getMainMenu() {
 		return(mainMenu);
 	}
+	
+	
 	
 }
