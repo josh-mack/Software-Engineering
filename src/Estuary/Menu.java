@@ -182,12 +182,7 @@ public class Menu{
 		mainMenu.add(charFrame, BorderLayout.PAGE_END);
 		mainMenu.add(timeFrame, BorderLayout.PAGE_END);
 
-<<<<<<< HEAD
-		
 		mainMenu.add(new DragComponent("character-color.png"), BorderLayout.PAGE_END);
-=======
-		mainMenu.add(new MyDraggableComponent("imgs/character-color.png"), BorderLayout.PAGE_END);
->>>>>>> refs/remotes/origin/master
 		
 		
 		mainMenu.add(backgroundPanel, BorderLayout.PAGE_END);	
