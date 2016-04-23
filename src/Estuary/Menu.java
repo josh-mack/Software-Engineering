@@ -311,7 +311,7 @@ public class Menu{
 		panel.add(backgroundPanel);
 		
 		
-		DragComponent charPlace = new DragComponent("imgs/red.png");
+		DragComponent charPlace = new DragComponent("imgs/red.png",eQuad.NW);
 		charPlace.setLocation(100,100);
 		main.add(charPlace);
 		
@@ -371,22 +371,22 @@ public class Menu{
 		DragComponent charPlace = null;
 		switch(sel){
 		case 1:
-			charPlace = new DragComponent("imgs/pika.png");
+			charPlace = new DragComponent("imgs/pika.png",eQuad.NW);
 			break;
 		case 2:
-			charPlace = new DragComponent("imgs/bulb.png");
+			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW);
 			break;
 		case 3:
-			charPlace = new DragComponent("imgs/char.png");
+			charPlace = new DragComponent("imgs/char.png",eQuad.NW);
 			break;
 		case 4:
-			charPlace = new DragComponent("imgs/squirt.png");
+			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW);
 			break;
 		case 5:
-			charPlace = new DragComponent("imgs/pokeball.png");
+			charPlace = new DragComponent("imgs/pokeball.png",eQuad.NW);
 			break;
 		default:
-			charPlace = new DragComponent("imgs/red.png");
+			charPlace = new DragComponent("imgs/red.png",eQuad.NW);
 		}
 		charPlace.setLocation(300,300);
 		main.getLayeredPane().add(charPlace, 0);
