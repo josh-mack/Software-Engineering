@@ -45,7 +45,7 @@ public class Environment implements Serializable{
 	}
 	
 	public int getMoney() {
-		return money;
+		return this.money;
 	}
 	
 	public void setAnimals(Species[] animals) {

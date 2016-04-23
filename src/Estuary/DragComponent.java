@@ -10,7 +10,7 @@ public class DragComponent extends JComponent {
 	private volatile int YOnScreen = 0;
 	private volatile int XCoord = 0;
 	private volatile int YCoord = 0;
-
+	
 	public DragComponent(String imageName) {
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(imageName);
@@ -34,15 +34,25 @@ public class DragComponent extends JComponent {
 		        XCoord = getX();
 		        YCoord = getY();
 			}
-	
+
 			@Override
-			public void mouseReleased(MouseEvent e) { }
-	
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
 			@Override
-			public void mouseEntered(MouseEvent e) { }
-	
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
 			@Override
-			public void mouseExited(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+	
 	
 		});
 		
@@ -52,9 +62,13 @@ public class DragComponent extends JComponent {
 	    	public void mouseDragged(MouseEvent e) {
 	    		setLocation(XCoord + (e.getXOnScreen() - XOnScreen), YCoord + (e.getYOnScreen() - YOnScreen));
 	    	}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 	
-	    	@Override
-	    	public void mouseMoved(MouseEvent e) { }
 	    });
   
 	}
