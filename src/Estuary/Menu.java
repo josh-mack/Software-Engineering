@@ -1,5 +1,6 @@
 package Estuary;
 
+import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -44,6 +45,7 @@ public class Menu{
 	public JLayeredPane imLayer;
 	public JFrame main;
 	public JPanel panel;
+	JFrame charSel;
 	BackgroundTest backgroundPanel;
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -90,19 +92,27 @@ public class Menu{
 		GridBagConstraints c = new GridBagConstraints();
 		
 		MouseAdapter addCompOnClick = new MouseAdapter(){
+			public void mouseEntered(MouseEvent me){
+				charSel.setVisible(true);	
+			}
+			public void mouseExit(MouseEvent me){
+				charSel.setVisible(false);	
+			}
+
 			public void mousePressed(MouseEvent me){
-				createChar(2);				
+				DragComponent placed = createChar(2, me.getXOnScreen(), me.getYOnScreen());	
+				charSel.setVisible(false);	
 			}
 		};
 		
 		MouseAdapter switchQuadOnClick = new MouseAdapter(){
 			public void mousePressed(MouseEvent me){
-				loadQuad(1);				
+				loadQuad(((QuadPanel) me.getSource()).getLoc());				
 			}
 		};
 
 		//Adding Hilighted Pane to Q1
-		hilightQ1 = new JPanel();
+		hilightQ1 = new QuadPanel(eQuad.NW);
 		hilightQ1.setPreferredSize(quadSize);
 		hilightQ1.setBackground(hilightedColor);
 		hilightQ1.setOpaque(false);
@@ -113,11 +123,12 @@ public class Menu{
 		background.add(hilightQ1, c);
 		
 		//Adding Hilighted Pane to Q2
-		hilightQ2 = new JPanel();
+		hilightQ2 = new QuadPanel(eQuad.NE);
 		hilightQ2.setPreferredSize(quadSize);
 		hilightQ2.setBackground(hilightedColor);
 		hilightQ2.setOpaque(false);
-						
+		hilightQ2.addMouseListener(switchQuadOnClick);
+		
 		c.fill = GridBagConstraints.REMAINDER;
 		c.gridx = 1;
 		c.gridy = 1;
@@ -126,29 +137,30 @@ public class Menu{
 		background.add(hilightQ2, c);
 		
 		//Adding Hilighted Pane to Q3
-		hilightQ3 = new JPanel();
+		hilightQ3 = new QuadPanel(eQuad.SE);
 		hilightQ3.setPreferredSize(quadSize);
 		hilightQ3.setBackground(hilightedColor);
 		hilightQ3.setOpaque(false);
 		
 		c.fill = GridBagConstraints.CENTER;
-		c.gridx = 0;
+		c.gridx = 1;
 		c.gridy = 2;
 		
-		
+		hilightQ3.addMouseListener(switchQuadOnClick);
 		background.add(hilightQ3, c);
 
 		
 	
-		hilightQ4 = new JPanel();
+		hilightQ4 = new QuadPanel(eQuad.SW);
 		hilightQ4.setPreferredSize(quadSize);
 		hilightQ4.setBackground(hilightedColor);
 		hilightQ4.setOpaque(false);
 		
 		c.fill = GridBagConstraints.CENTER;
-		c.gridx = 1;
+		c.gridx = 0;
 		c.gridy = 2;
 		
+		hilightQ4.addMouseListener(switchQuadOnClick);
 		background.add(hilightQ4, c);
 		
 		
@@ -174,7 +186,7 @@ public class Menu{
 		charFrame.setBackground(Color.BLACK);
 		charFrame.setSize(width/5, height/10);
 		
-		JFrame charSel = new JFrame();
+		charSel = new JFrame();
 		charSel.setUndecorated(true);
 		charSel.setSize(width/10, height/4);
 		JPanel charSelection = new JPanel();
@@ -189,6 +201,7 @@ public class Menu{
 			e.printStackTrace();
 		}
 		JLabel stewardImage = new JLabel(new ImageIcon(stewardIcon));
+		stewardImage.addMouseListener(addCompOnClick);
 		charSelection.add(stewardImage);
 		
 		
@@ -322,21 +335,11 @@ public class Menu{
 		panel.add(backgroundPanel);
 		
 		
-		DragComponent charPlace = new DragComponent("imgs/red.png",eQuad.NW);
-		charPlace.setLocation(100,100);
-		main.add(charPlace);
-		
-		
 		main.add(panel);
 		main.setSize(mainSize);
 		main.setVisible(true);
 		
-		createChar(0);
-		createChar(1);
-		createChar(2);
-		createChar(3);
-		createChar(4);
-		createChar(5);
+	
 
 	}
 
@@ -378,36 +381,56 @@ public class Menu{
 			
 		}
 	}
-	public void loadQuad(int i) {
-		backgroundPanel.paintComponent(null, "imgs/NW.png");
-		main.revalidate();
+	public void loadQuad(eQuad quad) {
+		switch(quad){
+			case NW:
+				backgroundPanel.paintComponent(null, "imgs/NW.png");
+				main.revalidate();
+			break;
+			case SW:
+				backgroundPanel.paintComponent(null, "imgs/SW.png");
+				main.revalidate();
+			break;
+			case SE:
+				backgroundPanel.paintComponent(null, "imgs/SE.png");
+				main.revalidate();
+			break;
+			case NE:
+				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
+				main.revalidate();
+				break;
+			default:
+				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
+				main.revalidate();
+			break;
+		}
 		
 	}
-	public void createChar(int sel){
+	public DragComponent createChar(int sel, int x, int y){
 		DragComponent charPlace = null;
 		switch(sel){
 		case 1:
-			charPlace = new DragComponent("imgs/pika.png",eQuad.NW);
+			charPlace = new DragComponent("imgs/pika.png",eQuad.NW, x, y);
 			break;
 		case 2:
-			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW);
+			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW, x, y);
 			break;
 		case 3:
-			charPlace = new DragComponent("imgs/char.png",eQuad.NW);
+			charPlace = new DragComponent("imgs/char.png",eQuad.NW, x, y);
 			break;
 		case 4:
-			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW);
+			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW, x, y);
 
 			break;
 		case 5:
-			charPlace = new DragComponent("imgs/pokeball.png",eQuad.NW);
+			charPlace = new DragComponent("imgs/pokeball.png",eQuad.NW, x, y);
 			break;
 		default:
-			charPlace = new DragComponent("imgs/red.png",eQuad.NW);
+			charPlace = new DragComponent("imgs/red.png",eQuad.NW, x, y);
 		}
-		charPlace.setLocation(300,300);
-		main.getLayeredPane().add(charPlace);
 		
+		main.getLayeredPane().add(charPlace);
+		return charPlace;
 	}
 	public JLabel getTimeLabel() {
 		// TODO Auto-generated method stub

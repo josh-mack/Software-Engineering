@@ -7,10 +7,11 @@ import javax.swing.border.*;
 
 
 public class DragComponent extends JComponent {
-	private volatile int XOnScreen = 0;
-	private volatile int YOnScreen = 0;
-	private volatile int XCoord = 0;
-	private volatile int YCoord = 0;
+	private volatile int XOnScreen;
+	private volatile int YOnScreen;
+	private volatile int XCoord;
+	private volatile int YCoord;
+	private MouseListener pressListener;
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
@@ -18,7 +19,7 @@ public class DragComponent extends JComponent {
 	
 	private eQuad whatQuad;
 	
-	public DragComponent(String imageName, eQuad thisQuad) {
+	public DragComponent(String imageName, eQuad thisQuad, int x, int y) {
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(imageName);
 		JLabel label = new JLabel(image);
@@ -27,11 +28,14 @@ public class DragComponent extends JComponent {
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);
+		
+		
+		setLocation(x,y);
 		//setOpaque(false);
 		
 		this.whatQuad = thisQuad;
 		
-		addMouseListener(new MouseListener() {
+		pressListener = new MouseListener() {
 	
 			@Override
 			public void mouseClicked(MouseEvent e) { }
@@ -63,7 +67,8 @@ public class DragComponent extends JComponent {
 			}
 	
 	
-		});
+		};
+		addMouseListener(pressListener);
 		
 	    addMouseMotionListener(new MouseMotionListener() {
 	    	
@@ -98,6 +103,11 @@ public class DragComponent extends JComponent {
 		case SW:
 			break;
 		}
+	}
+
+	public MouseListener getMouseListener() {
+		// TODO Auto-generated method stub
+		return pressListener;
 	}
 }
 
