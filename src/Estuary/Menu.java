@@ -1,12 +1,13 @@
 package Estuary;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -25,45 +26,184 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.OverlayLayout;
+import javax.swing.Timer;
+
+
 
 public class Menu{
-	private JFrame mainMenu;
-	private JLabel timeLabel;
-	private JLabel scoreLabel;
-	private JLabel charLabel;
-	private JPanel backgroundPanel;
-	static Point mouseDownCompCoords;
-
+	public JLayeredPane mainWindow;
+	public JPanel background;
+	public JLayeredPane imLayer;
+	public JFrame main;
+	
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	int height = ((int)screenSize.getHeight());
+	int width = (int)screenSize.getWidth();
+	Dimension topBarSize = new Dimension(width/4, 500);
+	Dimension quadSize = new Dimension(width/2 -20, (height/2)-(height/20)-20);
+	Dimension mainSize = new Dimension(width, height);
+	Color hilightedColor = new Color(0,0,0, 100);
+	Color alphaLayer = new Color(0, 0, 0, 0);
+	int sel;
+	JPanel hilightQ1;
+	JPanel hilightQ2;
+	JPanel hilightQ3;
+	JPanel hilightQ4;
+	boolean charMenuOpen = false;
+	
 	public Menu(){
+		sel = 0;
+		main = new JFrame();
+
+		mainWindow = new JLayeredPane();
+		mainWindow.setLayout(new GridLayout());
+
+		imLayer = new JLayeredPane();
+		
+		background = new JPanel();
+		background.setLayout(new GridBagLayout());
+		main.setUndecorated(true);
+		main.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent windowEvent){
+				System.exit(0);
+			}
+		});
+		
 		loadMenu();
 	}	
 	private void loadMenu(){
-		mainMenu = new JFrame("Estuary Defenders");
-		mainMenu.setLayout(new BorderLayout());		
-		mainMenu.setUndecorated(true);
-		mainMenu.setLocationRelativeTo( null );
-		makeMoveable();
+		JPanel panel = new JPanel(); //Main Layering Panel
+		GridBagConstraints c = new GridBagConstraints();
 		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int height = (int)screenSize.getHeight();
-		int width = (int)screenSize.getWidth();
+		MouseAdapter hilightOnMouse = new MouseAdapter(){
+			
+		};
+		JLayeredPane NWPane = new JLayeredPane();
+		NWPane.setPreferredSize(quadSize);
+		JPanel blank = new JPanel();
+		blank.setBackground(new Color(255,0,0,100));
+		blank.setSize(quadSize);
+		NWPane.add(blank);
 		
-//		int height = 1800;
-//		int width = 2880;
 		
 		
-		//mainMenu.setBounds(0, 0, width, height);
-		mainMenu.setSize(width, height);
+		//Adding Hilighted Pane to Q1
+		hilightQ1 = new JPanel();
+		hilightQ1.setSize(quadSize);
+		hilightQ1.setBackground(alphaLayer);
+		c.fill = GridBagConstraints.FIRST_LINE_START;
+		c.gridx = 0;
+		c.gridy = 1;
+		NWPane.add(hilightQ1);
+		NWPane.setLayer(hilightQ1, 2);
+		background.add(NWPane, c);
 		
-		timeLabel = new JLabel("TIME: 0:00", JLabel.CENTER);
+		JLayeredPane NEPane = new JLayeredPane();
+		NEPane.setPreferredSize(quadSize);
+		JPanel blank2 = new JPanel();
+		blank2.setBackground(new Color(0,0,255,100));
+		blank2.setSize(quadSize);
+		NEPane.add(blank2);
+
 		
-		scoreLabel = new JLabel("SCORE: $0", JLabel.CENTER);
+		//Adding Hilighted Pane to Q2
+		hilightQ2 = new JPanel();
+		hilightQ2.setSize(quadSize);
+		hilightQ2.setBackground(alphaLayer);
 		
-		charLabel = new JLabel("Char Selection", JLabel.CENTER);
+		hilightQ2.addMouseListener(hilightOnMouse);
+				
+		c.fill = GridBagConstraints.REMAINDER;
+		c.gridx = 1;
+		c.gridy = 1;
+		
+		NEPane.add(hilightQ2);
+		NEPane.setLayer(hilightQ2, 2);
+		background.add(NEPane, c);
+		
+		JLayeredPane SEPane = new JLayeredPane();
+		SEPane.setPreferredSize(quadSize);
+		JPanel blank3 = new JPanel();
+		blank3.setBackground(new Color(0,255,0,100));
+		blank3.setSize(quadSize);
+		SEPane.add(blank3);
+
+		//Adding Hilighted Pane to Q3
+		hilightQ3 = new JPanel();
+		hilightQ3.setSize(quadSize);
+		hilightQ3.setBackground(alphaLayer);
+		
+		c.fill = GridBagConstraints.CENTER;
+		c.gridx = 0;
+		c.gridy = 2;
+		
+		SEPane.add(hilightQ3);
+		SEPane.setLayer(hilightQ3, 2);
+		background.add(SEPane, c);
+
+		
+		
+		JLayeredPane SWPane = new JLayeredPane();
+		SWPane.setPreferredSize(quadSize);
+		JPanel blank4 = new JPanel();
+		blank4.setBackground(new Color(255,255,100,100));
+		blank4.setSize(quadSize);
+		SWPane.add(blank4);
+		
+	
+		hilightQ4 = new JPanel();
+		hilightQ4.setSize(quadSize);
+		hilightQ4.setBackground(alphaLayer);
+		
+		c.fill = GridBagConstraints.CENTER;
+		c.gridx = 1;
+		c.gridy = 2;
+		SWPane.add(hilightQ4);
+		SWPane.setLayer(hilightQ4, 2);
+		
+		background.add(SWPane, c);
+		
+		
+		
+		
+		
+		JPanel backgroundPanel = new BackgroundTest(width, height);
+		
+//		BufferedImage backgroundImage = null;
+//		try {
+//			backgroundImage = ImageIO.read(new File("imgs/fullmap.png"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		backgroundPanel.setLayout(new GridLayout());
+//		JLabel image = new JLabel(new ImageIcon(backgroundImage));
+//
+//		backgroundPanel.add(image);
+	//	JLayeredPane imgPane = new JLayeredPane();
+		
+		
+		
+		
+		JPanel topBarLeft = new JPanel();
+		topBarLeft.setLayout(new GridBagLayout());
+		
+
+		
+		
+		////////////////////////////////////////////////////////
+		////////////////////////////////////////////OLD CODE
+		JLabel timeLabel = new JLabel("TIME: 0:00", JLabel.CENTER);
+		
+		JLabel scoreLabel = new JLabel("SCORE: $0", JLabel.CENTER);
+		
+		JLabel charLabel = new JLabel("Char Selection", JLabel.CENTER);
 		
 		JPanel charFrame = new JPanel();
 		charFrame.setBackground(Color.BLACK);
@@ -71,10 +211,9 @@ public class Menu{
 		
 		JFrame charSel = new JFrame();
 		charSel.setUndecorated(true);
-		charSel.setSize(width/5, height/4);
+		charSel.setSize(width/10, height/4);
 		JPanel charSelection = new JPanel();
 		charSelection.setLayout(new GridLayout(3, 2));
-		
 		
 		charSelection.add(new JLabel("Steward"));
 		BufferedImage stewardIcon = null;
@@ -117,13 +256,13 @@ public class Menu{
 		
 		
 		charSel.add(charSelection);
-		
+		charSel.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLACK));
 		
 		
 		charFrame.addMouseListener(new MouseAdapter(){
 			@Override
-			public void mouseEntered(MouseEvent me){
-				charSel.setLocationRelativeTo(charLabel);
+			public void mousePressed(MouseEvent me){
+				charSel.setLocation(charFrame.getLocationOnScreen());
 				charSel.setVisible(true);				
 			}
 		});
@@ -131,26 +270,19 @@ public class Menu{
 		charSel.addMouseListener(new MouseAdapter(){
 			public void mouseExited(MouseEvent me){
 				charSel.setVisible(false);
-				mainMenu.revalidate();
+			///	charSel.getContentPane().revalidate();
 			}
 		});
 
 		
 		charLabel.setSize(width/5, height/10);
-		mainMenu.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent windowEvent){
-				System.exit(0);
-			}
-		});
+		
 		
 		
 		JPanel timeFrame = new JPanel();
 		timeFrame.setBackground(Color.RED);
 		timeFrame.setSize(width/5, height/10);
 		
-		
-		//Dimension timeDimension = new Dimension(width, height);
-		//timeFrame.setPreferredSize(timeDimension);
 		
 		
 		JPanel exitBar = new JPanel();
@@ -160,86 +292,129 @@ public class Menu{
 				System.exit(0);
 			}
 		});
-		exitBar.add(exit);
 		
-		backgroundPanel = new JPanel();
-		BufferedImage backgroundImage = null;
-		try {
-			backgroundImage = ImageIO.read(new File("imgs/background.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		JLabel image = new JLabel(new ImageIcon(backgroundImage));
-		backgroundPanel.setSize(width, (height*9)/10);
-		//backgroundPanel.set;
-		backgroundPanel.add(image);
+		exitBar.add(exit);
+		exitBar.setOpaque(false);
+
 		charFrame.add(charLabel);
 		timeFrame.add(timeLabel);
 		timeFrame.add(scoreLabel);
 		
-		mainMenu.add(exitBar, BorderLayout.CENTER);
-		mainMenu.add(charFrame, BorderLayout.PAGE_END);
-		mainMenu.add(timeFrame, BorderLayout.PAGE_END);
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 0;
+		c.weightx = 1;
+		c.gridwidth = 2;
+		c.gridy = 0;
+		c.anchor = GridBagConstraints.NORTHWEST;
+		topBarLeft.add(charFrame, c);
+		c.gridwidth = 1;
+		c.fill = GridBagConstraints.VERTICAL;
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridx = 2;
+		c.gridy = 0;
+		topBarLeft.add(exitBar, c);
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 3;
+		c.gridy = 0;		
+		c.anchor = GridBagConstraints.NORTHEAST;
 
-		mainMenu.add(new DragComponent("character-color.png"), BorderLayout.PAGE_END);
+
+		topBarLeft.add(timeFrame, c);
+		
+
+		topBarLeft.setOpaque(false);
+		/////////////////////////////////////////////
 		
 		
-		mainMenu.add(backgroundPanel, BorderLayout.PAGE_END);	
+		
+		
+		
+		
+		
+		
+		
+		
 
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 0;
+		background.add(topBarLeft, c);
+		
+		
+		LayoutManager overlay = new OverlayLayout(panel);
+		panel.setLayout(overlay);
 
 		
-		//mainMenu.pack();
+		background.setOpaque(false);
+		background.setBackground(alphaLayer);
+		backgroundPanel.setBackground(alphaLayer);
 		
-		mainMenu.setLocationRelativeTo(null);
+
+		panel.add(background);
+		panel.revalidate();
 		
+		panel.add(backgroundPanel);
+		
+		
+		DragComponent charPlace = new DragComponent("imgs/red.png");
+		charPlace.setLocation(100,100);
+		main.add(charPlace);
+		
+		main.add(panel);
+		main.setSize(mainSize);
+		main.setVisible(true);
 	}
-	private void makeMoveable() {
-        mainMenu.addMouseListener(new MouseListener(){
-            public void mouseReleased(MouseEvent e) {
-                mouseDownCompCoords = null;
-            }
-            public void mousePressed(MouseEvent e) {
-                mouseDownCompCoords = e.getPoint();
-            }
-            public void mouseExited(MouseEvent e) {
-            }
-            public void mouseEntered(MouseEvent e) {
-            }
-            public void mouseClicked(MouseEvent e) {
-            }
-        });
 
-        mainMenu.addMouseMotionListener(new MouseMotionListener(){
-            public void mouseMoved(MouseEvent e) {
-            }
-
-            public void mouseDragged(MouseEvent e) {
-                Point currCoords = e.getLocationOnScreen();
-                mainMenu.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
-            }
-        });
-    }
-	void showMenu() {
-		mainMenu.setVisible(true);
-
-	}
-	public JLabel getTimeLabel() {
-		return(timeLabel);
+	public static void main(String[] args) {
+		Menu test = new Menu();
+		//ActionListener timerAction = new ActionListener(){
+		//	@Override
+	//		public void actionPerformed(ActionEvent e) {
+	//			test.hilight(test.sel, test);
+//				test.sel = (test.sel+1)%8;
+	//	}};
+		//new Timer(500, timerAction).start();
 	}
 	
-	public void setTimeLabel(JLabel timeLabel) {
-		this.timeLabel = timeLabel;
+	public void hilight(int sel,Menu main){
+		switch(sel){
+		case 0:
+			main.hilightQ1.setBackground(main.hilightedColor);
+			main.hilightQ1.getRootPane().repaint();
+			break;
+		case 1:
+			main.hilightQ1.setBackground(main.alphaLayer);
+			main.hilightQ1.getRootPane().repaint();
+			break;
+		case 2:
+			main.hilightQ2.setBackground(main.hilightedColor);
+			main.hilightQ2.getRootPane().repaint();
+			break;
+		case 3:
+			main.hilightQ2.setBackground(main.alphaLayer);
+			main.hilightQ2.getRootPane().repaint();
+			break;
+		case 4:
+			main.hilightQ3.setBackground(main.hilightedColor);
+			main.hilightQ3.getRootPane().repaint();
+			break;
+		case 5:
+			main.hilightQ3.setBackground(main.alphaLayer);
+			main.hilightQ3.getRootPane().repaint();
+			break;
+		case 6:
+			main.hilightQ4.setBackground(main.hilightedColor);
+			main.hilightQ4.getRootPane().repaint();
+			break;
+		case 7:
+			main.hilightQ4.setBackground(main.alphaLayer);
+			main.hilightQ4.getRootPane().repaint();
+			break;
+			
+		}
 	}
-	
-	public JLabel getScoreLabel() {
-		return(scoreLabel);
-	}
-	
-	public JFrame getMainMenu() {
-		return(mainMenu);
-	}
-	
-	
-	
 }
+	
+	
