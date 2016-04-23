@@ -1,6 +1,7 @@
 package Estuary;
 
 
+import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
@@ -13,22 +14,27 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class BackgroundTest extends JPanel{
+	String filename;
 	int height;
 	int width;
+	BufferedImage backgroundImage = null;
 	
 	public void paint(Graphics g){
-		BufferedImage backgroundImage = null;
 		try {
-			backgroundImage = ImageIO.read(new File("imgs/fullmap.png"));
+			backgroundImage = ImageIO.read(new File(filename));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		g.drawImage(backgroundImage,0, 0, width, height, this);
 	}
-	public BackgroundTest(int width, int height){
+	public BackgroundTest(String filename, int width, int height){
+		this.filename = filename;
 		this.height = height;
 		this.width = width;
 	}
 
+	protected void paintComponent(Graphics g, String filename){
+		this.filename = filename;
+	}
 }

@@ -43,7 +43,7 @@ public class Game {
 	}
 	
 	static void updateMoney(Menu mainFrame, int money) {
-		mainFrame.getScoreLabel().setText("Money: $" + money);
+		mainFrame.getScoreLabel().setText("MONEY: $" + money);
 	}
 
 

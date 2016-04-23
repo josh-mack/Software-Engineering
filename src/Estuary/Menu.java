@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -42,6 +43,8 @@ public class Menu{
 	public JPanel background;
 	public JLayeredPane imLayer;
 	public JFrame main;
+	public JPanel panel;
+	BackgroundTest backgroundPanel;
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
@@ -83,13 +86,21 @@ public class Menu{
 		loadMenu();
 	}	
 	private void loadMenu(){
-		JPanel panel = new JPanel(); //Main Layering Panel
+		panel = new JPanel(); //Main Layering Panel
 		GridBagConstraints c = new GridBagConstraints();
 		
 		MouseAdapter addCompOnClick = new MouseAdapter(){
-			
+			public void mousePressed(MouseEvent me){
+				createChar(2);				
+			}
 		};
-	
+		
+		MouseAdapter switchQuadOnClick = new MouseAdapter(){
+			public void mousePressed(MouseEvent me){
+				loadQuad(1);				
+			}
+		};
+
 		//Adding Hilighted Pane to Q1
 		hilightQ1 = new JPanel();
 		hilightQ1.setPreferredSize(quadSize);
@@ -98,7 +109,7 @@ public class Menu{
 		c.fill = GridBagConstraints.FIRST_LINE_START;
 		c.gridx = 0;
 		c.gridy = 1;
-
+		hilightQ1.addMouseListener(switchQuadOnClick);
 		background.add(hilightQ1, c);
 		
 		//Adding Hilighted Pane to Q2
@@ -144,7 +155,7 @@ public class Menu{
 		
 		
 		
-		JPanel backgroundPanel = new BackgroundTest(width, height);
+		backgroundPanel = new BackgroundTest("imgs/fullmap.png", width, height);
 
 		JPanel topBarLeft = new JPanel();
 		topBarLeft.setLayout(new GridBagLayout());
@@ -155,7 +166,7 @@ public class Menu{
 		////////////////////////////////////////////////////////
 		////////////////////////////////////////////OLD CODE
 		timeLabel = new JLabel("TIME: 0:00", JLabel.CENTER);
-		scoreLabel = new JLabel("SCORE: $200", JLabel.CENTER);
+		scoreLabel = new JLabel("MONEY: $200", JLabel.CENTER);
 		
 		
 		JLabel charLabel = new JLabel("Char Selection", JLabel.CENTER);
@@ -329,6 +340,7 @@ public class Menu{
 
 	}
 
+	
 	public void hilight(int sel,Menu main){
 		switch(sel){
 		case 0:
@@ -366,7 +378,11 @@ public class Menu{
 			
 		}
 	}
-	
+	public void loadQuad(int i) {
+		backgroundPanel.paintComponent(null, "imgs/NW.png");
+		main.revalidate();
+		
+	}
 	public void createChar(int sel){
 		DragComponent charPlace = null;
 		switch(sel){
@@ -380,7 +396,7 @@ public class Menu{
 			charPlace = new DragComponent("imgs/char.png");
 			break;
 		case 4:
-			charPlace = new DragComponent("imgs/squirt.png");
+			charPlace = new DragComponent("imgs/squit.png");
 			break;
 		case 5:
 			charPlace = new DragComponent("imgs/pokeball.png");
@@ -389,7 +405,7 @@ public class Menu{
 			charPlace = new DragComponent("imgs/red.png");
 		}
 		charPlace.setLocation(300,300);
-		main.getLayeredPane().add(charPlace, 0);
+		main.getLayeredPane().add(charPlace);
 		
 	}
 	public JLabel getTimeLabel() {
