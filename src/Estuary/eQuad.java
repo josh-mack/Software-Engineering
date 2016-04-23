@@ -2,18 +2,15 @@ package Estuary;
 
 public enum eQuad {
 
-	NE("NE"), NW("NW"), SE("SE"), SW("SE");
+	NE(1), NW(2), SE(3), SW(4);
 	
-	private String testVal;
+	private int testVal;
 
-	eQuad(String val){
+	eQuad(int val){
 		this.testVal = val;
 	}
 	eQuad(){
-		testVal = "None";
+		testVal = 0;
 	}
-	@Override
-	public String toString(){
-		return testVal;
-	}
+	
 }
