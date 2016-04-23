@@ -1,6 +1,7 @@
 package Estuary;
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -11,7 +12,13 @@ public class DragComponent extends JComponent {
 	private volatile int XCoord = 0;
 	private volatile int YCoord = 0;
 	
-	public DragComponent(String imageName) {
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	int height = ((int)screenSize.getHeight());
+	int width = (int)screenSize.getWidth();
+	
+	private eQuad whatQuad;
+	
+	public DragComponent(String imageName, eQuad thisQuad) {
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(imageName);
 		JLabel label = new JLabel(image);
@@ -21,6 +28,8 @@ public class DragComponent extends JComponent {
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);
 		//setOpaque(false);
+		
+		this.whatQuad = thisQuad;
 		
 		addMouseListener(new MouseListener() {
 	
@@ -71,6 +80,24 @@ public class DragComponent extends JComponent {
 	
 	    });
   
+	}
+	
+	public void placeInArray(int XCoord, int YCoord)
+	{
+		int x = (XCoord/(width/76))%38;
+		int y = (YCoord/(height/48))%24;
+		
+		switch(whatQuad)
+		{
+		case NE:
+			break;
+		case NW:
+			break;
+		case SE:
+			break;
+		case SW:
+			break;
+		}
 	}
 }
 
