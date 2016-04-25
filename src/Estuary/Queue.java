@@ -37,8 +37,7 @@ public class Queue{
 		Invasive hold = que.get(0);
 		return hold;
     }
-<<<<<<< HEAD
-	
+
 	public Invasive peakBack()
 	{
 		Invasive hold = que.get(que.size()-1);
@@ -70,36 +69,4 @@ public class Queue{
 		};
 		return it;
 	}
-=======
-public Invasive peakBack(){
-	Invasive hold = que.get(que.size()-1);
-    return hold;
-	}	
-
-public Iterator<Invasive> iterator() {
-	
-	Iterator<Invasive> it = new Iterator<Invasive>() {
-		
-		private int currentIndex = 0;
-
-		@Override
-		public boolean hasNext() {
-			if (currentIndex < que.size()) {
-				return true;
-			}
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public Invasive next() {
-			currentIndex++;
-			return que.get(currentIndex-1);
-		}
-	
-	};
-	return it;
-}
- 
->>>>>>> refs/remotes/origin/master
 }
