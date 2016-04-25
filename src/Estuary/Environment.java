@@ -1,17 +1,17 @@
 package Estuary;
+import java.awt.Dimension;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
+import java.util.Random;
 public class Environment implements Serializable{
 	private static final long serialVersionUID = 0;
 	
 	private Species[] animals;
 	private Character[] characters;
-	private eChar[][] board;
 	private int health;
 	private int newHealth;
 	private int oldHealth;
@@ -19,7 +19,6 @@ public class Environment implements Serializable{
 	Queue events = new Queue();
 	
 	public Environment() {   //Default Game Initialization Constructor
-		
 		this.animals = null;
 		this.characters = null;
 		this.health = 50;
@@ -34,10 +33,7 @@ public class Environment implements Serializable{
 		return characters;
 	}
 	
-	public eChar[][] getBoard() {
-		return board;
-	}
-	
+
 	public int getHealth() {
 		return health;
 	}
@@ -54,10 +50,6 @@ public class Environment implements Serializable{
 		this.characters = characters;
 	}
 	
-	public void setBoard(eChar[][] board) {
-		this.board = board;
-	}
-	
 	public void setHealth(int health) {
 		this.health = health;
 	}
@@ -66,8 +58,24 @@ public class Environment implements Serializable{
 		this.money = money;
 	}
 	
-	public void makeEvent(Invasive x){
-		events.insertFront(x);
+	public Event makeEvent(eQuad quad){
+		Invasive invasiveAdded;
+		Random rand = new Random();
+		int x = rand.nextInt(37);
+		int y = rand.nextInt(23);
+		
+		
+		switch(quad){
+		case MAIN:
+			invasiveAdded= new Phragmites(3, x, y, 5, 10);
+			break;
+			
+		default: 
+			invasiveAdded = new MittenCrab(3, x, y, 5, 10);
+		}
+		
+		events.insertFront(invasiveAdded);
+		return new Event(x, y, invasiveAdded.getType());
 	}
 	
 	public void resolve() {
@@ -134,5 +142,7 @@ public class Environment implements Serializable{
 		}
 		return obj;
 	}
+	
+	
 	
 }

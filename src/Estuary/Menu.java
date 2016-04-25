@@ -40,7 +40,6 @@ import javax.swing.Timer;
 
 
 public class Menu{
-	int hilight;
 	public JLayeredPane mainWindow;
 	public JPanel background;
 	public JLayeredPane imLayer;
@@ -60,6 +59,8 @@ public class Menu{
 	Dimension mainSize = new Dimension(width, height);
 	Color hilightedColor = new Color(0,0,0, 100);
 	Color alphaLayer = new Color(0, 0, 0, 0);
+	
+	eQuad currentQuad = eQuad.MAIN;
 	
 	
 	int sel;
@@ -405,6 +406,7 @@ public class Menu{
 		switch(quad){
 			case MAIN:
 				inQuad = false;
+				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
 				charFrame.setVisible(false);
 				mainMap.setVisible(false);
@@ -413,6 +415,7 @@ public class Menu{
 			break;
 			case NW:
 				inQuad = true;
+				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/NW.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
@@ -421,6 +424,7 @@ public class Menu{
 			break;
 			case SW:
 				inQuad = true;
+				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/SW.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
@@ -429,6 +433,7 @@ public class Menu{
 			break;
 			case SE:
 				inQuad = true;
+				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/SE.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
@@ -437,6 +442,7 @@ public class Menu{
 			break;
 			case NE:
 				inQuad = true;
+				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/NE.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
@@ -491,10 +497,18 @@ public class Menu{
 		// TODO Auto-generated method stub
 		return main;
 	}
+	public JPanel getMainScreen() {
+		// TODO Auto-generated method stub
+		return panel;
+	}
 	public JLabel getScoreLabel() {
 		// TODO Auto-generated method stub
 		return this.scoreLabel;
 	}
+	public eQuad getQuadrant(){
+		return currentQuad;
+	}
+	
 }
 	
 	
