@@ -399,23 +399,28 @@ public class Menu{
 			case MAIN:
 				inQuad = false;
 				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
+				main.repaint();
 				main.revalidate();
 			break;
 			case NW:
 				inQuad = true;
 				backgroundPanel.paintComponent(null, "imgs/NW.png");
+				main.repaint();
 				main.revalidate();
 			break;
 			case SW:
 				backgroundPanel.paintComponent(null, "imgs/SW.png");
+				main.repaint();
 				main.revalidate();
 			break;
 			case SE:
 				backgroundPanel.paintComponent(null, "imgs/SE.png");
+				main.repaint();
 				main.revalidate();
 			break;
 			case NE:
 				backgroundPanel.paintComponent(null, "imgs/NE.png");
+				main.repaint();
 				main.revalidate();
 			break;
 		}
