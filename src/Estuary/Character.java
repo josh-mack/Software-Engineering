@@ -12,6 +12,8 @@ public abstract class Character implements Serializable{
 	
 	private int xCoord;
 	private int yCoord;
+	private int speed;
+	
 	public int getxCoord() {
 		return xCoord;
 	}
@@ -25,8 +27,17 @@ public abstract class Character implements Serializable{
 		this.yCoord = yCoord;
 	}
 	
+	public int getSpeed() {
+		return speed;
+	}
+	
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+	
 	public Character(int xCoord, int yCoord)
 	{
+		this.speed = 1;
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 	}
