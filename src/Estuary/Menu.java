@@ -40,12 +40,16 @@ import javax.swing.Timer;
 
 
 public class Menu{
+	int hilight;
 	public JLayeredPane mainWindow;
 	public JPanel background;
 	public JLayeredPane imLayer;
 	public JFrame main;
 	public JPanel panel;
 	JFrame charSel;
+	private JPanel charFrame;
+	JButton exit;
+	JButton mainMap;
 	BackgroundTest backgroundPanel;
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -183,9 +187,10 @@ public class Menu{
 		
 		
 		JLabel charLabel = new JLabel("Char Selection", JLabel.CENTER);
-		JPanel charFrame = new JPanel();
+		charFrame = new JPanel();
 		charFrame.setBackground(Color.BLACK);
 		charFrame.setSize(width/5, height/10);
+		charFrame.setVisible(false);
 		
 		charSel = new JFrame();
 		charSel.setUndecorated(true);
@@ -266,18 +271,20 @@ public class Menu{
 		
 		
 		JPanel exitBar = new JPanel();
-		JButton exit = new JButton("Exit");
+		exit = new JButton("Exit");
 		exit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
-		JButton mainMap = new JButton("Main Map");
+		mainMap = new JButton("Main Map");
 		mainMap.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				loadQuad(eQuad.MAIN);
 			}
 		});
+		
+		mainMap.setVisible(false);
 		exitBar.add(mainMap);
 		exitBar.add(exit);
 		exitBar.setOpaque(false);
@@ -295,7 +302,7 @@ public class Menu{
 		topBarLeft.add(charFrame, c);
 		c.gridwidth = 1;
 		c.fill = GridBagConstraints.VERTICAL;
-		c.anchor = GridBagConstraints.CENTER;
+		c.anchor = GridBagConstraints.NORTHEAST;
 		c.gridx = 2;
 		c.gridy = 0;
 		topBarLeft.add(exitBar, c);
@@ -399,27 +406,40 @@ public class Menu{
 			case MAIN:
 				inQuad = false;
 				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
+				charFrame.setVisible(false);
+				mainMap.setVisible(false);
 				main.repaint();
 				main.revalidate();
 			break;
 			case NW:
 				inQuad = true;
 				backgroundPanel.paintComponent(null, "imgs/NW.png");
+				charFrame.setVisible(true);
+				mainMap.setVisible(true);
 				main.repaint();
 				main.revalidate();
 			break;
 			case SW:
+				inQuad = true;
 				backgroundPanel.paintComponent(null, "imgs/SW.png");
+				charFrame.setVisible(true);
+				mainMap.setVisible(true);
 				main.repaint();
 				main.revalidate();
 			break;
 			case SE:
+				inQuad = true;
 				backgroundPanel.paintComponent(null, "imgs/SE.png");
+				charFrame.setVisible(true);
+				mainMap.setVisible(true);
 				main.repaint();
 				main.revalidate();
 			break;
 			case NE:
+				inQuad = true;
 				backgroundPanel.paintComponent(null, "imgs/NE.png");
+				charFrame.setVisible(true);
+				mainMap.setVisible(true);
 				main.repaint();
 				main.revalidate();
 			break;
