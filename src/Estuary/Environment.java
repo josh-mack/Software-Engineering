@@ -15,7 +15,7 @@ public class Environment implements Serializable{
 	
 	public Environment() {   //Default Game Initialization Constructor
 		this.newHealth = 50;
-		this.money = 200;
+		Environment.money = 200;
 	}
 
 	
@@ -24,7 +24,7 @@ public class Environment implements Serializable{
 	}
 	
 	public int getMoney() {
-		return this.money;
+		return Environment.money;
 	}
 	
 	
@@ -34,7 +34,7 @@ public class Environment implements Serializable{
 	}
 	
 	public void setMoney(int money) {
-		this.money = money;
+		Environment.money = money;
 	}
 	
 	public void makeEvent(){
