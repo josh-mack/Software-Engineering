@@ -68,7 +68,8 @@ public class DragComponent extends JComponent {
 			public void mouseReleased(MouseEvent e) 
 			{
 				placeInArray(getX(), getY());
-				// TODO Auto-generated method stub
+				character.setXLoc(getX());
+				character.setYLoc(getY());
 				repaint();
 				revalidate();
 			}
