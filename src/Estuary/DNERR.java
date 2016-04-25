@@ -22,9 +22,9 @@ public class DNERR extends JComponent implements Serializable
 	short level = 1;
 	ImageIcon building;
 	
-	public DNERR()
+	public DNERR(eQuad thisQuad)
 	{
-		
+		Game.board[10][3] = eChar.DNREC;
 		setLayout(new BorderLayout());
 		building = new ImageIcon("imgs/level1.png");
 		JLabel label = new JLabel(building);
@@ -102,3 +102,5 @@ public class DNERR extends JComponent implements Serializable
 		return obj;
 	}
 }
+
+

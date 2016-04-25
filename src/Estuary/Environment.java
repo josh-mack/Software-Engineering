@@ -8,52 +8,83 @@ import java.io.Serializable;
 
 public class Environment implements Serializable{
 	private static final long serialVersionUID = 0;
-
+	
+	private Species[] animals;
+	private Character[] characters;
+	private eChar[][] board;
+	private int health;
 	private int newHealth;
 	private int oldHealth;
 	static public int money;
+	Queue events = new Queue();
 	
 	public Environment() {   //Default Game Initialization Constructor
-		this.newHealth = 50;
+		
+		this.animals = null;
+		this.characters = null;
+		this.health = 50;
 		this.money = 200;
 	}
-
+	
+	public Species[] getAnimals() {
+		return animals;
+	}
+	
+	public Character[] getCharacters() {
+		return characters;
+	}
+	
+	public eChar[][] getBoard() {
+		return board;
+	}
 	
 	public int getHealth() {
-		return newHealth;
+		return health;
 	}
 	
 	public int getMoney() {
 		return this.money;
 	}
 	
+	public void setAnimals(Species[] animals) {
+		this.animals = animals;
+	}
+	
+	public void setCharacters(Character[] characters) {
+		this.characters = characters;
+	}
+	
+	public void setBoard(eChar[][] board) {
+		this.board = board;
+	}
 	
 	public void setHealth(int health) {
-		this.oldHealth = newHealth;
-		this.newHealth = health;
+		this.health = health;
 	}
 	
 	public void setMoney(int money) {
 		this.money = money;
 	}
 	
-	public void makeEvent(){
-		
+	public void makeEvent(Invasive x){
+		events.insertFront(x);
 	}
 	
 	public void resolve() {
-		
+		if((events.peakFront()).getResolved() == true){
+			calcHealth();
+			events.removeFront();
+		}
 	}
 	
 	public void calcGrowth() {
 		
 	}
 	
-	public void calcHealth() 
-	{
-		double y = (newHealth + 19/20)*(oldHealth -20)/10;
-		double num = (1+Math.pow(Math.exp(1), y));
-		double formula = 1/num;
+	public void calcHealth() {
+		double y = (newHealth - 19/20)*(oldHealth - 20)/10;
+		double num  = ( 1 + Math.pow( Math.exp(1.0), y));
+		double formula = 1/(num);
 		setHealth((int)formula);
 	}
 	
