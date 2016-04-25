@@ -20,6 +20,8 @@ public class DNERR extends JComponent implements Serializable
 	private static final long serialVersionUID = 600;
 	
 	short level = 1;
+	private final int xCoord = 800;
+	private final int yCoord = 200;
 	ImageIcon building;
 	
 	public DNERR()

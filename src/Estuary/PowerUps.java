@@ -26,7 +26,7 @@ public class PowerUps {
 
 	void FastChar()
 	{
-	character.setSpeed(character.getSpeed()+1);
+		character.setSpeed(character.getSpeed()+1);
 	}
 	void InstaKill()
 	{
