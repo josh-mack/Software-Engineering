@@ -65,7 +65,9 @@ public class DragComponent extends JComponent {
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) 
+			{
+				placeInArray(getX(), getY());
 				// TODO Auto-generated method stub
 				
 			}
