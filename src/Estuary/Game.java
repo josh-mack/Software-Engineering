@@ -10,7 +10,7 @@ import javax.swing.Timer;
 public class Game {
 	static int seconds;
 	int money;
-	static eChar[][] board =  new eChar[76][48];
+	public static eChar[][] board =  new eChar[76][48];
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
