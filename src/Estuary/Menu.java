@@ -424,6 +424,8 @@ public class Menu{
 				main.revalidate();
 			break;
 		}
+		main.repaint();
+
 		
 	}
 	public DragComponent createChar(eChar eChar, int x, int y){
