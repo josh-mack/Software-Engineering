@@ -13,15 +13,14 @@ public class DragComponent extends JComponent {
 	private volatile int YCoord;
 	private MouseListener pressListener;
 	
-	eChar character;
-	
-	Environment envio = new Environment();
+	private eChar character;
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
 	int width = (int)screenSize.getWidth();
 	
 	private eQuad whatQuad;
+	private eChar[][] board;
 	
 	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y) {
 		setLayout(new BorderLayout());
@@ -66,9 +65,13 @@ public class DragComponent extends JComponent {
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+			public void mouseReleased(MouseEvent e) 
+			{
+				placeInArray(getX(), getY());
+				character.setXLoc(getX());
+				character.setYLoc(getY());
+				repaint();
+				revalidate();
 			}
 	
 	
@@ -96,21 +99,21 @@ public class DragComponent extends JComponent {
 	{
 		int x = (XCoord/(width/76))%38;
 		int y = (YCoord/(height/48))%24;
-		eChar[][] board = envio.getBoard();
+		//eChar[][] board = envio.getBoard();
 		
 		switch(whatQuad)
 		{
 		case NE:
-			board[x][y] = this.character;
+			Game.board[x][y] = this.character;
 			break;
 		case NW:
-			board[x+38][y] = this.character;
+			Game.board[x+38][y] = this.character;
 			break;
 		case SE:
-			board[x][y+24] = this.character;
+			Game.board[x][y+24] = this.character;
 			break;
 		case SW:
-			board[x+36][y+24] =this.character;
+			Game.board[x+36][y+24] =this.character;
 			break;
 		}
 	}

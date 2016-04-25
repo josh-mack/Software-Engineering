@@ -14,6 +14,9 @@ public class Environment implements Serializable{
 	private eChar[][] board;
 	private int health;
 	private int money;
+	private int newHealth;
+	private int oldHealth;
+	static public int money;
 	Queue events = new Queue();
 	
 	public Environment() {   //Default Game Initialization Constructor

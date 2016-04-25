@@ -399,26 +399,33 @@ public class Menu{
 			case MAIN:
 				inQuad = false;
 				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
+				main.repaint();
 				main.revalidate();
 			break;
 			case NW:
 				inQuad = true;
 				backgroundPanel.paintComponent(null, "imgs/NW.png");
+				main.repaint();
 				main.revalidate();
 			break;
 			case SW:
 				backgroundPanel.paintComponent(null, "imgs/SW.png");
+				main.repaint();
 				main.revalidate();
 			break;
 			case SE:
 				backgroundPanel.paintComponent(null, "imgs/SE.png");
+				main.repaint();
 				main.revalidate();
 			break;
 			case NE:
 				backgroundPanel.paintComponent(null, "imgs/NE.png");
+				main.repaint();
 				main.revalidate();
 			break;
 		}
+		main.repaint();
+
 		
 	}
 	public DragComponent createChar(eChar eChar, int x, int y){
@@ -429,25 +436,25 @@ public class Menu{
 		DragComponent charPlace = null;
 		switch(eChar){
 		case BCRAB:
-			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW, eChar, x, y);
 			break;
 		case STEWARD:
-			charPlace = new DragComponent("imgs/pika.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/pika.png",eQuad.NW, eChar, x, y);
 			break;
 		case RESEARCHER:
-			charPlace = new DragComponent("imgs/oak.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/oak.png",eQuad.NW, eChar, x, y);
 			break;
 		case VOLUNTEER:
-			charPlace = new DragComponent("imgs/red.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/red.png",eQuad.NW, eChar, x, y);
 			break;
 		case BLANK:
-			charPlace = new DragComponent("imgs/pokeball.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/pokeball.png",eQuad.NW, eChar, x, y);
 			break;
 		case PHRAG:
-			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW, eChar, x, y);
 			break;
 		case MCRAB:
-			charPlace = new DragComponent("imgs/char.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/char.png",eQuad.NW, eChar, x, y);
 			break;
 		default:
 			break;
