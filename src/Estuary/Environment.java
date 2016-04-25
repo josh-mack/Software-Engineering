@@ -11,20 +11,14 @@ public class Environment implements Serializable{
 	
 	private Species[] animals;
 	private Character[] characters;
-	private eChar[][] board;
-	private int health;
+	private int newHealth;
+	private int oldHealth;
 	private int money;
 	
 	public Environment() {   //Default Game Initialization Constructor
-		eChar[][] temp = 
-{{eChar.HCRAB, eChar.BLANK, eChar.BCRAB, eChar.BLANK},
- {eChar.BLANK, eChar.BLANK, eChar.BAMBOO, eChar.BLANK},
- {eChar.BLANK, eChar.BLANK, eChar.RESEARCHER, eChar.BLANK},		
- {eChar.BLANK, eChar.BLANK, eChar.BLANK, eChar.BLANK}};
 		this.animals = null;
 		this.characters = null;
-		this.board = temp;
-		this.health = 50;
+		this.newHealth = 50;
 		this.money = 200;
 	}
 	
@@ -36,12 +30,9 @@ public class Environment implements Serializable{
 		return characters;
 	}
 	
-	public eChar[][] getBoard() {
-		return board;
-	}
 	
 	public int getHealth() {
-		return health;
+		return newHealth;
 	}
 	
 	public int getMoney() {
@@ -56,12 +47,9 @@ public class Environment implements Serializable{
 		this.characters = characters;
 	}
 	
-	public void setBoard(eChar[][] board) {
-		this.board = board;
-	}
-	
 	public void setHealth(int health) {
-		this.health = health;
+		this.oldHealth = newHealth;
+		this.newHealth = health;
 	}
 	
 	public void setMoney(int money) {
@@ -80,8 +68,12 @@ public class Environment implements Serializable{
 		
 	}
 	
-	public void calcHealth() {
-		
+	public void calcHealth() 
+	{
+		double y = (newHealth + 19/20)*(oldHealth -20)/10;
+		double num = (1+Math.pow(Math.exp(1), y));
+		double formula = 1/num;
+		setHealth((int)formula);
 	}
 	
 	public void calcMoney() {

@@ -10,6 +10,7 @@ import javax.swing.Timer;
 public class Game {
 	static int seconds;
 	int money;
+	static eChar[][] board =  new eChar[76][48];
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -17,7 +18,6 @@ public class Game {
 		
 		Environment mainEnviro = new Environment();
 		Menu test = new Menu();
-		
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -429,25 +429,25 @@ public class Menu{
 		DragComponent charPlace = null;
 		switch(eChar){
 		case BCRAB:
-			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW, eChar, Game.board, x, y);
 			break;
 		case STEWARD:
-			charPlace = new DragComponent("imgs/pika.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/pika.png",eQuad.NW, eChar, Game.board, x, y);
 			break;
 		case RESEARCHER:
-			charPlace = new DragComponent("imgs/oak.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/oak.png",eQuad.NW, eChar,Game.board, x, y);
 			break;
 		case VOLUNTEER:
-			charPlace = new DragComponent("imgs/red.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/red.png",eQuad.NW, eChar, Game.board, x, y);
 			break;
 		case BLANK:
-			charPlace = new DragComponent("imgs/pokeball.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/pokeball.png",eQuad.NW, eChar, Game.board, x, y);
 			break;
 		case PHRAG:
-			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW, eChar, Game.board, x, y);
 			break;
 		case MCRAB:
-			charPlace = new DragComponent("imgs/char.png",eQuad.NW, x, y);
+			charPlace = new DragComponent("imgs/char.png",eQuad.NW, eChar, Game.board, x, y);
 			break;
 		default:
 			break;
