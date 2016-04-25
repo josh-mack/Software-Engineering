@@ -39,6 +39,7 @@ public class Game {
 		else {
 			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":" + seconds%60);
 		}
+		mainFrame.getMenu().repaint();
 		mainFrame.getMenu().revalidate();
 	}
 	

@@ -69,7 +69,8 @@ public class DragComponent extends JComponent {
 			{
 				placeInArray(getX(), getY());
 				// TODO Auto-generated method stub
-				
+				repaint();
+				revalidate();
 			}
 	
 	
