@@ -22,7 +22,7 @@ public class DragComponent extends JComponent {
 	private eQuad whatQuad;
 	private eChar[][] board;
 	
-	public DragComponent(String imageName, eQuad thisQuad, eChar character, eChar[][] board, int x, int y) {
+	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y) {
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(imageName);
 		JLabel label = new JLabel(image);
@@ -38,7 +38,6 @@ public class DragComponent extends JComponent {
 		
 		this.whatQuad = thisQuad;
 		this.character = character;
-		this.board = board;
 		
 		pressListener = new MouseListener() {
 	
@@ -102,16 +101,16 @@ public class DragComponent extends JComponent {
 		switch(whatQuad)
 		{
 		case NE:
-			board[x][y] = this.character;
+			Game.board[x][y] = this.character;
 			break;
 		case NW:
-			board[x+38][y] = this.character;
+			Game.board[x+38][y] = this.character;
 			break;
 		case SE:
-			board[x][y+24] = this.character;
+			Game.board[x][y+24] = this.character;
 			break;
 		case SW:
-			board[x+36][y+24] =this.character;
+			Game.board[x+36][y+24] =this.character;
 			break;
 		}
 	}

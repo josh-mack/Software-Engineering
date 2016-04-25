@@ -8,28 +8,16 @@ import java.io.Serializable;
 
 public class Environment implements Serializable{
 	private static final long serialVersionUID = 0;
-	
-	private Species[] animals;
-	private Character[] characters;
+
 	private int newHealth;
 	private int oldHealth;
-	private int money;
+	static public int money;
 	
 	public Environment() {   //Default Game Initialization Constructor
-		this.animals = null;
-		this.characters = null;
 		this.newHealth = 50;
 		this.money = 200;
 	}
-	
-	public Species[] getAnimals() {
-		return animals;
-	}
-	
-	public Character[] getCharacters() {
-		return characters;
-	}
-	
+
 	
 	public int getHealth() {
 		return newHealth;
@@ -39,13 +27,6 @@ public class Environment implements Serializable{
 		return this.money;
 	}
 	
-	public void setAnimals(Species[] animals) {
-		this.animals = animals;
-	}
-	
-	public void setCharacters(Character[] characters) {
-		this.characters = characters;
-	}
 	
 	public void setHealth(int health) {
 		this.oldHealth = newHealth;
