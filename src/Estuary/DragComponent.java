@@ -13,13 +13,17 @@ public class DragComponent extends JComponent {
 	private volatile int YCoord;
 	private MouseListener pressListener;
 	
+	eChar character;
+	
+	Environment envio = new Environment();
+	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
 	int width = (int)screenSize.getWidth();
 	
 	private eQuad whatQuad;
 	
-	public DragComponent(String imageName, eQuad thisQuad, int x, int y) {
+	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y) {
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(imageName);
 		JLabel label = new JLabel(image);
@@ -34,6 +38,7 @@ public class DragComponent extends JComponent {
 		//setOpaque(false);
 		
 		this.whatQuad = thisQuad;
+		this.character = character;
 		
 		pressListener = new MouseListener() {
 	
@@ -91,16 +96,21 @@ public class DragComponent extends JComponent {
 	{
 		int x = (XCoord/(width/76))%38;
 		int y = (YCoord/(height/48))%24;
+		eChar[][] board = envio.getBoard();
 		
 		switch(whatQuad)
 		{
 		case NE:
+			board[x][y] = this.character;
 			break;
 		case NW:
+			board[x+38][y] = this.character;
 			break;
 		case SE:
+			board[x][y+24] = this.character;
 			break;
 		case SW:
+			board[x+36][y+24] =this.character;
 			break;
 		}
 	}
