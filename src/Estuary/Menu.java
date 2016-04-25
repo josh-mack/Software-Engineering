@@ -241,8 +241,10 @@ public class Menu{
 		charFrame.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent me){
-				charSel.setLocation(charFrame.getLocationOnScreen());
-				charSel.setVisible(true);				
+				if(inQuad){
+					charSel.setLocation(charFrame.getLocationOnScreen());
+					charSel.setVisible(true);
+				}
 			}
 		});
 
