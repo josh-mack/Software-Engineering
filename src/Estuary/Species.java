@@ -13,8 +13,10 @@ public abstract class Species implements Serializable{
 	private int xCoord;
 	private int yCoord;
 	private int growthRate;
+	private eChar type;
 	
-	public Species(int amount, int xCoord, int yCoord, int growthRate) {
+	public Species(eChar type, int amount, int xCoord, int yCoord, int growthRate) {
+		this.type = type;
 		this.amount = amount;
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
@@ -95,5 +97,7 @@ public abstract class Species implements Serializable{
 		}
 		return obj;
 	}
-
+	public eChar getType(){
+		return this.type;
+	}
 }

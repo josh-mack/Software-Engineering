@@ -20,19 +20,12 @@ public abstract class Character implements Serializable{
 	public void setxCoord(int xCoord) {
 		this.xCoord = xCoord;
 	}
-	public int getSpeed() 
-	{
-		return speed;
-	}
+	
 	public int getyCoord() {
 		return yCoord;
 	}
 	public void setyCoord(int yCoord) {
 		this.yCoord = yCoord;
-	}
-	public void setSpeed(int speed) 
-	{
-		this.speed = speed;
 	}
 	
 	public int getSpeed() {
