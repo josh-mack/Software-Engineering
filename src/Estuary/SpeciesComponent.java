@@ -39,10 +39,10 @@ public class SpeciesComponent extends JComponent {
 			filename = "imgs/squirt.png";
 			break;
 		case PHRAG:
-			filename = "imgs/char.png";
+			filename = "imgs/bulb.png";
 			break;
 		case POLLUTER:
-			filename = "imgs/bulb.png";
+			filename = "imgs/char.png";
 			break;
 		default:
 			filename = "imgs/pokeball.png";
