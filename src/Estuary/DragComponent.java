@@ -95,7 +95,7 @@ public class DragComponent extends JComponent {
   
 	}
 	
-	public void placeInArray(int XCoord, int YCoord)
+	public boolean placeInArray(int XCoord, int YCoord)
 	{
 		int x = (XCoord/(width/76))%38;
 		int y = (YCoord/(height/48))%24;
@@ -103,19 +103,82 @@ public class DragComponent extends JComponent {
 		
 		switch(whatQuad)
 		{
-		case NE:
-			Game.board[x][y] = this.character;
-			break;
 		case NW:
+			if (Game.board[x][y] != eChar.BLANK) {
+				for (int i = -1; i < 2; i++) {
+					for (int j = -1; j < 2; j++) {
+						if (Game.board[x+i][y+j] == eChar.BLANK) {
+							Game.board[x+i][y+j] = this.character;
+							return Collision(x+i,y+j);
+						}
+					}
+				}
+				return false;
+			}
+			Game.board[x][y] = this.character;
+			return (Collision(x,y));
+		case NE:
+			if (Game.board[x+38][y] != eChar.BLANK) {
+				for (int i = -1; i < 2; i++) {
+					for (int j = -1; j < 2; j++) {
+						if (Game.board[x+i+38][y+j] == eChar.BLANK) {
+							Game.board[x+i+38][y+j] = this.character;
+							return Collision(x+i+38,y+j);
+						}
+					}
+				}
+				return false;
+			}
 			Game.board[x+38][y] = this.character;
-			break;
-		case SE:
-			Game.board[x][y+24] = this.character;
-			break;
+			return (Collision(x+38,y));
 		case SW:
-			Game.board[x+36][y+24] =this.character;
-			break;
+			if (Game.board[x][y+24] != eChar.BLANK) {
+				for (int i = -1; i < 2; i++) {
+					for (int j = -1; j < 2; j++) {
+						if (Game.board[x+i][y+j+24] == eChar.BLANK) {
+							Game.board[x+i][y+j+24] = this.character;
+							return Collision(x+i,y+j+24);
+						}
+					}
+				}
+				return false;
+			}
+			Game.board[x][y+24] = this.character;
+			return (Collision(x,y+24));
+		case SE:
+			if (Game.board[x+38][y+24] != eChar.BLANK) {
+				for (int i = -1; i < 2; i++) {
+					for (int j = -1; j < 2; j++) {
+						if (Game.board[x+i+38][y+j+24] == eChar.BLANK) {
+							Game.board[x+i+38][y+j+24] = this.character;
+							return Collision(x+i+38,y+j+24);
+						}
+					}
+				}
+				return false;
+			}
+			Game.board[x+38][y+24] = this.character;
+			return (Collision(x+38,y+24));
 		}
+		
+		return (Collision(x,y));
+		
+	}
+	
+	public boolean Collision(int x, int y) {
+		for (int i = -1; i < 2; i++) {
+			for (int j = -1; j < 2; j++) {
+				try {
+					if ((Game.board[x+i][y+j] != eChar.BLANK) && ((j!=0) && (i!=0))) {
+						return true;
+					}
+				} catch (Exception e) {
+					
+				}
+				
+			}
+		}
+		return false;
 	}
 
 	public MouseListener getMouseListener() {

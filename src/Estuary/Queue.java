@@ -38,35 +38,34 @@ public class Queue{
 		return hold;
     }
 
-	public Invasive peakBack()
-	{
-		Invasive hold = que.get(que.size()-1);
-		return hold;
+public Invasive peakBack(){
+	Invasive hold = que.get(que.size()-1);
+    return hold;
 	}	
 
-	public Iterator<Invasive> iterator() 
-	{
-		Iterator<Invasive> it = new Iterator<Invasive>() 
-		{
-			private int currentIndex = 0;
-			@Override
-			public boolean hasNext() 
-			{
-				if (currentIndex < que.size()) 
-				{
-					return true;
-				}
-				// TODO Auto-generated method stub
-				return false;
-			}
-			@Override
-			public Invasive next() 
-			{
-				currentIndex++;
-				return que.get(currentIndex-1);
+public Iterator<Invasive> iterator() {
+	
+	Iterator<Invasive> it = new Iterator<Invasive>() {
+		
+		private int currentIndex = 0;
 
+		@Override
+		public boolean hasNext() {
+			if (currentIndex < que.size()) {
+				return true;
 			}
-		};
-		return it;
-	}
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public Invasive next() {
+			currentIndex++;
+			return que.get(currentIndex-1);
+		}
+	
+	};
+	return it;
 }
+}
+ 
