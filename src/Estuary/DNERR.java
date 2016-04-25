@@ -20,13 +20,11 @@ public class DNERR extends JComponent implements Serializable
 	private static final long serialVersionUID = 600;
 	
 	short level = 1;
-	private final int xCoord = 800;
-	private final int yCoord = 200;
 	ImageIcon building;
 	
-	public DNERR()
+	public DNERR(eQuad thisQuad)
 	{
-		
+		Game.board[10][3] = eChar.DNREC;
 		setLayout(new BorderLayout());
 		building = new ImageIcon("imgs/level1.png");
 		JLabel label = new JLabel(building);
