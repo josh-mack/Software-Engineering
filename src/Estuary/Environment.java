@@ -17,7 +17,7 @@ public class Environment implements Serializable{
 	
 	public Environment() {   //Default Game Initialization Constructor
 		eChar[][] temp = 
-{{eChar.HCrab, eChar.BLANK, eChar.BCrab, eChar.BLANK},
+{{eChar.HCRAB, eChar.BLANK, eChar.BCRAB, eChar.BLANK},
  {eChar.BLANK, eChar.BLANK, eChar.BAMBOO, eChar.BLANK},
  {eChar.BLANK, eChar.BLANK, eChar.RESEARCHER, eChar.BLANK},		
  {eChar.BLANK, eChar.BLANK, eChar.BLANK, eChar.BLANK}};
