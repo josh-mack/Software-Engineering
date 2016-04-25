@@ -22,7 +22,6 @@ public class Environment implements Serializable{
 		
 		this.animals = null;
 		this.characters = null;
-		this.board = temp;
 		this.health = 50;
 		this.money = 200;
 	}
@@ -75,7 +74,7 @@ public class Environment implements Serializable{
 		if((events.peakFront()).getResolved() == true){
 			calcHealth();
 			events.removeFront();
-	}
+		}
 	}
 	
 	public void calcGrowth() {
