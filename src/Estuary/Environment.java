@@ -14,6 +14,7 @@ public class Environment implements Serializable{
 	private eChar[][] board;
 	private int health;
 	private int money;
+	Queue events = new Queue();
 	
 	public Environment() {   //Default Game Initialization Constructor
 		eChar[][] temp = 
@@ -68,12 +69,15 @@ public class Environment implements Serializable{
 		this.money = money;
 	}
 	
-	public void makeEvent(){
-		
+	public void makeEvent(Invasive x){
+		events.insertFront(x);
 	}
 	
 	public void resolve() {
-		
+		if((events.peakFront()).getResolved() == true){
+			calcHealth();
+			events.removeFront();
+	}
 	}
 	
 	public void calcGrowth() {
