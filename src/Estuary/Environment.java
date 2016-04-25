@@ -17,7 +17,7 @@ public class Environment implements Serializable{
 	
 	public Environment() {   //Default Game Initialization Constructor
 		eChar[][] temp = 
-{{eChar.HCrab, eChar.BLANK, eChar.BCrab, eChar.BLANK},
+{{eChar.HCRAB, eChar.BLANK, eChar.BCRAB, eChar.BLANK},
  {eChar.BLANK, eChar.BLANK, eChar.BAMBOO, eChar.BLANK},
  {eChar.BLANK, eChar.BLANK, eChar.RESEARCHER, eChar.BLANK},		
  {eChar.BLANK, eChar.BLANK, eChar.BLANK, eChar.BLANK}};
@@ -69,7 +69,7 @@ public class Environment implements Serializable{
 	}
 	
 	public void makeEvent(){
-		// creating random event here 
+		
 	}
 	
 	public void resolve() {
@@ -81,13 +81,6 @@ public class Environment implements Serializable{
 	}
 	
 	public void calcHealth() {
-		int newHealth = 0;
-		int oldHealth = 0;
-		//about 20 events per game?
-		double y = (newHealth - 19/20)*(oldHealth - 20)/10;
-		double num  = ( 1 + Math.pow( Math.exp(1.0), y));
-		double formula = 1/(num);
-		
 		
 	}
 	

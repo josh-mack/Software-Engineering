@@ -2,7 +2,7 @@ package Estuary;
 
 public enum eQuad {
 
-	NW(0), NE(1), SE(2), SW(3);
+	NW(0), NE(1), SE(2), SW(3), MAIN;
 	
 	private int testVal;
 

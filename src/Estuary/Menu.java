@@ -66,6 +66,7 @@ public class Menu{
 	boolean charMenuOpen = false;
 	private JLabel timeLabel;
 	private JLabel scoreLabel;
+	boolean inQuad = false;
 	
 	public Menu(){
 		sel = 0;
@@ -100,7 +101,7 @@ public class Menu{
 			}
 
 			public void mousePressed(MouseEvent me){
-				DragComponent placed = createChar(2, me.getXOnScreen(), me.getYOnScreen());	
+				createChar((((CharLabel) me.getSource()).getType()), me.getXOnScreen(), me.getYOnScreen());	
 				charSel.setVisible(false);	
 			}
 		};
@@ -200,7 +201,7 @@ public class Menu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JLabel stewardImage = new JLabel(new ImageIcon(stewardIcon));
+		JLabel stewardImage = new CharLabel(new ImageIcon(stewardIcon), eChar.STEWARD);
 		stewardImage.addMouseListener(addCompOnClick);
 		charSelection.add(stewardImage);
 		
@@ -214,9 +215,9 @@ public class Menu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JLabel researcherImage = new JLabel(new ImageIcon(researcherIcon));
+		JLabel researcherImage = new CharLabel(new ImageIcon(researcherIcon), eChar.RESEARCHER);
+		researcherImage.addMouseListener(addCompOnClick);
 		charSelection.add(researcherImage);
-		
 		
 		
 		
@@ -228,9 +229,9 @@ public class Menu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JLabel volunteerImage = new JLabel(new ImageIcon(volunteerIcon));
+		JLabel volunteerImage = new CharLabel(new ImageIcon(volunteerIcon), eChar.VOLUNTEER);
+		volunteerImage.addMouseListener(addCompOnClick);
 		charSelection.add(volunteerImage);
-		
 		
 		
 		charSel.add(charSelection);
@@ -240,8 +241,10 @@ public class Menu{
 		charFrame.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent me){
-				charSel.setLocation(charFrame.getLocationOnScreen());
-				charSel.setVisible(true);				
+				if(inQuad){
+					charSel.setLocation(charFrame.getLocationOnScreen());
+					charSel.setVisible(true);
+				}
 			}
 		});
 
@@ -269,7 +272,13 @@ public class Menu{
 				System.exit(0);
 			}
 		});
-		
+		JButton mainMap = new JButton("Main Map");
+		mainMap.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				loadQuad(eQuad.MAIN);
+			}
+		});
+		exitBar.add(mainMap);
 		exitBar.add(exit);
 		exitBar.setOpaque(false);
 
@@ -381,9 +390,19 @@ public class Menu{
 			
 		}
 	}
-	public void loadQuad(eQuad quad) {
+	private void loadQuad(eQuad quad) {
+		if(inQuad && (quad != eQuad.MAIN)){
+			//Don't listen in quadrants
+			return;
+		}
 		switch(quad){
+			case MAIN:
+				inQuad = false;
+				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
+				main.revalidate();
+			break;
 			case NW:
+				inQuad = true;
 				backgroundPanel.paintComponent(null, "imgs/NW.png");
 				main.revalidate();
 			break;
@@ -396,37 +415,42 @@ public class Menu{
 				main.revalidate();
 			break;
 			case NE:
-				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
-				main.revalidate();
-				break;
-			default:
-				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
+				backgroundPanel.paintComponent(null, "imgs/NE.png");
 				main.revalidate();
 			break;
 		}
 		
 	}
-	public DragComponent createChar(int sel, int x, int y){
+	public DragComponent createChar(eChar eChar, int x, int y){
+		if(!inQuad){
+			return null;
+		}
+		
 		DragComponent charPlace = null;
-		switch(sel){
-		case 1:
+		switch(eChar){
+		case BCRAB:
+			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW, x, y);
+			break;
+		case STEWARD:
 			charPlace = new DragComponent("imgs/pika.png",eQuad.NW, x, y);
 			break;
-		case 2:
-			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW, x, y);
+		case RESEARCHER:
+			charPlace = new DragComponent("imgs/oak.png",eQuad.NW, x, y);
 			break;
-		case 3:
-			charPlace = new DragComponent("imgs/char.png",eQuad.NW, x, y);
+		case VOLUNTEER:
+			charPlace = new DragComponent("imgs/red.png",eQuad.NW, x, y);
 			break;
-		case 4:
-			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW, x, y);
-
-			break;
-		case 5:
+		case BLANK:
 			charPlace = new DragComponent("imgs/pokeball.png",eQuad.NW, x, y);
 			break;
+		case PHRAG:
+			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW, x, y);
+			break;
+		case MCRAB:
+			charPlace = new DragComponent("imgs/char.png",eQuad.NW, x, y);
+			break;
 		default:
-			charPlace = new DragComponent("imgs/red.png",eQuad.NW, x, y);
+			break;
 		}
 		
 		main.getLayeredPane().add(charPlace);
