@@ -14,16 +14,6 @@ public class PowerUps {
 		this.queue = queue;
 		this.character = character;
 	}
-	
-//	public Powerups(Queue queue) {
-//		this.queue = queue;
-//		this.character = null;
-//	}
-//	
-//	public Powerups(Character character) {
-//		this.character = character;
-//		this.queue = null;
-//	}
 
 	void SlowGrowth()
 	{
