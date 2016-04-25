@@ -21,8 +21,8 @@ public class Game {
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				test.hilight(test.sel, test);
-				test.sel = (test.sel+1)%8;
+//				test.hilight(test.sel, test);
+//				test.sel = (test.sel+1)%8;
 				updateTime(test, seconds++);
 				updateMoney(test, mainEnviro.getMoney());
 				mainEnviro.setMoney(mainEnviro.getMoney()+20);
