@@ -103,7 +103,7 @@ public class DragComponent extends JComponent {
 		
 		switch(whatQuad)
 		{
-		case NW:
+		case N:
 			try
 			{
 				if (Game.board[x][y] != eChar.BLANK) {
@@ -124,7 +124,7 @@ public class DragComponent extends JComponent {
 				e.printStackTrace();
 			}
 			
-		case NE:
+		case E:
 			try
 			{
 				if (Game.board[x+38][y] != eChar.BLANK) {
@@ -144,7 +144,7 @@ public class DragComponent extends JComponent {
 			{
 				e.printStackTrace();
 			}
-		case SW:
+		case W:
 			try
 			{
 				if (Game.board[x][y+24] != eChar.BLANK) {
@@ -165,7 +165,7 @@ public class DragComponent extends JComponent {
 				e.printStackTrace();
 			}
 			
-		case SE:
+		case S:
 			try
 			{
 				if (Game.board[x+38][y+24] != eChar.BLANK) {

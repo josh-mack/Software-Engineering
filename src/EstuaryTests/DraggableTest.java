@@ -27,10 +27,10 @@ public class DraggableTest {
 			}
 		}
 		
-		DragComponent character = new DragComponent("imgs/pika.png", eQuad.NW, eChar.RESEARCHER, XCoord, YCoord);
+		DragComponent character = new DragComponent("imgs/pika.png", eQuad.N, eChar.RESEARCHER, XCoord, YCoord);
 		assertEquals(character.placeInArray(XCoord, YCoord), false);
 		assertEquals(game.board[x][y], eChar.RESEARCHER);
-		DragComponent character2 = new DragComponent("imgs/squirt.png", eQuad.NW, eChar.STEWARD, XCoord, YCoord);
+		DragComponent character2 = new DragComponent("imgs/squirt.png", eQuad.N, eChar.STEWARD, XCoord, YCoord);
 		character2.placeInArray(XCoord, YCoord);
 		assertEquals(game.board[x][y], eChar.RESEARCHER);
 		assertEquals(game.board[x-1][y-1], eChar.STEWARD);	
