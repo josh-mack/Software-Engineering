@@ -23,14 +23,14 @@ public class DraggableTest {
 		int y = 7;
 		game.initBoard();
 		
-		DragComponent character = new DragComponent("imgs/pika.png", eQuad.NW, eChar.RESEARCHER, XCoord, YCoord);
+		DragComponent character = new DragComponent("imgs/pika.png", eQuad.N, eChar.RESEARCHER, XCoord, YCoord);
 		game.board[y-1][x+1] = eChar.FISHERMAN;
 		System.out.println(game.board[y-1][x+1]);
 		assertEquals(character.placeInArray(XCoord, YCoord), true);
 		System.out.println(game.board[y][x]);
 		assertEquals(game.board[y][x], eChar.RESEARCHER);
 		System.out.println(game.board[y][x]);
-		DragComponent character2 = new DragComponent("imgs/squirt.png", eQuad.NW, eChar.STEWARD, XCoord, YCoord);
+		DragComponent character2 = new DragComponent("imgs/squirt.png", eQuad.N, eChar.STEWARD, XCoord, YCoord);
 		character2.placeInArray(XCoord, YCoord);
 		assertEquals(game.board[y][x], eChar.RESEARCHER);
 		assertEquals(game.board[y-1][x-1], eChar.STEWARD);	
