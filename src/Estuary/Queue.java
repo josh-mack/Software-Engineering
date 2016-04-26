@@ -6,8 +6,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Queue{
- 
+	int x = 0;
+	int y = 0;
+	
 	private ArrayList<Invasive> que = new ArrayList<Invasive>();
+	
+	public void setX(int q){
+		this.x = q;
+	}
+	public int getX(){
+		return this.x;
+	}
+	public void setY(int q){
+		this.y = q;
+	}
+	public int getY(){
+		return this.y;
+	}
 	public void insertFront(Invasive x)
 	{
 		que.add(0,x);

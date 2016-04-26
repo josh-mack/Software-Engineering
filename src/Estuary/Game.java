@@ -26,8 +26,8 @@ public class Game {
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				test.hilight(test.sel, test);
-//				test.sel = (test.sel+1)%8;
+				test.hilight(test.sel, test);
+				test.sel = (test.sel+1)%8;
 				updateTime(test, seconds++);
 				updateMoney(test, mainEnviro.getMoney());
 				mainEnviro.setMoney(mainEnviro.getMoney()+20);
@@ -42,8 +42,13 @@ public class Game {
 				}
 		}};
 		new Timer(1000, timerAction).start();
-		new Timer(10000, timerSpawn).start();
-			
+		
+		//Create an Invasive species every 1 second
+	//	new Timer(10000, timerSpawn).start();
+					
+		
+	
+		
 	
 	}
 	static void updateTime(Menu mainFrame, int seconds){
@@ -53,6 +58,8 @@ public class Game {
 		}
 		else {
 			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":" + seconds%60);
+		
+		
 		}
 		mainFrame.getMenu().repaint();
 		mainFrame.getMenu().revalidate();
@@ -68,25 +75,25 @@ public class Game {
 		int rowEnd;
 		int colEnd;
 		switch(quad){
-		case NW:
+		case N:
 			rowStart = 0;
 			colStart = 0;
 			rowEnd = 24;
 			colEnd = 38;
 			break;
-		case NE:
+		case E:
 			rowStart = 24;
 			colStart = 0;
 			rowEnd = 48;
 			colEnd = 38;
 			break;
-		case SE:
+		case S:
 			rowStart = 24;
 			colStart = 38;
 			rowEnd = 48;
 			colEnd = 76;
 			break;
-		case SW:
+		case W:
 			rowStart = 0;
 			colStart = 38;
 			rowEnd = 24;
@@ -108,10 +115,11 @@ public class Game {
 		}
 	}
 	
-	static void initBoard(){
+
+	public static void initBoard(){
 		for(int i = 0; i < 48; i++){
 			for(int j = 0; j < 76; j++){
-				board[i][j] = eChar.PHRAG;
+				board[i][j] = eChar.BLANK;
 			}
 		}
 	}

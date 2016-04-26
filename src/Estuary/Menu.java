@@ -55,7 +55,7 @@ public class Menu{
 	int height = ((int)screenSize.getHeight());
 	int width = (int)screenSize.getWidth();
 	Dimension topBarSize = new Dimension(width/4, 500);
-	Dimension quadSize = new Dimension(width/2 -20, (height/2)-(height/20)-20);
+	Dimension quadSize = new Dimension(width/3, (height/3)-(height/20));
 	Dimension mainSize = new Dimension(width, height);
 	Color hilightedColor = new Color(0,0,0, 100);
 	Color alphaLayer = new Color(0, 0, 0, 0);
@@ -116,63 +116,63 @@ public class Menu{
 				loadQuad(((QuadPanel) me.getSource()).getLoc());				
 			}
 		};
-
+		
 		//Adding Hilighted Pane to Q1
-		hilightQ1 = new QuadPanel(eQuad.NW);
+		hilightQ1 = new QuadPanel(eQuad.N);
 		hilightQ1.setPreferredSize(quadSize);
 		hilightQ1.setBackground(hilightedColor);
 		hilightQ1.setOpaque(false);
-		c.fill = GridBagConstraints.FIRST_LINE_START;
-		c.gridx = 0;
-		c.gridy = 1;
-		hilightQ1.addMouseListener(switchQuadOnClick);
-		background.add(hilightQ1, c);
 		
-		//Adding Hilighted Pane to Q2
-		hilightQ2 = new QuadPanel(eQuad.NE);
-		hilightQ2.setPreferredSize(quadSize);
-		hilightQ2.setBackground(hilightedColor);
-		hilightQ2.setOpaque(false);
-		hilightQ2.addMouseListener(switchQuadOnClick);
-		
-		c.fill = GridBagConstraints.REMAINDER;
+		c.fill = GridBagConstraints.NORTH;
 		c.gridx = 1;
 		c.gridy = 1;
 		
+		hilightQ1.addMouseListener(switchQuadOnClick);
+		background.add(hilightQ1, c);
+
 		
+		//Adding Hilighted Pane to Q2
+		hilightQ2 = new QuadPanel(eQuad.W);
+		hilightQ2.setPreferredSize(quadSize);
+		hilightQ2.setBackground(hilightedColor);
+		hilightQ2.setOpaque(false);
+		
+		c.fill = GridBagConstraints.WEST;
+		c.gridx = 0;
+		c.gridy = 2;
+		
+		hilightQ2.addMouseListener(switchQuadOnClick);
 		background.add(hilightQ2, c);
 		
+
 		//Adding Hilighted Pane to Q3
-		hilightQ3 = new QuadPanel(eQuad.SE);
+		hilightQ3 = new QuadPanel(eQuad.E);
 		hilightQ3.setPreferredSize(quadSize);
 		hilightQ3.setBackground(hilightedColor);
 		hilightQ3.setOpaque(false);
 		
-		c.fill = GridBagConstraints.CENTER;
-		c.gridx = 1;
+		c.fill = GridBagConstraints.EAST;
+		c.gridx = 2;
 		c.gridy = 2;
 		
 		hilightQ3.addMouseListener(switchQuadOnClick);
 		background.add(hilightQ3, c);
-
 		
-	
-		hilightQ4 = new QuadPanel(eQuad.SW);
+		
+		//Adding Hilighted Pane to Q4
+		hilightQ4 = new QuadPanel(eQuad.S);
 		hilightQ4.setPreferredSize(quadSize);
 		hilightQ4.setBackground(hilightedColor);
 		hilightQ4.setOpaque(false);
 		
-		c.fill = GridBagConstraints.CENTER;
-		c.gridx = 0;
-		c.gridy = 2;
+		c.fill = GridBagConstraints.SOUTH;
+		c.gridx = 1;
+		c.gridy = 3;
 		
 		hilightQ4.addMouseListener(switchQuadOnClick);
 		background.add(hilightQ4, c);
 		
-		
-		
-		
-		
+
 		backgroundPanel = new BackgroundTest("imgs/fullmap.png", width, height);
 
 		JPanel topBarLeft = new JPanel();
@@ -413,7 +413,7 @@ public class Menu{
 				main.repaint();
 				main.revalidate();
 			break;
-			case NW:
+			case N:
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/NW.png");
@@ -422,7 +422,7 @@ public class Menu{
 				main.repaint();
 				main.revalidate();
 			break;
-			case SW:
+			case W:
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/SW.png");
@@ -431,7 +431,7 @@ public class Menu{
 				main.repaint();
 				main.revalidate();
 			break;
-			case SE:
+			case S:
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/SE.png");
@@ -440,7 +440,7 @@ public class Menu{
 				main.repaint();
 				main.revalidate();
 			break;
-			case NE:
+			case E:
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/NE.png");
@@ -462,25 +462,25 @@ public class Menu{
 		DragComponent charPlace = null;
 		switch(eChar){
 		case BCRAB:
-			charPlace = new DragComponent("imgs/squirt.png",eQuad.NW, eChar, x, y);
+			charPlace = new DragComponent("imgs/squirt.png",eQuad.N, eChar, x, y);
 			break;
 		case STEWARD:
-			charPlace = new DragComponent("imgs/pika.png",eQuad.NW, eChar, x, y);
+			charPlace = new DragComponent("imgs/pika.png",eQuad.N, eChar, x, y);
 			break;
 		case RESEARCHER:
-			charPlace = new DragComponent("imgs/oak.png",eQuad.NW, eChar, x, y);
+			charPlace = new DragComponent("imgs/oak.png",eQuad.N, eChar, x, y);
 			break;
 		case VOLUNTEER:
-			charPlace = new DragComponent("imgs/red.png",eQuad.NW, eChar, x, y);
+			charPlace = new DragComponent("imgs/red.png",eQuad.N, eChar, x, y);
 			break;
 		case BLANK:
-			charPlace = new DragComponent("imgs/pokeball.png",eQuad.NW, eChar, x, y);
+			charPlace = new DragComponent("imgs/pokeball.png",eQuad.N, eChar, x, y);
 			break;
 		case PHRAG:
-			charPlace = new DragComponent("imgs/bulb.png",eQuad.NW, eChar, x, y);
+			charPlace = new DragComponent("imgs/bulb.png",eQuad.N, eChar, x, y);
 			break;
 		case MCRAB:
-			charPlace = new DragComponent("imgs/char.png",eQuad.NW, eChar, x, y);
+			charPlace = new DragComponent("imgs/char.png",eQuad.N, eChar, x, y);
 			break;
 		default:
 			break;

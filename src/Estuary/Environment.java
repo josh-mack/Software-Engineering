@@ -64,19 +64,19 @@ public class Environment implements Serializable{
 		int rowEnd;
 		int colEnd;
 		switch(quad){
-		case NW:
+		case N:
 			rowEnd = 24;
 			colEnd = 38;
 			break;
-		case NE:
+		case E:
 			rowEnd = 48;
 			colEnd = 38;
 			break;
-		case SE:
+		case S:
 			rowEnd = 48;
 			colEnd = 76;
 			break;
-		case SW:
+		case W:
 			rowEnd = 24;
 			colEnd = 76;
 			break;
@@ -90,30 +90,31 @@ public class Environment implements Serializable{
 		
 		
 		switch(quad){
-		case NW:
+		case N:
 			invasiveAdded= new Phragmites(3, x, y, 5, 10);
-			break;	
-		case NE: 
-			invasiveAdded = new MittenCrab(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
 			break;
-		case SE: 
-			invasiveAdded = new MittenCrab(3, x, y, 5, 10);
-			break;
-		case SW: 
-			invasiveAdded = new MittenCrab(3, x, y, 5, 10);
-			break;
-		default:
+			
+		default: 
+			invasiveAdded= new MittenCrab(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
 		}
 		
-		events.insertFront(invasiveAdded);
+		
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
 	public void resolve() {
-		if((events.peakFront()).getResolved() == true){
+		if(events.peakFront().getResolved() == true){
 			calcHealth();
+			Game.board[events.peakFront().getYCoord()][events.peakBack().getXCoord()] = eChar.DNREC; 
 			events.removeFront();
 		}
+	
 	}
 	
 	public void calcGrowth() {
