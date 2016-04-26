@@ -11,6 +11,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 
 public class Game {
+	public static Environment mainEnviro = new Environment();
+
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	static int height = ((int)screenSize.getHeight())/24;
 	static int width = (int)screenSize.getWidth()/38;
@@ -21,7 +23,6 @@ public class Game {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub		
 		initBoard();
-		Environment mainEnviro = new Environment();
 		Menu test = new Menu();
 		ActionListener timerAction = new ActionListener(){
 			@Override
@@ -48,8 +49,18 @@ public class Game {
 		
 		//Create an Invasive species every 1 second
 		new Timer(10000, timerSpawn).start();
-					
-		
+		ActionListener timerCheck = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < 48; i++){
+					for(int j = 0; j < 76; j++){
+						if(board[i][j] != eChar.BLANK){
+							System.out.println(board[i][j] + "at location"+ i + " " + j);
+						}
+					}
+				}
+		}};		
+		//new Timer(30000, timerCheck);
 	
 		
 	
