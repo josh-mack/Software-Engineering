@@ -95,6 +95,7 @@ public class Environment implements Serializable{
 			rowEnd = 0;
 			colEnd = 0;
 		}
+		
 		int x = rand.nextInt(colEnd);
 		int y = rand.nextInt(rowEnd);
 		

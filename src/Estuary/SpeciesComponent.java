@@ -33,7 +33,7 @@ public class SpeciesComponent extends JComponent {
 	public SpeciesComponent(eQuad thisQuad, eChar character, int x, int y) {
 		String filename;
 			switch(character){
-			case HCRAB:
+			case BCRAB:
 				filename = "imgs/squirt.png";
 				break;
 			case PHRAG:

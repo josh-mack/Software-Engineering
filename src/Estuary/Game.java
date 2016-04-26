@@ -40,8 +40,6 @@ public class Game {
 				if(test.getQuadrant()!=eQuad.MAIN){
 					Event retVal = mainEnviro.makeEvent(test.getQuadrant());
 					board[retVal.getY()][retVal.getX()] = retVal.getType();
-					System.out.println("Y is " + retVal.getY() + "X is " + retVal.getX()+" Type Is " + retVal.getType());
-					System.out.println(board[retVal.getY()][retVal.getX()]);
 					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
 				}
 		}};
@@ -98,10 +96,10 @@ public class Game {
 			
 			break;
 		case E:
-			rowStart = 24;
-			colStart = 0;
-			rowEnd = 48;
-			colEnd = 38;
+			rowStart = 0;
+			colStart = 38;
+			rowEnd = 24;
+			colEnd = 76;
 			break;
 		case S:
 			rowStart = 24;
@@ -111,9 +109,9 @@ public class Game {
 			break;
 		case W:
 			rowStart = 0;
-			colStart = 38;
-			rowEnd = 24;
-			colEnd = 76;
+			colStart = 24;
+			rowEnd = 48;
+			colEnd = 38;
 			break;
 			
 		default:
@@ -125,7 +123,7 @@ public class Game {
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK){
-					pane.add(new SpeciesComponent(quad, board[i][j],j*width%38, i*height%24), 0);
+					pane.add(new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height), 0);
 				}
 			}
 		}
@@ -138,6 +136,10 @@ public class Game {
 				board[i][j] = eChar.BLANK;
 			}
 		}
+		
+
+
+		
 	}
 
 

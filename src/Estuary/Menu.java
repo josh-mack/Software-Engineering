@@ -125,13 +125,13 @@ public class Menu{
 
 		
 		//Adding Hilighted Pane to Q2
-		hilightQ2 = new QuadPanel(eQuad.W);
+		hilightQ2 = new QuadPanel(eQuad.E);
 		hilightQ2.setPreferredSize(quadSize);
 		hilightQ2.setBackground(hilightedColor);
 		hilightQ2.setOpaque(false);
 		
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 0;
+		c.fill = GridBagConstraints.EAST;
+		c.gridx = 2;
 		c.gridy = 2;
 		
 		hilightQ2.addMouseListener(switchQuadOnClick);
@@ -139,13 +139,13 @@ public class Menu{
 		
 
 		//Adding Hilighted Pane to Q3
-		hilightQ3 = new QuadPanel(eQuad.E);
+		hilightQ3 = new QuadPanel(eQuad.W);
 		hilightQ3.setPreferredSize(quadSize);
 		hilightQ3.setBackground(hilightedColor);
 		hilightQ3.setOpaque(false);
 		
-		c.fill = GridBagConstraints.EAST;
-		c.gridx = 2;
+		c.fill = GridBagConstraints.WEST;
+		c.gridx = 0;
 		c.gridy = 2;
 		
 		hilightQ3.addMouseListener(switchQuadOnClick);
@@ -392,6 +392,7 @@ public class Menu{
 			//Don't listen in quadrants
 			return;
 		}
+		Game.drawOnScreen(main.getLayeredPane(),quad);	
 		switch(quad){
 			case MAIN:
 				inQuad = false;
@@ -405,7 +406,7 @@ public class Menu{
 			case N:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/NW.png");
+				backgroundPanel.paintComponent(null, "imgs/N.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -414,7 +415,7 @@ public class Menu{
 			case W:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/SW.png");
+				backgroundPanel.paintComponent(null, "imgs/W.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -423,7 +424,7 @@ public class Menu{
 			case S:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/SE.png");
+				backgroundPanel.paintComponent(null, "imgs/S.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -432,7 +433,7 @@ public class Menu{
 			case E:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/NE.png");
+				backgroundPanel.paintComponent(null, "imgs/E.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
