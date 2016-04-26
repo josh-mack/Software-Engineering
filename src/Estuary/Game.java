@@ -14,20 +14,20 @@ public class Game {
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	static int height = ((int)screenSize.getHeight())/24;
 	static int width = (int)screenSize.getWidth()/38;
-	public static Environment mainEnviro = new Environment();
+	
 	static int seconds;
 	int money;
 	public static eChar[][] board =  new eChar[48][76];
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub		
 		initBoard();
-		
+		Environment mainEnviro = new Environment();
 		Menu test = new Menu();
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//test.hilight(test.sel, test);
-				//test.sel = (test.sel+1)%8;
+			//	test.hilight(test.sel, test);
+			//	test.sel = (test.sel+1)%8;
 				updateTime(test, seconds++);
 				updateMoney(test, mainEnviro.getMoney());
 				mainEnviro.setMoney(mainEnviro.getMoney()+20);
@@ -35,15 +35,22 @@ public class Game {
 		ActionListener timerSpawn = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				if(test.getQuadrant()!=eQuad.MAIN){
 					Event retVal = mainEnviro.makeEvent(test.getQuadrant());
 					board[retVal.getY()][retVal.getX()] = retVal.getType();
+					System.out.println("Y is " + retVal.getY() + "X is " + retVal.getX()+" Type Is " + retVal.getType());
+					System.out.println(board[retVal.getY()][retVal.getX()]);
 					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
 				}
 		}};
 		new Timer(1000, timerAction).start();
 		
 		//Create an Invasive species every 1 second
+		new Timer(10000, timerSpawn).start();
+					
+		
+	
 		
 	
 	}
@@ -76,6 +83,8 @@ public class Game {
 			colStart = 0;
 			rowEnd = 24;
 			colEnd = 38;
+			
+			
 			break;
 		case E:
 			rowStart = 24;
@@ -105,7 +114,7 @@ public class Game {
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK){
-					pane.add(new SpeciesComponent(quad, board[i][j],j*width, i*height));
+					pane.add(new SpeciesComponent(quad, board[i][j],j*width%38, i*height%24), 0);
 				}
 			}
 		}
