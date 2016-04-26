@@ -21,18 +21,8 @@ public class DraggableTest {
 		int YCoord = (height/48)*7;
 		int x = 6;
 		int y = 7;
-//		for (int i = -1; i < 2; i++) {
-//			for (int j = -1; j < 2; j++) {
-//				game.board[x+i][y+j] = eChar.BLANK;
-//			}
-//		}
 		game.initBoard();
-//		for (int i = 0; i < 48; i++) {
-//			for (int j = 0; j < 76; j++) {
-//				System.out.print(game.board[i][j]);
-//			}
-//			System.out.println();
-//		}
+		
 		DragComponent character = new DragComponent("imgs/pika.png", eQuad.NW, eChar.RESEARCHER, XCoord, YCoord);
 		game.board[y-1][x+1] = eChar.FISHERMAN;
 		System.out.println(game.board[y-1][x+1]);
@@ -48,9 +38,4 @@ public class DraggableTest {
 		assertEquals(character.placeInArray(XCoord, YCoord), true);
 
 	}
-//	
-//	public static void main(String[] args) {
-//		Collision_test();
-//	}
-
 }

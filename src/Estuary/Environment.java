@@ -68,21 +68,29 @@ public class Environment implements Serializable{
 		switch(quad){
 		case MAIN:
 			invasiveAdded= new Phragmites(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
 			break;
 			
 		default: 
 			invasiveAdded = new MittenCrab(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
 		}
 		
-		events.insertFront(invasiveAdded);
+		
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
 	public void resolve() {
-		if((events.peakFront()).getResolved() == true){
+		if(events.peakFront().getResolved() == true){
 			calcHealth();
+			Game.board[events.peakFront().getYCoord()][events.peakBack().getXCoord()] = eChar.DNREC; 
 			events.removeFront();
 		}
+	
 	}
 	
 	public void calcGrowth() {

@@ -8,7 +8,7 @@ public abstract class Invasive extends Species {
 		super(type, amount, XCoord, yCoord, growthRate);
 		this.ecoReward = ecoReward;
 	}
-	
+
 	public int getEcoReward() {
 		return this.ecoReward;
 	}
