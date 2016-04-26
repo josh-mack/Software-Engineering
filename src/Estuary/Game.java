@@ -14,20 +14,20 @@ public class Game {
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	static int height = ((int)screenSize.getHeight())/24;
 	static int width = (int)screenSize.getWidth()/38;
-	
+	public static Environment mainEnviro = new Environment();
 	static int seconds;
 	int money;
 	public static eChar[][] board =  new eChar[48][76];
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub		
 		initBoard();
-		Environment mainEnviro = new Environment();
+		
 		Menu test = new Menu();
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				test.hilight(test.sel, test);
-				test.sel = (test.sel+1)%8;
+				//test.hilight(test.sel, test);
+				//test.sel = (test.sel+1)%8;
 				updateTime(test, seconds++);
 				updateMoney(test, mainEnviro.getMoney());
 				mainEnviro.setMoney(mainEnviro.getMoney()+20);
@@ -44,10 +44,6 @@ public class Game {
 		new Timer(1000, timerAction).start();
 		
 		//Create an Invasive species every 1 second
-	//	new Timer(10000, timerSpawn).start();
-					
-		
-	
 		
 	
 	}
