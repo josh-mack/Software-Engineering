@@ -104,63 +104,88 @@ public class DragComponent extends JComponent {
 		switch(whatQuad)
 		{
 		case NW:
-			if (Game.board[x][y] != eChar.BLANK) {
-				for (int i = -1; i < 2; i++) {
-					for (int j = -1; j < 2; j++) {
-						if (Game.board[x+i][y+j] == eChar.BLANK) {
-							Game.board[x+i][y+j] = this.character;
-							return Collision(x+i,y+j);
+			try
+			{
+				if (Game.board[x][y] != eChar.BLANK) {
+					for (int i = -1; i < 2; i++) {
+						for (int j = -1; j < 2; j++) {
+							if (Game.board[x+i][y+j] == eChar.BLANK) {
+								Game.board[x+i][y+j] = this.character;
+								return Collision(x+i,y+j);
+							}
 						}
 					}
+					return false;
 				}
-				return false;
+				Game.board[x][y] = this.character;
+				return (Collision(x,y));
+			} catch(IndexOutOfBoundsException e)
+			{
+				e.printStackTrace();
 			}
-			Game.board[x][y] = this.character;
-			return (Collision(x,y));
+			
 		case NE:
-			if (Game.board[x+38][y] != eChar.BLANK) {
-				for (int i = -1; i < 2; i++) {
-					for (int j = -1; j < 2; j++) {
-						if (Game.board[x+i+38][y+j] == eChar.BLANK) {
-							Game.board[x+i+38][y+j] = this.character;
-							return Collision(x+i+38,y+j);
+			try
+			{
+				if (Game.board[x+38][y] != eChar.BLANK) {
+					for (int i = -1; i < 2; i++) {
+						for (int j = -1; j < 2; j++) {
+							if (Game.board[x+i+38][y+j] == eChar.BLANK) {
+								Game.board[x+i+38][y+j] = this.character;
+								return Collision(x+i+38,y+j);
+							}
 						}
 					}
+					return false;
 				}
-				return false;
+				Game.board[x+38][y] = this.character;
+				return (Collision(x+38,y));
+			} catch(IndexOutOfBoundsException e)
+			{
+				e.printStackTrace();
 			}
-			Game.board[x+38][y] = this.character;
-			return (Collision(x+38,y));
 		case SW:
-			if (Game.board[x][y+24] != eChar.BLANK) {
-				for (int i = -1; i < 2; i++) {
-					for (int j = -1; j < 2; j++) {
-						if (Game.board[x+i][y+j+24] == eChar.BLANK) {
-							Game.board[x+i][y+j+24] = this.character;
-							return Collision(x+i,y+j+24);
+			try
+			{
+				if (Game.board[x][y+24] != eChar.BLANK) {
+					for (int i = -1; i < 2; i++) {
+						for (int j = -1; j < 2; j++) {
+							if (Game.board[x+i][y+j+24] == eChar.BLANK) {
+								Game.board[x+i][y+j+24] = this.character;
+								return Collision(x+i,y+j+24);
+							}
 						}
 					}
+					return false;
 				}
-				return false;
+				Game.board[x][y+24] = this.character;
+				return (Collision(x,y+24));
+			} catch(IndexOutOfBoundsException e)
+			{
+				e.printStackTrace();
 			}
-			Game.board[x][y+24] = this.character;
-			return (Collision(x,y+24));
+			
 		case SE:
-			if (Game.board[x+38][y+24] != eChar.BLANK) {
-				for (int i = -1; i < 2; i++) {
-					for (int j = -1; j < 2; j++) {
-						if (Game.board[x+i+38][y+j+24] == eChar.BLANK) {
-							Game.board[x+i+38][y+j+24] = this.character;
-							return Collision(x+i+38,y+j+24);
+			try
+			{
+				if (Game.board[x+38][y+24] != eChar.BLANK) {
+					for (int i = -1; i < 2; i++) {
+						for (int j = -1; j < 2; j++) {
+							if (Game.board[x+i+38][y+j+24] == eChar.BLANK) {
+								Game.board[x+i+38][y+j+24] = this.character;
+								return Collision(x+i+38,y+j+24);
+							}
 						}
 					}
+					return false;
 				}
-				return false;
+				Game.board[x+38][y+24] = this.character;
+				return (Collision(x+38,y+24));
+			} catch(IndexOutOfBoundsException e)
+			{
+				e.printStackTrace();
 			}
-			Game.board[x+38][y+24] = this.character;
-			return (Collision(x+38,y+24));
 		}
-		
 		return (Collision(x,y));
 		
 	}
