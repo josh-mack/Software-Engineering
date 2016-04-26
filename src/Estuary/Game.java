@@ -19,7 +19,16 @@ public class Game {
 	
 	static int seconds;
 	static int money;
+	
 	public static eChar[][] board =  new eChar[48][76];
+	public static void initBoard(){
+		for(int i = 0; i < 48; i++){
+			for(int j = 0; j < 76; j++){
+				board[i][j] = eChar.BLANK;
+			}
+		}
+		
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub		
 		initBoard();
@@ -27,7 +36,7 @@ public class Game {
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			//	test.hilight(test.sel, test);
+				//test.hilight(test.sel, test);
 			//	test.sel = (test.sel+1)%8;
 				updateTime(test, seconds++);
 				updateMoney(test, mainEnviro.getMoney());
@@ -40,6 +49,7 @@ public class Game {
 				if(test.getQuadrant()!=eQuad.MAIN){
 					Event retVal = mainEnviro.makeEvent(test.getQuadrant());
 					board[retVal.getY()][retVal.getX()] = retVal.getType();
+
 					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
 				}
 		}};
@@ -76,6 +86,7 @@ public class Game {
 	}
 	
 	static void drawOnScreen(JLayeredPane pane, eQuad quad){
+
 		int rowStart;
 		int colStart;
 		int rowEnd;
@@ -86,8 +97,6 @@ public class Game {
 			colStart = 0;
 			rowEnd = 24;
 			colEnd = 38;
-			
-			
 			break;
 		case E:
 			rowStart = 0;
@@ -102,8 +111,8 @@ public class Game {
 			colEnd = 76;
 			break;
 		case W:
-			rowStart = 0;
-			colStart = 24;
+			rowStart = 24;
+			colStart = 0;
 			rowEnd = 48;
 			colEnd = 38;
 			break;
@@ -114,27 +123,24 @@ public class Game {
 			rowEnd = 0;
 			colEnd = 0;
 		}
+		SpeciesComponent test = null;
+		
+
+
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK){
-					pane.add(new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height), 0);
+					test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
+	
+					pane.add(test, 0);
 				}
+				
 			}
 		}
 	}
 	
 
-	public static void initBoard(){
-		for(int i = 0; i < 48; i++){
-			for(int j = 0; j < 76; j++){
-				board[i][j] = eChar.BLANK;
-			}
-		}
-		
-
-
-		
-	}
+	
 
 
 }

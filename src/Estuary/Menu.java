@@ -40,7 +40,6 @@ import javax.swing.Timer;
 
 
 public class Menu{
-	private JLayeredPane oldPane;
 	public JPanel background;
 	public JFrame main;
 	public JPanel panel;
@@ -132,7 +131,7 @@ public class Menu{
 		
 		c.fill = GridBagConstraints.EAST;
 		c.gridx = 2;
-		c.gridy = 2;
+		c.gridy = 3;
 		
 		hilightQ2.addMouseListener(switchQuadOnClick);
 		background.add(hilightQ2, c);
@@ -146,7 +145,7 @@ public class Menu{
 		
 		c.fill = GridBagConstraints.WEST;
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		
 		hilightQ3.addMouseListener(switchQuadOnClick);
 		background.add(hilightQ3, c);
@@ -160,7 +159,7 @@ public class Menu{
 		
 		c.fill = GridBagConstraints.SOUTH;
 		c.gridx = 1;
-		c.gridy = 3;
+		c.gridy = 4;
 		
 		hilightQ4.addMouseListener(switchQuadOnClick);
 		background.add(hilightQ4, c);
@@ -345,9 +344,7 @@ public class Menu{
 		main.setSize(mainSize);
 		main.setVisible(true);
 		
-	
-		oldPane = main.getLayeredPane();
-	}
+		}
 
 	
 	public void hilight(int sel,Menu main){
@@ -392,6 +389,7 @@ public class Menu{
 			//Don't listen in quadrants
 			return;
 		}
+
 		Game.drawOnScreen(main.getLayeredPane(),quad);	
 		switch(quad){
 			case MAIN:

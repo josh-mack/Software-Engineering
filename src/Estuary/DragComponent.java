@@ -108,7 +108,6 @@ public class DragComponent extends JComponent {
 		switch(whatQuad)
 		{
 		case N:
-			System.out.println("placeInArray");
 				if (Game.board[y][x] != eChar.BLANK) {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {

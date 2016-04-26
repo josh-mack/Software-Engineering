@@ -33,13 +33,13 @@ public class SpeciesComponent extends JComponent {
 	public SpeciesComponent(eQuad thisQuad, eChar character, int x, int y) {
 		String filename = null;
 			switch(character){
-			case BCRAB:
+			case MCRAB:
 				filename = "imgs/squirt.png";
 				break;
 			case PHRAG:
 				filename = "imgs/bulb.png";
 				break;
-			case POLLUTER:
+			case BAMBOO:
 				filename = "imgs/char.png";
 				break;
 			default:
@@ -61,11 +61,13 @@ public class SpeciesComponent extends JComponent {
 		this.whatQuad = thisQuad;
 		this.character = character;
 		
-		
 	}
 
 	public MouseListener getMouseListener() {
 		// TODO Auto-generated method stub
 		return pressListener;
+	}
+	public eQuad getWhatQuad(){
+		return whatQuad;
 	}
 }

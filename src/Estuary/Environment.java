@@ -79,23 +79,23 @@ public class Environment implements Serializable{
 			colEnd = 38;
 			break;
 		case E:
-			rowEnd = 48;
-			colEnd = 38;
+			rowEnd = 24;
+			colEnd = 76;
 			break;
 		case S:
 			rowEnd = 48;
 			colEnd = 76;
 			break;
 		case W:
-			rowEnd = 24;
-			colEnd = 76;
+			rowEnd = 48;
+			colEnd = 38;
 			break;
 			
 		default:
 			rowEnd = 0;
 			colEnd = 0;
 		}
-		
+	
 		int x = rand.nextInt(colEnd);
 		int y = rand.nextInt(rowEnd);
 		
@@ -107,9 +107,21 @@ public class Environment implements Serializable{
 			events.setX(x);
 			events.setY(y);
 			break;
+		case E:
+			invasiveAdded= new Bamboo(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
+			break;
+		case S:
+			invasiveAdded= new MittenCrab(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
+			break;
 			
 		default: 
-			invasiveAdded= new MittenCrab(3, x, y, 5, 10);
+			invasiveAdded= new Pollution(3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
