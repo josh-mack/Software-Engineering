@@ -1,5 +1,7 @@
 package Estuary;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,14 +9,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Random;
+
+import javax.swing.Timer;
 public class Environment implements Serializable{
 	private static final long serialVersionUID = 0;
 	
 	private Species[] animals;
 	private Character[] characters;
 	private int health;
-	private int newHealth;
-	private int oldHealth;
+	private int newHealth = 10;
+	private int oldHealth = 5;
 	static public int money;
 	Queue events = new Queue();
 	
@@ -36,6 +40,12 @@ public class Environment implements Serializable{
 
 	public int getHealth() {
 		return health;
+	}
+	public int getNewHealth(){
+		return this.newHealth;
+	}
+	public int getOldHealth(){
+		return this.oldHealth;
 	}
 	
 	public int getMoney() {
@@ -109,11 +119,19 @@ public class Environment implements Serializable{
 	}
 	
 	public void resolve() {
-		if(events.peakFront().getResolved() == true){
-			calcHealth();
-			Game.board[events.peakFront().getYCoord()][events.peakBack().getXCoord()] = eChar.DNREC; 
-			events.removeFront();
-		}
+		ActionListener timerAction = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Game.board[events.peakFront().getYCoord()][events.peakBack().getXCoord()] = eChar.DNREC; 
+				events.removeFront();
+				setMoney(99990000);
+				calcHealth();
+				}
+		};
+		new Timer(10000, timerAction).start();
+			
+		
 	
 	}
 	
@@ -122,10 +140,11 @@ public class Environment implements Serializable{
 	}
 	
 	public void calcHealth() {
-		double y = (newHealth - 19/20)*(oldHealth - 20)/10;
+		/*double y = (this.health - 19/20)*(this.health - 20)/10;
 		double num  = ( 1 + Math.pow( Math.exp(1.0), y));
 		double formula = 1/(num);
-		setHealth((int)formula);
+		setHealth((int)formula);*/
+		setHealth((int)(this.health * 2));
 	}
 	
 	public void calcMoney() {

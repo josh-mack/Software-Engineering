@@ -24,10 +24,12 @@ public class DraggableTest {
 		game.initBoard();
 		
 		DragComponent character = new DragComponent("imgs/pika.png", eQuad.N, eChar.RESEARCHER, XCoord, YCoord);
-		game.board[y-1][x+1] = eChar.FISHERMAN;
+		game.board[y-1][x+1] = eChar.PHRAG;
 		System.out.println(game.board[y-1][x+1]);
 		assertEquals(character.placeInArray(XCoord, YCoord), true);
 		System.out.println(game.board[y][x]);
+		System.out.println(game.mainEnviro.getMoney());
+		System.out.println(game.mainEnviro.getHealth());
 		assertEquals(game.board[y][x], eChar.RESEARCHER);
 		System.out.println(game.board[y][x]);
 		DragComponent character2 = new DragComponent("imgs/squirt.png", eQuad.N, eChar.STEWARD, XCoord, YCoord);

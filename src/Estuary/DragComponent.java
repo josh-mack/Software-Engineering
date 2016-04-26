@@ -211,6 +211,7 @@ public class DragComponent extends JComponent {
 			for (int j = -1; j < 2; j++) {
 				try {
 					if ((Game.board[y+i][x+j] != eChar.BLANK) && ((j!=0) && (i!=0))) {
+						Game.mainEnviro.resolve();
 						return true;
 					}
 				} catch (Exception e) {
