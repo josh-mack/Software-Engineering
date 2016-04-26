@@ -60,8 +60,8 @@ public class Game {
 	}
 	
 	static void drawOnScreen(JLayeredPane pane, eQuad quad){
-		for(int i = 0; i < 76; i++){
-			for(int j = 0; j < 48; j++){
+		for(int i = 0; i < 48; i++){
+			for(int j = 0; j < 76; j++){
 				if(board[i][j] != eChar.BLANK){
 					pane.add(new SpeciesComponent(quad, board[i][j], 200, 200));
 				}
