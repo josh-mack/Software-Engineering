@@ -59,19 +59,50 @@ public class Environment implements Serializable{
 	}
 	
 	public Event makeEvent(eQuad quad){
-		Invasive invasiveAdded;
+		Invasive invasiveAdded = null;
 		Random rand = new Random();
-		int x = rand.nextInt(37);
-		int y = rand.nextInt(23);
+		int rowEnd;
+		int colEnd;
+		switch(quad){
+		case NW:
+			rowEnd = 24;
+			colEnd = 38;
+			break;
+		case NE:
+			rowEnd = 48;
+			colEnd = 38;
+			break;
+		case SE:
+			rowEnd = 48;
+			colEnd = 76;
+			break;
+		case SW:
+			rowEnd = 24;
+			colEnd = 76;
+			break;
+			
+		default:
+			rowEnd = 0;
+			colEnd = 0;
+		}
+		int x = rand.nextInt(colEnd);
+		int y = rand.nextInt(rowEnd);
 		
 		
 		switch(quad){
-		case MAIN:
+		case NW:
 			invasiveAdded= new Phragmites(3, x, y, 5, 10);
-			break;
-			
-		default: 
+			break;	
+		case NE: 
 			invasiveAdded = new MittenCrab(3, x, y, 5, 10);
+			break;
+		case SE: 
+			invasiveAdded = new MittenCrab(3, x, y, 5, 10);
+			break;
+		case SW: 
+			invasiveAdded = new MittenCrab(3, x, y, 5, 10);
+			break;
+		default:
 		}
 		
 		events.insertFront(invasiveAdded);

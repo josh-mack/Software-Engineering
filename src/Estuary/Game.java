@@ -1,6 +1,8 @@
 package Estuary;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,13 +11,15 @@ import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 
 public class Game {
+	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	static int height = ((int)screenSize.getHeight())/24;
+	static int width = (int)screenSize.getWidth()/38;
+	
 	static int seconds;
 	int money;
-	public static eChar[][] board =  new eChar[76][48];
+	public static eChar[][] board =  new eChar[48][76];
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		
+		// TODO Auto-generated method stub		
 		initBoard();
 		Environment mainEnviro = new Environment();
 		Menu test = new Menu();
@@ -28,11 +32,18 @@ public class Game {
 				updateMoney(test, mainEnviro.getMoney());
 				mainEnviro.setMoney(mainEnviro.getMoney()+20);
 		}};
+		ActionListener timerSpawn = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(test.getQuadrant()!=eQuad.MAIN){
+					Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+					board[retVal.getY()][retVal.getX()] = retVal.getType();
+					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
+				}
+		}};
 		new Timer(1000, timerAction).start();
-		
-		Event retVal = mainEnviro.makeEvent(test.getQuadrant());
-		board[retVal.getY()][retVal.getX()] = retVal.getType();
-		drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());		
+		new Timer(10000, timerSpawn).start();
+			
 	
 	}
 	static void updateTime(Menu mainFrame, int seconds){
@@ -52,19 +63,55 @@ public class Game {
 	}
 	
 	static void drawOnScreen(JLayeredPane pane, eQuad quad){
-		for(int i = 0; i < 76; i++){
-			for(int j = 0; j < 48; j++){
+		int rowStart;
+		int colStart;
+		int rowEnd;
+		int colEnd;
+		switch(quad){
+		case NW:
+			rowStart = 0;
+			colStart = 0;
+			rowEnd = 24;
+			colEnd = 38;
+			break;
+		case NE:
+			rowStart = 24;
+			colStart = 0;
+			rowEnd = 48;
+			colEnd = 38;
+			break;
+		case SE:
+			rowStart = 24;
+			colStart = 38;
+			rowEnd = 48;
+			colEnd = 76;
+			break;
+		case SW:
+			rowStart = 0;
+			colStart = 38;
+			rowEnd = 24;
+			colEnd = 76;
+			break;
+			
+		default:
+			rowStart = 0;
+			colStart = 0;
+			rowEnd = 0;
+			colEnd = 0;
+		}
+		for(int i = rowStart; i < rowEnd; i++){
+			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK){
-					pane.add(new SpeciesComponent(quad, board[i][j], 200, 200));
+					pane.add(new SpeciesComponent(quad, board[i][j],j*width, i*height));
 				}
 			}
 		}
 	}
 	
 	static void initBoard(){
-		for(int i = 0; i < 76; i++){
-			for(int j = 0; j < 48; j++){
-				board[i][j] = eChar.BLANK;
+		for(int i = 0; i < 48; i++){
+			for(int j = 0; j < 76; j++){
+				board[i][j] = eChar.PHRAG;
 			}
 		}
 	}
