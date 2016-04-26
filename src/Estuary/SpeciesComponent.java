@@ -31,7 +31,7 @@ public class SpeciesComponent extends JComponent {
 	private eChar[][] board;
 	
 	public SpeciesComponent(eQuad thisQuad, eChar character, int x, int y) {
-		String filename;
+		String filename = null;
 			switch(character){
 			case BCRAB:
 				filename = "imgs/squirt.png";
@@ -43,7 +43,6 @@ public class SpeciesComponent extends JComponent {
 				filename = "imgs/char.png";
 				break;
 			default:
-				filename = "imgs/pokeball.png";
 			}
 			
 		setLayout(new BorderLayout());

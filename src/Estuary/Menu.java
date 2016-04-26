@@ -463,9 +463,6 @@ public class Menu{
 		case VOLUNTEER:
 			charPlace = new DragComponent("imgs/red.png",eQuad.N, eChar, x, y);
 			break;
-		case BLANK:
-			charPlace = new DragComponent("imgs/pokeball.png",eQuad.N, eChar, x, y);
-			break;
 		case PHRAG:
 			charPlace = new DragComponent("imgs/bulb.png",eQuad.N, eChar, x, y);
 			break;

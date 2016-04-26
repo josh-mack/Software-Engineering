@@ -120,13 +120,14 @@ public class Environment implements Serializable{
 	}
 	
 	public void resolve() {
+		System.out.println("Resolve Method Active");
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				Game.board[events.peakFront().getYCoord()][events.peakBack().getXCoord()] = eChar.DNREC; 
+				Game.board[events.peakFront().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
 				events.removeFront();
-				setMoney(99990000);
+				money += 100;
 				calcHealth();
 				}
 		};

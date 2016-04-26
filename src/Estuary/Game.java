@@ -18,7 +18,7 @@ public class Game {
 	static int width = (int)screenSize.getWidth()/38;
 	
 	static int seconds;
-	int money;
+	static int money;
 	public static eChar[][] board =  new eChar[48][76];
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub		
@@ -31,7 +31,7 @@ public class Game {
 			//	test.sel = (test.sel+1)%8;
 				updateTime(test, seconds++);
 				updateMoney(test, mainEnviro.getMoney());
-				mainEnviro.setMoney(mainEnviro.getMoney()+20);
+			//	mainEnviro.setMoney(mainEnviro.getMoney()+20);
 		}};
 		ActionListener timerSpawn = new ActionListener(){
 			@Override
@@ -50,15 +50,9 @@ public class Game {
 		ActionListener timerCheck = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(int i = 0; i < 48; i++){
-					for(int j = 0; j < 76; j++){
-						if(board[i][j] != eChar.BLANK){
-							System.out.println(board[i][j] + "at location"+ i + " " + j);
-						}
-					}
-				}
+				Game.money = mainEnviro.getMoney();
 		}};		
-		//new Timer(30000, timerCheck);
+		new Timer(30000, timerCheck);
 	
 		
 	
