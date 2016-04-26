@@ -28,11 +28,17 @@ public class Game {
 				updateMoney(test, mainEnviro.getMoney());
 				mainEnviro.setMoney(mainEnviro.getMoney()+20);
 		}};
+		
 		new Timer(1000, timerAction).start();
 		
 		Event retVal = mainEnviro.makeEvent(test.getQuadrant());
 		board[retVal.getY()][retVal.getX()] = retVal.getType();
 		drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());		
+	
+		mainEnviro.events.peakFront().setResolved(true);
+		
+		mainEnviro.resolve();
+	
 	
 	}
 	static void updateTime(Menu mainFrame, int seconds){
@@ -42,6 +48,8 @@ public class Game {
 		}
 		else {
 			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":" + seconds%60);
+		
+		
 		}
 		mainFrame.getMenu().repaint();
 		mainFrame.getMenu().revalidate();
