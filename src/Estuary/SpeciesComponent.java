@@ -32,22 +32,20 @@ public class SpeciesComponent extends JComponent {
 	
 	public SpeciesComponent(eQuad thisQuad, eChar character, int x, int y) {
 		String filename;
-		
-		System.out.println(character);
-		switch(character){
-		case HCRAB:
-			filename = "imgs/squirt.png";
-			break;
-		case PHRAG:
-			filename = "imgs/bulb.png";
-			break;
-		case POLLUTER:
-			filename = "imgs/char.png";
-			break;
-		default:
-			filename = "imgs/pokeball.png";
-		}
-		
+			switch(character){
+			case HCRAB:
+				filename = "imgs/squirt.png";
+				break;
+			case PHRAG:
+				filename = "imgs/bulb.png";
+				break;
+			case POLLUTER:
+				filename = "imgs/char.png";
+				break;
+			default:
+				filename = "imgs/pokeball.png";
+			}
+			
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(filename);
 		JLabel label = new JLabel(image);
