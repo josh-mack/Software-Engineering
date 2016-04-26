@@ -11,7 +11,7 @@ import javax.swing.Timer;
 public class Game {
 	static int seconds;
 	int money;
-	public static eChar[][] board =  new eChar[76][48];
+	public static eChar[][] board =  new eChar[48][76];
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -61,9 +61,9 @@ public class Game {
 		}
 	}
 	
-	static void initBoard(){
-		for(int i = 0; i < 76; i++){
-			for(int j = 0; j < 48; j++){
+	public static void initBoard(){
+		for(int i = 0; i < 48; i++){
+			for(int j = 0; j < 76; j++){
 				board[i][j] = eChar.BLANK;
 			}
 		}

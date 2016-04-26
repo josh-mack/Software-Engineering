@@ -30,8 +30,7 @@ public class DragComponent extends JComponent {
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
-		add(label);
-		
+		add(label);		
 		
 		setLocation(x,y);
 		//setOpaque(false);
@@ -67,11 +66,15 @@ public class DragComponent extends JComponent {
 			@Override
 			public void mouseReleased(MouseEvent e) 
 			{
-				placeInArray(getX(), getY());
-				character.setXLoc(getX());
-				character.setYLoc(getY());
-				repaint();
-				revalidate();
+				if(placeInArray(getX(), getY())) {
+					character.setXLoc(getX());
+					character.setYLoc(getY());
+					repaint();
+					revalidate();
+				}
+				else {
+					getRootPane().remove(getComponentAt(e.getPoint()));
+				}
 			}
 	
 	
@@ -106,19 +109,23 @@ public class DragComponent extends JComponent {
 		case NW:
 			try
 			{
-				if (Game.board[x][y] != eChar.BLANK) {
+				if (Game.board[y][x] != eChar.BLANK) {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
-							if (Game.board[x+i][y+j] == eChar.BLANK) {
-								Game.board[x+i][y+j] = this.character;
-								return Collision(x+i,y+j);
+							if (Game.board[y+i][x+j] == eChar.BLANK) {
+								Game.board[y+i][x+j] = this.character;
+								//return Collision(x+i,y+j); // can be changed to return true
+								return true;
 							}
 						}
 					}
 					return false;
 				}
-				Game.board[x][y] = this.character;
-				return (Collision(x,y));
+				if (Collision(x,y)) {
+					Game.board[y][x] = this.character;
+					return true;
+				}
+				return false;
 			} catch(IndexOutOfBoundsException e)
 			{
 				e.printStackTrace();
@@ -127,19 +134,22 @@ public class DragComponent extends JComponent {
 		case NE:
 			try
 			{
-				if (Game.board[x+38][y] != eChar.BLANK) {
+				if (Game.board[y][x+38] != eChar.BLANK) {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
-							if (Game.board[x+i+38][y+j] == eChar.BLANK) {
-								Game.board[x+i+38][y+j] = this.character;
-								return Collision(x+i+38,y+j);
+							if (Game.board[y+i][x+j+38] == eChar.BLANK) {
+								Game.board[y+i][x+j+38] = this.character;
+								return Collision(x+i+38,y+j); // can be changed to return true
 							}
 						}
 					}
 					return false;
 				}
-				Game.board[x+38][y] = this.character;
-				return (Collision(x+38,y));
+				if (Collision(x+38,y)) {
+					Game.board[y][x+38] = this.character;
+					return true;
+				}
+				return false;
 			} catch(IndexOutOfBoundsException e)
 			{
 				e.printStackTrace();
@@ -147,19 +157,22 @@ public class DragComponent extends JComponent {
 		case SW:
 			try
 			{
-				if (Game.board[x][y+24] != eChar.BLANK) {
+				if (Game.board[y+24][x] != eChar.BLANK) {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
-							if (Game.board[x+i][y+j+24] == eChar.BLANK) {
-								Game.board[x+i][y+j+24] = this.character;
-								return Collision(x+i,y+j+24);
+							if (Game.board[y+i+24][x+j] == eChar.BLANK) {
+								Game.board[y+i+24][x+j] = this.character;
+								return Collision(x+i,y+j+24); // can be changed to return true
 							}
 						}
 					}
 					return false;
 				}
-				Game.board[x][y+24] = this.character;
-				return (Collision(x,y+24));
+				if (Collision(x,y+24)) {
+					Game.board[y+24][x] = this.character;
+					return true;
+				}
+				return false;
 			} catch(IndexOutOfBoundsException e)
 			{
 				e.printStackTrace();
@@ -168,19 +181,22 @@ public class DragComponent extends JComponent {
 		case SE:
 			try
 			{
-				if (Game.board[x+38][y+24] != eChar.BLANK) {
+				if (Game.board[y+24][x+38] != eChar.BLANK) {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
-							if (Game.board[x+i+38][y+j+24] == eChar.BLANK) {
-								Game.board[x+i+38][y+j+24] = this.character;
-								return Collision(x+i+38,y+j+24);
+							if (Game.board[y+i+24][x+j+38] == eChar.BLANK) {
+								Game.board[y+i+24][x+j+38] = this.character;
+								return Collision(x+i+38,y+j+24); // can be changed to return true
 							}
 						}
 					}
 					return false;
 				}
-				Game.board[x+38][y+24] = this.character;
-				return (Collision(x+38,y+24));
+				if (Collision(x+38,y+24)) {
+					Game.board[y+24][x+38] = this.character;
+					return true;
+				}
+				return false;
 			} catch(IndexOutOfBoundsException e)
 			{
 				e.printStackTrace();
@@ -194,11 +210,11 @@ public class DragComponent extends JComponent {
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
 				try {
-					if ((Game.board[x+i][y+j] != eChar.BLANK) && ((j!=0) && (i!=0))) {
+					if ((Game.board[y+i][x+j] != eChar.BLANK) && ((j!=0) && (i!=0))) {
 						return true;
 					}
 				} catch (Exception e) {
-					
+					e.printStackTrace();		
 				}
 				
 			}
