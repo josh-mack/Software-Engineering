@@ -40,9 +40,8 @@ import javax.swing.Timer;
 
 
 public class Menu{
-	public JLayeredPane mainWindow;
+	private JLayeredPane oldPane;
 	public JPanel background;
-	public JLayeredPane imLayer;
 	public JFrame main;
 	public JPanel panel;
 	JFrame charSel;
@@ -62,7 +61,6 @@ public class Menu{
 	
 	eQuad currentQuad = eQuad.MAIN;
 	
-	
 	int sel;
 	JPanel hilightQ1;
 	JPanel hilightQ2;
@@ -77,11 +75,6 @@ public class Menu{
 		sel = 0;
 		main = new JFrame();
 
-		mainWindow = new JLayeredPane();
-		mainWindow.setLayout(new GridLayout());
-
-		imLayer = new JLayeredPane();
-		
 		background = new JPanel();
 		background.setLayout(new GridBagLayout());
 		main.setUndecorated(true);
@@ -281,7 +274,17 @@ public class Menu{
 		mainMap = new JButton("Main Map");
 		mainMap.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				loadQuad(eQuad.MAIN);
+				loadQuad(eQuad.MAIN);				
+				Component[] junkLayer = main.getLayeredPane().getComponentsInLayer(0);
+				for(Component del: junkLayer){
+					main.getLayeredPane().remove(del);
+					main.revalidate();
+					main.repaint();
+
+
+				}
+				
+				
 			}
 		});
 		
@@ -336,28 +339,14 @@ public class Menu{
 		c.weightx = 0;
 		background.add(topBarLeft, c);
 		
-		
-		LayoutManager overlay = new OverlayLayout(panel);
-		panel.setLayout(overlay);
-
-		
-		background.setOpaque(false);
-		background.setBackground(alphaLayer);
-		backgroundPanel.setBackground(alphaLayer);
-		
-
-		panel.add(background);
-		panel.revalidate();
-		
-		panel.add(backgroundPanel);
-		
-		
+		makeLayeredPane();
+	
 		main.add(panel);
 		main.setSize(mainSize);
 		main.setVisible(true);
 		
 	
-
+		oldPane = main.getLayeredPane();
 	}
 
 	
@@ -489,6 +478,28 @@ public class Menu{
 		main.getLayeredPane().add(charPlace);
 		return charPlace;
 	}
+	public void makeLayeredPane(){
+		LayoutManager overlay = new OverlayLayout(panel);
+		panel.setLayout(overlay);
+
+		
+		background.setOpaque(false);
+		background.setBackground(alphaLayer);
+		backgroundPanel.setBackground(alphaLayer);
+		
+
+		panel.add(background);
+		panel.revalidate();
+		
+		panel.add(backgroundPanel);
+		
+		
+		main.add(panel);
+		main.setSize(mainSize);
+		main.setVisible(true);
+				
+	}
+	
 	public JLabel getTimeLabel() {
 		// TODO Auto-generated method stub
 		return this.timeLabel;
@@ -507,6 +518,10 @@ public class Menu{
 	}
 	public eQuad getQuadrant(){
 		return currentQuad;
+	}
+	public JPanel getPanel() {
+		// TODO Auto-generated method stub
+		return panel;
 	}
 	
 }
