@@ -103,7 +103,7 @@ public class DragComponent extends JComponent {
 		
 		switch(whatQuad)
 		{
-		case NW:
+		case N:
 			if (Game.board[x][y] != eChar.BLANK) {
 				for (int i = -1; i < 2; i++) {
 					for (int j = -1; j < 2; j++) {
@@ -117,7 +117,7 @@ public class DragComponent extends JComponent {
 			}
 			Game.board[x][y] = this.character;
 			return (Collision(x,y));
-		case NE:
+		case E:
 			if (Game.board[x+38][y] != eChar.BLANK) {
 				for (int i = -1; i < 2; i++) {
 					for (int j = -1; j < 2; j++) {
@@ -131,7 +131,7 @@ public class DragComponent extends JComponent {
 			}
 			Game.board[x+38][y] = this.character;
 			return (Collision(x+38,y));
-		case SW:
+		case W:
 			if (Game.board[x][y+24] != eChar.BLANK) {
 				for (int i = -1; i < 2; i++) {
 					for (int j = -1; j < 2; j++) {
@@ -145,7 +145,7 @@ public class DragComponent extends JComponent {
 			}
 			Game.board[x][y+24] = this.character;
 			return (Collision(x,y+24));
-		case SE:
+		case S:
 			if (Game.board[x+38][y+24] != eChar.BLANK) {
 				for (int i = -1; i < 2; i++) {
 					for (int j = -1; j < 2; j++) {
