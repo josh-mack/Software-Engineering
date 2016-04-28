@@ -66,13 +66,17 @@ public class DragComponent extends JComponent {
 			@Override
 			public void mouseReleased(MouseEvent e) 
 			{
+				int oldx = XCoord;
+				int oldy = YCoord;
 				placeInArray(getX(), getY());
-					character.setXLoc(getX());
-					character.setYLoc(getY());
+				//Game.board[oldy][oldx] = eChar.BLANK;
+					
 					System.out.println(getX());
 					System.out.println(getY());
 					repaint();
 				revalidate();
+				System.out.println(getX());
+				System.out.println(getY());
 				
 				}
 				//else {
@@ -104,8 +108,8 @@ public class DragComponent extends JComponent {
 	public boolean placeInArray(int XCoord, int YCoord)
 	{
 
-		int x = (XCoord/(width/76))%38;
-		int y = (YCoord/(height/48))%24;
+		int x = XCoord/(width/38);
+		int y = YCoord/(height/24);
 		//eChar[][] board = envio.getBoard();
 		
 		switch(whatQuad)
@@ -116,7 +120,7 @@ public class DragComponent extends JComponent {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i][x+j] == eChar.BLANK) {
 								Game.board[y+i][x+j] = this.character;
-								return Collision(y+i,x+j); // can be changed to return true
+								return Collision(x+j,y+i); // can be changed to return true
 							}
 						}
 					}
@@ -127,12 +131,14 @@ public class DragComponent extends JComponent {
 					//return true;
 			//	}
 				else if(Game.board[y][x] == eChar.BLANK){
+				
 					Game.board[y][x] = this.character;
 					//character.setXLoc(38%getY());
 					//character.setYLoc(24%getX());
 					//this.revalidate();
 			    	//this.setLocation(x, y);
 					Collision(x, y); 
+					
 					
 			
 				}
