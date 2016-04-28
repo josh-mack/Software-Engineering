@@ -54,6 +54,7 @@ public class Game {
 					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
 					for(int i = 0; i < 48; i++){
 						for(int j = 0; j < 76; j++){
+							if(Game.board[i][j] != eChar.BLANK)
 							//System.out.println(Game.board[i][j]);;
 						}
 					}
@@ -133,9 +134,34 @@ public class Game {
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK){
-					test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
+					
+					DragComponent charPlace = null;
+					switch(board[i][j]){
 					System.out.println("Species: " + board[i][j] + "\n X-location: " + i + "\n Y-location: " + j);
-					pane.add(test, 0);
+					case STEWARD:
+						charPlace = new DragComponent("imgs/pika.png",quad, Game.board[i][j],j%38*width, i%24*height);
+						
+						pane.add(charPlace, 0);
+						break;
+					case RESEARCHER:
+						charPlace = new DragComponent("imgs/oak.png",quad, Game.board[i][j], j%38*width, i%24*height);
+						
+						pane.add(charPlace, 0);
+						break;
+					case VOLUNTEER:
+						charPlace = new DragComponent("imgs/red.png",quad, Game.board[i][j],j%38*width, i%24*height);
+					
+						pane.add(charPlace, 0);
+						break;
+					
+					default:
+						test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
+						pane.add(test, 0);
+						break;
+					}
+					
+					
+				
 				}
 				
 			}
