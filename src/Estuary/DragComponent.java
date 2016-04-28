@@ -12,6 +12,7 @@ public class DragComponent extends JComponent {
 	private volatile int XCoord;
 	private volatile int YCoord;
 	private MouseListener pressListener;
+	public static int oldi = 0, oldj = 0;
 	
 	private eChar character;
 	
@@ -66,8 +67,6 @@ public class DragComponent extends JComponent {
 			@Override
 			public void mouseReleased(MouseEvent e) 
 			{
-				int oldx = XCoord;
-				int oldy = YCoord;
 				placeInArray(getX(), getY());
 				//Game.board[oldy][oldx] = eChar.BLANK;
 					
@@ -110,7 +109,6 @@ public class DragComponent extends JComponent {
 
 		int x = XCoord/(width/38);
 		int y = YCoord/(height/24);
-		//eChar[][] board = envio.getBoard();
 		
 		switch(whatQuad)
 		{
@@ -119,28 +117,22 @@ public class DragComponent extends JComponent {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i][x+j] == eChar.BLANK) {
+								Game.board[oldi][oldj] = eChar.BLANK;
 								Game.board[y+i][x+j] = this.character;
+								oldi = y+i;
+								oldj = x+j;
 								return Collision(x+j,y+i); // can be changed to return true
 							}
 						}
 					}
 					return false;
 				}
-			//	if (Collision(x,y)) {
-				//	Game.board[y][x] = this.character;
-					//return true;
-			//	}
 				else if(Game.board[y][x] == eChar.BLANK){
-				
+					Game.board[oldi][oldj] = eChar.BLANK;
 					Game.board[y][x] = this.character;
-					//character.setXLoc(38%getY());
-					//character.setYLoc(24%getX());
-					//this.revalidate();
-			    	//this.setLocation(x, y);
+					oldi = y;
+					oldj = x;
 					Collision(x, y); 
-					
-					
-			
 				}
 				
 				return false;
@@ -150,43 +142,47 @@ public class DragComponent extends JComponent {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i][x+j+38] == eChar.BLANK) {
+								Game.board[oldi][oldj] = eChar.BLANK;
 								Game.board[y+i][x+j+38] = this.character;
+								oldi = y+i;
+								oldj = x+j+38;
 								return Collision(x+j+38,y+i); // can be changed to return true
 							}
+						}
 					}
 					return false;
-					}
-				if (Collision(x+38,y)) {
+				}
+				else {
+					Game.board[oldi][oldj] = eChar.BLANK;
 					Game.board[y][x+38] = this.character;
-					return true;
+					oldi = y;
+					oldj = x;
+					Collision(x, y); 
 				}
 				return false;
-			}
 		case W:
-			try
-			{
 				if (Game.board[y+24][x] != eChar.BLANK) {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i+24][x+j] == eChar.BLANK) {
+								Game.board[oldi][oldj] = eChar.BLANK;
 								Game.board[y+i+24][x+j] = this.character;
+								oldi = y+i+24;
+								oldj = x+j;
 								return Collision(x+j,y+i+24); // can be changed to return true
 							}
 						}
 					}
 					return false;
 				}
-				if (Collision(x,y+24)) {
+				else {
+					Game.board[oldi][oldj] = eChar.BLANK;
 					Game.board[y+24][x] = this.character;
-					return true;
+					oldi = y;
+					oldj = x;
+					Collision(x, y); 
 				}
 				return false;
-			} catch(IndexOutOfBoundsException e)
-			{
-				e.printStackTrace();
-			}
-			break;
-			
 		case S:
 			
 				if (Game.board[y+24][x+38] != eChar.BLANK) {
@@ -194,26 +190,24 @@ public class DragComponent extends JComponent {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i+24][x+j+38] == eChar.BLANK) {
 								Game.board[y+i+24][x+j+38] = this.character;
+								oldi = y+i+24;
+								oldj = x+j+38;
 								return Collision(x+j+38,y+i+24); // can be changed to return true
 							}
 						}
 					}
 					return false;
 				}
-				else if (Collision(x+38,y+24)) {
+				else {
+					Game.board[oldi][oldj] = eChar.BLANK;
 					Game.board[y+24][x+38] = this.character;
-					return true;
+					oldi = y;
+					oldj = x;
+					Collision(x, y); 
 				}
 				return false;
-			}
-		for(int i = 0; i < 48; i++){
-			for(int j = 0; j < 76; j++){
-				System.out.println(Game.board[i][j]);
-			}
 		}
-		
-		return (Collision(x,y));
-		
+		return false;
 	}
 	
 	public boolean Collision(int x, int y) {
