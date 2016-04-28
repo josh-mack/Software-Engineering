@@ -54,7 +54,7 @@ public class Game {
 					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
 					for(int i = 0; i < 48; i++){
 						for(int j = 0; j < 76; j++){
-							System.out.println(Game.board[i][j]);;
+							//System.out.println(Game.board[i][j]);;
 						}
 					}
 				}
@@ -130,18 +130,17 @@ public class Game {
 		}
 		SpeciesComponent test = null;
 		
-
-
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK){
 					test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
-	
+					System.out.println("Species: " + board[i][j] + "\n X-location: " + i + "\n Y-location: " + j);
 					pane.add(test, 0);
 				}
 				
 			}
 		}
+		System.out.println("\n------------------------Pane Drawn------------------------");
 	}
 	
 
