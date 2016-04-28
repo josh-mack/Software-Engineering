@@ -69,7 +69,8 @@ public class Environment implements Serializable{
 	}
 	
 	public Event makeEvent(eQuad quad){
-		Invasive invasiveAdded = null;
+		Invasive invasiveAdded =new Phragmites(3, 10, 10, 5, 10);
+		
 		Random rand = new Random();
 		int rowEnd;
 		int colEnd;
@@ -137,13 +138,13 @@ public class Environment implements Serializable{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				Game.board[events.peakFront().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
+				Game.board[events.peakFront().getYCoord()][events.peakFront().getXCoord()] = eChar.BLANK; 
 				events.removeFront();
 				money += 100;
 				calcHealth();
 				}
 		};
-		new Timer(10000, timerAction).start();
+		new Timer(1000, timerAction).start();
 			
 		
 	

@@ -48,9 +48,15 @@ public class Game {
 				
 				if(test.getQuadrant()!=eQuad.MAIN){
 					Event retVal = mainEnviro.makeEvent(test.getQuadrant());
-					board[retVal.getY()][retVal.getX()] = retVal.getType();
-
+					Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
+					
+					
 					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
+					for(int i = 0; i < 48; i++){
+						for(int j = 0; j < 76; j++){
+							System.out.println(Game.board[i][j]);;
+						}
+					}
 				}
 		}};
 		new Timer(1000, timerAction).start();
@@ -62,9 +68,8 @@ public class Game {
 			public void actionPerformed(ActionEvent e) {
 				Game.money = mainEnviro.getMoney();
 		}};		
-		new Timer(30000, timerCheck);
+		new Timer(3000, timerCheck);
 	
-		
 	
 	}
 	static void updateTime(Menu mainFrame, int seconds){
