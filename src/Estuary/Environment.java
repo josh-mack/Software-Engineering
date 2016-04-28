@@ -72,34 +72,39 @@ public class Environment implements Serializable{
 		Invasive invasiveAdded =new Phragmites(3, 10, 10, 5, 10);
 		
 		Random rand = new Random();
-		int rowEnd;
-		int colEnd;
+		int rowEnd,colEnd;
+		int x =0,y =0;
 		switch(quad){
 		case N:
 			rowEnd = 24;
 			colEnd = 38;
+			x = (rand.nextInt(colEnd)%38);
+			y = (rand.nextInt(rowEnd)%24);
 			break;
 		case E:
 			rowEnd = 24;
 			colEnd = 76;
+			x = (rand.nextInt(colEnd)%38)+38;
+			y = (rand.nextInt(rowEnd)%24);
+			
 			break;
 		case S:
 			rowEnd = 48;
 			colEnd = 76;
+			x = (rand.nextInt(colEnd)%38)+38;
+			y = (rand.nextInt(rowEnd)%24)+24;
 			break;
 		case W:
 			rowEnd = 48;
 			colEnd = 38;
+			x = (rand.nextInt(colEnd)%38);
+			y = (rand.nextInt(rowEnd)%24)+24;
 			break;
 			
 		default:
 			rowEnd = 0;
 			colEnd = 0;
 		}
-	
-		int x = rand.nextInt(colEnd);
-		int y = rand.nextInt(rowEnd);
-		
 		
 		switch(quad){
 		case N:
