@@ -69,8 +69,11 @@ public class DragComponent extends JComponent {
 				placeInArray(getX(), getY());
 					character.setXLoc(getX());
 					character.setYLoc(getY());
+					System.out.println(getX());
+					System.out.println(getY());
 					repaint();
-					revalidate();
+				revalidate();
+				
 				}
 				//else {
 					//getRootPane().remove(getComponentAt(e.getPoint()));
@@ -125,7 +128,13 @@ public class DragComponent extends JComponent {
 			//	}
 				else if(Game.board[y][x] == eChar.BLANK){
 					Game.board[y][x] = this.character;
-					Collision(y, x); 
+					//character.setXLoc(38%getY());
+					//character.setYLoc(24%getX());
+					//this.revalidate();
+			    	//this.setLocation(x, y);
+					Collision(x, y); 
+					
+			
 				}
 				
 				return false;
@@ -136,7 +145,7 @@ public class DragComponent extends JComponent {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i][x+j+38] == eChar.BLANK) {
 								Game.board[y+i][x+j+38] = this.character;
-								return Collision(x+i+38,y+j); // can be changed to return true
+								return Collision(x+j+38,y+i); // can be changed to return true
 							}
 					}
 					return false;
@@ -155,7 +164,7 @@ public class DragComponent extends JComponent {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i+24][x+j] == eChar.BLANK) {
 								Game.board[y+i+24][x+j] = this.character;
-								return Collision(x+i,y+j+24); // can be changed to return true
+								return Collision(x+j,y+i+24); // can be changed to return true
 							}
 						}
 					}
@@ -179,7 +188,7 @@ public class DragComponent extends JComponent {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i+24][x+j+38] == eChar.BLANK) {
 								Game.board[y+i+24][x+j+38] = this.character;
-								return Collision(x+i+38,y+j+24); // can be changed to return true
+								return Collision(x+j+38,y+i+24); // can be changed to return true
 							}
 						}
 					}
