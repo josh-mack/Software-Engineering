@@ -49,6 +49,7 @@ public class Game {
 				if(test.getQuadrant()!=eQuad.MAIN){
 					Event retVal = mainEnviro.makeEvent(test.getQuadrant());
 					Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
+					System.out.println(Game.board[retVal.getY()][retVal.getX()]);
 					
 					
 					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
