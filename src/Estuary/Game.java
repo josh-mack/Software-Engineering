@@ -55,7 +55,7 @@ public class Game {
 					for(int i = 0; i < 48; i++){
 						for(int j = 0; j < 76; j++){
 							if(Game.board[i][j] != eChar.BLANK)
-							//System.out.println(Game.board[i][j]);;
+							System.out.println(Game.board[i][j]);;
 						}
 					}
 				}
@@ -134,10 +134,9 @@ public class Game {
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK){
-					
+					System.out.println("Species: " + board[i][j] + "\n X-location: " + i + "\n Y-location: " + j);
 					DragComponent charPlace = null;
 					switch(board[i][j]){
-					System.out.println("Species: " + board[i][j] + "\n X-location: " + i + "\n Y-location: " + j);
 					case STEWARD:
 						charPlace = new DragComponent("imgs/pika.png",quad, Game.board[i][j],j%38*width, i%24*height);
 						
@@ -159,11 +158,7 @@ public class Game {
 						pane.add(test, 0);
 						break;
 					}
-					
-					
-				
 				}
-				
 			}
 		}
 		System.out.println("\n------------------------Pane Drawn------------------------");
