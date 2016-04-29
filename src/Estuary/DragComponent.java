@@ -12,7 +12,7 @@ public class DragComponent extends JComponent {
 	private volatile int XCoord;
 	private volatile int YCoord;
 	private MouseListener pressListener;
-	public static int oldi = 0, oldj = 0;
+	public int oldi = 0, oldj = 0;
 	
 	private eChar character;
 	
@@ -23,9 +23,9 @@ public class DragComponent extends JComponent {
 	private eQuad whatQuad;
 	private eChar[][] board;
 	
-	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y) {
-		oldi = 0;
-		oldj = 0;
+	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y, int i, int j) {
+		oldi=i;
+		oldj=j;
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(imageName);
 		JLabel label = new JLabel(image);
@@ -71,8 +71,8 @@ public class DragComponent extends JComponent {
 			{
 				placeInArray(getX(), getY());
 				Game.test.nukePane(whatQuad);
-				getRootPane().repaint();
-				getRootPane().revalidate();
+				repaint();
+				revalidate();
 				}
 		};
 		addMouseListener(pressListener);

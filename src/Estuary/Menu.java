@@ -438,13 +438,13 @@ public class Menu{
 		DragComponent charPlace = null;
 		switch(eChar){
 		case STEWARD:
-			charPlace = new DragComponent("imgs/pika.png",currentQuad, eChar, x, y);
+			charPlace = new DragComponent("imgs/pika.png",currentQuad, eChar, x, y,0,0);
 			break;
 		case RESEARCHER:
-			charPlace = new DragComponent("imgs/oak.png",currentQuad, eChar, x, y);
+			charPlace = new DragComponent("imgs/oak.png",currentQuad, eChar, x, y,0,0);
 			break;
 		case VOLUNTEER:
-			charPlace = new DragComponent("imgs/red.png",currentQuad, eChar, x, y);
+			charPlace = new DragComponent("imgs/red.png",currentQuad, eChar, x, y,0,0);
 			break;
 		default:
 			break;
@@ -481,8 +481,8 @@ public class Menu{
 		Component[] junkLayer = main.getLayeredPane().getComponentsInLayer(0);
 		for(Component del: junkLayer){
 			main.getLayeredPane().remove(del);
-			main.revalidate();
-			main.repaint();
+			//main.revalidate();
+			//main.repaint();
 		Game.drawOnScreen(main.getLayeredPane(), quad);
 		}
 	}
