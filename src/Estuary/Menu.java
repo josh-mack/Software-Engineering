@@ -279,11 +279,7 @@ public class Menu{
 					main.getLayeredPane().remove(del);
 					main.revalidate();
 					main.repaint();
-
-
 				}
-				
-				
 			}
 		});
 		
@@ -320,14 +316,6 @@ public class Menu{
 
 		topBarLeft.setOpaque(false);
 		/////////////////////////////////////////////
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 
@@ -487,6 +475,17 @@ public class Menu{
 				
 	}
 	
+	public void nukePane(eQuad quad)
+	{
+		loadQuad(quad);				
+		Component[] junkLayer = main.getLayeredPane().getComponentsInLayer(0);
+		for(Component del: junkLayer){
+			main.getLayeredPane().remove(del);
+			main.revalidate();
+			main.repaint();
+		Game.drawOnScreen(main.getLayeredPane(), quad);
+		}
+	}
 	public JLabel getTimeLabel() {
 		// TODO Auto-generated method stub
 		return this.timeLabel;

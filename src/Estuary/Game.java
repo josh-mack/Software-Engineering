@@ -20,6 +20,8 @@ public class Game {
 	static int seconds;
 	static int money;
 	
+	static Menu test;
+	
 	public static eChar[][] board =  new eChar[48][76];
 	public static void initBoard(){
 		for(int i = 0; i < 48; i++){
@@ -32,7 +34,7 @@ public class Game {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub		
 		initBoard();
-		Menu test = new Menu();
+		test = new Menu();
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {

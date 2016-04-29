@@ -70,22 +70,10 @@ public class DragComponent extends JComponent {
 			public void mouseReleased(MouseEvent e) 
 			{
 				placeInArray(getX(), getY());
-				//Game.board[oldy][oldx] = eChar.BLANK;
-					
-					System.out.println(getX());
-					System.out.println(getY());
-					repaint();
-				revalidate();
-				System.out.println(getX());
-				System.out.println(getY());
-				
+				Game.test.nukePane(whatQuad);
+				getRootPane().repaint();
+				getRootPane().revalidate();
 				}
-				//else {
-					//getRootPane().remove(getComponentAt(e.getPoint()));
-				//}
-		//	}
-	
-	
 		};
 		addMouseListener(pressListener);
 		
@@ -282,4 +270,3 @@ public class DragComponent extends JComponent {
 		return pressListener;
 	}
 }
-
