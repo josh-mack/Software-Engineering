@@ -24,6 +24,8 @@ public class DragComponent extends JComponent {
 	private eChar[][] board;
 	
 	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y) {
+		oldi = 0;
+		oldj = 0;
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(imageName);
 		JLabel label = new JLabel(image);
@@ -156,7 +158,7 @@ public class DragComponent extends JComponent {
 					Game.board[oldi][oldj] = eChar.BLANK;
 					Game.board[y][x+38] = this.character;
 					oldi = y;
-					oldj = x;
+					oldj = x + 38;
 					Collision(x, y); 
 				}
 				return false;
@@ -178,7 +180,7 @@ public class DragComponent extends JComponent {
 				else {
 					Game.board[oldi][oldj] = eChar.BLANK;
 					Game.board[y+24][x] = this.character;
-					oldi = y;
+					oldi = y + 24;
 					oldj = x;
 					Collision(x, y); 
 				}
@@ -201,8 +203,8 @@ public class DragComponent extends JComponent {
 				else {
 					Game.board[oldi][oldj] = eChar.BLANK;
 					Game.board[y+24][x+38] = this.character;
-					oldi = y;
-					oldj = x;
+					oldi = y + 24;
+					oldj = x + 38;
 					Collision(x, y); 
 				}
 				return false;
