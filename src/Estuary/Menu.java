@@ -449,23 +449,14 @@ public class Menu{
 		
 		DragComponent charPlace = null;
 		switch(eChar){
-		case BCRAB:
-			charPlace = new DragComponent("imgs/squirt.png",eQuad.N, eChar, x, y);
-			break;
 		case STEWARD:
-			charPlace = new DragComponent("imgs/pika.png",eQuad.N, eChar, x, y);
+			charPlace = new DragComponent("imgs/pika.png",currentQuad, eChar, x, y);
 			break;
 		case RESEARCHER:
-			charPlace = new DragComponent("imgs/oak.png",eQuad.N, eChar, x, y);
+			charPlace = new DragComponent("imgs/oak.png",currentQuad, eChar, x, y);
 			break;
 		case VOLUNTEER:
-			charPlace = new DragComponent("imgs/red.png",eQuad.N, eChar, x, y);
-			break;
-		case PHRAG:
-			charPlace = new DragComponent("imgs/bulb.png",eQuad.N, eChar, x, y);
-			break;
-		case MCRAB:
-			charPlace = new DragComponent("imgs/char.png",eQuad.N, eChar, x, y);
+			charPlace = new DragComponent("imgs/red.png",currentQuad, eChar, x, y);
 			break;
 		default:
 			break;
