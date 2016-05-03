@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -63,10 +64,38 @@ public class Game {
 					}
 				}
 		}};
+		
+		ActionListener powerUpSpawn = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(test.getQuadrant()!=eQuad.MAIN){
+					Event retVal = mainEnviro.makePowerUp(test.getQuadrant(), eChar.INSTAKILL);
+					Game.board[retVal.getY()][retVal.getX()] = eChar.INSTAKILL;
+					System.out.println(Game.board[retVal.getY()][retVal.getX()]);
+					
+					
+					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
+					for(int i = 0; i < 48; i++){
+						for(int j = 0; j < 76; j++){
+							if(Game.board[i][j] != eChar.BLANK)
+							System.out.println(Game.board[i][j]);;
+						}
+					}
+				}
+			}
+			
+		};
+		
+		
 		new Timer(1000, timerAction).start();
 		
 		//Create an Invasive species every 1 second
 		new Timer(10000, timerSpawn).start();
+		
+		new Timer(30000, powerUpSpawn).start();
+		
+		
 		ActionListener timerCheck = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Random;
 
 import javax.swing.Timer;
@@ -137,6 +138,47 @@ public class Environment implements Serializable{
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
+	public Event makePowerUp(eQuad quad, eChar powerType) {
+		//Invasive invasiveAdded = new Phragmites(3, 10, 10, 5, 10);
+		
+		Random rand = new Random();
+		int rowEnd,colEnd;
+		int x =0,y =0;
+		switch(quad){
+		case N:
+			rowEnd = 24;
+			colEnd = 38;
+			x = (rand.nextInt(colEnd)%38);
+			y = (rand.nextInt(rowEnd)%24);
+			break;
+		case E:
+			rowEnd = 24;
+			colEnd = 76;
+			x = (rand.nextInt(colEnd)%38)+38;
+			y = (rand.nextInt(rowEnd)%24);
+			
+			break;
+		case S:
+			rowEnd = 48;
+			colEnd = 76;
+			x = (rand.nextInt(colEnd)%38)+38;
+			y = (rand.nextInt(rowEnd)%24)+24;
+			break;
+		case W:
+			rowEnd = 48;
+			colEnd = 38;
+			x = (rand.nextInt(colEnd)%38);
+			y = (rand.nextInt(rowEnd)%24)+24;
+			break;
+			
+		default:
+			rowEnd = 0;
+			colEnd = 0;
+		}
+		
+		return new Event(x, y, powerType);
+	}
+	
 	public void resolve() {
 		System.out.println("Resolve Method Active");
 		ActionListener timerAction = new ActionListener(){
@@ -150,6 +192,43 @@ public class Environment implements Serializable{
 				}
 		};
 		new Timer(1000, timerAction).start();
+			
+		
+	
+	}
+	
+	public void resolve(eChar powerup) {
+		System.out.println("Resolve Method Active");
+		switch(powerup) {
+		case SLOWGROWTH:
+			Iterator<Invasive> it = events.iterator();
+			while(it.hasNext()) {
+				Invasive monster = it.next();
+				monster.setGrowthRate(monster.getGrowthRate()/2);
+			}
+			break;
+//		case FASTCHARACTER:
+//			break;
+		case INSTAKILL:
+			Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
+			events.removeback();
+			money+=100;
+			calcHealth();
+			break;
+		default:
+			ActionListener timerAction = new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					Game.board[events.peakFront().getYCoord()][events.peakFront().getXCoord()] = eChar.BLANK; 
+					events.removeFront();
+					money += 100;
+					calcHealth();
+					}
+			};
+			new Timer(1000, timerAction).start();
+
+		}
 			
 		
 	

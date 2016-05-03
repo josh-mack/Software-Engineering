@@ -12,7 +12,7 @@ public class DragComponent extends JComponent {
 	private volatile int XCoord;
 	private volatile int YCoord;
 	private MouseListener pressListener;
-	public int oldi = 0, oldj = 0;
+	public static int oldi = 0, oldj = 0;
 	
 	private eChar character;
 	
@@ -24,8 +24,8 @@ public class DragComponent extends JComponent {
 	private eChar[][] board;
 	
 	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y, int i, int j) {
-		oldi=i;
-		oldj=j;
+		oldi = i;
+		oldj = j;
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(imageName);
 		JLabel label = new JLabel(image);
@@ -71,8 +71,8 @@ public class DragComponent extends JComponent {
 			{
 				placeInArray(getX(), getY());
 				Game.test.nukePane(whatQuad);
-				repaint();
-				revalidate();
+				getRootPane().repaint();
+				getRootPane().revalidate();
 				}
 		};
 		addMouseListener(pressListener);
@@ -208,57 +208,57 @@ public class DragComponent extends JComponent {
 	//	System.out.println("Collision");
 		if((Game.board[y+1][x+1] != eChar.BLANK)){
 			System.out.println("case 1");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y+1][x+1]);
 			return true;
 		}
 		if((Game.board[y+2][x+2] != eChar.BLANK)){
 			System.out.println("case 1");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y+2][x+2]);
 			return true;
 		}
 		if((Game.board[y+2][x+1] != eChar.BLANK)){
 			System.out.println("case 2");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y+2][x+1]);
 			return true;
 		}
 		if((Game.board[y+1][x+2] != eChar.BLANK)){
 			System.out.println("case 2");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y+1][x+2]);
 			return true;
 		}
 		if((Game.board[y+1][x+0] != eChar.BLANK)){
 			System.out.println("case 2");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y+1][x+0]);
 			return true;
 		}
 		if((Game.board[y+0][x+1] != eChar.BLANK)){
 			System.out.println("case 3");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y+0][x+1]);
 			return true;
 		}
 		if((Game.board[y-1][x] != eChar.BLANK)){
 			System.out.println("case 4");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y-1][x]);
 			return true;
 		}
 		if((Game.board[y][x-1] != eChar.BLANK)){
 			System.out.println("case 5");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y][x-1]);
 			return true;
 		}
 		if((Game.board[y+1][x-1] != eChar.BLANK)){
 			System.out.println("case 6");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y+1][x-1]);
 			return true;
 		}
 		if((Game.board[y-1][x+1] != eChar.BLANK)){
 			System.out.println("case 7");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y-1][x+1]);
 			return true;
 		}
 		if((Game.board[y-1][x-1] != eChar.BLANK)){
 			System.out.println("case 8");
-			Game.mainEnviro.resolve();
+			Game.mainEnviro.resolve(Game.board[y-1][x-1]);
 			return true;
 		}
 		
