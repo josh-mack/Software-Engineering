@@ -82,6 +82,14 @@ public class DragComponent extends JComponent {
 				
 			}
 
+
+			@Override
+			public void mouseReleased(MouseEvent e) 
+			{
+				placeInArray(getX(), getY());
+				getRootPane().repaint();
+				getRootPane().revalidate();
+				}
 		};
 		addMouseListener(pressListener);
 		
