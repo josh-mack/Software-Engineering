@@ -14,6 +14,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * @author super
+ * @version 1.0
+ * @since
+ * 
+ * DNERR - handles the Delaware Nation Estuarine Research Reserve (DNERR) object.
+ */
+
 public class DNERR extends JComponent implements Serializable
 {
 
@@ -21,6 +29,13 @@ public class DNERR extends JComponent implements Serializable
 	
 	short level = 1;
 	ImageIcon building;
+	
+	/**
+	 * Constructor for DNERR. Sets the position of the object to
+	 * [10][3] in the game board. This object acts as a game modifier,
+	 * in benefit for the player to accomplish the game's goal.
+	 * @param thisQuad - 
+	 */
 	
 	public DNERR(eQuad thisQuad)
 	{
@@ -42,7 +57,12 @@ public class DNERR extends JComponent implements Serializable
 		});
 	}
 		
-
+	
+	/**
+	 * When the player has enough money, the DNERR object
+	 * can be "upgraded" accordingly. This changes the image.
+	 */
+	
 	void upgrade()
 	{
 		switch(level)

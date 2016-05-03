@@ -9,7 +9,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
-
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Handles all the player's input and updates its impact on the game itself.
+ */
 public class Game {
 	public static Environment mainEnviro = new Environment();
 
@@ -22,7 +27,7 @@ public class Game {
 	
 	static Menu test;
 	
-	public static eChar[][] board =  new eChar[48][76];
+	public static eChar[][] board =  new eChar[48][76]; //Setting overlying array to BLANK.
 	public static void initBoard(){
 		for(int i = 0; i < 48; i++){
 			for(int j = 0; j < 76; j++){
@@ -31,6 +36,12 @@ public class Game {
 		}
 		
 	}
+	
+	/**
+	 * Main method that starts the game's timer and initial starting money,
+	 * and calls the makeEvent() method to initiate the game's primary problem mechanic.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub		
 		initBoard();
@@ -76,6 +87,12 @@ public class Game {
 	
 	
 	}
+	
+	/**
+	 * Method to update the in-game timer every one(1) real-time second.
+	 * @param mainFrame
+	 * @param seconds
+	 */
 	static void updateTime(Menu mainFrame, int seconds){
 	
 		if (seconds%60 < 10) {
@@ -90,10 +107,21 @@ public class Game {
 		mainFrame.getMenu().revalidate();
 	}
 	
+	/**
+	 * Method to update the player's available spending money onto the game screen.
+	 * @param mainFrame
+	 * @param money
+	 */
 	static void updateMoney(Menu mainFrame, int money) {
 		mainFrame.getScoreLabel().setText("MONEY: $" + money);
 	}
-	
+	/**
+	 * Method used to place each species (when needed) onto the game's screen.
+	 * This is based on the quadrant the player is currently zoomed into.
+	 * Prints the eChar and location of the eChar placed in the console.
+	 * @param pane
+	 * @param quad
+	 */
 	static void drawOnScreen(JLayeredPane pane, eQuad quad){
 
 		int rowStart;

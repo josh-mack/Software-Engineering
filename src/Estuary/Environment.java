@@ -10,6 +10,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Random;
 
+
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Handles all the game's logic and calculations.
+ */
+
 import javax.swing.Timer;
 public class Environment implements Serializable{
 	private static final long serialVersionUID = 0;
@@ -22,22 +30,39 @@ public class Environment implements Serializable{
 	static public int money;
 	Queue events = new Queue();
 	
-	public Environment() {   //Default Game Initialization Constructor
+	/**
+	 * Default game initializatzion constructor.
+	 * Creates an empty board of animals and characters.
+	 * Sets the player's health to below the maximum.
+	 * Sets the player's starting money to 200.
+	 */
+	public Environment() {
 		this.animals = null;
 		this.characters = null;
 		this.health = 50;
 		this.money = 200;
 	}
 	
+	/**
+	 * Returns an array of animals on the board.
+	 * @return animals
+	 */
 	public Species[] getAnimals() {
 		return animals;
 	}
 	
+	/**
+	 * Returns an array of characters on the board.
+	 * @return
+	 */
 	public Character[] getCharacters() {
 		return characters;
 	}
 	
-
+	/**
+	 * Other Getters and setters.
+	 * @return
+	 */
 	public int getHealth() {
 		return health;
 	}
@@ -68,6 +93,20 @@ public class Environment implements Serializable{
 		this.money = money;
 	}
 	
+	
+	/**
+	 * Method to create game events. This involves placing
+	 * an invasive species on the board depending on which
+	 * quadrant the player is zoomed into.
+	 * 
+	 * North quad - Phragmites
+	 * East quad - Bamboo
+	 * South quad - MittenCrab
+	 * West quad - Pollution
+	 * 
+	 * @param quad
+	 * @return new Event
+	 */
 	public Event makeEvent(eQuad quad){
 		Invasive invasiveAdded =new Phragmites(3, 10, 10, 5, 10);
 		
@@ -137,6 +176,12 @@ public class Environment implements Serializable{
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
+	
+	/**
+	 * This method is called when an event is completed, 
+	 * removing the event from the event queue and
+	 * giving money to the player as a reward.
+	 */
 	public void resolve() {
 		System.out.println("Resolve Method Active");
 		ActionListener timerAction = new ActionListener(){
@@ -159,6 +204,10 @@ public class Environment implements Serializable{
 		
 	}
 	
+	/**
+	 * Method to calculate the health change,
+	 * based off current health.
+	 */
 	public void calcHealth() {
 		/*double y = (this.health - 19/20)*(this.health - 20)/10;
 		double num  = ( 1 + Math.pow( Math.exp(1.0), y));

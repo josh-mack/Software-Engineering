@@ -5,12 +5,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Class to handle all image animations.
+ */
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Animation extends JPanel{
 	private static final long serialVersionUID = 1L;
-    
 	
 	final int frameCount = 10;
     int picNum = 0;

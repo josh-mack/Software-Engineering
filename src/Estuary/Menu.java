@@ -37,8 +37,13 @@ import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 import javax.swing.Timer;
 
-
-
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * In-game window where the player selects a character to drop into the game,
+ * so long as the player has characters to spend.
+ */
 public class Menu{
 	public JPanel background;
 	public JFrame main;
@@ -70,6 +75,10 @@ public class Menu{
 	private JLabel scoreLabel;
 	boolean inQuad = false;
 	
+	/**
+	 * Constructor for the Menu class.
+	 * Constructs the drop-down window pane.
+	 */
 	public Menu(){
 		sel = 0;
 		main = new JFrame();
@@ -85,6 +94,16 @@ public class Menu{
 		
 		loadMenu();
 	}	
+	
+	/**
+	 * Creates the overlying quadrant system over the map.
+	 * 
+	 * When you click on a character in the drop-down menu,
+	 * you create that draggable character on the board and
+	 * can release the mouse to place the character on the board.
+	 * 
+	 * Also creates the 'Main Menu' and 'Exit' buttons.
+	 */
 	private void loadMenu(){
 		panel = new JPanel(); //Main Layering Panel
 		GridBagConstraints c = new GridBagConstraints();
@@ -334,7 +353,12 @@ public class Menu{
 		
 		}
 
-	
+	/**
+	 * Method for the highlighting system where the player can
+	 * see where the clickable quadrants are. Just a switch.
+	 * @param sel
+	 * @param main
+	 */
 	public void hilight(int sel,Menu main){
 		switch(sel){
 		case 0:
@@ -372,6 +396,12 @@ public class Menu{
 			
 		}
 	}
+	
+	/**
+	 * Method to change the image of the map to the
+	 * quadrant the player is zoomed into.
+	 * @param quad
+	 */
 	private void loadQuad(eQuad quad) {
 		if(inQuad && (quad != eQuad.MAIN)){
 			//Don't listen in quadrants
@@ -430,6 +460,17 @@ public class Menu{
 
 		
 	}
+	
+	/**
+	 * Creates a new draggable character based on which character
+	 * was selected on the character selection menu, created a few
+	 * methods above. If the character is not zoomed into a quadrant,
+	 * a character cannot be created.
+	 * @param eChar
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public DragComponent createChar(eChar eChar, int x, int y){
 		if(!inQuad){
 			return null;
@@ -453,6 +494,10 @@ public class Menu{
 		main.getLayeredPane().add(charPlace);
 		return charPlace;
 	}
+	
+	/**
+	 * Creates the layered panel over the main panel.
+	 */
 	public void makeLayeredPane(){
 		LayoutManager overlay = new OverlayLayout(panel);
 		panel.setLayout(overlay);
@@ -475,6 +520,7 @@ public class Menu{
 				
 	}
 	
+
 	public void nukePane(eQuad quad)
 	{
 		loadQuad(quad);				
@@ -486,6 +532,11 @@ public class Menu{
 		Game.drawOnScreen(main.getLayeredPane(), quad);
 		}
 	}
+	
+	/**
+	 * Accessor methods for the panels and quadrants.
+	 * @return
+	 */
 	public JLabel getTimeLabel() {
 		// TODO Auto-generated method stub
 		return this.timeLabel;

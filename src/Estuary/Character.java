@@ -7,12 +7,24 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Abstract class handles all stewards, volunteers, and researches in the game.
+ */
+
 public abstract class Character implements Serializable{
 	private static final long serialVersionUID = 400;
 	
 	private int xCoord;
 	private int yCoord;
 	private int speed;
+	
+	/**
+	 * Getters and setters.
+	 * @return
+	 */
 	
 	public int getxCoord() {
 		return xCoord;

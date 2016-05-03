@@ -5,7 +5,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Handles all the objects that require dragging in the game.
+ */
 public class DragComponent extends JComponent {
 	private volatile int XOnScreen;
 	private volatile int YOnScreen;
@@ -22,6 +27,17 @@ public class DragComponent extends JComponent {
 	
 	private eQuad whatQuad;
 	private eChar[][] board;
+	
+	/**
+	 * Constructor for the DragComponent.
+	 * @param imageName
+	 * @param thisQuad
+	 * @param character
+	 * @param x
+	 * @param y
+	 * @param i
+	 * @param j
+	 */
 	
 	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y, int i, int j) {
 		oldi=i;
@@ -77,6 +93,10 @@ public class DragComponent extends JComponent {
 		};
 		addMouseListener(pressListener);
 		
+		/**
+		 * Adding the mouse event for dragging.
+		 */
+		
 	    addMouseMotionListener(new MouseMotionListener() {
 	    	
 	    	@Override
@@ -93,6 +113,13 @@ public class DragComponent extends JComponent {
 	    });
   
 	}
+	
+	/**
+	 * Method to place an image after being dragged, and check for collisions.
+	 * @param XCoord
+	 * @param YCoord
+	 * @return true/false
+	 */
 	
 	public boolean placeInArray(int XCoord, int YCoord)
 	{
@@ -199,6 +226,13 @@ public class DragComponent extends JComponent {
 		}
 		return false;
 	}
+	
+	/**
+	 * Method to check collisions within a certain distance from another object.
+	 * @param x
+	 * @param y
+	 * @return true - if there's a collision
+	 */
 	
 	public boolean Collision(int x, int y) {
 		//System.out.println("Collision active");
