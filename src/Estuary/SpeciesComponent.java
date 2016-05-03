@@ -43,6 +43,7 @@ public class SpeciesComponent extends JComponent {
 				filename = "imgs/char.png";
 				break;
 			default:
+				filename = "imgs/pokeball.png";
 			}
 			
 		setLayout(new BorderLayout());
