@@ -86,7 +86,6 @@ public class DragComponent extends JComponent {
 			public void mouseReleased(MouseEvent e) 
 			{
 				placeInArray(getX(), getY());
-				Game.test.nukePane(whatQuad);
 				getRootPane().repaint();
 				getRootPane().revalidate();
 				}

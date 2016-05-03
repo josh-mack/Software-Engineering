@@ -66,7 +66,7 @@ public class Game {
 					System.out.println(Game.board[retVal.getY()][retVal.getX()]);
 					
 					
-					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
+					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
 					for(int i = 0; i < 48; i++){
 						for(int j = 0; j < 76; j++){
 							if(Game.board[i][j] != eChar.BLANK)
@@ -86,7 +86,7 @@ public class Game {
 					System.out.println(Game.board[retVal.getY()][retVal.getX()]);
 					
 					
-					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
+					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
 					for(int i = 0; i < 48; i++){
 						for(int j = 0; j < 76; j++){
 							if(Game.board[i][j] != eChar.BLANK)
@@ -151,7 +151,7 @@ public class Game {
 	 * @param pane
 	 * @param quad
 	 */
-	static void drawOnScreen(JLayeredPane pane, eQuad quad){
+	static void drawOnScreen(JLayeredPane pane, eQuad quad, boolean drag){
 
 		int rowStart;
 		int colStart;
@@ -198,19 +198,22 @@ public class Game {
 					DragComponent charPlace = null;
 					switch(board[i][j]){
 					case STEWARD:
-						charPlace = new DragComponent("imgs/pika.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
-						
-						pane.add(charPlace, 0);
+						if(drag){
+							charPlace = new DragComponent("imgs/pika.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							pane.add(charPlace, 0);
+						}
 						break;
 					case RESEARCHER:
-						charPlace = new DragComponent("imgs/oak.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
-						
-						pane.add(charPlace, 0);
+						if(drag){
+							charPlace = new DragComponent("imgs/oak.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							pane.add(charPlace, 0);
+						}
 						break;
 					case VOLUNTEER:
-						charPlace = new DragComponent("imgs/red.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
-					
-						pane.add(charPlace, 0);
+						if(drag){
+							charPlace = new DragComponent("imgs/red.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							pane.add(charPlace, 0);
+						}
 						break;
 					
 					default:
