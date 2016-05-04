@@ -12,10 +12,10 @@ import javax.swing.border.*;
  * Handles all the objects that require dragging in the game.
  */
 public class DragComponent extends JComponent {
-	private volatile int XOnScreen;
-	private volatile int YOnScreen;
-	private volatile int XCoord;
-	private volatile int YCoord;
+	private int XOnScreen;
+	private int YOnScreen;
+	private int XCoord;
+	private int YCoord;
 	private MouseListener pressListener;
 	public static int oldi = 0, oldj = 0;
 	
@@ -300,7 +300,8 @@ public class DragComponent extends JComponent {
 			for (int j = -3; j < 4; j++) {
 				if ((j!=0) || (i!=0) || (i!=j)) {
 					if (Game.board[y+i][x+j] != eChar.BLANK) {
-						Game.mainEnviro.resolve(Game.board[y+i][x+j]);
+						Game.mainEnviro.resolve(Game.board[y+i][x+j], y+i, x+j);
+						//Game.deleteComponent(y+i, x+j);
 						return true;
 					}
 				}

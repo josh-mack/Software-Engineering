@@ -104,15 +104,15 @@ public class Game {
 		//Create an Invasive species every 1 second
 		new Timer(10000, timerSpawn).start();
 		
-		new Timer(30000, powerUpSpawn).start();
+		//new Timer(30000, powerUpSpawn).start();
 		
 		
-		ActionListener timerCheck = new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Game.money = mainEnviro.getMoney();
-		}};		
-		new Timer(3000, timerCheck);
+//		ActionListener timerCheck = new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				Game.money = mainEnviro.getMoney();
+//		}};		
+//		new Timer(3000, timerCheck);
 	
 	
 	}
@@ -227,7 +227,15 @@ public class Game {
 		System.out.println("\n------------------------Pane Drawn------------------------");
 	}
 	
-
+	public static void deleteComponent(int i, int j) {
+		if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2) instanceof SpeciesComponent){
+			System.out.println(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height  + 2));
+			test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2));
+			System.out.println(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2));
+			test.getMenu().getLayeredPane().repaint();
+			test.getMenu().getLayeredPane().revalidate();		
+		}
+	}
 	
 
 

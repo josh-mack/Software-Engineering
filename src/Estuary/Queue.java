@@ -78,6 +78,8 @@ public Iterator<Invasive> iterator() {
 			currentIndex++;
 			return que.get(currentIndex-1);
 		}
+		
+		
 	
 	};
 	return it;

@@ -31,6 +31,8 @@ public class Environment implements Serializable{
 	static public int money;
 	Queue events = new Queue();
 	
+	Timer temp;
+	
 	/**
 	 * Default game initializatzion constructor.
 	 * Creates an empty board of animals and characters.
@@ -224,26 +226,36 @@ public class Environment implements Serializable{
 		return new Event(x, y, powerType);
 	}
 	
-	public void resolve() {
-		System.out.println("Resolve Method Active");
+	public void resolve(int i, int j) {
+		System.out.println("Resolve 2 Method Active");
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				Game.board[events.peakFront().getYCoord()][events.peakFront().getXCoord()] = eChar.BLANK; 
-				events.removeFront();
+				System.out.println(i);
+				System.out.println(j);
+				Game.deleteComponent(i, j);
+				Game.board[i][j] = eChar.BLANK; 
 				money += 100;
 				calcHealth();
+//				Iterator<Invasive> it = events.iterator();
+//				while(it.hasNext()) {
+//					Invasive monster = it.next();
+//					if ((monster.getXCoord() == j) && (monster.getYCoord() == i)) {
+//						it.remove();
+//					}
+//				}
+				System.out.println("Resolve 2 done");
+				temp.stop();
 				}
 		};
-		new Timer(1000, timerAction).start();
+		temp = new Timer(3000, timerAction);
+		temp.start();
 			
-		
 	
 	}
 	
-	public void resolve(eChar powerup) {
-		System.out.println("Resolve Method Active");
+	public void resolve(eChar powerup, int i, int j) {
+		System.out.println("Resolve 1 Method Active");
 		switch(powerup) {
 		case SLOWGROWTH:
 			Iterator<Invasive> it = events.iterator();
@@ -255,28 +267,27 @@ public class Environment implements Serializable{
 //		case FASTCHARACTER:
 //			break;
 		case INSTAKILL:
+			Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
 			Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
 			events.removeback();
 			money+=100;
 			calcHealth();
 			break;
+		case RESEARCHER:
+			break;
+		case STEWARD:
+			break;
+		case VOLUNTEER:
+			break;
+		case DNREC:
+			break;
 		default:
-			ActionListener timerAction = new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					Game.board[events.peakFront().getYCoord()][events.peakFront().getXCoord()] = eChar.BLANK; 
-					events.removeFront();
-					money += 100;
-					calcHealth();
-					}
-			};
-			new Timer(1000, timerAction).start();
+			resolve(i, j);
 
 		}
 			
 		
-	
+	System.out.println("Resolve 1 Done");
 	}
 	
 	public void calcGrowth() {
