@@ -2,6 +2,8 @@ package Estuary;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,9 +45,7 @@ public class DNERR extends JComponent implements Serializable
 	
 	short level = 1;
 	String building;
-	JFrame dnrecSel;
-	private JPanel panel;
-	private JPanel dnrecPanel;
+	JFrame dnerr;
 	
 	private MouseListener pressListener;
 	public static int oldi = 0, oldj = 0;
@@ -59,30 +60,27 @@ public class DNERR extends JComponent implements Serializable
 	 * @param thisQuad - 
 	 */
 	
-	public DNERR(String imageName, eQuad thisQuad, eChar character, int x, int y, int i, int j)
+	public DNERR(int x, int y)
 	{
-		
+		building = "imgs/level1.png";
 		setLayout(new BorderLayout());
-		ImageIcon image = new ImageIcon(imageName);
+		ImageIcon image = new ImageIcon(building);
 		JLabel label = new JLabel(image);
 		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);
-		this.whatQuad = thisQuad;
-		this.character = character;
-		
+		this.whatQuad = eQuad.N;
+		this.character = eChar.DNREC;
+		setLocation(x,y);
+		loadDNERR(x, y);
+
 		pressListener = new MouseListener() {
 			
 			@Override
-			public void mouseClicked(MouseEvent e) { }
-	
-			@Override
-			public void mousePressed(MouseEvent e) 
-			{
-				dnrecSel.setLocation(dnrecPanel.getLocationOnScreen());
-				dnrecSel.setVisible(true);
+			public void mouseClicked(MouseEvent e) { 
+				dnerr.setVisible(true);
 			}
 
 			@Override
@@ -94,7 +92,7 @@ public class DNERR extends JComponent implements Serializable
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				dnrecSel.setVisible(false);
+				dnerr.setVisible(false);
 			}
 
 
@@ -103,25 +101,91 @@ public class DNERR extends JComponent implements Serializable
 			{
 				
 			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		addMouseListener(pressListener);
 		
-		panel = new JPanel();
-		JLabel charLabel = new JLabel("DNREC",JLabel.CENTER);
-		charLabel.setSize(100,100);
+	}
+	
+	void loadDNERR(int x, int y){
+		dnerr = new JFrame();
+		dnerr.setUndecorated(true);
+		dnerr.setSize(200,300);
+		JPanel dnerrPanel = new JPanel();
 		
-		dnrecPanel = new JPanel();
-		dnrecPanel.setBackground(Color.cyan);
-		dnrecPanel.setSize(100,100);
-		dnrecPanel.setVisible(false);
-		dnrecPanel.add(charLabel);
+		dnerrPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.NORTH;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weighty = 5;
+		JLabel info = new JLabel("Boring info about boring animals");
+		info.setSize(190, 100);
+		dnerrPanel.add(info,c);
 		
-		dnrecSel = new JFrame();
-		dnrecSel.setUndecorated(true);
-		dnrecSel.setSize(200, 200);
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weighty = .5;
+		JButton instaKill = new JButton("INSTAKILL");
+		instaKill.setSize(190, 100);
+		dnerrPanel.add(instaKill,c);
 		
-		JPanel dnrecLayout =new JPanel();
-		dnrecLayout.setLayout(new GridLayout(1,1));
+		c.gridx = 0;
+		c.gridy = 2;
+		JButton upgrade = new JButton("UPGRADE");
+		upgrade.setSize(190, 100);
+		dnerrPanel.add(upgrade,c);
+		
+		
+		
+		
+		
+		
+		
+		
+		dnerr.add(dnerrPanel);
+		dnerr.setLocation(x+100, y-100);
+		dnerr.setVisible(false);
+		dnerr.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				dnerr.setVisible(true);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				//dnerr.setVisible(false);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		
 	}
 	/**
 	 * When the player has enough money, the DNERR object

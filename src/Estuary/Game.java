@@ -218,8 +218,7 @@ public class Game {
 						}
 						break;
 					case DNREC:
-						charPlace = new DragComponent("imgs/level1.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
-						pane.add(charPlace, 0);
+						pane.add(new DNERR(j%38*width, i%24*height),0);
 						break;
 					default:
 						test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
