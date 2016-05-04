@@ -15,10 +15,6 @@ import Estuary.eChar;
 import Estuary.eQuad;
 
 public class SpeciesComponent extends JComponent {
-	private volatile int XOnScreen;
-	private volatile int YOnScreen;
-	private volatile int XCoord;
-	private volatile int YCoord;
 	private MouseListener pressListener;
 	
 	private eChar character;
@@ -28,7 +24,6 @@ public class SpeciesComponent extends JComponent {
 	int width = (int)screenSize.getWidth();
 	
 	private eQuad whatQuad;
-	private eChar[][] board;
 	
 	public SpeciesComponent(eQuad thisQuad, eChar character, int x, int y) {
 		String filename = null;
