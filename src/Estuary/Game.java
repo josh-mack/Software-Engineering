@@ -31,10 +31,12 @@ public class Game {
 	public static eChar[][] board =  new eChar[48][76]; //Setting overlying array to BLANK.
 	public static void initBoard(){
 		for(int i = 0; i < 48; i++){
-			for(int j = 0; j < 76; j++){
+			for(int j = 0; j < 76; j++)
+			{
 				board[i][j] = eChar.BLANK;
 			}
 		}
+		board[3][10] = eChar.DNREC;
 		
 	}
 	
@@ -215,7 +217,10 @@ public class Game {
 							pane.add(charPlace, 0);
 						}
 						break;
-					
+					case DNREC:
+						charPlace = new DragComponent("imgs/level1.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+						pane.add(charPlace, 0);
+						break;
 					default:
 						test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
 						pane.add(test, 0);
