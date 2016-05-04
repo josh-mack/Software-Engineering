@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -44,6 +46,12 @@ public class DNERR extends JComponent implements Serializable
 	private JPanel panel;
 	private JPanel dnrecPanel;
 	
+	private MouseListener pressListener;
+	public static int oldi = 0, oldj = 0;
+	
+	private eChar character;
+	private eQuad whatQuad;
+	
 	/**
 	 * Constructor for DNERR. Sets the position of the object to
 	 * [10][3] in the game board. This object acts as a game modifier,
@@ -51,43 +59,54 @@ public class DNERR extends JComponent implements Serializable
 	 * @param thisQuad - 
 	 */
 	
-	public DNERR()
+	public DNERR(String imageName, eQuad thisQuad, eChar character, int x, int y, int i, int j)
 	{
 		
-		building = "imgs/level1.png";	
-		addMouseListener(new MouseAdapter(){
-			public void mouseEntered(MouseEvent me){
-				//loadDNRECMenu();
-				System.exit(0);
-			}
-			public void mousePressed(MouseEvent me){
-				//loadDNRECMenu();
-				System.out.println("LOADING DNREC");
-			}
-		});
-		loadDNRECMenu();
-	}
+		setLayout(new BorderLayout());
+		ImageIcon image = new ImageIcon(imageName);
+		JLabel label = new JLabel(image);
+		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
+		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
+		label.setHorizontalAlignment(JLabel.CENTER);
+		label.setVerticalAlignment(JLabel.CENTER);
+		add(label);
+		this.whatQuad = thisQuad;
+		this.character = character;
 		
+		pressListener = new MouseListener() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) { }
 	
-	
-	private void loadDNRECMenu()
-	{
-		panel = new JPanel();
-		MouseAdapter addCompOnClick = new MouseAdapter()
-		{
-			public void mouseEntered(MouseEvent me)
+			@Override
+			public void mousePressed(MouseEvent e) 
 			{
+				dnrecSel.setLocation(dnrecPanel.getLocationOnScreen());
 				dnrecSel.setVisible(true);
 			}
-			public void mouseExit(MouseEvent me)
-			{
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
 				dnrecSel.setVisible(false);
 			}
-			public void mousePressed(MouseEvent me)
+
+
+			@Override
+			public void mouseReleased(MouseEvent e) 
 			{
 				
 			}
 		};
+		addMouseListener(pressListener);
+		
+		panel = new JPanel();
 		JLabel charLabel = new JLabel("DNREC",JLabel.CENTER);
 		charLabel.setSize(100,100);
 		
@@ -103,38 +122,6 @@ public class DNERR extends JComponent implements Serializable
 		
 		JPanel dnrecLayout =new JPanel();
 		dnrecLayout.setLayout(new GridLayout(1,1));
-		
-		dnrecLayout.add(new JLabel("Pokeball"));
-		BufferedImage volunteerIcon = null;
-		try {
-			volunteerIcon = ImageIO.read(new File("imgs/volunteerIcon.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		JLabel volunteerImage = new CharLabel(new ImageIcon(volunteerIcon), eChar.VOLUNTEER);
-		volunteerImage.addMouseListener(addCompOnClick);
-		dnrecLayout.add(volunteerImage);
-		
-		dnrecPanel.addMouseListener(new MouseAdapter()
-		{
-			@Override
-			public void mousePressed(MouseEvent me)
-			{
-				dnrecSel.setLocation(dnrecPanel.getLocationOnScreen());
-				dnrecSel.setVisible(true);
-			}
-		});
-		
-		dnrecSel.addMouseListener(new MouseAdapter()
-		{
-			public void mouseExited(MouseEvent me)
-			{
-				dnrecSel.setVisible(false);
-			}
-		});
-		
-		
 	}
 	/**
 	 * When the player has enough money, the DNERR object

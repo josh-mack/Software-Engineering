@@ -26,7 +26,6 @@ public class DragComponent extends JComponent {
 	int width = (int)screenSize.getWidth();
 	
 	private eQuad whatQuad;
-	private eChar[][] board;
 	
 	/**
 	 * Constructor for the DragComponent.

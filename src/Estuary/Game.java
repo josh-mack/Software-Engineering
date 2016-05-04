@@ -27,7 +27,6 @@ public class Game {
 	static int money;
 	
 	static Menu test;
-	static DNERR dnrec;
 	
 	public static eChar[][] board =  new eChar[48][76]; //Setting overlying array to BLANK.
 	public static void initBoard(){
@@ -50,7 +49,6 @@ public class Game {
 		// TODO Auto-generated method stub		
 		initBoard();
 		test = new Menu();
-		dnrec = new DNERR();
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -220,7 +218,7 @@ public class Game {
 						}
 						break;
 					case DNREC:
-						charPlace = new DragComponent(dnrec.building,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+						charPlace = new DragComponent("imgs/level1.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
 						pane.add(charPlace, 0);
 						break;
 					default:
