@@ -202,19 +202,19 @@ public class Game {
 					switch(board[i][j]){
 					case STEWARD:
 						if(drag){
-							charPlace = new DragComponent("imgs/pika.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							pane.add(charPlace, 0);
 						}
 						break;
 					case RESEARCHER:
 						if(drag){
-							charPlace = new DragComponent("imgs/oak.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent("imgs/researcher_withClipboard.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
 							pane.add(charPlace, 0);
 						}
 						break;
 					case VOLUNTEER:
 						if(drag){
-							charPlace = new DragComponent("imgs/red.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							pane.add(charPlace, 0);
 						}
 						break;
