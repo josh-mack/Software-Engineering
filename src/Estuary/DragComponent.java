@@ -17,8 +17,24 @@ public class DragComponent extends JComponent {
 	private int XCoord;
 	private int YCoord;
 	private MouseListener pressListener;
-	public static int oldi , oldj;
+	private int oldi , oldj;
 	
+	public int getXOnScreen() {
+		return XOnScreen;
+	}
+
+	public void setXOnScreen(int xOnScreen) {
+		XOnScreen = xOnScreen;
+	}
+
+	public int getYOnScreen() {
+		return YOnScreen;
+	}
+
+	public void setYOnScreen(int yOnScreen) {
+		YOnScreen = yOnScreen;
+	}
+
 	private eChar character;
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -173,7 +189,7 @@ public class DragComponent extends JComponent {
 					Game.board[y][x+38] = this.character;
 					oldi = y;
 					oldj = x + 38;
-					Collision(x, y); 
+					Collision(x +38, y); 
 				}
 				return false;
 		case W:
@@ -196,7 +212,7 @@ public class DragComponent extends JComponent {
 					Game.board[y+24][x] = this.character;
 					oldi = y + 24;
 					oldj = x;
-					Collision(x, y); 
+					Collision(x, y + 24); 
 				}
 				return false;
 		case S:
@@ -219,7 +235,7 @@ public class DragComponent extends JComponent {
 					Game.board[y+24][x+38] = this.character;
 					oldi = y + 24;
 					oldj = x + 38;
-					Collision(x, y); 
+					Collision(x + 38, y + 24); 
 				}
 				return false;
 		}
@@ -238,7 +254,7 @@ public class DragComponent extends JComponent {
 			for (int j = -3; j < 4; j++) {
 				if (((j!=0) || (i!=0)) && (0<=y+i) && (y+i<24) && (0<=x+j) && (x+j<38)) {
 					if (Game.board[y+i][x+j] != eChar.BLANK) {
-						Game.mainEnviro.resolve(Game.board[y+i][x+j], y+i, x+j);
+						Game.mainEnviro.resolve(Game.board[y][x], y+i, x+j, this);
 						//Game.deleteComponent(y+i, x+j);
 						return true;
 					}
@@ -247,6 +263,22 @@ public class DragComponent extends JComponent {
 		}
 		
 		return false;
+	}
+
+	public int getOldi() {
+		return oldi;
+	}
+
+	public void setOldi(int oldi) {
+		this.oldi = oldi;
+	}
+
+	public int getOldj() {
+		return oldj;
+	}
+
+	public void setOldj(int oldj) {
+		this.oldj = oldj;
 	}
 
 	public MouseListener getMouseListener() {

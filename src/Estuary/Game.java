@@ -240,13 +240,23 @@ public class Game {
 	}
 	
 	public static void deleteComponent(int i, int j) {
-		if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2) instanceof SpeciesComponent){
-			test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2));
+		if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
+			test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
 			test.getMenu().getLayeredPane().repaint();
 			test.getMenu().getLayeredPane().revalidate();
-			if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2) instanceof SpeciesComponent){
+			if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
 				System.out.println("Why?!?!?!?!?!?!?!");
+				test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
 			}
+			if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
+				System.out.println("I HATE!!!!!!!!!");
+				test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
+			}
+			if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
+				System.out.println("Still works better than Marco's button");
+			}
+
+
 
 		}
 	}
@@ -257,7 +267,7 @@ public class Game {
 		test.getMenu().getLayeredPane().repaint();
 		test.getMenu().getLayeredPane().revalidate();
 	}
-	
+
 
 
 }
