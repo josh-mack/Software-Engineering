@@ -234,12 +234,17 @@ public class Game {
 	
 	public static void deleteComponent(int i, int j) {
 		if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2) instanceof SpeciesComponent){
-			System.out.println(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height  + 2));
 			test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2));
-			System.out.println(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2));
 			test.getMenu().getLayeredPane().repaint();
 			test.getMenu().getLayeredPane().revalidate();		
 		}
+	}
+
+	public static void replaceDNERR(int x, int y) {
+		test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(x,y));
+		test.getMenu().getLayeredPane().add(new DNERR(x,y, dnrecLevel),0);
+		test.getMenu().getLayeredPane().repaint();
+		test.getMenu().getLayeredPane().revalidate();
 	}
 	
 

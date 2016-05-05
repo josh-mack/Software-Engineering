@@ -46,7 +46,8 @@ public class DNERR extends JComponent implements Serializable
 	int level;;
 	String building;
 	JFrame dnerr;
-	
+	int x;
+	int y;
 	private MouseListener pressListener;
 	public static int oldi = 0, oldj = 0;
 	
@@ -62,6 +63,8 @@ public class DNERR extends JComponent implements Serializable
 	
 	public DNERR(int x, int y,int level)
 	{
+		this.x = x;
+		this.y = y;
 		this.level = level;
 		switch(level)
 		{
@@ -231,8 +234,8 @@ public class DNERR extends JComponent implements Serializable
 			}
 			Game.dnrecLevel++;
 			Environment.money -= 200;
-			getRootPane().repaint();
-			getRootPane().revalidate();
+			Game.replaceDNERR(x, y);
+			
 			break;
 		case 2:
 			if(Environment.money < 500)
@@ -242,8 +245,8 @@ public class DNERR extends JComponent implements Serializable
 			}
 			Game.dnrecLevel++;
 			Environment.money -= 500;
-			getRootPane().repaint();
-			getRootPane().revalidate();
+			Game.replaceDNERR(x, y);
+
 			break;
 		case 3:
 			System.out.println("dnrecc already at max");
