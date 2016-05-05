@@ -296,41 +296,41 @@ public class Environment implements Serializable{
 	 * Fastharacter - 
 	 * Instakill - resolves the last event in the queue immediately.
 	 */
-//	public void resolve(eChar powerup, int i, int j, DragComponent drag) {
-//		System.out.println("Resolve 1 Method Active");
-//		switch(powerup) {
-//		case SLOWGROWTH:
-//			Iterator<Invasive> it = events.iterator();
-//			while(it.hasNext()) {
-//				Invasive monster = it.next();
-//				monster.setGrowthRate(monster.getGrowthRate()/2);
-//			}
+	public void resolve(eChar powerup, eChar character, int i, int j, DragComponent drag) {
+		System.out.println("Resolve 1 Method Active");
+		switch(powerup) {
+		case SLOWGROWTH:
+			Iterator<Invasive> it = events.iterator();
+			while(it.hasNext()) {
+				Invasive monster = it.next();
+				monster.setGrowthRate(monster.getGrowthRate()/2);
+			}
+			break;
+//		case FASTCHARACTER:
 //			break;
-////		case FASTCHARACTER:
-////			break;
-//		case INSTAKILL:
-//			Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
-//			Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
-//			events.removeback();
-//			money+=100;
-//			calcHealth();
-//			break;
-//		case RESEARCHER:
-//			break;
-//		case STEWARD:
-//			break;
-//		case VOLUNTEER:
-//			break;
-//		case DNREC:
-//			break;
-//		default:
-//			resolve(i, j, drag);
-//
-//		}
-//			
-//		
-//	System.out.println("Resolve 1 Done");
-//	}
+		case INSTAKILL:
+			Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
+			Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
+			events.removeback();
+			money+=100;
+			calcHealth();
+			break;
+		case RESEARCHER:
+			break;
+		case STEWARD:
+			break;
+		case VOLUNTEER:
+			break;
+		case DNREC:
+			break;
+		default:
+			resolve(character, i, j, drag);
+
+		}
+			
+		
+	System.out.println("Resolve 1 Done");
+	}
 	
 	public void calcGrowth() {
 		
