@@ -1,12 +1,28 @@
 package Estuary;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,8 +43,15 @@ public class DNERR extends JComponent implements Serializable
 
 	private static final long serialVersionUID = 600;
 	
-	short level = 1;
-	ImageIcon building;
+	int level;;
+	String building;
+	JFrame dnerr;
+	
+	private MouseListener pressListener;
+	public static int oldi = 0, oldj = 0;
+	
+	private eChar character;
+	private eQuad whatQuad;
 	
 	/**
 	 * Constructor for DNERR. Sets the position of the object to
@@ -37,27 +60,160 @@ public class DNERR extends JComponent implements Serializable
 	 * @param thisQuad - 
 	 */
 	
-	public DNERR(eQuad thisQuad)
+	public DNERR(int x, int y,int level)
 	{
-		Game.board[10][3] = eChar.DNREC;
+		this.level = level;
+		switch(level)
+		{
+		case 1:
+			building = "imgs/level1.png";
+			break;
+		case 2:
+			building = "imgs/level2.png";
+			break;
+		case 3:
+			building = "imgs/level3.png";
+			break;
+		default:
+			building = "imgs/level2.png";
+		}
 		setLayout(new BorderLayout());
-		building = new ImageIcon("imgs/level1.png");
-		JLabel label = new JLabel(building);
-		label.setBounds(0, 0, building.getIconWidth(), building.getIconHeight());
-		setBounds(0,0,building.getIconWidth(), building.getIconHeight());
+		ImageIcon image = new ImageIcon(building);
+		JLabel label = new JLabel(image);
+		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
+		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);
+		this.whatQuad = eQuad.N;
+		this.character = eChar.DNREC;
+		setLocation(x,y);
+		loadDNERR(x, y);
+
+		pressListener = new MouseListener() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) { 
+				dnerr.setVisible(true);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				dnerr.setVisible(false);
+			}
+
+
+			@Override
+			public void mouseReleased(MouseEvent e) 
+			{
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		addMouseListener(pressListener);
 		
-		JButton upgrade = new JButton("Upgrade");
-		upgrade.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				upgrade();
+	}
+	
+	void loadDNERR(int x, int y){
+		dnerr = new JFrame();
+		dnerr.setUndecorated(true);
+		dnerr.setSize(200,300);
+		JPanel dnerrPanel = new JPanel();
+		
+		dnerrPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.NORTH;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weighty = 5;
+		JLabel info = new JLabel("Boring info about boring animals");
+		info.setSize(190, 100);
+		dnerrPanel.add(info,c);
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weighty = .5;
+		JButton instaKill = new JButton("INSTAKILL");
+		instaKill.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent args0)
+			{
+				//spawn instakill
+				//insert method here
 			}
 		});
-	}
+
+		instaKill.setSize(190, 100);
+		dnerrPanel.add(instaKill,c);
 		
-	
+		c.gridx = 0;
+		c.gridy = 2;
+		JButton upgrade = new JButton("UPGRADE");
+		upgrade.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				upgrade();;
+			}
+		});
+		upgrade.setSize(190, 100);
+		dnerrPanel.add(upgrade,c);
+		
+		
+		
+		
+		
+		
+		
+		
+		dnerr.add(dnerrPanel);
+		dnerr.setLocation(x+100, y-100);
+		dnerr.setVisible(false);
+		dnerr.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				dnerr.setVisible(true);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				//dnerr.setVisible(false);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		
+	}
 	/**
 	 * When the player has enough money, the DNERR object
 	 * can be "upgraded" accordingly. This changes the image.
@@ -67,18 +223,37 @@ public class DNERR extends JComponent implements Serializable
 	{
 		switch(level)
 		{
-		case 2:
+		case 1:
+			if(Environment.money < 200)
+			{
+				System.out.println("Not Enough money, Can't Upgrade");
+				break;
+			}
+			Game.dnrecLevel++;
 			Environment.money -= 200;
-			building = new ImageIcon("img/level2");
+			getRootPane().repaint();
+			getRootPane().revalidate();
+			break;
+		case 2:
+			if(Environment.money < 500)
+			{
+				System.out.println("Not Enough money, Can't Upgrade");
+				break;
+			}
+			Game.dnrecLevel++;
+			Environment.money -= 500;
+			getRootPane().repaint();
+			getRootPane().revalidate();
 			break;
 		case 3:
-			Environment.money -= 500;
-			building = new ImageIcon("imgs/level3");
+			System.out.println("dnrecc already at max");
 			break;
 		default:
-			building = new ImageIcon("img.level2");
+			building = "img.level1";
 		}
 	}
+	
+	
 	
 	/**
 	 * Method to serialize the DNERR object.

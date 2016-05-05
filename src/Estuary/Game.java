@@ -27,14 +27,17 @@ public class Game {
 	static int money;
 	
 	static Menu test;
+	static int dnrecLevel = 1;
 	
 	public static eChar[][] board =  new eChar[48][76]; //Setting overlying array to BLANK.
 	public static void initBoard(){
 		for(int i = 0; i < 48; i++){
-			for(int j = 0; j < 76; j++){
+			for(int j = 0; j < 76; j++)
+			{
 				board[i][j] = eChar.BLANK;
 			}
 		}
+		board[3][10] = eChar.DNREC;
 		
 	}
 	
@@ -66,7 +69,7 @@ public class Game {
 					System.out.println(Game.board[retVal.getY()][retVal.getX()]);
 					
 					
-					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
+					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
 					for(int i = 0; i < 48; i++){
 						for(int j = 0; j < 76; j++){
 							if(Game.board[i][j] != eChar.BLANK)
@@ -86,7 +89,7 @@ public class Game {
 					System.out.println(Game.board[retVal.getY()][retVal.getX()]);
 					
 					
-					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant());	
+					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
 					for(int i = 0; i < 48; i++){
 						for(int j = 0; j < 76; j++){
 							if(Game.board[i][j] != eChar.BLANK)
@@ -104,15 +107,15 @@ public class Game {
 		//Create an Invasive species every 1 second
 		new Timer(10000, timerSpawn).start();
 		
-		new Timer(30000, powerUpSpawn).start();
+		//new Timer(30000, powerUpSpawn).start();
 		
 		
-		ActionListener timerCheck = new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Game.money = mainEnviro.getMoney();
-		}};		
-		new Timer(3000, timerCheck);
+//		ActionListener timerCheck = new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				Game.money = mainEnviro.getMoney();
+//		}};		
+//		new Timer(3000, timerCheck);
 	
 	
 	}
@@ -151,7 +154,7 @@ public class Game {
 	 * @param pane
 	 * @param quad
 	 */
-	static void drawOnScreen(JLayeredPane pane, eQuad quad){
+	static void drawOnScreen(JLayeredPane pane, eQuad quad, boolean drag){
 
 		int rowStart;
 		int colStart;
@@ -198,21 +201,26 @@ public class Game {
 					DragComponent charPlace = null;
 					switch(board[i][j]){
 					case STEWARD:
-						charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
-						
-						pane.add(charPlace, 0);
+						if(drag){
+							charPlace = new DragComponent("imgs/pika.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							pane.add(charPlace, 0);
+						}
 						break;
 					case RESEARCHER:
-						charPlace = new DragComponent("imgs/researcher_withClipboard.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
-						
-						pane.add(charPlace, 0);
+						if(drag){
+							charPlace = new DragComponent("imgs/oak.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							pane.add(charPlace, 0);
+						}
 						break;
 					case VOLUNTEER:
-						charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
-					
-						pane.add(charPlace, 0);
+						if(drag){
+							charPlace = new DragComponent("imgs/red.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							pane.add(charPlace, 0);
+						}
 						break;
-					
+					case DNREC:
+						pane.add(new DNERR(j%38*width, i%24*height,dnrecLevel),0);
+						break;
 					default:
 						test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
 						pane.add(test, 0);
@@ -224,7 +232,15 @@ public class Game {
 		System.out.println("\n------------------------Pane Drawn------------------------");
 	}
 	
-
+	public static void deleteComponent(int i, int j) {
+		if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2) instanceof SpeciesComponent){
+			System.out.println(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height  + 2));
+			test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2));
+			System.out.println(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2));
+			test.getMenu().getLayeredPane().repaint();
+			test.getMenu().getLayeredPane().revalidate();		
+		}
+	}
 	
 
 

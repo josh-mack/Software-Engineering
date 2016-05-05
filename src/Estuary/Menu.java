@@ -408,7 +408,7 @@ public class Menu{
 			return;
 		}
 
-		Game.drawOnScreen(main.getLayeredPane(),quad);	
+		Game.drawOnScreen(main.getLayeredPane(),quad, true);	
 		switch(quad){
 			case MAIN:
 				inQuad = false;
@@ -529,7 +529,7 @@ public class Menu{
 			main.getLayeredPane().remove(del);
 			//main.revalidate();
 			//main.repaint();
-		Game.drawOnScreen(main.getLayeredPane(), quad);
+		Game.drawOnScreen(main.getLayeredPane(), quad, true);
 		}
 	}
 	

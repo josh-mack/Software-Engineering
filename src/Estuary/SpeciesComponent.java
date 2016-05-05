@@ -21,10 +21,6 @@ import Estuary.eQuad;
  * Handles the creation of a species on the board.
  */
 public class SpeciesComponent extends JComponent {
-	private volatile int XOnScreen;
-	private volatile int YOnScreen;
-	private volatile int XCoord;
-	private volatile int YCoord;
 	private MouseListener pressListener;
 	
 	private eChar character;
@@ -34,7 +30,6 @@ public class SpeciesComponent extends JComponent {
 	int width = (int)screenSize.getWidth();
 	
 	private eQuad whatQuad;
-	private eChar[][] board;
 	
 	/**
 	 * Constructor for SpeciesComponent.
