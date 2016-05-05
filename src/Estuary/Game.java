@@ -27,6 +27,7 @@ public class Game {
 	static int money;
 	
 	static Menu test;
+	static int dnrecLevel = 1;
 	
 	public static eChar[][] board =  new eChar[48][76]; //Setting overlying array to BLANK.
 	public static void initBoard(){
@@ -218,7 +219,7 @@ public class Game {
 						}
 						break;
 					case DNREC:
-						pane.add(new DNERR(j%38*width, i%24*height),0);
+						pane.add(new DNERR(j%38*width, i%24*height,dnrecLevel),0);
 						break;
 					default:
 						test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);

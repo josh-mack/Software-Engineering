@@ -43,7 +43,7 @@ public class DNERR extends JComponent implements Serializable
 
 	private static final long serialVersionUID = 600;
 	
-	short level = 1;
+	int level;;
 	String building;
 	JFrame dnerr;
 	
@@ -60,9 +60,23 @@ public class DNERR extends JComponent implements Serializable
 	 * @param thisQuad - 
 	 */
 	
-	public DNERR(int x, int y)
+	public DNERR(int x, int y,int level)
 	{
-		building = "imgs/level1.png";
+		this.level = level;
+		switch(level)
+		{
+		case 1:
+			building = "imgs/level1.png";
+			break;
+		case 2:
+			building = "imgs/level2.png";
+			break;
+		case 3:
+			building = "imgs/level3.png";
+			break;
+		default:
+			building = "imgs/level2.png";
+		}
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(building);
 		JLabel label = new JLabel(image);
@@ -132,12 +146,25 @@ public class DNERR extends JComponent implements Serializable
 		c.gridy = 1;
 		c.weighty = .5;
 		JButton instaKill = new JButton("INSTAKILL");
+		instaKill.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent args0)
+			{
+				//spawn instakill
+				//insert method here
+			}
+		});
+
 		instaKill.setSize(190, 100);
 		dnerrPanel.add(instaKill,c);
 		
 		c.gridx = 0;
 		c.gridy = 2;
 		JButton upgrade = new JButton("UPGRADE");
+		upgrade.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				upgrade();;
+			}
+		});
 		upgrade.setSize(190, 100);
 		dnerrPanel.add(upgrade,c);
 		
@@ -196,18 +223,27 @@ public class DNERR extends JComponent implements Serializable
 	{
 		switch(level)
 		{
-		case 2:
+		case 1:
+			Game.dnrecLevel++;
 			Environment.money -= 200;
-			building = "img/level2";
+			getRootPane().repaint();
+			getRootPane().revalidate();
+			break;
+		case 2:
+			Game.dnrecLevel++;
+			Environment.money -= 500;
+			getRootPane().repaint();
+			getRootPane().revalidate();
 			break;
 		case 3:
-			Environment.money -= 500;
-			building ="imgs/level3";
+			System.out.println("dnrecc already at max");
 			break;
 		default:
-			building = "img.level2";
+			building = "img.level1";
 		}
 	}
+	
+	
 	
 	/**
 	 * Method to serialize the DNERR object.
