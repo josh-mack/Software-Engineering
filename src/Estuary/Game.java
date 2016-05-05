@@ -57,6 +57,7 @@ public class Game {
 			//	test.sel = (test.sel+1)%8;
 				updateTime(test, seconds++);
 				updateMoney(test, mainEnviro.getMoney());
+				updateCharacters(test, mainEnviro.getNumStew(), mainEnviro.getNumRes(), mainEnviro.getNumVol());
 			//	mainEnviro.setMoney(mainEnviro.getMoney()+20);
 		}};
 		ActionListener timerSpawn = new ActionListener(){
@@ -147,6 +148,12 @@ public class Game {
 	static void updateMoney(Menu mainFrame, int money) {
 		mainFrame.getScoreLabel().setText("MONEY: $" + money);
 	}
+	
+	static void updateCharacters(Menu mainFrame, int numStewards, int numResearchers, int numVolunteers) {
+		mainFrame.getStewardLabel().setText("Stewards: " + numStewards);
+		mainFrame.getResearcherLabel().setText("Researchers: " + numResearchers);
+		mainFrame.getVolunteerLabel().setText("Volunteers: " + numVolunteers);
+	}
 	/**
 	 * Method used to place each species (when needed) onto the game's screen.
 	 * This is based on the quadrant the player is currently zoomed into.
@@ -236,7 +243,11 @@ public class Game {
 		if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2) instanceof SpeciesComponent){
 			test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2));
 			test.getMenu().getLayeredPane().repaint();
-			test.getMenu().getLayeredPane().revalidate();		
+			test.getMenu().getLayeredPane().revalidate();
+			if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 2, i%24*height + 2) instanceof SpeciesComponent){
+				System.out.println("Why?!?!?!?!?!?!?!");
+			}
+
 		}
 	}
 

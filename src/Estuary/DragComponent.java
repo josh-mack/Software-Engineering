@@ -17,7 +17,7 @@ public class DragComponent extends JComponent {
 	private int XCoord;
 	private int YCoord;
 	private MouseListener pressListener;
-	public static int oldi = 0, oldj = 0;
+	public static int oldi , oldj;
 	
 	private eChar character;
 	
@@ -236,7 +236,7 @@ public class DragComponent extends JComponent {
 	public boolean Collision(int x, int y) {
 		for (int i = -3; i < 4; i++ ) {
 			for (int j = -3; j < 4; j++) {
-				if ((j!=0) || (i!=0) || (i!=j)) {
+				if (((j!=0) || (i!=0)) && (0<=y+i) && (y+i<24) && (0<=x+j) && (x+j<38)) {
 					if (Game.board[y+i][x+j] != eChar.BLANK) {
 						Game.mainEnviro.resolve(Game.board[y+i][x+j], y+i, x+j);
 						//Game.deleteComponent(y+i, x+j);

@@ -227,24 +227,24 @@ public class DNERR extends JComponent implements Serializable
 		switch(level)
 		{
 		case 1:
-			if(Environment.money < 200)
+			if(Environment.money < 100)
 			{
 				System.out.println("Not Enough money, Can't Upgrade");
 				break;
 			}
 			Game.dnrecLevel++;
-			Environment.money -= 200;
+			Environment.money -= 100;
 			Game.replaceDNERR(x, y);
 			
 			break;
 		case 2:
-			if(Environment.money < 500)
+			if(Environment.money < 100)
 			{
 				System.out.println("Not Enough money, Can't Upgrade");
 				break;
 			}
 			Game.dnrecLevel++;
-			Environment.money -= 500;
+			Environment.money -= 100;
 			Game.replaceDNERR(x, y);
 
 			break;

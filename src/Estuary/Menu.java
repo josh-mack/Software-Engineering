@@ -54,6 +54,11 @@ public class Menu{
 	JButton mainMap;
 	BackgroundTest backgroundPanel;
 	
+	private JLabel stewardLabel;
+	private JLabel researcherLabel;
+	private JLabel volunteerLabel;
+	
+	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
 	int width = (int)screenSize.getWidth();
@@ -206,11 +211,12 @@ public class Menu{
 		
 		charSel = new JFrame();
 		charSel.setUndecorated(true);
-		charSel.setSize(width/10, height/4);
+		charSel.setSize(width/6, height/4);
 		JPanel charSelection = new JPanel();
 		charSelection.setLayout(new GridLayout(3, 2));
 		
-		charSelection.add(new JLabel("Steward"));
+		stewardLabel = new JLabel("Stewards: 2");
+		charSelection.add(stewardLabel);
 		BufferedImage stewardIcon = null;
 		try {
 			stewardIcon = ImageIO.read(new File("imgs/stewardIcon.jpg"));
@@ -223,8 +229,8 @@ public class Menu{
 		charSelection.add(stewardImage);
 		
 		
-		
-		charSelection.add(new JLabel("Researcher"));
+		researcherLabel = new JLabel("Researchers: 1");
+		charSelection.add(researcherLabel);
 		BufferedImage researcherIcon = null;
 		try {
 			researcherIcon = ImageIO.read(new File("imgs/researcherIcon.jpg"));
@@ -237,8 +243,8 @@ public class Menu{
 		charSelection.add(researcherImage);
 		
 		
-		
-		charSelection.add(new JLabel("Volunteer"));
+		volunteerLabel = new JLabel("Volunteers: 3");
+		charSelection.add(volunteerLabel);
 		BufferedImage volunteerIcon = null;
 		try {
 			volunteerIcon = ImageIO.read(new File("imgs/volunteerIcon.jpg"));
@@ -479,13 +485,22 @@ public class Menu{
 		DragComponent charPlace = null;
 		switch(eChar){
 		case STEWARD:
-			charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0.png",currentQuad, eChar, x, y,0,0);
+			if (Game.mainEnviro.getNumStew() > 0) {
+				charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0.png",currentQuad, eChar, x, y,0,0);
+				Game.mainEnviro.increaseStew(false);
+			}
 			break;
 		case RESEARCHER:
-			charPlace = new DragComponent("imgs/researcher_withClipboard.png",currentQuad, eChar, x, y,0,0);
+			if (Game.mainEnviro.getNumRes() > 0) {
+				charPlace = new DragComponent("imgs/researcher_withClipboard.png",currentQuad, eChar, x, y,0,0);
+				Game.mainEnviro.increaseRes(false);
+			}
 			break;
 		case VOLUNTEER:
-			charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0.png",currentQuad, eChar, x, y,0,0);
+			if (Game.mainEnviro.getNumVol() > 0) {
+				charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0.png",currentQuad, eChar, x, y,0,0);
+				Game.mainEnviro.increaseVol(false);
+			}
 			break;
 		default:
 			break;
@@ -559,6 +574,18 @@ public class Menu{
 	public JPanel getPanel() {
 		// TODO Auto-generated method stub
 		return panel;
+	}
+	
+	public JLabel getStewardLabel() {
+		return this.stewardLabel;
+	}
+	
+	public JLabel getVolunteerLabel() {
+		return this.volunteerLabel;
+	}
+	
+	public JLabel getResearcherLabel() {
+		return this.researcherLabel;
 	}
 	
 }

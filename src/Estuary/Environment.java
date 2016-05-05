@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Random;
 
+import javax.swing.JLabel;
 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
@@ -31,6 +32,11 @@ public class Environment implements Serializable{
 	static public int money;
 	Queue events = new Queue();
 	
+	private int numStew;
+	private int numVol;
+	private int numRes;
+
+	
 	Timer temp;
 	
 	/**
@@ -44,6 +50,9 @@ public class Environment implements Serializable{
 		this.characters = null;
 		this.health = 50;
 		this.money = 200;
+		this.numStew = 2;
+		this.numRes = 1;
+		this.numVol = 3;
 	}
 	
 	/**
@@ -249,6 +258,7 @@ public class Environment implements Serializable{
 //					}
 //				}
 				System.out.println("Resolve 2 done");
+				
 				temp.stop();
 				}
 		};
@@ -365,6 +375,59 @@ public class Environment implements Serializable{
 		}
 		return obj;
 	}
+
+	public int getNumStew() {
+		return numStew;
+	}
+
+	public void setNumStew(int numStew) {
+		this.numStew = numStew;
+	}
+	
+	public void increaseStew(boolean positive) {
+		if (positive) {
+			numStew++;
+		}
+		else {
+			numStew--;
+		}
+	}
+
+	public int getNumVol() {
+		return numVol;
+	}
+
+	public  void setNumVol(int numVol) {
+		this.numVol = numVol;
+	}
+	
+	public void increaseVol(boolean positive) {
+		if (positive) {
+			numVol++;
+		}
+		else {
+			numVol--;
+		}
+	}
+
+	public int getNumRes() {
+		return numRes;
+	}
+
+	public void setNumRes(int numRes) {
+		this.numRes = numRes;
+	}
+	
+	public void increaseRes(boolean positive) {
+		if (positive) {
+			numRes++;
+		}
+		else {
+			numRes--;
+		}
+	}
+	
+	
 	
 	
 	
