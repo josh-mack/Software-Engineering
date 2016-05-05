@@ -211,9 +211,10 @@ public class Menu{
 		
 		charSel = new JFrame();
 		charSel.setUndecorated(true);
-		charSel.setSize(width/6, height/4);
+		charSel.setSize(width/6, height/2);
 		JPanel charSelection = new JPanel();
 		charSelection.setLayout(new GridLayout(3, 2));
+		
 		
 		stewardLabel = new JLabel("Stewards: 2");
 		charSelection.add(stewardLabel);
@@ -226,8 +227,29 @@ public class Menu{
 		}
 		JLabel stewardImage = new CharLabel(new ImageIcon(stewardIcon), eChar.STEWARD);
 		stewardImage.addMouseListener(addCompOnClick);
-		charSelection.add(stewardImage);
+	//	charSelection.add(stewardImage);
 		
+		//Button to buy a Steward
+		JButton buySteward = new JButton("Buy a Steward!");
+		buySteward.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				Game.mainEnviro.increaseStew(true);
+			}
+		});		
+		
+		//Steward Panel
+		JPanel stewPanel = new JPanel();		
+		stewPanel.add(stewardImage);
+		stewPanel.add(buySteward);
+		charSelection.add(stewPanel);
+		
+		charSelection.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent me) {
+				stewPanel.setVisible(true);
+			}
+		});
+
 		
 		researcherLabel = new JLabel("Researchers: 1");
 		charSelection.add(researcherLabel);
@@ -267,6 +289,7 @@ public class Menu{
 				if(inQuad){
 					charSel.setLocation(charFrame.getLocationOnScreen());
 					charSel.setVisible(true);
+					
 				}
 			}
 		});
