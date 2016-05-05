@@ -479,13 +479,13 @@ public class Menu{
 		DragComponent charPlace = null;
 		switch(eChar){
 		case STEWARD:
-			charPlace = new DragComponent("imgs/pika.png",currentQuad, eChar, x, y,0,0);
+			charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0.png",currentQuad, eChar, x, y,0,0);
 			break;
 		case RESEARCHER:
-			charPlace = new DragComponent("imgs/oak.png",currentQuad, eChar, x, y,0,0);
+			charPlace = new DragComponent("imgs/researcher_withClipboard.png",currentQuad, eChar, x, y,0,0);
 			break;
 		case VOLUNTEER:
-			charPlace = new DragComponent("imgs/red.png",currentQuad, eChar, x, y,0,0);
+			charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0.png",currentQuad, eChar, x, y,0,0);
 			break;
 		default:
 			break;

@@ -226,6 +226,10 @@ public class Environment implements Serializable{
 		return new Event(x, y, powerType);
 	}
 	
+	/**
+	 * Method used to remove an event from the front of the queue.
+	 * This is called when an even is supposed to be completed.
+	 */
 	public void resolve(int i, int j) {
 		System.out.println("Resolve 2 Method Active");
 		ActionListener timerAction = new ActionListener(){
@@ -254,6 +258,15 @@ public class Environment implements Serializable{
 	
 	}
 	
+	/**
+	 * Overloaded resolve() method to handle the
+	 * in-game powerups. Each powerup has its own way of
+	 * affecting the game.
+	 * 
+	 * Slowgrowth - halves the growth rate (spawn rate) of invasive species
+	 * Fastharacter - 
+	 * Instakill - resolves the last event in the queue immediately.
+	 */
 	public void resolve(eChar powerup, int i, int j) {
 		System.out.println("Resolve 1 Method Active");
 		switch(powerup) {

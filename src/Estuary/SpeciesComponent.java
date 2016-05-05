@@ -14,6 +14,12 @@ import Estuary.Game;
 import Estuary.eChar;
 import Estuary.eQuad;
 
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Handles the creation of a species on the board.
+ */
 public class SpeciesComponent extends JComponent {
 	private MouseListener pressListener;
 	
@@ -25,20 +31,29 @@ public class SpeciesComponent extends JComponent {
 	
 	private eQuad whatQuad;
 	
+	/**
+	 * Constructor for SpeciesComponent.
+	 * Attaches the correct image to the corresponding invasive species,
+	 * and adds it to a JLabel.
+	 * @param thisQuad
+	 * @param character
+	 * @param x
+	 * @param y
+	 */
 	public SpeciesComponent(eQuad thisQuad, eChar character, int x, int y) {
 		String filename = null;
 			switch(character){
 			case MCRAB:
-				filename = "imgs/squirt.png";
+				filename = "imgs/mittencrab_0.png";
 				break;
 			case PHRAG:
-				filename = "imgs/bulb.png";
+				filename = "imgs/phragmite_spawning1.png";
 				break;
 			case BAMBOO:
-				filename = "imgs/char.png";
+				filename = "imgs/bamboo.png";
 				break;
 			default:
-				filename = "imgs/pokeball.png";
+				filename = "imgs/flagFull.png";
 			}
 			
 		setLayout(new BorderLayout());
@@ -59,10 +74,15 @@ public class SpeciesComponent extends JComponent {
 		
 	}
 
+	/**
+	 * Getters.
+	 * @return
+	 */
 	public MouseListener getMouseListener() {
 		// TODO Auto-generated method stub
 		return pressListener;
 	}
+	
 	public eQuad getWhatQuad(){
 		return whatQuad;
 	}
