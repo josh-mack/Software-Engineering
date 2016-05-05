@@ -6,6 +6,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Abstract class to handle the species objects.
+ */
 public abstract class Species implements Serializable{
 	private static final long serialVersionUID = 100;
 	
@@ -15,6 +21,14 @@ public abstract class Species implements Serializable{
 	private int growthRate;
 	private eChar type;
 	
+	/**
+	 * Constructor for Species.
+	 * @param type
+	 * @param amount
+	 * @param xCoord
+	 * @param yCoord
+	 * @param growthRate
+	 */
 	public Species(eChar type, int amount, int xCoord, int yCoord, int growthRate) {
 		this.type = type;
 		this.amount = amount;
@@ -23,6 +37,10 @@ public abstract class Species implements Serializable{
 		this.growthRate = growthRate;
 	}
 
+	/**
+	 * Getters and setters.
+	 * @return
+	 */
 	public int getAmount() {
 		return amount;
 	}
