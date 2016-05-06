@@ -48,7 +48,7 @@ public class Environment implements Serializable{
 	public Environment() {
 		this.animals = null;
 		this.characters = null;
-		this.health = 50;
+		this.health = 30;
 		this.money = 200;
 		this.numStew = 2;
 		this.numRes = 1;

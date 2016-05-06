@@ -21,6 +21,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +47,7 @@ public class DNERR extends JComponent implements Serializable
 	int level;
 	String building;
 	JFrame dnerr;
+	JProgressBar bar;
 	int x;
 	int y;
 	private MouseListener pressListener;
@@ -97,6 +99,7 @@ public class DNERR extends JComponent implements Serializable
 			@Override
 			public void mouseClicked(MouseEvent e) { 
 				dnerr.setVisible(true);
+				bar.setValue(Game.mainEnviro.getHealth());
 			}
 
 			@Override
@@ -138,21 +141,31 @@ public class DNERR extends JComponent implements Serializable
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.NORTH;
 		c.gridx = 0;
-		c.gridy = 0;
+		c.gridy = 1;
 		c.weighty = 5;
-		JLabel info = new JLabel("Boring info about boring animals");
+		JLabel info = new JLabel("Info about animals");
 		info.setSize(190, 100);
 		dnerrPanel.add(info,c);
 		
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 0;
+		c.weighty =.5;
+		bar = new JProgressBar(JProgressBar.HORIZONTAL);
+		bar.setSize(190,100);
+		dnerrPanel.add(bar, c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
 		c.weighty = .5;
 		JButton instaKill = new JButton("INSTAKILL");
 		instaKill.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent args0)
 			{
-				//spawn instakill
-				//insert method here
+				if(Game.mainEnviro.money < 50)
+					return;
+				Game.mainEnviro.money -= 50;
+				Game.mainEnviro.instakill();
+				
 			}
 		});
 
@@ -160,7 +173,7 @@ public class DNERR extends JComponent implements Serializable
 		dnerrPanel.add(instaKill,c);
 		
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		JButton upgrade = new JButton("UPGRADE");
 		upgrade.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
