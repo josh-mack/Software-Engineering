@@ -131,19 +131,30 @@ public class Environment implements Serializable{
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24);
+			invasiveAdded= new Phragmites(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
 			break;
 		case E:
 			rowEnd = 24;
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24);
-			
+			invasiveAdded= new Bamboo(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
 			break;
 		case S:
 			rowEnd = 48;
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24)+24;
+			invasiveAdded= new MittenCrab(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
 			break;
 		case W:
 			rowEnd = 48;
@@ -155,29 +166,6 @@ public class Environment implements Serializable{
 		default:
 			rowEnd = 0;
 			colEnd = 0;
-		}
-		
-		switch(quad){
-		case N:
-			invasiveAdded= new Phragmites(3, x, y, 5, 10);
-			events.insertFront(invasiveAdded);
-			events.setX(x);
-			events.setY(y);
-			break;
-		case E:
-			invasiveAdded= new Bamboo(3, x, y, 5, 10);
-			events.insertFront(invasiveAdded);
-			events.setX(x);
-			events.setY(y);
-			break;
-		case S:
-			invasiveAdded= new MittenCrab(3, x, y, 5, 10);
-			events.insertFront(invasiveAdded);
-			events.setX(x);
-			events.setY(y);
-			break;
-			
-		default: 
 			invasiveAdded= new Pollution(3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);

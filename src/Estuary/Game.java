@@ -229,7 +229,7 @@ public class Game {
 						pane.add(new DNERR(j%38*width, i%24*height,dnrecLevel),0);
 						break;
 					case FISHERMAN:
-						pane.add(new Fisherman(j%27*width, i%24*height), 0);
+						pane.add(new Fisherman(j%38*width, i%24*height), 0);
 						break;
 					default:
 						test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
@@ -244,19 +244,22 @@ public class Game {
 	
 	public static void deleteComponent(int i, int j) {
 		if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-			test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-			test.getMenu().getLayeredPane().repaint();
-			test.getMenu().getLayeredPane().revalidate();
-			if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-				System.out.println("Why?!?!?!?!?!?!?!");
+			SpeciesComponent animal = (SpeciesComponent)test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20);
+			if (animal.isInvasive()) {	
 				test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-			}
-			if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-				System.out.println("I HATE!!!!!!!!!");
-				test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-			}
-			if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-				System.out.println("Still works better than Marco's button");
+				test.getMenu().getLayeredPane().repaint();
+				test.getMenu().getLayeredPane().revalidate();
+				if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
+					System.out.println("Why?!?!?!?!?!?!?!");
+					test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
+				}
+				if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
+					System.out.println("I HATE!!!!!!!!!");
+					test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
+				}
+				if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
+					System.out.println("Still works better than Marco's button");
+				}
 			}
 
 
