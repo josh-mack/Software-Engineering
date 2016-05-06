@@ -233,6 +233,11 @@ public class Menu{
 		JButton buySteward = new JButton("Buy a Steward!");
 		buySteward.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
+				if (Game.mainEnviro.money < 50) {
+					System.out.println("Not enough money");
+					return;
+				}
+				Game.mainEnviro.money -= 50;
 				Game.mainEnviro.increaseStew(true);
 			}
 		});		

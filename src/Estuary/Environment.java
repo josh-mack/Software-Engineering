@@ -29,7 +29,7 @@ public class Environment implements Serializable{
 	private int health;
 	private int newHealth = 10;
 	private int oldHealth = 5;
-	static public int money;
+	public int money;
 	Queue events = new Queue();
 	
 	private int numStew;
@@ -273,7 +273,6 @@ public class Environment implements Serializable{
 				
 				
 				
-				numStew++;
 				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
 				Game.test.getMenu().getLayeredPane().remove(drag);
 				System.out.println("Resolve 2 done");

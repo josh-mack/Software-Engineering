@@ -254,7 +254,7 @@ public class DragComponent extends JComponent {
 			for (int j = -3; j < 4; j++) {
 				if (((j!=0) || (i!=0)) && (0<=y+i) && (y+i<24) && (0<=x+j) && (x+j<38)) {
 					if (Game.board[y+i][x+j] != eChar.BLANK) {
-						Game.mainEnviro.resolve(Game.board[y][x], Game.board[y+i][x+j], y+i, x+j, this);
+						Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, this);
 						//Game.deleteComponent(y+i, x+j);
 						return true;
 					}

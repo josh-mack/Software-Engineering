@@ -49,7 +49,6 @@ public class DNERR extends JComponent implements Serializable
 	int x;
 	int y;
 	private MouseListener pressListener;
-	public static int oldi = 0, oldj = 0;
 	
 	private eChar character;
 	private eQuad whatQuad;
@@ -227,24 +226,24 @@ public class DNERR extends JComponent implements Serializable
 		switch(level)
 		{
 		case 1:
-			if(Environment.money < 100)
+			if(Game.mainEnviro.money < 100)
 			{
 				System.out.println("Not Enough money, Can't Upgrade");
 				break;
 			}
 			Game.dnrecLevel++;
-			Environment.money -= 100;
+			Game.mainEnviro.money -= 100;
 			Game.replaceDNERR(x, y);
 			
 			break;
 		case 2:
-			if(Environment.money < 100)
+			if(Game.mainEnviro.money < 100)
 			{
 				System.out.println("Not Enough money, Can't Upgrade");
 				break;
 			}
 			Game.dnrecLevel++;
-			Environment.money -= 100;
+			Game.mainEnviro.money -= 100;
 			Game.replaceDNERR(x, y);
 
 			break;

@@ -30,6 +30,7 @@ public class SpeciesComponent extends JComponent {
 	int width = (int)screenSize.getWidth();
 	
 	private eQuad whatQuad;
+	private boolean invasive;
 	
 	/**
 	 * Constructor for SpeciesComponent.
@@ -45,12 +46,27 @@ public class SpeciesComponent extends JComponent {
 			switch(character){
 			case MCRAB:
 				filename = "imgs/mittencrab_0.png";
+				this.invasive = true;
 				break;
 			case PHRAG:
 				filename = "imgs/phragmite_spawning1.png";
+				this.invasive = true;
 				break;
 			case BAMBOO:
 				filename = "imgs/bamboo.png";
+				this.invasive = true;
+				break;
+			case ZEBRA:
+				filename = "imgs/zebramussel.png";
+				this.invasive = false;
+				break;
+			case BLAZINGSTAR:
+				filename = "imgs/blazingstarplant.png";
+				this.invasive = false;
+				break;
+			case HCRAB:
+				filename = "imgs/horseshoe_crab_left_1.png";
+				this.invasive = false;
 				break;
 			default:
 				filename = null;
@@ -72,6 +88,14 @@ public class SpeciesComponent extends JComponent {
 		this.whatQuad = thisQuad;
 		this.character = character;
 		
+	}
+
+	public boolean isInvasive() {
+		return invasive;
+	}
+
+	public void setInvasive(boolean invasive) {
+		this.invasive = invasive;
 	}
 
 	/**
