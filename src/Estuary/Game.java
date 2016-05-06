@@ -24,7 +24,6 @@ public class Game {
 	static int width = (int)screenSize.getWidth()/38;
 	
 	static int seconds;
-	static int money;
 	
 	static Menu test;
 	static int dnrecLevel = 1;
@@ -270,8 +269,9 @@ public class Game {
 	public static void replaceDNERR(int x, int y) {
 		test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(x,y));
 		test.getMenu().getLayeredPane().add(new DNERR(x,y, dnrecLevel),0);
-		test.getMenu().getLayeredPane().repaint();
-		test.getMenu().getLayeredPane().revalidate();
+		test.getMenu().repaint();
+		test.getMenu().revalidate();
+		drawOnScreen(test.getMenu().getLayeredPane(),eQuad.N,false);
 	}
 
 
