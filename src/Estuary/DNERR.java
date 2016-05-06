@@ -232,6 +232,7 @@ public class DNERR extends JComponent implements Serializable
 				break;
 			}
 			Game.dnrecLevel++;
+			Game.mainEnviro.setNumRes(Game.mainEnviro.getNumRes() + 1);
 			Game.mainEnviro.money -= 100;
 			Game.replaceDNERR(x, y);
 			
@@ -243,6 +244,7 @@ public class DNERR extends JComponent implements Serializable
 				break;
 			}
 			Game.dnrecLevel++;
+			Game.mainEnviro.setNumRes(Game.mainEnviro.getNumRes() + 1);
 			Game.mainEnviro.money -= 100;
 			Game.replaceDNERR(x, y);
 
