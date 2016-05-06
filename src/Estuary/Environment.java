@@ -176,6 +176,49 @@ public class Environment implements Serializable{
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
+	public Native makeNativeSpecies(eQuad quad) {
+		Native nativeAdded = new HorseShoeCrab(3, 10, 10, 5);
+		
+		Random rand = new Random();
+		int rowEnd,colEnd;
+		int x =0,y =0;
+		switch(quad){
+		case N:
+			rowEnd = 24;
+			colEnd = 38;
+			x = (rand.nextInt(colEnd)%38);
+			y = (rand.nextInt(rowEnd)%24);
+			nativeAdded= new HorseShoeCrab(3, x, y, 5);
+			break;
+		case E:
+			rowEnd = 24;
+			colEnd = 76;
+			x = (rand.nextInt(colEnd)%38)+38;
+			y = (rand.nextInt(rowEnd)%24);
+			nativeAdded= new BlazingStar(3, x, y, 5);
+			break;
+		case S:
+			rowEnd = 48;
+			colEnd = 76;
+			x = (rand.nextInt(colEnd)%38)+38;
+			y = (rand.nextInt(rowEnd)%24)+24;
+			break;
+		case W:
+			rowEnd = 48;
+			colEnd = 38;
+			x = (rand.nextInt(colEnd)%38);
+			y = (rand.nextInt(rowEnd)%24)+24;
+			break;
+			
+		default:
+			rowEnd = 0;
+			colEnd = 0;
+		}
+		
+		
+		return nativeAdded;		
+	}
+	
 	
 	/**
 	 * This method is called when an event is completed, 
@@ -304,6 +347,10 @@ public class Environment implements Serializable{
 		case VOLUNTEER:
 			break;
 		case DNREC:
+			break;
+		case HCRAB:
+			break;
+		case BLAZINGSTAR:
 			break;
 		default:
 			resolve(character, i, j, drag);

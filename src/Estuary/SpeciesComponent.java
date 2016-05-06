@@ -58,7 +58,7 @@ public class SpeciesComponent extends JComponent {
 				break;
 			case ZEBRA:
 				filename = "imgs/zebramussel.png";
-				this.invasive = false;
+				this.invasive = true;
 				break;
 			case BLAZINGSTAR:
 				filename = "imgs/blazingstarplant.png";

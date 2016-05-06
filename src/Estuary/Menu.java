@@ -220,7 +220,7 @@ public class Menu{
 		charSelection.add(stewardLabel);
 		BufferedImage stewardIcon = null;
 		try {
-			stewardIcon = ImageIO.read(new File("imgs/stewardIcon.jpg"));
+			stewardIcon = ImageIO.read(new File("imgs/volunteer_blueshirt_front_0.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -260,7 +260,7 @@ public class Menu{
 		charSelection.add(researcherLabel);
 		BufferedImage researcherIcon = null;
 		try {
-			researcherIcon = ImageIO.read(new File("imgs/researcherIcon.jpg"));
+			researcherIcon = ImageIO.read(new File("imgs/researcher_withClipboard.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -274,7 +274,7 @@ public class Menu{
 		charSelection.add(volunteerLabel);
 		BufferedImage volunteerIcon = null;
 		try {
-			volunteerIcon = ImageIO.read(new File("imgs/volunteerIcon.jpg"));
+			volunteerIcon = ImageIO.read(new File("imgs/volunteer_redshirt_walk_front_0.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
