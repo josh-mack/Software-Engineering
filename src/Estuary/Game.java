@@ -38,7 +38,7 @@ public class Game {
 			}
 		}
 		board[3][10] = eChar.DNREC;
-		
+		board[15][70] = eChar.FISHERMAN;
 	}
 	
 	/**
@@ -227,6 +227,9 @@ public class Game {
 						break;
 					case DNREC:
 						pane.add(new DNERR(j%38*width, i%24*height,dnrecLevel),0);
+						break;
+					case FISHERMAN:
+						pane.add(new Fisherman(j%27*width, i%24*height), 0);
 						break;
 					default:
 						test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);

@@ -43,7 +43,7 @@ public class DNERR extends JComponent implements Serializable
 
 	private static final long serialVersionUID = 600;
 	
-	int level;;
+	int level;
 	String building;
 	JFrame dnerr;
 	int x;

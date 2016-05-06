@@ -46,7 +46,6 @@ public class InvasiveTest {
 	@Test
 	public void InvasiveMisc()
 	{
-		Fisherman fish = new Fisherman(1, 4, 4, 2, 30);
 		Pollution poll = new Pollution(10, 7, 7, 3, 40);
 		
 		assert(poll.getEcoReward() == 40);

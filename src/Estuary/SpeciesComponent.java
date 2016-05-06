@@ -53,7 +53,7 @@ public class SpeciesComponent extends JComponent {
 				filename = "imgs/bamboo.png";
 				break;
 			default:
-				filename = "imgs/flagFull.png";
+				filename = null;
 			}
 			
 		setLayout(new BorderLayout());
