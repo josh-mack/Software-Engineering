@@ -66,36 +66,16 @@ public class Game {
 				if(test.getQuadrant()!=eQuad.MAIN){
 					Event retVal = mainEnviro.makeEvent(test.getQuadrant());
 					Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-					System.out.println(Game.board[retVal.getY()][retVal.getX()]);
+					//System.out.println(Game.board[retVal.getY()][retVal.getX()]);
 					
 					
 					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
-					for(int i = 0; i < 48; i++){
+					/*for(int i = 0; i < 48; i++){
 						for(int j = 0; j < 76; j++){
 							if(Game.board[i][j] != eChar.BLANK)
 							System.out.println(Game.board[i][j]);;
 						}
-					}
-				}
-		}};
-		
-		ActionListener nativeSpawn = new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				if(test.getQuadrant()!=eQuad.MAIN){
-					Native retVal = mainEnviro.makeNativeSpecies(test.getQuadrant());
-					Game.board[retVal.getYCoord()][retVal.getXCoord()] = retVal.getType();
-					System.out.println(Game.board[retVal.getYCoord()][retVal.getXCoord()]);
-					
-					
-					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
-					for(int i = 0; i < 48; i++){
-						for(int j = 0; j < 76; j++){
-							if(Game.board[i][j] != eChar.BLANK)
-							System.out.println(Game.board[i][j]);;
-						}
-					}
+					}*/
 				}
 		}};
 		
@@ -110,12 +90,12 @@ public class Game {
 					
 					
 					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
-					for(int i = 0; i < 48; i++){
+					/*for(int i = 0; i < 48; i++){
 						for(int j = 0; j < 76; j++){
 							if(Game.board[i][j] != eChar.BLANK)
 							System.out.println(Game.board[i][j]);;
 						}
-					}
+					}*/
 				}
 			}
 			
@@ -124,10 +104,8 @@ public class Game {
 		
 		new Timer(1000, timerAction).start();
 		
-		//Create an Invasive species every 10 seconds
+		//Create an Invasive species every 1 second
 		new Timer(10000, timerSpawn).start();
-		
-		new Timer(5000, nativeSpawn).start();
 		
 		//new Timer(30000, powerUpSpawn).start();
 		
@@ -225,7 +203,7 @@ public class Game {
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK){
-					System.out.println("Species: " + board[i][j] + "\n X-location: " + i + "\n Y-location: " + j);
+					//System.out.println("Species: " + board[i][j] + "\n X-location: " + i + "\n Y-location: " + j);
 					DragComponent charPlace = null;
 					switch(board[i][j]){
 					case STEWARD:

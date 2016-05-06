@@ -100,6 +100,8 @@ public class DNERR extends JComponent implements Serializable
 			public void mouseClicked(MouseEvent e) { 
 				dnerr.setVisible(true);
 				bar.setValue(Game.mainEnviro.getHealth());
+				bar.setString(Game.mainEnviro.getHealth()+"%");
+				bar.setStringPainted(true);
 			}
 
 			@Override
