@@ -161,6 +161,10 @@ public class Environment implements Serializable{
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24)+24;
+			invasiveAdded= new ZebraMussel(3, x, y, 5, 10);
+			events.insertFront(invasiveAdded);
+			events.setX(x);
+			events.setY(y);
 			break;
 			
 		default:
@@ -202,12 +206,14 @@ public class Environment implements Serializable{
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24)+24;
+			nativeAdded= new BlackEyedSusan(3, x, y, 5);
 			break;
 		case W:
 			rowEnd = 48;
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24)+24;
+			nativeAdded= new BlueCrab(3, x, y, 5);
 			break;
 			
 		default:
@@ -351,6 +357,10 @@ public class Environment implements Serializable{
 		case HCRAB:
 			break;
 		case BLAZINGSTAR:
+			break;
+		case BLACKEYEDSUSAN:
+			break;
+		case BCRAB:
 			break;
 		default:
 			resolve(character, i, j, drag);

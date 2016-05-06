@@ -49,7 +49,7 @@ public class SpeciesComponent extends JComponent {
 				this.invasive = true;
 				break;
 			case PHRAG:
-				filename = "imgs/phragmite_spawning1.png";
+				filename = "imgs/phragmite_spawning3.png";
 				this.invasive = true;
 				break;
 			case BAMBOO:
@@ -67,6 +67,12 @@ public class SpeciesComponent extends JComponent {
 			case HCRAB:
 				filename = "imgs/horseshoe_crab_left_1.png";
 				this.invasive = false;
+				break;
+			case BLACKEYEDSUSAN:
+				filename = "imgs/susan.png";
+				break;
+			case BCRAB:
+				filename = "imgs/bluecrab_0.png";
 				break;
 			default:
 				filename = null;
