@@ -296,11 +296,6 @@ public class Environment implements Serializable{
 //		case FASTCHARACTER:
 //			break;
 		case INSTAKILL:
-			Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
-			Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
-			events.removeback();
-			money+=100;
-			calcHealth();
 			break;
 		case RESEARCHER:
 			break;
@@ -314,10 +309,17 @@ public class Environment implements Serializable{
 			resolve(character, i, j, drag);
 
 		}
-			
 		
 	System.out.println("Resolve 1 Done");
 	}
+	
+	public void instakill() {
+		Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
+		Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
+		events.removeback();
+		calcHealth();
+	}
+		
 	
 	public void calcGrowth() {
 		
