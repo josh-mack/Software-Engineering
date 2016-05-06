@@ -387,11 +387,11 @@ public class Environment implements Serializable{
 	 * based off current health.
 	 */
 	public void calcHealth() {
-		/*double y = (this.health - 19/20)*(this.health - 20)/10;
+		double y = (this.health - 19/20)*(this.health - 20)/10;
 		double num  = ( 1 + Math.pow( Math.exp(1.0), y));
 		double formula = 1/(num);
-		setHealth((int)formula);*/
-		setHealth((int)(this.health * 2));
+		setHealth((int)formula);
+		//setHealth((int)(this.health * 2));
 	}
 	
 	public void calcMoney() {
