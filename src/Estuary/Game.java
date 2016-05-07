@@ -38,6 +38,7 @@ public class Game {
 		}
 		board[3][10] = eChar.DNREC;
 		board[15][70] = eChar.FISHERMAN;
+		board[35][5] = eChar.CITY;
 	}
 	
 	/**
@@ -127,7 +128,7 @@ public class Game {
 		//Create an Invasive species every 10 seconds
 		new Timer(10000, timerSpawn).start();
 		
-		new Timer(20000, nativeSpawn).start();
+		new Timer(40000, nativeSpawn).start();
 		
 		//new Timer(30000, powerUpSpawn).start();
 		
@@ -251,6 +252,9 @@ public class Game {
 						break;
 					case FISHERMAN:
 						pane.add(new Fisherman(j%38*width, i%24*height), 0);
+						break;
+					case CITY:
+						pane.add(new City(j%38*width, i%24*height), 0);
 						break;
 					default:
 						test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);

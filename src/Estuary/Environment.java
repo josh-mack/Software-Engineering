@@ -312,17 +312,32 @@ public class Environment implements Serializable{
 				
 				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
 				Game.test.getMenu().getLayeredPane().remove(drag);
+				
 				System.out.println("Resolve 2 done");
+				
+				
+				if(Game.test.getQuadrant()!=eQuad.MAIN){
+					Native retVal = makeNativeSpecies(Game.test.getQuadrant());
+					Game.board[retVal.getYCoord()][retVal.getXCoord()] = retVal.getType();
+					System.out.println(Game.board[retVal.getYCoord()][retVal.getXCoord()]);
+					
+					
+					Game.drawOnScreen(Game.test.getMenu().getLayeredPane(), Game.test.getQuadrant(), false);	
+					for(int i = 0; i < 48; i++){
+						for(int j = 0; j < 76; j++){
+							if(Game.board[i][j] != eChar.BLANK)
+							System.out.println(Game.board[i][j]);;
+						}
+					}
+				}
 				
 				temp.stop();
 				}
 		};
 		temp = new Timer(3000, timerAction);
 		temp.start();
-			
-	
 	}
-	
+
 	/**
 	 * Overloaded resolve() method to handle the
 	 * in-game powerups. Each powerup has its own way of
@@ -362,12 +377,35 @@ public class Environment implements Serializable{
 			break;
 		case BCRAB:
 			break;
+		case FISHERMAN:
+			break;
+		case CITY:
+			enteredTheCity(character, drag);
+			break;
 		default:
 			resolve(character, i, j, drag);
 
 		}
 		
 	System.out.println("Resolve 1 Done");
+	}
+	
+	
+	public void enteredTheCity(eChar character, DragComponent drag) {
+		ActionListener cityAction = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (character == eChar.STEWARD) {
+					numVol++;
+					Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+					Game.test.getMenu().getLayeredPane().remove(drag);
+					numStew++;
+				}
+				temp.stop();
+			}
+		};
+		temp = new Timer(5000, cityAction);
+		temp.start();
 	}
 	
 	public void instakill() {

@@ -70,9 +70,11 @@ public class SpeciesComponent extends JComponent {
 				break;
 			case BLACKEYEDSUSAN:
 				filename = "imgs/susan.png";
+				this.invasive = false;
 				break;
 			case BCRAB:
 				filename = "imgs/bluecrab_0.png";
+				this.invasive = false;
 				break;
 			default:
 				filename = null;
