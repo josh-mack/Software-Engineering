@@ -63,7 +63,7 @@ public class DNERR extends JComponent implements Serializable
 	
 	public DNERR(int x, int y,int level)
 	{
-		System.out.println("Levl is "+ level);
+		
 		this.x = x;
 		this.y = y;
 		switch(level)

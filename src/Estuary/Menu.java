@@ -189,7 +189,7 @@ public class Menu{
 		background.add(hilightQ4, c);
 		
 
-		backgroundPanel = new BackgroundTest("imgs/fullmap.png", width, height);
+		backgroundPanel = new BackgroundTest("imgs/overview.jpg", width, height);
 
 		JPanel topBarLeft = new JPanel();
 		topBarLeft.setLayout(new GridBagLayout());
