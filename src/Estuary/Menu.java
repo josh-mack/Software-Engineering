@@ -206,6 +206,7 @@ public class Menu{
 		JLabel charLabel = new JLabel("Char Selection", JLabel.CENTER);
 		charFrame = new JPanel();
 		charFrame.setBackground(Color.BLACK);
+		charLabel.setForeground(Color.white);
 		charFrame.setSize(width/5, height/10);
 		charFrame.setVisible(false);
 		
@@ -311,7 +312,9 @@ public class Menu{
 		
 		
 		JPanel timeFrame = new JPanel();
-		timeFrame.setBackground(Color.RED);
+		timeFrame.setBackground(Color.BLACK);
+		timeLabel.setForeground(Color.white);
+		scoreLabel.setForeground(Color.white);
 		timeFrame.setSize(width/5, height/10);
 		
 		
