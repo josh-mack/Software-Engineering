@@ -36,9 +36,12 @@ public class Environment implements Serializable{
 	private int numStew;
 	private int numVol;
 	private int numRes;
+	
+	private int resolveTime;
 
 	
 	Timer temp;
+	Timer temp2;
 	
 	/**
 	 * Default game initializatzion constructor.
@@ -54,6 +57,7 @@ public class Environment implements Serializable{
 		this.numStew = 2;
 		this.numRes = 1;
 		this.numVol = 3;
+		this.resolveTime = 3;
 	}
 	
 	/**
@@ -278,7 +282,42 @@ public class Environment implements Serializable{
 	 * This is called when an even is supposed to be completed.
 	 */
 	public void resolve(eChar character, int i, int j, DragComponent drag) {
+		if (character == eChar.RESEARCHER) {
+			resolveTime /= 2; 
+		}
+		if (character == eChar.VOLUNTEER) {
+			resolveTime *= 2;
+		}
 		System.out.println("Resolve 2 Method Active");
+		
+		
+		ActionListener nativeSpawn = new ActionListener() {
+
+			int numSpawn = 4-(health/25);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(Game.test.getQuadrant()!=eQuad.MAIN){
+					for (int k = 0; k < numSpawn; k++) {
+						Native retVal = makeNativeSpecies(Game.test.getQuadrant());
+						Game.board[retVal.getYCoord()][retVal.getXCoord()] = retVal.getType();
+						System.out.println(Game.board[retVal.getYCoord()][retVal.getXCoord()]);
+						
+						
+						Game.drawOnScreen(Game.test.getMenu().getLayeredPane(), Game.test.getQuadrant(), false);	
+						for(int i = 0; i < 48; i++){
+							for(int j = 0; j < 76; j++){
+								if(Game.board[i][j] != eChar.BLANK)
+								System.out.println(Game.board[i][j]);;
+							}
+						}
+					}
+				}
+				temp2.stop();
+			}
+			
+		};
+		
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -316,26 +355,14 @@ public class Environment implements Serializable{
 				
 				System.out.println("Resolve 2 done");
 				
-				
-				if(Game.test.getQuadrant()!=eQuad.MAIN){
-					Native retVal = makeNativeSpecies(Game.test.getQuadrant());
-					Game.board[retVal.getYCoord()][retVal.getXCoord()] = retVal.getType();
-					System.out.println(Game.board[retVal.getYCoord()][retVal.getXCoord()]);
-					
-					
-					Game.drawOnScreen(Game.test.getMenu().getLayeredPane(), Game.test.getQuadrant(), false);	
-					for(int i = 0; i < 48; i++){
-						for(int j = 0; j < 76; j++){
-							if(Game.board[i][j] != eChar.BLANK)
-							System.out.println(Game.board[i][j]);;
-						}
-					}
-				}
+				temp2 = new Timer(2000, nativeSpawn);
+				temp2.start();
 				
 				temp.stop();
 				}
 		};
-		temp = new Timer(3000, timerAction);
+		
+		temp = new Timer(resolveTime*1000, timerAction);
 		temp.start();
 	}
 
@@ -348,9 +375,9 @@ public class Environment implements Serializable{
 	 * Fastharacter - 
 	 * Instakill - resolves the last event in the queue immediately.
 	 */
-	public void resolve(eChar powerup, eChar character, int i, int j, DragComponent drag) {
+	public void resolve(eChar species, eChar character, int i, int j, DragComponent drag) {
 		System.out.println("Resolve 1 Method Active");
-		switch(powerup) {
+		switch(species) {
 		case SLOWGROWTH:
 			Iterator<Invasive> it = events.iterator();
 			while(it.hasNext()) {
@@ -362,12 +389,12 @@ public class Environment implements Serializable{
 //			break;
 		case INSTAKILL:
 			break;
-		case RESEARCHER:
-			break;
-		case STEWARD:
-			break;
-		case VOLUNTEER:
-			break;
+//		case RESEARCHER:
+//			break;
+//		case STEWARD:
+//			break;
+//		case VOLUNTEER:
+//			break;
 		case DNREC:
 			break;
 		case HCRAB:
@@ -382,6 +409,22 @@ public class Environment implements Serializable{
 			break;
 		case CITY:
 			enteredTheCity(character, drag);
+			break;
+		case MCRAB:
+			resolveTime = 4;
+			resolve(character, i, j, drag);
+			break;
+		case PHRAG:
+			resolveTime = 6;
+			resolve(character, i, j, drag);
+			break;
+		case BAMBOO:
+			resolveTime = 8;
+			resolve(character, i, j, drag);
+			break;
+		case ZEBRA:
+			resolveTime = 10;
+			resolve(character, i, j, drag);
 			break;
 		default:
 			resolve(character, i, j, drag);

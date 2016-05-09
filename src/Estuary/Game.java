@@ -28,6 +28,9 @@ public class Game {
 	static Menu test;
 	static int dnrecLevel = 1;
 	
+	static int spawnRate;
+
+	
 	public static eChar[][] board =  new eChar[48][76]; //Setting overlying array to BLANK.
 	public static void initBoard(){
 		for(int i = 0; i < 48; i++){
@@ -65,19 +68,23 @@ public class Game {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(test.getQuadrant()!=eQuad.MAIN){
-					Event retVal = mainEnviro.makeEvent(test.getQuadrant());
-					Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-					//System.out.println(Game.board[retVal.getY()][retVal.getX()]);
-					
-					
-					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
-					/*for(int i = 0; i < 48; i++){
-						for(int j = 0; j < 76; j++){
-							if(Game.board[i][j] != eChar.BLANK)
-							System.out.println(Game.board[i][j]);;
-						}
-					}*/
+					spawnRate = (mainEnviro.getHealth()/20) + 1;
+					for (int i = 0; i < spawnRate; i++) {
+						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
+						//System.out.println(Game.board[retVal.getY()][retVal.getX()]);
+						
+						
+						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+						/*for(int i = 0; i < 48; i++){
+							for(int j = 0; j < 76; j++){
+								if(Game.board[i][j] != eChar.BLANK)
+								System.out.println(Game.board[i][j]);;
+							}
+						}*/
+					}
 				}
+
 		}};
 		
 		ActionListener nativeSpawn = new ActionListener(){
@@ -126,6 +133,8 @@ public class Game {
 		new Timer(1000, timerAction).start();
 		
 		//Create an Invasive species every 10 seconds
+		
+		
 		new Timer(10000, timerSpawn).start();
 		
 		new Timer(40000, nativeSpawn).start();
@@ -269,27 +278,11 @@ public class Game {
 	}
 	
 	public static void deleteComponent(int i, int j) {
-		if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-			SpeciesComponent animal = (SpeciesComponent)test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20);
-			if (animal.isInvasive()) {	
-				test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-				test.getMenu().getLayeredPane().repaint();
-				test.getMenu().getLayeredPane().revalidate();
-				if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-					System.out.println("Why?!?!?!?!?!?!?!");
-					test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-				}
-				if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-					System.out.println("I HATE!!!!!!!!!");
-					test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-				}
-				if(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-					System.out.println("Still works better than Marco's button");
-				}
-			}
-
-
-
+		while (test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
+			test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
+			test.getMenu().getLayeredPane().repaint();
+			test.getMenu().getLayeredPane().revalidate();
+			System.out.println("Still works better than Marco's button");
 		}
 	}
 

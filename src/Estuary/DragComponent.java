@@ -255,10 +255,12 @@ public class DragComponent extends JComponent {
 		for (int i = -3; i < 4; i++ ) {
 			for (int j = -3; j < 4; j++) {
 				if (((j!=0) || (i!=0)) && (24*a<=y+i) && (y+i<24+24*a) && (38*b<=x+j) && (x+j<38+38*b)) {
-					if (Game.board[y+i][x+j] != eChar.BLANK) {
-						Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, this);
-						//Game.deleteComponent(y+i, x+j);
-						return true;
+					if ((Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
+						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)
+						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)) {
+							Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, this);
+							//Game.deleteComponent(y+i, x+j);
+							return true;
 					}
 				}
 			}
