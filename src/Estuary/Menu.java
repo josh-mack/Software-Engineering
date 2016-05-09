@@ -189,7 +189,7 @@ public class Menu{
 		background.add(hilightQ4, c);
 		
 
-		backgroundPanel = new BackgroundTest("imgs/overview.jpg", width, height);
+		backgroundPanel = new BackgroundTest("imgs/overview.png", width, height);
 
 		JPanel topBarLeft = new JPanel();
 		topBarLeft.setLayout(new GridBagLayout());
@@ -450,7 +450,7 @@ public class Menu{
 			case MAIN:
 				inQuad = false;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/overview.jpg");
+				backgroundPanel.paintComponent(null, "imgs/overview.png");
 				charFrame.setVisible(false);
 				mainMap.setVisible(false);
 				main.repaint();
@@ -459,7 +459,7 @@ public class Menu{
 			case N:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/N.jpg");
+				backgroundPanel.paintComponent(null, "imgs/N.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -468,7 +468,7 @@ public class Menu{
 			case W:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/W.jpg");
+				backgroundPanel.paintComponent(null, "imgs/W.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -477,7 +477,7 @@ public class Menu{
 			case S:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/S.jpg");
+				backgroundPanel.paintComponent(null, "imgs/S.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -486,7 +486,7 @@ public class Menu{
 			case E:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/E.jpg");
+				backgroundPanel.paintComponent(null, "imgs/E.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
