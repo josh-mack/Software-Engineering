@@ -31,6 +31,7 @@ public class Environment implements Serializable{
 	private int oldHealth = 5;
 	public int money;
 	Queue events = new Queue();
+	private boolean secondChance = true;
 	
 	private int numStew;
 	private int numVol;
@@ -48,7 +49,7 @@ public class Environment implements Serializable{
 	public Environment() {
 		this.animals = null;
 		this.characters = null;
-		this.health = 30;
+		this.health = 10;
 		this.money = 200;
 		this.numStew = 2;
 		this.numRes = 1;
@@ -434,8 +435,17 @@ public class Environment implements Serializable{
 		setHealth(this.health + 3);
 	}
 	
-	public void calcMoney() {
-		
+	public void checkProgress()
+	{
+		if(getHealth() < 5 && secondChance)
+		{
+			for(int i =0; i<5;i++)
+				instakill();
+			secondChance = false;
+		}
+		if(getHealth() < 5)
+			System.out.println("No more health in estuary");
+			System.exit(0);
 	}
 	
 	/**
