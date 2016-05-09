@@ -158,6 +158,7 @@ public class Game {
 		
 		
 		}
+		mainEnviro.checkProgress();
 		mainFrame.getMenu().repaint();
 		mainFrame.getMenu().revalidate();
 	}
