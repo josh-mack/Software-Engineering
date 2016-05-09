@@ -82,10 +82,12 @@ public class Game {
 			for(int i = 0; i < 48; i++){
 			for(int j = 0; j < 76; j++)
 			{
-				
 				board[i][j] = testboard[i%24][j%38];
-		
 			}
+			board[3][10] = eChar.DNREC;
+			board[15][70] = eChar.FISHERMAN;
+			board[35][5] = eChar.CITY;
+			
 		}
 
 		//initBoard();
