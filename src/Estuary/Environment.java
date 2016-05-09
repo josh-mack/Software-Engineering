@@ -176,7 +176,7 @@ public class Environment implements Serializable{
 			events.setY(y);
 		}
 		
-		
+		setHealth(getHealth() - 1);
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
@@ -425,11 +425,13 @@ public class Environment implements Serializable{
 	 * based off current health.
 	 */
 	public void calcHealth() {
-		double y = (this.health - 19/20)*(this.health - 20)/10;
+		/*double y = (this.health - 19/20)*(this.health - 20)/10;
 		double num  = ( 1 + Math.pow( Math.exp(1.0), y));
 		double formula = 1/(num);
 		setHealth((int)formula);
+		System.out.println(formula);*/
 		//setHealth((int)(this.health * 2));
+		setHealth(this.health + 3);
 	}
 	
 	public void calcMoney() {

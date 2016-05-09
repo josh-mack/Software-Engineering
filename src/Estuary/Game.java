@@ -295,8 +295,8 @@ public class Game {
 	public static void replaceDNERR(int x, int y) {
 		test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(x,y));
 		test.getMenu().getLayeredPane().add(new DNERR(x,y, dnrecLevel),0);
-		test.getMenu().repaint();
-		test.getMenu().revalidate();
+		test.getMenu().getLayeredPane().repaint();
+		test.getMenu().getLayeredPane().revalidate();
 		drawOnScreen(test.getMenu().getLayeredPane(),eQuad.N,false);
 	}
 
