@@ -49,7 +49,7 @@ public class Environment implements Serializable{
 	public Environment() {
 		this.animals = null;
 		this.characters = null;
-		this.health = 10;
+		this.health = 30;
 		this.money = 200;
 		this.numStew = 2;
 		this.numRes = 1;
@@ -444,7 +444,7 @@ public class Environment implements Serializable{
 			secondChance = false;
 		}
 		if(getHealth() < 5)
-			System.out.println("No more health in estuary");
+			//System.out.println("No more health in estuary");
 			System.exit(0);
 	}
 	

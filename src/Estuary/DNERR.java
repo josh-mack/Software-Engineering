@@ -78,8 +78,6 @@ public class DNERR extends JComponent implements Serializable
 		case 3:
 			building = "imgs/level3.png";
 			break;
-		default:
-			building = "imgs/level2.png";
 		}
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(building);
