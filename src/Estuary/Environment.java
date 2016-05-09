@@ -37,6 +37,9 @@ public class Environment implements Serializable{
 	private int numVol;
 	private int numRes;
 	
+	private int numSpawn;
+	private int counter = 0;
+	
 	private int resolveTime;
 
 	
@@ -290,10 +293,25 @@ public class Environment implements Serializable{
 		}
 		System.out.println("Resolve 2 Method Active");
 		
+		if (health <= 10) {
+			numSpawn = 3;
+		}
+		else if (health <= 30) {
+			numSpawn = 2;
+		}
+		else if (health <=60) {
+			numSpawn = 1;
+		}
+		else if (health <=80) {
+			numSpawn = counter%2;
+			counter += 1;
+		}
+		else {
+			numSpawn = (((counter%4)+1)/4);
+			counter += 1;
+		}
 		
 		ActionListener nativeSpawn = new ActionListener() {
-
-			int numSpawn = 4-(health/25);
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -355,8 +373,6 @@ public class Environment implements Serializable{
 				
 				System.out.println("Resolve 2 done");
 				
-				temp2 = new Timer(2000, nativeSpawn);
-				temp2.start();
 				
 				temp.stop();
 				}
@@ -364,6 +380,9 @@ public class Environment implements Serializable{
 		
 		temp = new Timer(resolveTime*1000, timerAction);
 		temp.start();
+		
+		temp2 = new Timer(2000 + (resolveTime*1000), nativeSpawn);
+		temp2.start();
 	}
 
 	/**
