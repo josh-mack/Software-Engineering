@@ -189,7 +189,7 @@ public class Menu{
 		background.add(hilightQ4, c);
 		
 
-		backgroundPanel = new BackgroundTest("imgs/fullmap.png", width, height);
+		backgroundPanel = new BackgroundTest("imgs/overview.png", width, height);
 
 		JPanel topBarLeft = new JPanel();
 		topBarLeft.setLayout(new GridBagLayout());
@@ -206,6 +206,7 @@ public class Menu{
 		JLabel charLabel = new JLabel("Char Selection", JLabel.CENTER);
 		charFrame = new JPanel();
 		charFrame.setBackground(Color.BLACK);
+		charLabel.setForeground(Color.white);
 		charFrame.setSize(width/5, height/10);
 		charFrame.setVisible(false);
 		
@@ -311,7 +312,9 @@ public class Menu{
 		
 		
 		JPanel timeFrame = new JPanel();
-		timeFrame.setBackground(Color.RED);
+		timeFrame.setBackground(Color.BLACK);
+		timeLabel.setForeground(Color.white);
+		scoreLabel.setForeground(Color.white);
 		timeFrame.setSize(width/5, height/10);
 		
 		
@@ -447,7 +450,7 @@ public class Menu{
 			case MAIN:
 				inQuad = false;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
+				backgroundPanel.paintComponent(null, "imgs/overview.png");
 				charFrame.setVisible(false);
 				mainMap.setVisible(false);
 				main.repaint();
@@ -456,7 +459,7 @@ public class Menu{
 			case N:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/N.png");
+				backgroundPanel.paintComponent(null, "imgs/N1.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -465,7 +468,7 @@ public class Menu{
 			case W:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/W.png");
+				backgroundPanel.paintComponent(null, "imgs/W1.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -474,7 +477,7 @@ public class Menu{
 			case S:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/S.png");
+				backgroundPanel.paintComponent(null, "imgs/S1.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -483,7 +486,7 @@ public class Menu{
 			case E:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/E.png");
+				backgroundPanel.paintComponent(null, "imgs/E1.png");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();

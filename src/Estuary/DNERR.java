@@ -44,7 +44,6 @@ public class DNERR extends JComponent implements Serializable
 
 	private static final long serialVersionUID = 600;
 	
-	int level;
 	String building;
 	JFrame dnerr;
 	JProgressBar bar;
@@ -64,9 +63,9 @@ public class DNERR extends JComponent implements Serializable
 	
 	public DNERR(int x, int y,int level)
 	{
+		
 		this.x = x;
 		this.y = y;
-		this.level = level;
 		switch(level)
 		{
 		case 1:
@@ -236,7 +235,7 @@ public class DNERR extends JComponent implements Serializable
 	
 	void upgrade()
 	{
-		switch(level)
+		switch(Game.dnrecLevel)
 		{
 		case 1:
 			if(Game.mainEnviro.money < 100)
@@ -265,8 +264,7 @@ public class DNERR extends JComponent implements Serializable
 		case 3:
 			System.out.println("dnrecc already at max");
 			break;
-		default:
-			building = "img.level1";
+		
 		}
 	}
 	

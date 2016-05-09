@@ -258,7 +258,9 @@ public class Game {
 						}
 						break;
 					case DNREC:
-						pane.add(new DNERR(j%38*width, i%24*height,dnrecLevel),0);
+						if(drag){
+							pane.add(new DNERR(j%38*width, i%24*height,dnrecLevel),0);
+						}
 						break;
 					case FISHERMAN:
 						pane.add(new Fisherman(j%38*width, i%24*height), 0);
@@ -288,9 +290,10 @@ public class Game {
 
 	public static void replaceDNERR(int x, int y) {
 		test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(x,y));
-		test.getMenu().getLayeredPane().add(new DNERR(x,y, dnrecLevel),0);
 		test.getMenu().getLayeredPane().repaint();
 		test.getMenu().getLayeredPane().revalidate();
+		test.getMenu().getLayeredPane().add(new DNERR(x,y, dnrecLevel),0);
+		
 		drawOnScreen(test.getMenu().getLayeredPane(),eQuad.N,false);
 	}
 
