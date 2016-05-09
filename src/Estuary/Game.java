@@ -63,28 +63,64 @@ public class Game {
 				updateCharacters(test, mainEnviro.getNumStew(), mainEnviro.getNumRes(), mainEnviro.getNumVol());
 			//	mainEnviro.setMoney(mainEnviro.getMoney()+20);
 		}};
-		ActionListener timerSpawn = new ActionListener(){
+		ActionListener Spawn80 = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				if(test.getQuadrant()!=eQuad.MAIN){
-					spawnRate = (mainEnviro.getHealth()/20) + 1;
-					for (int i = 0; i < spawnRate; i++) {
+				if(mainEnviro.getHealth()>80){
+					if(test.getQuadrant()!=eQuad.MAIN){
 						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
 						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						//System.out.println(Game.board[retVal.getY()][retVal.getX()]);
-						
-						
 						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
-						/*for(int i = 0; i < 48; i++){
-							for(int j = 0; j < 76; j++){
-								if(Game.board[i][j] != eChar.BLANK)
-								System.out.println(Game.board[i][j]);;
-							}
-						}*/
 					}
 				}
-
+		}};
+		
+		ActionListener Spawn60 = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(mainEnviro.getHealth()<=80 && mainEnviro.getHealth()>60){
+					if(test.getQuadrant()!=eQuad.MAIN){
+						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
+						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+					}
+				}
+		}};
+		
+		ActionListener Spawn30 = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(mainEnviro.getHealth()<=60 && mainEnviro.getHealth()>30){
+					if(test.getQuadrant()!=eQuad.MAIN){
+						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
+						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+					}
+				}
+		}};
+		
+		ActionListener SpawnBetterMarcosButton = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(mainEnviro.getHealth()<=30 && mainEnviro.getHealth()>10){
+					if(test.getQuadrant()!=eQuad.MAIN){
+						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
+						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+					}
+				}
+		}};
+		
+		ActionListener Spawn10 = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(mainEnviro.getHealth()<=10){
+					if(test.getQuadrant()!=eQuad.MAIN){
+						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
+						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+					}
+				}
 		}};
 		
 		ActionListener nativeSpawn = new ActionListener(){
@@ -105,37 +141,19 @@ public class Game {
 						}
 					}
 				}
+				mainEnviro.setHealth(mainEnviro.getHealth() + 1);
 		}};
-		
-		ActionListener powerUpSpawn = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(test.getQuadrant()!=eQuad.MAIN){
-					Event retVal = mainEnviro.makePowerUp(test.getQuadrant(), eChar.INSTAKILL);
-					Game.board[retVal.getY()][retVal.getX()] = eChar.INSTAKILL;
-					System.out.println(Game.board[retVal.getY()][retVal.getX()]);
-					
-					
-					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
-					/*for(int i = 0; i < 48; i++){
-						for(int j = 0; j < 76; j++){
-							if(Game.board[i][j] != eChar.BLANK)
-							System.out.println(Game.board[i][j]);;
-						}
-					}*/
-				}
-			}
-			
-		};
-		
 		
 		new Timer(1000, timerAction).start();
 		
 		//Create an Invasive species every 10 seconds
 		
 		
-		new Timer(10000, timerSpawn).start();
+		new Timer(2000, Spawn80).start();
+		new Timer(3000, Spawn60).start();
+		new Timer(4000, Spawn30).start();
+		new Timer(6000, SpawnBetterMarcosButton).start();
+		new Timer(10000, Spawn10).start();
 		
 		new Timer(40000, nativeSpawn).start();
 		
