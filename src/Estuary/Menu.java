@@ -450,7 +450,7 @@ public class Menu{
 			case MAIN:
 				inQuad = false;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/fullmap.png");
+				backgroundPanel.paintComponent(null, "imgs/overview.jpg");
 				charFrame.setVisible(false);
 				mainMap.setVisible(false);
 				main.repaint();
@@ -459,7 +459,7 @@ public class Menu{
 			case N:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/N.png");
+				backgroundPanel.paintComponent(null, "imgs/N.jpg");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -468,7 +468,7 @@ public class Menu{
 			case W:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/W.png");
+				backgroundPanel.paintComponent(null, "imgs/W.jpg");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -477,7 +477,7 @@ public class Menu{
 			case S:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/S.png");
+				backgroundPanel.paintComponent(null, "imgs/S.jpg");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
@@ -486,7 +486,7 @@ public class Menu{
 			case E:
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/E.png");
+				backgroundPanel.paintComponent(null, "imgs/E.jpg");
 				charFrame.setVisible(true);
 				mainMap.setVisible(true);
 				main.repaint();
