@@ -60,7 +60,7 @@ public class DragComponent extends JComponent {
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(imageName);
 		JLabel label = new JLabel(image);
-		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
+		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());	
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
