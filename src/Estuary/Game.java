@@ -187,11 +187,11 @@ public class Game {
 		//Create an Invasive species every 10 seconds
 		
 		
-		new Timer(2000, Spawn80).start();
-		new Timer(3000, Spawn60).start();
-		new Timer(4000, Spawn30).start();
-		new Timer(6000, SpawnBetterMarcosButton).start();
-		new Timer(10000, Spawn10).start();
+		new Timer(4000, Spawn80).start();
+		new Timer(6000, Spawn60).start();
+		new Timer(8000, Spawn30).start();
+		new Timer(12000, SpawnBetterMarcosButton).start();
+		new Timer(15000, Spawn10).start();
 		
 		new Timer(40000, nativeSpawn).start();
 		
