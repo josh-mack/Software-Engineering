@@ -41,7 +41,7 @@ public class Environment implements Serializable{
 	Timer temp;
 	
 	/**
-	 * Default game initializatzion constructor.
+	 * Default game initialization constructor.
 	 * Creates an empty board of animals and characters.
 	 * Sets the player's health to below the maximum.
 	 * Sets the player's starting money to 200.
