@@ -42,9 +42,9 @@ public class Game {
 				board[i][j] = eChar.BLANK;
 			}
 		}
-		board[3][10] = eChar.DNREC;
+		board[3][9] = eChar.DNREC;
 		board[15][70] = eChar.FISHERMAN;
-		board[35][5] = eChar.CITY;
+		board[3][20] = eChar.CITY;
 	}
 	
 	/**
@@ -84,9 +84,9 @@ public class Game {
 			{
 				board[i][j] = testboard[i%24][j%38];
 			}
-			board[3][10] = eChar.DNREC;
-			board[15][70] = eChar.FISHERMAN;
-			board[35][5] = eChar.CITY;
+			board[3][7] = eChar.DNREC;
+			board[35][5] = eChar.FISHERMAN;
+			board[1][23] = eChar.CITY;
 			
 		}
 
@@ -293,7 +293,7 @@ public class Game {
 		
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
-				if(board[i][j] != eChar.BLANK){
+				if(board[i][j] != eChar.BLANK && board[i][j]!= eChar.NOTHING){
 					//System.out.println("Species: " + board[i][j] + "\n X-location: " + i + "\n Y-location: " + j);
 					DragComponent charPlace = null;
 					switch(board[i][j]){

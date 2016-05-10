@@ -46,7 +46,7 @@ public class City extends JComponent implements Serializable{
 	{
 		this.x = x;
 		this.y = y;
-		city = "imgs/questionMark.png";
+		city = "imgs/city.png";
 		setLayout(new BorderLayout());
 		ImageIcon image = new ImageIcon(city);
 		JLabel label = new JLabel(image);

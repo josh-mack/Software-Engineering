@@ -329,6 +329,7 @@ public class Environment implements Serializable{
 								System.out.println(Game.board[i][j]);;
 							}
 						}
+						break;
 					}
 				}
 				temp2.stop();
