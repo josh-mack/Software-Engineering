@@ -18,6 +18,7 @@ public class DragComponent extends JComponent {
 	private int YCoord;
 	private MouseListener pressListener;
 	private int oldi , oldj;
+	private boolean canDrag;
 	
 	public int getXOnScreen() {
 		return XOnScreen;
@@ -64,7 +65,9 @@ public class DragComponent extends JComponent {
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
-		add(label);		
+		add(label);	
+		
+		canDrag = true;
 		
 		setLocation(x,y);
 		//setOpaque(false);
@@ -101,10 +104,12 @@ public class DragComponent extends JComponent {
 			@Override
 			public void mouseReleased(MouseEvent e) 
 			{
-				placeInArray(getX(), getY());
-				getRootPane().repaint();
-				getRootPane().revalidate();
+				if(canDrag) {
+					placeInArray(getX(), getY());
+					getRootPane().repaint();
+					getRootPane().revalidate();
 				}
+			}
 		};
 		addMouseListener(pressListener);
 		
@@ -116,7 +121,9 @@ public class DragComponent extends JComponent {
 	    	
 	    	@Override
 	    	public void mouseDragged(MouseEvent e) {
-	    		setLocation(XCoord + (e.getXOnScreen() - XOnScreen), YCoord + (e.getYOnScreen() - YOnScreen));
+	    		if (canDrag) {
+	    			setLocation(XCoord + (e.getXOnScreen() - XOnScreen), YCoord + (e.getYOnScreen() - YOnScreen));
+	    		}
 	    	}
 
 			@Override
@@ -257,10 +264,17 @@ public class DragComponent extends JComponent {
 				if (((j!=0) || (i!=0)) && (24*a<=y+i) && (y+i<24+24*a) && (38*b<=x+j) && (x+j<38+38*b)) {
 					if ((Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
 						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)
-						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)) {
+						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)
+						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.FISHERMAN)) {
+							canDrag = false;
 							Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, this);
 							//Game.deleteComponent(y+i, x+j);
 							return true;
+					}
+					else if ((this.character == eChar.STEWARD) && (Game.board[y+i][x+j] == eChar.CITY)) {
+						canDrag = false;
+						Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, this);
+						return true;
 					}
 				}
 			}

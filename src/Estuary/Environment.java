@@ -284,7 +284,7 @@ public class Environment implements Serializable{
 	 * Method used to remove an event from the front of the queue.
 	 * This is called when an even is supposed to be completed.
 	 */
-	public void resolve(eChar character, int i, int j, DragComponent drag) {
+	public void resolve2(eChar character, int i, int j, DragComponent drag) {
 		if (character == eChar.RESEARCHER) {
 			resolveTime /= 2; 
 		}
@@ -323,16 +323,15 @@ public class Environment implements Serializable{
 						
 						
 						Game.drawOnScreen(Game.test.getMenu().getLayeredPane(), Game.test.getQuadrant(), false);	
-						for(int i = 0; i < 48; i++){
-							for(int j = 0; j < 76; j++){
-								if(Game.board[i][j] != eChar.BLANK)
-								System.out.println(Game.board[i][j]);;
-							}
-						}
-						break;
+//						for(int i = 0; i < 48; i++){
+//							for(int j = 0; j < 76; j++){
+//								if(Game.board[i][j] != eChar.BLANK)
+//								System.out.println(Game.board[i][j]);;
+//							}
+//						}
 					}
 				}
-				temp2.stop();
+				((Timer)e.getSource()).stop();
 			}
 			
 		};
@@ -375,7 +374,7 @@ public class Environment implements Serializable{
 				System.out.println("Resolve 2 done");
 				
 				
-				temp.stop();
+				((Timer)e.getSource()).stop();
 				}
 		};
 		
@@ -432,22 +431,22 @@ public class Environment implements Serializable{
 			break;
 		case MCRAB:
 			resolveTime = 4;
-			resolve(character, i, j, drag);
+			resolve2(character, i, j, drag);
 			break;
 		case PHRAG:
 			resolveTime = 6;
-			resolve(character, i, j, drag);
+			resolve2(character, i, j, drag);
 			break;
 		case BAMBOO:
 			resolveTime = 8;
-			resolve(character, i, j, drag);
+			resolve2(character, i, j, drag);
 			break;
 		case ZEBRA:
 			resolveTime = 10;
-			resolve(character, i, j, drag);
+			resolve2(character, i, j, drag);
 			break;
 		default:
-			resolve(character, i, j, drag);
+			resolve2(character, i, j, drag);
 
 		}
 		
