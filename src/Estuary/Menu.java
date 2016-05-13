@@ -106,34 +106,28 @@ public class Menu{
 	public void startScreen()
 	{
 		JPanel overAll = new JPanel();
-		overAll.setLayout(new OverlayLayout(overAll));
-		
-		JPanel Startpanel = new JPanel();
-		BackgroundTest titleBack = new BackgroundTest("imgs/TitleScreen.png", width, height);
-		Startpanel.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		//JButton start = new JButton("Start");
-		JLabel start = new JLabel(new ImageIcon("imgs/StartButton.png"));
-		
-		start.setBackground(alphaLayer);
+		OverlayLayout over = new OverlayLayout(overAll);
+		overAll.setLayout(over);
 
-		c.gridx(1);
-		c.gridy(1);
+		BackgroundTest titleBack = new BackgroundTest("imgs/TitleScreen.png", width+50, height);
+		titleBack.setSize(width, height);
+		JLabel start = new JLabel(new ImageIcon("imgs/StartButton.png"));
+		JPanel startPanel = new JPanel();
 		
-		Startpanel.add(start, c);
-		
+		startPanel.setLayout(new BorderLayout());
+		startPanel.add(start,BorderLayout.CENTER);
+		startPanel.setOpaque(false);
+		overAll.add(startPanel);
 		overAll.add(titleBack);
-		
-		overAll.add(Startpanel);
 		
 		start.addMouseListener(new MouseListener(){
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				Startpanel.setVisible(false);
+				overAll.setVisible(false);
 				loadMenu();
 				main.revalidate();
-				main.remove(Startpanel);
+				main.remove(overAll);
 				Game.startTimers();
 			}
 
