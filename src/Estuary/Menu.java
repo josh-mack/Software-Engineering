@@ -105,28 +105,39 @@ public class Menu{
 	
 	public void startScreen()
 	{
-		panel = new JPanel();
+		JPanel Startpanel = new JPanel();
+		Startpanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		JButton start = new JButton("Start");
 		JLabel title = new JLabel("SimEstuary 2");
 		
-		c.fill = GridBagConstraints.NORTH;
+		c.weighty = 0.05;
 		c.gridx = 1;
 		c.gridy = 1;
-		panel.add(title,c);
+		Startpanel.add(title,c);
 		
 		c.gridx = 1;
 		c.gridy = 2;
-		panel.add(start, c);
+		Startpanel.add(start, c);
 		
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent args0)
 			{
+				Startpanel.setVisible(false);
 				loadMenu();
-				panel.setVisible(false);
+				main.revalidate();
+				main.remove(Startpanel);
+				Game.startTimers();
+
 			}
 		});
-		main.add(panel);
+		Startpanel.setSize(mainSize);
+		Startpanel.setVisible(true);
+		main.add(Startpanel);
+		main.setSize(mainSize);
+		main.setVisible(true);
+
+
 	}
 	
 	/**

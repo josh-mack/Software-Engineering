@@ -92,6 +92,23 @@ public class Game {
 
 		//initBoard();
 		test = new Menu();
+		
+		
+	
+		
+		//new Timer(30000, powerUpSpawn).start();
+		
+		
+//		ActionListener timerCheck = new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				Game.money = mainEnviro.getMoney();
+//		}};		
+//		new Timer(3000, timerCheck);
+	
+	
+	}
+	static void startTimers(){
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -183,7 +200,6 @@ public class Game {
 				}
 				mainEnviro.setHealth(mainEnviro.getHealth() + 1);
 		}};
-		
 		new Timer(1000, timerAction).start();
 		
 		//Create an Invasive species every 10 seconds
@@ -196,18 +212,6 @@ public class Game {
 		new Timer(15000, Spawn10).start();
 		
 		new Timer(40000, nativeSpawn).start();
-		
-		//new Timer(30000, powerUpSpawn).start();
-		
-		
-//		ActionListener timerCheck = new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				Game.money = mainEnviro.getMoney();
-//		}};		
-//		new Timer(3000, timerCheck);
-	
-	
 	}
 	
 	/**
