@@ -35,18 +35,7 @@ public class Game {
 	
 	public static eChar[][] board =  new eChar[48][76]; //Setting overlying array to BLANK.
 	
-	public static void initBoard(){
-		for(int i = 0; i < 48; i++){
-			for(int j = 0; j < 76; j++)
-			{
-				board[i][j] = eChar.BLANK;
-			}
-		}
-		board[3][10] = eChar.DNREC;
-		board[15][70] = eChar.FISHERMAN;
-		board[35][5] = eChar.CITY;
-	}
-	
+
 	/**
 	 * Main method that starts the game's timer and initial starting money,
 	 * and calls the makeEvent() method to initiate the game's primary problem mechanic.
@@ -84,13 +73,12 @@ public class Game {
 			{
 				board[i][j] = testboard[i%24][j%38];
 			}
-			board[3][10] = eChar.DNREC;
-			board[15][70] = eChar.FISHERMAN;
-			board[35][5] = eChar.CITY;
+			board[3][7] = eChar.DNREC;
+			board[35][5] = eChar.FISHERMAN;
+			board[1][23] = eChar.CITY;
 			
 		}
 
-		//initBoard();
 		test = new Menu();
 		
 		
@@ -297,7 +285,7 @@ public class Game {
 		
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
-				if(board[i][j] != eChar.BLANK){
+				if(board[i][j] != eChar.BLANK && board[i][j]!=eChar.NOTHING){
 					//System.out.println("Species: " + board[i][j] + "\n X-location: " + i + "\n Y-location: " + j);
 					DragComponent charPlace = null;
 					switch(board[i][j]){

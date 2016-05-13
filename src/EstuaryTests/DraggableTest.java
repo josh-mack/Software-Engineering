@@ -21,7 +21,6 @@ public class DraggableTest {
 		int YCoord = (height/48)*7;
 		int x = 6;
 		int y = 7;
-		game.initBoard();
 		
 
 		DragComponent character = new DragComponent("imgs/pika.png", eQuad.N, eChar.RESEARCHER, XCoord, YCoord,0,0);
