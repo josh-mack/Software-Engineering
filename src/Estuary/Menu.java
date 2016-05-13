@@ -90,6 +90,7 @@ public class Menu{
 
 		background = new JPanel();
 		background.setLayout(new GridBagLayout());
+		
 		main.setUndecorated(true);
 		main.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent windowEvent){
@@ -97,8 +98,36 @@ public class Menu{
 			}
 		});
 		
-		loadMenu();
+		startScreen();
+		//loadMenu();
 	}	
+	
+	
+	public void startScreen()
+	{
+		panel = new JPanel();
+		GridBagConstraints c = new GridBagConstraints();
+		JButton start = new JButton("Start");
+		JLabel title = new JLabel("SimEstuary 2");
+		
+		c.fill = GridBagConstraints.NORTH;
+		c.gridx = 1;
+		c.gridy = 1;
+		panel.add(title,c);
+		
+		c.gridx = 1;
+		c.gridy = 2;
+		panel.add(start, c);
+		
+		start.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent args0)
+			{
+				loadMenu();
+				panel.setVisible(false);
+			}
+		});
+		main.add(panel);
+	}
 	
 	/**
 	 * Creates the overlying quadrant system over the map.
@@ -109,7 +138,7 @@ public class Menu{
 	 * 
 	 * Also creates the 'Main Menu' and 'Exit' buttons.
 	 */
-	private void loadMenu(){
+	public void loadMenu(){
 		panel = new JPanel(); //Main Layering Panel
 		GridBagConstraints c = new GridBagConstraints();
 		
