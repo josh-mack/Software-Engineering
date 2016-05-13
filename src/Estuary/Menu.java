@@ -105,35 +105,65 @@ public class Menu{
 	
 	public void startScreen()
 	{
+		JPanel overAll = new JPanel();
+		overAll.setLayout(new OverlayLayout(overAll));
+		
 		JPanel Startpanel = new JPanel();
+		BackgroundTest titleBack = new BackgroundTest("imgs/TitleScreen.png", width, height);
 		Startpanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		JButton start = new JButton("Start");
-		JLabel title = new JLabel("SimEstuary 2");
+		//JButton start = new JButton("Start");
+		JLabel start = new JLabel(new ImageIcon("imgs/StartButton.png"));
 		
-		c.weighty = 0.05;
-		c.gridx = 1;
-		c.gridy = 1;
-		Startpanel.add(title,c);
+		start.setBackground(alphaLayer);
+
+		c.gridx(1);
+		c.gridy(1);
 		
-		c.gridx = 1;
-		c.gridy = 2;
 		Startpanel.add(start, c);
 		
-		start.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent args0)
-			{
+		overAll.add(titleBack);
+		
+		overAll.add(Startpanel);
+		
+		start.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
 				Startpanel.setVisible(false);
 				loadMenu();
 				main.revalidate();
 				main.remove(Startpanel);
 				Game.startTimers();
+			}
 
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
-		Startpanel.setSize(mainSize);
-		Startpanel.setVisible(true);
-		main.add(Startpanel);
+		overAll.setSize(mainSize);
+		overAll.setVisible(true);
+		main.add(overAll);
 		main.setSize(mainSize);
 		main.setVisible(true);
 
