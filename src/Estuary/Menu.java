@@ -80,6 +80,13 @@ public class Menu{
 	private JLabel scoreLabel;
 	boolean inQuad = false;
 	
+	
+	JPanel topL;
+	JPanel topR;
+	JPanel botL;
+	JPanel botR;
+	
+	
 	/**
 	 * Constructor for the Menu class.
 	 * Constructs the drop-down window pane.
@@ -581,19 +588,19 @@ public class Menu{
 		switch(eChar){
 		case STEWARD:
 			if (Game.mainEnviro.getNumStew() > 0) {
-				charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0.png",currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0C.png",currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseStew(false);
 			}
 			break;
 		case RESEARCHER:
 			if (Game.mainEnviro.getNumRes() > 0) {
-				charPlace = new DragComponent("imgs/researcher_withClipboard.png",currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent("imgs/researcher_withClipboardC.png",currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseRes(false);
 			}
 			break;
 		case VOLUNTEER:
 			if (Game.mainEnviro.getNumVol() > 0) {
-				charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0.png",currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0C.png",currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseVol(false);
 			}
 			break;
