@@ -4,9 +4,9 @@ package Estuary;
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
  * @version 1.0
  * @since
- * Abstract class for the native species objects.
+ * Class for the native species objects.
  */
-public abstract class Native extends Species {
+public class Native extends Species {
 	private static final long serialVersionUID = 300;
 	
 	/**

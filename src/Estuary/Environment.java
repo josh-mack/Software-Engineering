@@ -147,7 +147,7 @@ public class Environment implements Serializable{
 	 * @return new Event
 	 */
 	public Event makeEvent(eQuad quad){
-		Invasive invasiveAdded =new Phragmites(3, 10, 10, 5, 10);
+		Invasive invasiveAdded = new Invasive(eChar.PHRAG, 3, 10, 10, 5, 10);
 		
 		Random rand = new Random();
 		int rowEnd,colEnd;
@@ -158,7 +158,7 @@ public class Environment implements Serializable{
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24);
-			invasiveAdded= new Phragmites(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.PHRAG, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -168,7 +168,7 @@ public class Environment implements Serializable{
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24);
-			invasiveAdded= new Bamboo(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.BAMBOO, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -178,7 +178,7 @@ public class Environment implements Serializable{
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24)+24;
-			invasiveAdded= new MittenCrab(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.MCRAB, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -188,7 +188,7 @@ public class Environment implements Serializable{
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24)+24;
-			invasiveAdded= new ZebraMussel(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.ZEBRA, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -197,7 +197,7 @@ public class Environment implements Serializable{
 		default:
 			rowEnd = 0;
 			colEnd = 0;
-			invasiveAdded= new Pollution(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.POLLUTER, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -208,8 +208,14 @@ public class Environment implements Serializable{
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
+	/**
+	 * Method to spawn the native species on the board.
+	 * These do not move.
+	 * @param quad
+	 * @return
+	 */
 	public Native makeNativeSpecies(eQuad quad) {
-		Native nativeAdded = new HorseShoeCrab(3, 10, 10, 5);
+		Native nativeAdded = new Native(eChar.HCRAB, 3, 10, 10, 5);
 		
 		Random rand = new Random();
 		int rowEnd,colEnd;
@@ -220,28 +226,28 @@ public class Environment implements Serializable{
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24);
-			nativeAdded= new HorseShoeCrab(3, x, y, 5);
+			nativeAdded= new Native(eChar.HCRAB, 3, x, y, 5);
 			break;
 		case E:
 			rowEnd = 24;
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24);
-			nativeAdded= new BlazingStar(3, x, y, 5);
+			nativeAdded= new Native(eChar.BLAZINGSTAR, 3, x, y, 5);
 			break;
 		case S:
 			rowEnd = 48;
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24)+24;
-			nativeAdded= new BlackEyedSusan(3, x, y, 5);
+			nativeAdded= new Native(eChar.BLACKEYEDSUSAN, 3, x, y, 5);
 			break;
 		case W:
 			rowEnd = 48;
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24)+24;
-			nativeAdded= new BlueCrab(3, x, y, 5);
+			nativeAdded= new Native(eChar.BCRAB, 3, x, y, 5);
 			break;
 			
 		default:
@@ -468,7 +474,14 @@ public class Environment implements Serializable{
 	System.out.println("Resolve 1 Done");
 	}
 	
-	
+	/**
+	 * When a Steward is placed next to the city,
+	 * a volunteer is added to the character pool,
+	 * the steward on the board is removed and re-added
+	 * into the character pool.
+	 * @param character
+	 * @param drag
+	 */
 	public void enteredTheCity(eChar character, DragComponent drag) {
 		ActionListener cityAction = new ActionListener(){
 			@Override
@@ -486,6 +499,10 @@ public class Environment implements Serializable{
 		temp.start();
 	}
 	
+	/**
+	 * Method for the InstaKill powerup. Removes the first invasive species
+	 * in the queue.
+	 */
 	public void instakill() {
 		Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
 		Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
@@ -513,6 +530,10 @@ public class Environment implements Serializable{
 		setHealth(this.health + 3);
 	}
 	
+	/**
+	 * Method to give the player a second chance if they're
+	 * in danger of losing for the first time.
+	 */
 	public void checkProgress()
 	{
 		if(getHealth() < 5 && secondChance)
@@ -522,8 +543,10 @@ public class Environment implements Serializable{
 			secondChance = false;
 		}
 		if(getHealth() < 5)
-			//System.out.println("No more health in estuary");
-			System.exit(0);
+			Game.gameFrame.endScreen();
+			
+		if(getHealth() > 95)
+			Game.gameFrame.endScreen();
 	}
 	
 	/**
@@ -569,6 +592,10 @@ public class Environment implements Serializable{
 		return obj;
 	}
 
+	/**
+	 * Getters and setters.
+	 * @return
+	 */
 	public int getNumStew() {
 		return numStew;
 	}
