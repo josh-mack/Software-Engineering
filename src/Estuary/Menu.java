@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -270,13 +271,14 @@ public class Menu{
 		
 		charSel = new JFrame();
 		charSel.setUndecorated(true);
-		charSel.setSize(width/6, height/2);
+		charSel.setSize(width/6, height/4);
 		JPanel charSelection = new JPanel();
 		charSelection.setLayout(new GridLayout(3, 2));
 		
 		
 		stewardLabel = new JLabel("Stewards: 2");
-		charSelection.add(stewardLabel);
+		stewardLabel.setSize(width/12, height/24);
+		//charSelection.add(stewardLabel);
 		BufferedImage stewardIcon = null;
 		try {
 			stewardIcon = ImageIO.read(new File("imgs/volunteer_blueshirt_front_0.png"));
@@ -284,7 +286,8 @@ public class Menu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JLabel stewardImage = new CharLabel(new ImageIcon(stewardIcon), eChar.STEWARD);
+		Image scaledSteward = stewardIcon.getScaledInstance(width/12, height/12, Image.SCALE_SMOOTH);
+		JLabel stewardImage = new CharLabel(new ImageIcon(scaledSteward), eChar.STEWARD);
 		stewardImage.addMouseListener(addCompOnClick);
 	//	charSelection.add(stewardImage);
 		
@@ -299,12 +302,20 @@ public class Menu{
 				Game.mainEnviro.money -= 50;
 				Game.mainEnviro.increaseStew(true);
 			}
-		});		
+		});
+		buySteward.setSize(width/12, height/24);
+		
+		
+		JPanel stewardPanel = new JPanel();
+		stewardPanel.add(stewardLabel);
+		stewardPanel.add(buySteward);
+		charSelection.add(stewardPanel);
+		
 		
 		//Steward Panel
 		JPanel stewPanel = new JPanel();		
 		stewPanel.add(stewardImage);
-		stewPanel.add(buySteward);
+		//stewPanel.add(buySteward);
 		charSelection.add(stewPanel);
 		
 		charSelection.addMouseListener(new MouseAdapter() {
@@ -324,7 +335,8 @@ public class Menu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JLabel researcherImage = new CharLabel(new ImageIcon(researcherIcon), eChar.RESEARCHER);
+		Image scaledResearcher = researcherIcon.getScaledInstance(width/12, height/12, Image.SCALE_SMOOTH);
+		JLabel researcherImage = new CharLabel(new ImageIcon(scaledResearcher), eChar.RESEARCHER);
 		researcherImage.addMouseListener(addCompOnClick);
 		charSelection.add(researcherImage);
 		
@@ -338,7 +350,8 @@ public class Menu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JLabel volunteerImage = new CharLabel(new ImageIcon(volunteerIcon), eChar.VOLUNTEER);
+		Image scaledVolunteer = volunteerIcon.getScaledInstance(width/12, height/12, Image.SCALE_SMOOTH);
+		JLabel volunteerImage = new CharLabel(new ImageIcon(scaledVolunteer), eChar.VOLUNTEER);
 		volunteerImage.addMouseListener(addCompOnClick);
 		charSelection.add(volunteerImage);
 		
