@@ -84,19 +84,6 @@ public class Game {
 
 		gameFrame = new Menu();
 		
-		
-	
-		
-		//new Timer(30000, powerUpSpawn).start();
-		
-		
-//		ActionListener timerCheck = new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				Game.money = mainEnviro.getMoney();
-//		}};		
-//		new Timer(3000, timerCheck);
-	
 	
 	}
 	
@@ -307,19 +294,19 @@ public class Game {
 					switch(board[i][j]){
 					case STEWARD:
 						if(drag){
-							charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0C.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							gameFrame.placeComp(charPlace);
 						}
 						break;
 					case RESEARCHER:
 						if(drag){
-							charPlace = new DragComponent("imgs/researcher_withClipboard.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent("imgs/researcher_withClipboardC.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
 							gameFrame.placeComp(charPlace);
 						}
 						break;
 					case VOLUNTEER:
 						if(drag){
-							charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0C.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							gameFrame.placeComp(charPlace);
 						}
 						break;

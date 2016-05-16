@@ -278,7 +278,6 @@ public class Menu{
 		
 		
 		stewardLabel = new JLabel("Stewards: 2");
-		stewardLabel.setSize(width/12, height/24);
 		//charSelection.add(stewardLabel);
 		BufferedImage stewardIcon = null;
 		try {
@@ -287,7 +286,7 @@ public class Menu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Image scaledSteward = stewardIcon.getScaledInstance(width/12, height/12, Image.SCALE_SMOOTH);
+		Image scaledSteward = stewardIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH);
 		JLabel stewardImage = new CharLabel(new ImageIcon(scaledSteward), eChar.STEWARD);
 		stewardImage.addMouseListener(addCompOnClick);
 	//	charSelection.add(stewardImage);
@@ -336,7 +335,7 @@ public class Menu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Image scaledResearcher = researcherIcon.getScaledInstance(width/12, height/12, Image.SCALE_SMOOTH);
+		Image scaledResearcher = researcherIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH);
 		JLabel researcherImage = new CharLabel(new ImageIcon(scaledResearcher), eChar.RESEARCHER);
 		researcherImage.addMouseListener(addCompOnClick);
 		charSelection.add(researcherImage);
@@ -351,7 +350,7 @@ public class Menu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Image scaledVolunteer = volunteerIcon.getScaledInstance(width/12, height/12, Image.SCALE_SMOOTH);
+		Image scaledVolunteer = volunteerIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH);
 		JLabel volunteerImage = new CharLabel(new ImageIcon(scaledVolunteer), eChar.VOLUNTEER);
 		volunteerImage.addMouseListener(addCompOnClick);
 		charSelection.add(volunteerImage);
@@ -577,9 +576,10 @@ public class Menu{
 			return;
 		}
 
-		Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
 		switch(quad){
 			case MAIN:
+				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, false);	
+
 				inQuad = false;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, backgroundFilename);
@@ -589,6 +589,8 @@ public class Menu{
 				mainWindow.revalidate();
 			break;
 			case N:
+				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
+
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/N1.png");
@@ -598,6 +600,8 @@ public class Menu{
 				mainWindow.revalidate();
 			break;
 			case W:
+				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
+
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/W1.png");
@@ -607,6 +611,8 @@ public class Menu{
 				mainWindow.revalidate();
 			break;
 			case S:
+				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
+
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/S1.png");
@@ -616,6 +622,8 @@ public class Menu{
 				mainWindow.revalidate();
 			break;
 			case E:
+				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
+
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/E1.png");
@@ -669,7 +677,8 @@ public class Menu{
 			break;
 		}
 		
-		mainWindow.getLayeredPane().add(charPlace);
+		placeComp(charPlace);
+
 		return charPlace;
 	}
 	
@@ -751,9 +760,11 @@ public class Menu{
 		}
 	}
 	public void clearList(){
+		System.out.println("Pre Clear\n"+placedChars);
 		for(JComponent del:placedChars){
 			mainWindow.getLayeredPane().remove(del);
 		}
+		System.out.println("Post Clear\n"+placedChars);
 		mainWindow.repaint();
 		mainWindow.revalidate();
 		placedChars.clear();
