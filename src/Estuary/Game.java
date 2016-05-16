@@ -5,9 +5,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -19,6 +21,7 @@ import javax.swing.Timer;
  * Handles all the player's input and updates its impact on the game itself.
  */
 public class Game {
+	static DNERR dnerrComp;
 	public static Environment mainEnviro = new Environment();
 
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -27,7 +30,7 @@ public class Game {
 	
 	static int seconds;
 	
-	static Menu test;
+	static Menu gameFrame;
 	static int dnrecLevel = 1;
 	
 	static int spawnRate;
@@ -79,7 +82,7 @@ public class Game {
 			
 		}
 
-		test = new Menu();
+		gameFrame = new Menu();
 		
 		
 	
@@ -102,19 +105,21 @@ public class Game {
 			public void actionPerformed(ActionEvent e) {
 				//test.hilight(test.sel, test);
 			//	test.sel = (test.sel+1)%8;
-				updateTime(test, seconds++);
-				updateMoney(test, mainEnviro.getMoney());
-				updateCharacters(test, mainEnviro.getNumStew(), mainEnviro.getNumRes(), mainEnviro.getNumVol());
+				updateTime(gameFrame, seconds++);
+				updateMoney(gameFrame, mainEnviro.getMoney());
+				updateCharacters(gameFrame, mainEnviro.getNumStew(), mainEnviro.getNumRes(), mainEnviro.getNumVol());
 			//	mainEnviro.setMoney(mainEnviro.getMoney()+20);
 		}};
 		ActionListener Spawn80 = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()>80){
-					if(test.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+					if(gameFrame.getQuadrant()!=eQuad.MAIN){
+						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
 						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+						
+						Game.placeComp(retVal.getX(),retVal.getY());
+						Game.refresh(); 
 					}
 				}
 		}};
@@ -123,10 +128,12 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=80 && mainEnviro.getHealth()>60){
-					if(test.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+					if(gameFrame.getQuadrant()!=eQuad.MAIN){
+						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
 						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+						
+						Game.placeComp(retVal.getX(),retVal.getY());
+						Game.refresh();
 					}
 				}
 		}};
@@ -135,10 +142,12 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=60 && mainEnviro.getHealth()>30){
-					if(test.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+					if(gameFrame.getQuadrant()!=eQuad.MAIN){
+						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
 						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+						
+						Game.placeComp(retVal.getX(),retVal.getY());
+						Game.refresh();
 					}
 				}
 		}};
@@ -147,10 +156,12 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=30 && mainEnviro.getHealth()>10){
-					if(test.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+					if(gameFrame.getQuadrant()!=eQuad.MAIN){
+						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
 						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+						
+						Game.placeComp(retVal.getX(),retVal.getY());
+						Game.refresh();
 					}
 				}
 		}};
@@ -159,10 +170,12 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=10){
-					if(test.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(test.getQuadrant());
+					if(gameFrame.getQuadrant()!=eQuad.MAIN){
+						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
 						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
+						
+						Game.placeComp(retVal.getY(),retVal.getX());
+						Game.refresh();
 					}
 				}
 		}};
@@ -171,20 +184,20 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(test.getQuadrant()!=eQuad.MAIN){
-					Native retVal = mainEnviro.makeNativeSpecies(test.getQuadrant());
+				if(gameFrame.getQuadrant()!=eQuad.MAIN){
+					Native retVal = mainEnviro.makeNativeSpecies(gameFrame.getQuadrant());
 					Game.board[retVal.getYCoord()][retVal.getXCoord()] = retVal.getType();
 					System.out.println(Game.board[retVal.getYCoord()][retVal.getXCoord()]);
 					
-					
-					drawOnScreen(test.getMenu().getLayeredPane(), test.getQuadrant(), false);	
-					for(int i = 0; i < 48; i++){
-						for(int j = 0; j < 76; j++){
-							if(Game.board[i][j] != eChar.BLANK)
-							System.out.println(Game.board[i][j]);;
-
-						}
-					}
+					Game.placeComp(retVal.getXCoord(),retVal.getYCoord());
+					Game.refresh();
+//					for(int i = 0; i < 48; i++){
+//						for(int j = 0; j < 76; j++){
+//							if(Game.board[i][j] != eChar.BLANK)
+//							System.out.println(Game.board[i][j]);;
+//
+//						}
+//					}
 				}
 				mainEnviro.setHealth(mainEnviro.getHealth() + 1);
 		}};
@@ -218,8 +231,8 @@ public class Game {
 		
 		}
 		mainEnviro.checkProgress();
-		mainFrame.getMenu().repaint();
-		mainFrame.getMenu().revalidate();
+		mainFrame.getMainWindow().repaint();
+		mainFrame.getMainWindow().revalidate();
 	}
 	
 	/**
@@ -281,52 +294,58 @@ public class Game {
 			rowEnd = 0;
 			colEnd = 0;
 		}
-		SpeciesComponent test = null;
+		JComponent newComponent = null;
 		
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK && board[i][j]!=eChar.NOTHING){
-					//System.out.println("Species: " + board[i][j] + "\n X-location: " + i + "\n Y-location: " + j);
 					DragComponent charPlace = null;
 					switch(board[i][j]){
 					case STEWARD:
 						if(drag){
 							charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
-							pane.add(charPlace, 0);
+							gameFrame.placeComp(charPlace);
 						}
 						break;
 					case RESEARCHER:
 						if(drag){
 							charPlace = new DragComponent("imgs/researcher_withClipboard.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
-							pane.add(charPlace, 0);
+							gameFrame.placeComp(charPlace);
 						}
 						break;
 					case VOLUNTEER:
 						if(drag){
 							charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
-							pane.add(charPlace, 0);
+							gameFrame.placeComp(charPlace);
 						}
 						break;
 					case DNREC:
 						if(drag){
-							pane.add(new DNERR(j%38*width, i%24*height,dnrecLevel),0);
+							dnerrComp = new DNERR(j%38*width, i%24*height,dnrecLevel);
+							gameFrame.placeComp(dnerrComp);
 						}
 						break;
 					case FISHERMAN:
-						pane.add(new Fisherman(j%38*width, i%24*height), 0);
+						if(drag){
+							newComponent = new Fisherman(j%38*width, i%24*height);
+							gameFrame.placeComp(newComponent);
+						}
 						break;
 					case CITY:
-						pane.add(new City(j%38*width, i%24*height), 0);
+						if(drag){
+							newComponent = new City(j%38*width, i%24*height);
+							gameFrame.placeComp(newComponent);
+						}
 						break;
 					default:
-						test = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
-						pane.add(test, 0);
+						newComponent = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
+						gameFrame.placeComp(newComponent);
 						break;
 					}
 				}
 				else{
-					
-					/*JLabel holdTest = new JLabel(new ImageIcon("imgs/test.png"));
+					/*Grid Layout Testing
+					JLabel holdTest = new JLabel(new ImageIcon("imgs/test.png"));
 					ImageIcon image = new ImageIcon("imgs/test.png");
 					holdTest.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
 					holdTest.setVisible(true);
@@ -337,27 +356,44 @@ public class Game {
 				}
 			}
 		}
+		Game.refresh();
 		System.out.println("\n------------------------Pane Drawn------------------------");
 	}
 	
 	public static void deleteComponent(int i, int j) {
-		while (test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-			test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-			test.getMenu().getLayeredPane().repaint();
-			test.getMenu().getLayeredPane().revalidate();
+		while (gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
+			gameFrame.getMainWindow().getLayeredPane().remove(gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
+			gameFrame.getMainWindow().getLayeredPane().repaint();
+			gameFrame.getMainWindow().getLayeredPane().revalidate();
 			System.out.println("Still works better than Marco's button");
 		}
 	}
-
+	public static void placeComp(int x, int y) {
+		gameFrame.placeComp(new SpeciesComponent(gameFrame.getQuadrant(), board[y][x], x%38*width, y%24*height));
+	}
+	
 	public static void replaceDNERR(int x, int y) {
-		test.getMenu().getLayeredPane().remove(test.getMenu().getLayeredPane().getComponentAt(x,y));
-		test.getMenu().getLayeredPane().repaint();
-		test.getMenu().getLayeredPane().revalidate();
-		test.getMenu().getLayeredPane().add(new DNERR(x,y, dnrecLevel),0);
-		
-		drawOnScreen(test.getMenu().getLayeredPane(),eQuad.N,false);
+		gameFrame.removeComp(dnerrComp);
+		dnerrComp = new DNERR(x,y, dnrecLevel);
+		gameFrame.placeComp(dnerrComp);
+		switch(dnrecLevel){
+			case 2:
+				gameFrame.changeOverview("imgs/overview2.png");
+			break;
+			case 3:
+				gameFrame.changeOverview("imgs/overview2.png");
+			break;
+		}
 	}
 
+	public static void refresh(){
+		gameFrame.getMainWindow().getLayeredPane().revalidate();
+		gameFrame.getMainWindow().getLayeredPane().repaint();
+		gameFrame.getMainWindow().revalidate();
+		gameFrame.getMainWindow().repaint();
+		
+
+	}
 
 
 }

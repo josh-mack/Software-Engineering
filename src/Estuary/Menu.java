@@ -24,6 +24,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -45,19 +46,18 @@ import javax.swing.Timer;
  * so long as the player has characters to spend.
  */
 public class Menu{
-	public JPanel background;
-	public JFrame main;
-	public JPanel panel;
+	ArrayList<JComponent> placedChars = new ArrayList<JComponent>();
+
+	public JPanel mainPanel;
+	public JFrame mainWindow;
+	public JPanel layeringPanel;
 	JFrame charSel;
-	private JPanel charFrame;
-	JButton exit;
-	JButton mainMap;
-	BackgroundTest backgroundPanel;
+	BackgroundPanel backgroundPanel;
 	
 	private JLabel stewardLabel;
 	private JLabel researcherLabel;
 	private JLabel volunteerLabel;
-	
+	String backgroundFilename = "imgs/overview1.png";
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
@@ -70,7 +70,6 @@ public class Menu{
 	
 	eQuad currentQuad = eQuad.MAIN;
 	
-	int sel;
 	JPanel hilightQ1;
 	JPanel hilightQ2;
 	JPanel hilightQ3;
@@ -81,10 +80,10 @@ public class Menu{
 	boolean inQuad = false;
 	
 	
-	JPanel topL;
-	JPanel topR;
-	JPanel botL;
-	JPanel botR;
+	JPanel topL = new JPanel();   //Top Left Corner Panel
+	JPanel topR = new JPanel();   //Top Right Corner Panel
+	JPanel botL = new JPanel();   //Bottom Left Corner Panel
+	JPanel botR = new JPanel();   //Bottom Right Corner Panel
 	
 	
 	/**
@@ -92,21 +91,18 @@ public class Menu{
 	 * Constructs the drop-down window pane.
 	 */
 	public Menu(){
-		sel = 0;
-		main = new JFrame();
+		mainWindow = new JFrame();
 
-		background = new JPanel();
-		background.setLayout(new GridBagLayout());
-		
-		main.setUndecorated(true);
-		main.addWindowListener(new WindowAdapter(){
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new GridBagLayout());
+		mainWindow.setUndecorated(true);
+		mainWindow.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent windowEvent){
 				System.exit(0);
 			}
 		});
 		
 		startScreen();
-		//loadMenu();
 	}	
 	
 	
@@ -116,7 +112,7 @@ public class Menu{
 		OverlayLayout over = new OverlayLayout(overAll);
 		overAll.setLayout(over);
 
-		BackgroundTest titleBack = new BackgroundTest("imgs/TitleScreen.png", width+50, height);
+		BackgroundPanel titleBack = new BackgroundPanel("imgs/TitleScreen.png", width+50, height);
 		titleBack.setSize(width, height);
 		JLabel start = new JLabel(new ImageIcon("imgs/StartButton.png"));
 		JPanel startPanel = new JPanel();
@@ -133,8 +129,8 @@ public class Menu{
 				// TODO Auto-generated method stub
 				overAll.setVisible(false);
 				loadMenu();
-				main.revalidate();
-				main.remove(overAll);
+				mainWindow.revalidate();
+				mainWindow.remove(overAll);
 				Game.startTimers();
 			}
 
@@ -164,9 +160,9 @@ public class Menu{
 		});
 		overAll.setSize(mainSize);
 		overAll.setVisible(true);
-		main.add(overAll);
-		main.setSize(mainSize);
-		main.setVisible(true);
+		mainWindow.add(overAll);
+		mainWindow.setSize(mainSize);
+		mainWindow.setVisible(true);
 
 
 	}
@@ -181,7 +177,7 @@ public class Menu{
 	 * Also creates the 'Main Menu' and 'Exit' buttons.
 	 */
 	public void loadMenu(){
-		panel = new JPanel(); //Main Layering Panel
+		layeringPanel = new JPanel(); //Main Layering Panel
 		GridBagConstraints c = new GridBagConstraints();
 		
 		MouseAdapter addCompOnClick = new MouseAdapter(){
@@ -215,7 +211,7 @@ public class Menu{
 		c.gridy = 1;
 		
 		hilightQ1.addMouseListener(switchQuadOnClick);
-		background.add(hilightQ1, c);
+		mainPanel.add(hilightQ1, c);
 
 		
 		//Adding Hilighted Pane to Q2
@@ -229,7 +225,7 @@ public class Menu{
 		c.gridy = 3;
 		
 		hilightQ2.addMouseListener(switchQuadOnClick);
-		background.add(hilightQ2, c);
+		mainPanel.add(hilightQ2, c);
 		
 
 		//Adding Hilighted Pane to Q3
@@ -243,7 +239,7 @@ public class Menu{
 		c.gridy = 3;
 		
 		hilightQ3.addMouseListener(switchQuadOnClick);
-		background.add(hilightQ3, c);
+		mainPanel.add(hilightQ3, c);
 		
 		
 		//Adding Hilighted Pane to Q4
@@ -257,14 +253,10 @@ public class Menu{
 		c.gridy = 4;
 		
 		hilightQ4.addMouseListener(switchQuadOnClick);
-		background.add(hilightQ4, c);
+		mainPanel.add(hilightQ4, c);
 		
 
-		backgroundPanel = new BackgroundTest("imgs/overview.png", width, height);
-
-		JPanel topBarLeft = new JPanel();
-		topBarLeft.setLayout(new GridBagLayout());
-		
+		backgroundPanel = new BackgroundPanel(backgroundFilename, width, height);
 
 		
 		
@@ -274,12 +266,7 @@ public class Menu{
 		scoreLabel = new JLabel("MONEY: $200", JLabel.CENTER);
 		
 		
-		JLabel charLabel = new JLabel("Char Selection", JLabel.CENTER);
-		charFrame = new JPanel();
-		charFrame.setBackground(Color.BLACK);
-		charLabel.setForeground(Color.white);
-		charFrame.setSize(width/5, height/10);
-		charFrame.setVisible(false);
+		
 		
 		charSel = new JFrame();
 		charSel.setUndecorated(true);
@@ -360,11 +347,11 @@ public class Menu{
 		charSel.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLACK));
 		
 		
-		charFrame.addMouseListener(new MouseAdapter(){
+		topL.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent me){
 				if(inQuad){
-					charSel.setLocation(charFrame.getLocationOnScreen());
+					charSel.setLocation(topL.getLocationOnScreen());
 					charSel.setVisible(true);
 					
 				}
@@ -378,7 +365,6 @@ public class Menu{
 		});
 
 		
-		charLabel.setSize(width/5, height/10);
 		
 		
 		
@@ -390,74 +376,135 @@ public class Menu{
 		
 		
 		
-		JPanel exitBar = new JPanel();
-		exit = new JButton("Exit");
-		exit.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
+		botR.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
 				System.exit(0);
 			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
-		mainMap = new JButton("Main Map");
-		mainMap.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
+		botL.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				clearList();
 				loadQuad(eQuad.MAIN);				
-				Component[] junkLayer = main.getLayeredPane().getComponentsInLayer(0);
-				for(Component del: junkLayer){
-					main.getLayeredPane().remove(del);
-					main.revalidate();
-					main.repaint();
-				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 		
-		mainMap.setVisible(false);
-		exitBar.add(mainMap);
-		exitBar.add(exit);
-		exitBar.setOpaque(false);
+		
+		
 
-		charFrame.add(charLabel);
 		timeFrame.add(timeLabel);
 		timeFrame.add(scoreLabel);
+		topR.add(timeFrame);
 		
+		
+		topL.add(new JLabel(new ImageIcon("imgs/TLCorner.png")));
+		topL.setOpaque(false);
 		c.fill = GridBagConstraints.VERTICAL;
 		c.gridx = 0;
 		c.weightx = 1;
 		c.gridwidth = 2;
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.NORTHWEST;
-		topBarLeft.add(charFrame, c);
-		c.gridwidth = 1;
-		c.fill = GridBagConstraints.VERTICAL;
-		c.anchor = GridBagConstraints.NORTHEAST;
+		topL.setVisible(false);
+		mainPanel.add(topL, c);
+		
+		
+		botR.add(new JLabel(new ImageIcon("imgs/BRCorner.png")));
+		botR.setOpaque(false);
+		c.fill = 0;
 		c.gridx = 2;
-		c.gridy = 0;
-		topBarLeft.add(exitBar, c);
-		c.fill = GridBagConstraints.VERTICAL;
-		c.gridx = 3;
-		c.gridy = 0;		
-		c.anchor = GridBagConstraints.NORTHEAST;
-
-
-		topBarLeft.add(timeFrame, c);
-		
-
-		topBarLeft.setOpaque(false);
-		/////////////////////////////////////////////
-		
-		
-
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 3;
-		c.gridx = 0;
-		c.gridy = 0;
 		c.weightx = 0;
-		background.add(topBarLeft, c);
+		c.weighty = 5;
+		c.gridheight = 2;
+		c.gridy = 4;
+		c.anchor = GridBagConstraints.SOUTHEAST;
+		mainPanel.add(botR, c);
+		
+		
+
+		topR.add(new JLabel(new ImageIcon("imgs/TRCorner.png")));
+		topR.setOpaque(false);
+		c.fill = 0;
+		c.gridx = 2;
+		c.weightx = 0;
+		c.weighty = 5;
+		c.gridheight = 2;
+		c.gridy = 0;
+		c.anchor = GridBagConstraints.NORTHEAST;
+		mainPanel.add(topR, c);
+
+		
+		botL.add(new JLabel(new ImageIcon("imgs/BLCorner.png")));
+		botL.setOpaque(false);
+		c.fill = 0;
+		c.gridx = 0;
+		c.weightx = 0;
+		c.weighty = 5;
+		c.gridheight = 2;
+		c.gridy = 4;
+		c.anchor = GridBagConstraints.SOUTHWEST;
+		botL.setVisible(false);
+		mainPanel.add(botL, c);
+
+		
+		
+		
 		
 		makeLayeredPane();
 	
-		main.add(panel);
-		main.setSize(mainSize);
-		main.setVisible(true);
+		mainWindow.add(layeringPanel);
+		mainWindow.setSize(mainSize);
+		mainWindow.setVisible(true);
 		
 		}
 
@@ -516,55 +563,55 @@ public class Menu{
 			return;
 		}
 
-		Game.drawOnScreen(main.getLayeredPane(),quad, true);	
+		Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
 		switch(quad){
 			case MAIN:
 				inQuad = false;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/overview.png");
-				charFrame.setVisible(false);
-				mainMap.setVisible(false);
-				main.repaint();
-				main.revalidate();
+				backgroundPanel.paintComponent(null, backgroundFilename);
+				topL.setVisible(false);
+				botL.setVisible(false);
+				mainWindow.repaint();
+				mainWindow.revalidate();
 			break;
 			case N:
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/N1.png");
-				charFrame.setVisible(true);
-				mainMap.setVisible(true);
-				main.repaint();
-				main.revalidate();
+				topL.setVisible(true);
+				botL.setVisible(true);
+				mainWindow.repaint();
+				mainWindow.revalidate();
 			break;
 			case W:
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/W1.png");
-				charFrame.setVisible(true);
-				mainMap.setVisible(true);
-				main.repaint();
-				main.revalidate();
+				topL.setVisible(true);
+				botL.setVisible(true);
+				mainWindow.repaint();
+				mainWindow.revalidate();
 			break;
 			case S:
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/S1.png");
-				charFrame.setVisible(true);
-				mainMap.setVisible(true);
-				main.repaint();
-				main.revalidate();
+				topL.setVisible(true);
+				botL.setVisible(true);
+				mainWindow.repaint();
+				mainWindow.revalidate();
 			break;
 			case E:
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, "imgs/E1.png");
-				charFrame.setVisible(true);
-				mainMap.setVisible(true);
-				main.repaint();
-				main.revalidate();
+				topL.setVisible(true);
+				botL.setVisible(true);
+				mainWindow.repaint();
+				mainWindow.revalidate();
 			break;
 		}
-		main.repaint();
+		mainWindow.repaint();
 
 		
 	}
@@ -608,7 +655,7 @@ public class Menu{
 			break;
 		}
 		
-		main.getLayeredPane().add(charPlace);
+		mainWindow.getLayeredPane().add(charPlace);
 		return charPlace;
 	}
 	
@@ -616,39 +663,28 @@ public class Menu{
 	 * Creates the layered panel over the main panel.
 	 */
 	public void makeLayeredPane(){
-		LayoutManager overlay = new OverlayLayout(panel);
-		panel.setLayout(overlay);
+		LayoutManager overlay = new OverlayLayout(layeringPanel);
+		layeringPanel.setLayout(overlay);
 
 		
-		background.setOpaque(false);
-		background.setBackground(alphaLayer);
+		mainPanel.setOpaque(false);
+		mainPanel.setBackground(alphaLayer);
 		backgroundPanel.setBackground(alphaLayer);
 		
 
-		panel.add(background);
-		panel.revalidate();
+		layeringPanel.add(mainPanel);
+		layeringPanel.revalidate();
 		
-		panel.add(backgroundPanel);
+		layeringPanel.add(backgroundPanel);
 		
 		
-		main.add(panel);
-		main.setSize(mainSize);
-		main.setVisible(true);
+		mainWindow.add(layeringPanel);
+		mainWindow.setSize(mainSize);
+		mainWindow.setVisible(true);
 				
 	}
 	
 
-	public void nukePane(eQuad quad)
-	{
-		loadQuad(quad);				
-		Component[] junkLayer = main.getLayeredPane().getComponentsInLayer(0);
-		for(Component del: junkLayer){
-			main.getLayeredPane().remove(del);
-			//main.revalidate();
-			//main.repaint();
-		Game.drawOnScreen(main.getLayeredPane(), quad, true);
-		}
-	}
 	
 	/**
 	 * Accessor methods for the panels and quadrants.
@@ -658,13 +694,13 @@ public class Menu{
 		// TODO Auto-generated method stub
 		return this.timeLabel;
 	}
-	public JFrame getMenu() {
+	public JFrame getMainWindow() {
 		// TODO Auto-generated method stub
-		return main;
+		return mainWindow;
 	}
-	public JPanel getMainScreen() {
+	public JPanel getLayeringPanel() {
 		// TODO Auto-generated method stub
-		return panel;
+		return layeringPanel;
 	}
 	public JLabel getScoreLabel() {
 		// TODO Auto-generated method stub
@@ -672,10 +708,6 @@ public class Menu{
 	}
 	public eQuad getQuadrant(){
 		return currentQuad;
-	}
-	public JPanel getPanel() {
-		// TODO Auto-generated method stub
-		return panel;
 	}
 	
 	public JLabel getStewardLabel() {
@@ -690,6 +722,33 @@ public class Menu{
 		return this.researcherLabel;
 	}
 	
+	public void placeComp(JComponent toAdd){
+		mainWindow.getLayeredPane().add(toAdd,0);
+		placedChars.add(toAdd);
+		mainWindow.repaint();
+		mainWindow.revalidate();
+		return;
+	}
+	public void removeComp(JComponent toRemove){
+		if(placedChars.remove(toRemove)){
+			mainWindow.getLayeredPane().remove(toRemove);
+			mainWindow.repaint();
+			mainWindow.revalidate();
+		}
+	}
+	public void clearList(){
+		for(JComponent del:placedChars){
+			mainWindow.getLayeredPane().remove(del);
+		}
+		mainWindow.repaint();
+		mainWindow.revalidate();
+		placedChars.clear();
+		return;
+	}
+	
+	public void changeOverview(String filename){
+		backgroundFilename = filename;
+	}
 }
 	
 	

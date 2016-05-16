@@ -43,7 +43,7 @@ public class DNERR extends JComponent implements Serializable
 {
 
 	private static final long serialVersionUID = 600;
-	
+	Boolean frameUp;
 	String building;
 	JFrame dnerr;
 	JProgressBar bar;
@@ -63,7 +63,7 @@ public class DNERR extends JComponent implements Serializable
 	
 	public DNERR(int x, int y,int level)
 	{
-		
+		frameUp = false;
 		this.x = x;
 		this.y = y;
 		switch(level)
@@ -96,6 +96,7 @@ public class DNERR extends JComponent implements Serializable
 			@Override
 			public void mouseClicked(MouseEvent e) { 
 				dnerr.setVisible(true);
+				frameUp = true;
 				bar.setValue(Game.mainEnviro.getHealth());
 				bar.setString(Game.mainEnviro.getHealth()+"%");
 				bar.setStringPainted(true);
@@ -104,13 +105,15 @@ public class DNERR extends JComponent implements Serializable
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				dnerr.setVisible(false);
+				if(!frameUp){
+					dnerr.setVisible(false);
+				}
 			}
 
 
@@ -131,10 +134,52 @@ public class DNERR extends JComponent implements Serializable
 	}
 	
 	void loadDNERR(int x, int y){
+
 		dnerr = new JFrame();
 		dnerr.setUndecorated(true);
 		dnerr.setSize(200,300);
 		JPanel dnerrPanel = new JPanel();
+		
+		MouseListener stayOn = new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				dnerr.setVisible(true);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getSource()==dnerr){
+					dnerr.setVisible(false);
+					frameUp = false;
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
+		
+		
+		
+		
 		
 		dnerrPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -162,8 +207,14 @@ public class DNERR extends JComponent implements Serializable
 			{
 				if(Game.mainEnviro.money < 50)
 					return;
-				Game.mainEnviro.money -= 50;
+				
+				try{
 				Game.mainEnviro.instakill();
+				}catch(IndexOutOfBoundsException e){
+					return;
+				}
+				Game.mainEnviro.money -= 50;
+				dnerr.setVisible(false);
 				
 			}
 		});
@@ -176,55 +227,19 @@ public class DNERR extends JComponent implements Serializable
 		JButton upgrade = new JButton("UPGRADE");
 		upgrade.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				upgrade();;
+				upgrade();
+				dnerr.setVisible(false);
 			}
 		});
 		upgrade.setSize(190, 100);
 		dnerrPanel.add(upgrade,c);
 		
-		
-		
-		
-		
-		
-		
-		
+		dnerrPanel.addMouseListener(stayOn);
 		dnerr.add(dnerrPanel);
 		dnerr.setLocation(x+100, y-100);
 		dnerr.setVisible(false);
-		dnerr.addMouseListener(new MouseListener(){
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				dnerr.setVisible(true);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				//dnerr.setVisible(false);
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+		dnerr.addMouseListener(stayOn);
+		
 		
 		
 	}
