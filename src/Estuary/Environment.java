@@ -40,7 +40,26 @@ public class Environment implements Serializable{
 	private int numSpawn;
 	private int counter = 0;
 	
+	public int getNumInvasive() {
+		return numInvasive;
+	}
+
+	public void setNumInvasive(int numInvasive) {
+		this.numInvasive = numInvasive;
+	}
+
+	public int getNumNative() {
+		return numNative;
+	}
+
+	public void setNumNative(int numNative) {
+		this.numNative = numNative;
+	}
+
 	private int resolveTime;
+	
+	private int numInvasive;
+	private int numNative;
 
 	
 	Timer temp;
@@ -185,6 +204,7 @@ public class Environment implements Serializable{
 		}
 		
 		setHealth(getHealth() - 1);
+		numInvasive++;
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
@@ -229,7 +249,7 @@ public class Environment implements Serializable{
 			colEnd = 0;
 		}
 		
-		
+		numNative++;
 		return nativeAdded;		
 	}
 	
@@ -336,6 +356,7 @@ public class Environment implements Serializable{
 				System.out.println(i);
 				System.out.println(j);
 				Game.deleteComponent(i, j);
+				numInvasive--;
 				Game.board[i][j] = eChar.BLANK; 
 				money += 100;
 				calcHealth();
@@ -470,6 +491,7 @@ public class Environment implements Serializable{
 		Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
 		events.removeback();
 		calcHealth();
+		numInvasive--;
 	}
 		
 	
