@@ -543,8 +543,10 @@ public class Environment implements Serializable{
 			secondChance = false;
 		}
 		if(getHealth() < 5)
-			//System.out.println("No more health in estuary");
-			System.exit(0);
+			Game.gameFrame.endScreen();
+			
+		if(getHealth() > 95)
+			Game.gameFrame.endScreen();
 	}
 	
 	/**

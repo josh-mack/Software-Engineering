@@ -168,6 +168,61 @@ public class Menu{
 
 	}
 	
+	public void endScreen()
+	{
+		JPanel overAll = new JPanel();
+		OverlayLayout over = new OverlayLayout(overAll);
+		overAll.setLayout(over);
+
+		BackgroundPanel titleBack = new BackgroundPanel("imgs/TitleScreen.png", width+50, height);
+		titleBack.setSize(width, height);
+		JLabel start = new JLabel(new ImageIcon("imgs/StartButton.png"));
+		JPanel startPanel = new JPanel();
+		
+		startPanel.setLayout(new BorderLayout());
+		startPanel.add(start,BorderLayout.CENTER);
+		startPanel.setOpaque(false);
+		overAll.add(startPanel);
+		overAll.add(titleBack);
+		
+		start.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.exit(0);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		overAll.setSize(mainSize);
+		overAll.setVisible(true);
+		mainWindow.add(overAll);
+		mainWindow.setSize(mainSize);
+		mainWindow.setVisible(true);
+	}
+	
 	/**
 	 * Creates the overlying quadrant system over the map.
 	 * 
