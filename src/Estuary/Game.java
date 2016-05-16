@@ -35,6 +35,7 @@ public class Game {
 	
 	static int spawnRate;
 
+
 	
 	public static eChar[][] board =  new eChar[48][76]; //Setting overlying array to BLANK.
 	
@@ -99,6 +100,10 @@ public class Game {
 				updateTime(gameFrame, seconds++);
 				updateMoney(gameFrame, mainEnviro.getMoney());
 				updateCharacters(gameFrame, mainEnviro.getNumStew(), mainEnviro.getNumRes(), mainEnviro.getNumVol());
+				if (seconds%(5) == 0) {
+					updateNatives(mainEnviro.getNumInvasive(), mainEnviro.getNumNative());
+				}
+				
 			//	mainEnviro.setMoney(mainEnviro.getMoney()+20);
 		}};
 		ActionListener Spawn80 = new ActionListener(){
@@ -182,6 +187,7 @@ public class Game {
 					
 					Game.placeComp(retVal.getXCoord(),retVal.getYCoord());
 					Game.refresh();
+					mainEnviro.setHealth(mainEnviro.getHealth() + 1);
 //					for(int i = 0; i < 48; i++){
 //						for(int j = 0; j < 76; j++){
 //							if(Game.board[i][j] != eChar.BLANK)
@@ -190,7 +196,6 @@ public class Game {
 //						}
 //					}
 				}
-				mainEnviro.setHealth(mainEnviro.getHealth() + 1);
 		}};
 		new Timer(1000, timerAction).start();
 		
@@ -384,6 +389,26 @@ public class Game {
 		gameFrame.getMainWindow().repaint();
 		
 
+	}
+	
+	public static int updateNatives(int numInvasives, int numNatives) {
+		System.out.print("invasive: ");
+		System.out.println(numInvasives);
+		System.out.print("natives: ");
+		System.out.println(numNatives);
+		if (numInvasives > numNatives + 5){
+			for (int i = 0; i < gameFrame.getPlacedChars().size(); i++) {
+				if (gameFrame.getPlacedChars().get(i) instanceof SpeciesComponent) {
+					SpeciesComponent animal = (SpeciesComponent)gameFrame.getPlacedChars().get(i);
+					if (animal.isInvasive() == false) {
+						gameFrame.removeComp(animal);
+						mainEnviro.setNumNative(mainEnviro.getNumInvasive()-1);
+						return 0;
+					}
+				}
+			}
+		}
+		return 0;
 	}
 
 

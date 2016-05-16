@@ -576,6 +576,16 @@ public class Menu{
 		
 		}
 
+	public ArrayList<JComponent> getPlacedChars() {
+		return placedChars;
+	}
+
+
+	public void setPlacedChars(ArrayList<JComponent> placedChars) {
+		this.placedChars = placedChars;
+	}
+
+
 	/**
 	 * Method for the highlighting system where the player can
 	 * see where the clickable quadrants are. Just a switch.
