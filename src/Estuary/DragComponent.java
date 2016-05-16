@@ -259,8 +259,8 @@ public class DragComponent extends JComponent {
 	public boolean Collision(int x, int y) {
 		int a = y/24;
 		int b = x/38;
-		for (int i = -3; i < 4; i++ ) {
-			for (int j = -3; j < 4; j++) {
+		for (int i = -2; i < 3; i++ ) {
+			for (int j = -2; j < 3; j++) {
 				if (((j!=0) || (i!=0)) && (24*a<=y+i) && (y+i<24+24*a) && (38*b<=x+j) && (x+j<38+38*b)) {
 					if ((Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
 						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)

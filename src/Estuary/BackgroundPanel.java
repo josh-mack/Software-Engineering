@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class BackgroundTest extends JPanel{
+public class BackgroundPanel extends JPanel{
 	String filename;
 	int height;
 	int width;
@@ -28,7 +28,7 @@ public class BackgroundTest extends JPanel{
 		}
 		g.drawImage(backgroundImage,0, 0, width, height, this);
 	}
-	public BackgroundTest(String filename, int width, int height){
+	public BackgroundPanel(String filename, int width, int height){
 		this.filename = filename;
 		this.height = height;
 		this.width = width;

@@ -40,7 +40,26 @@ public class Environment implements Serializable{
 	private int numSpawn;
 	private int counter = 0;
 	
+	public int getNumInvasive() {
+		return numInvasive;
+	}
+
+	public void setNumInvasive(int numInvasive) {
+		this.numInvasive = numInvasive;
+	}
+
+	public int getNumNative() {
+		return numNative;
+	}
+
+	public void setNumNative(int numNative) {
+		this.numNative = numNative;
+	}
+
 	private int resolveTime;
+	
+	private int numInvasive;
+	private int numNative;
 
 	
 	Timer temp;
@@ -185,6 +204,7 @@ public class Environment implements Serializable{
 		}
 		
 		setHealth(getHealth() - 1);
+		numInvasive++;
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
@@ -235,7 +255,7 @@ public class Environment implements Serializable{
 			colEnd = 0;
 		}
 		
-		
+		numNative++;
 		return nativeAdded;		
 	}
 	
@@ -321,20 +341,14 @@ public class Environment implements Serializable{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(Game.test.getQuadrant()!=eQuad.MAIN){
+				if(Game.gameFrame.getQuadrant()!=eQuad.MAIN){
 					for (int k = 0; k < numSpawn; k++) {
-						Native retVal = makeNativeSpecies(Game.test.getQuadrant());
+						Native retVal = makeNativeSpecies(Game.gameFrame.getQuadrant());
 						Game.board[retVal.getYCoord()][retVal.getXCoord()] = retVal.getType();
 						System.out.println(Game.board[retVal.getYCoord()][retVal.getXCoord()]);
 						
-						
-						Game.drawOnScreen(Game.test.getMenu().getLayeredPane(), Game.test.getQuadrant(), false);	
-//						for(int i = 0; i < 48; i++){
-//							for(int j = 0; j < 76; j++){
-//								if(Game.board[i][j] != eChar.BLANK)
-//								System.out.println(Game.board[i][j]);;
-//							}
-//						}
+						Game.placeComp(retVal.getXCoord(),retVal.getYCoord());
+						Game.refresh();
 					}
 				}
 				((Timer)e.getSource()).stop();
@@ -348,6 +362,7 @@ public class Environment implements Serializable{
 				System.out.println(i);
 				System.out.println(j);
 				Game.deleteComponent(i, j);
+				numInvasive--;
 				Game.board[i][j] = eChar.BLANK; 
 				money += 100;
 				calcHealth();
@@ -375,7 +390,7 @@ public class Environment implements Serializable{
 				
 				
 				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
-				Game.test.getMenu().getLayeredPane().remove(drag);
+				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
 				
 				System.out.println("Resolve 2 done");
 				
@@ -474,7 +489,7 @@ public class Environment implements Serializable{
 				if (character == eChar.STEWARD) {
 					numVol++;
 					Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
-					Game.test.getMenu().getLayeredPane().remove(drag);
+					Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
 					numStew++;
 				}
 				temp.stop();
@@ -493,6 +508,7 @@ public class Environment implements Serializable{
 		Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
 		events.removeback();
 		calcHealth();
+		numInvasive--;
 	}
 		
 	
