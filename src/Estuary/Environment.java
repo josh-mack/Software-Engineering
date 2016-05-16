@@ -147,7 +147,7 @@ public class Environment implements Serializable{
 	 * @return new Event
 	 */
 	public Event makeEvent(eQuad quad){
-		Invasive invasiveAdded =new Phragmites(3, 10, 10, 5, 10);
+		Invasive invasiveAdded = new Invasive(eChar.PHRAG, 3, 10, 10, 5, 10);
 		
 		Random rand = new Random();
 		int rowEnd,colEnd;
@@ -158,7 +158,7 @@ public class Environment implements Serializable{
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24);
-			invasiveAdded= new Phragmites(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.PHRAG, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -168,7 +168,7 @@ public class Environment implements Serializable{
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24);
-			invasiveAdded= new Bamboo(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.BAMBOO, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -178,7 +178,7 @@ public class Environment implements Serializable{
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24)+24;
-			invasiveAdded= new MittenCrab(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.MCRAB, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -188,7 +188,7 @@ public class Environment implements Serializable{
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24)+24;
-			invasiveAdded= new ZebraMussel(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.ZEBRA, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -197,7 +197,7 @@ public class Environment implements Serializable{
 		default:
 			rowEnd = 0;
 			colEnd = 0;
-			invasiveAdded= new Pollution(3, x, y, 5, 10);
+			invasiveAdded= new Invasive(eChar.POLLUTER, 3, x, y, 5, 10);
 			events.insertFront(invasiveAdded);
 			events.setX(x);
 			events.setY(y);
@@ -215,7 +215,7 @@ public class Environment implements Serializable{
 	 * @return
 	 */
 	public Native makeNativeSpecies(eQuad quad) {
-		Native nativeAdded = new HorseShoeCrab(3, 10, 10, 5);
+		Native nativeAdded = new Native(eChar.HCRAB, 3, 10, 10, 5);
 		
 		Random rand = new Random();
 		int rowEnd,colEnd;
@@ -226,28 +226,28 @@ public class Environment implements Serializable{
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24);
-			nativeAdded= new HorseShoeCrab(3, x, y, 5);
+			nativeAdded= new Native(eChar.HCRAB, 3, x, y, 5);
 			break;
 		case E:
 			rowEnd = 24;
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24);
-			nativeAdded= new BlazingStar(3, x, y, 5);
+			nativeAdded= new Native(eChar.BLAZINGSTAR, 3, x, y, 5);
 			break;
 		case S:
 			rowEnd = 48;
 			colEnd = 76;
 			x = (rand.nextInt(colEnd)%38)+38;
 			y = (rand.nextInt(rowEnd)%24)+24;
-			nativeAdded= new BlackEyedSusan(3, x, y, 5);
+			nativeAdded= new Native(eChar.BLACKEYEDSUSAN, 3, x, y, 5);
 			break;
 		case W:
 			rowEnd = 48;
 			colEnd = 38;
 			x = (rand.nextInt(colEnd)%38);
 			y = (rand.nextInt(rowEnd)%24)+24;
-			nativeAdded= new BlueCrab(3, x, y, 5);
+			nativeAdded= new Native(eChar.BCRAB, 3, x, y, 5);
 			break;
 			
 		default:
@@ -543,8 +543,10 @@ public class Environment implements Serializable{
 			secondChance = false;
 		}
 		if(getHealth() < 5)
-			//System.out.println("No more health in estuary");
-			System.exit(0);
+			Game.gameFrame.endScreen();
+			
+		if(getHealth() > 95)
+			Game.gameFrame.endScreen();
 	}
 	
 	/**

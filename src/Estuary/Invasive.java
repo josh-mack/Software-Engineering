@@ -4,9 +4,9 @@ package Estuary;
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
  * @version 1.0
  * @since
- * Abstract class to handle the invasive species.
+ * Class to handle the invasive species.
  */
-public abstract class Invasive extends Species {
+public class Invasive extends Species {
 	private static final long serialVersionUID = 200;
 	private int ecoReward;
 	private boolean resolved; 
