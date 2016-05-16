@@ -350,8 +350,8 @@ public class Game {
 					holdTest.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
 					holdTest.setVisible(true);
 					holdTest.setLocation(j%38*width, i%24*height);
-					pane.add(holdTest, 0);
-					*/
+					pane.add(holdTest, 0);*/
+					
 		
 				}
 			}
