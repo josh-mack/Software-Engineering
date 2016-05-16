@@ -188,6 +188,12 @@ public class Environment implements Serializable{
 		return new Event(x, y, invasiveAdded.getType());
 	}
 	
+	/**
+	 * Method to spawn the native species on the board.
+	 * These do not move.
+	 * @param quad
+	 * @return
+	 */
 	public Native makeNativeSpecies(eQuad quad) {
 		Native nativeAdded = new HorseShoeCrab(3, 10, 10, 5);
 		
@@ -453,7 +459,14 @@ public class Environment implements Serializable{
 	System.out.println("Resolve 1 Done");
 	}
 	
-	
+	/**
+	 * When a Steward is placed next to the city,
+	 * a volunteer is added to the character pool,
+	 * the steward on the board is removed and re-added
+	 * into the character pool.
+	 * @param character
+	 * @param drag
+	 */
 	public void enteredTheCity(eChar character, DragComponent drag) {
 		ActionListener cityAction = new ActionListener(){
 			@Override
@@ -471,6 +484,10 @@ public class Environment implements Serializable{
 		temp.start();
 	}
 	
+	/**
+	 * Method for the InstaKill powerup. Removes the first invasive species
+	 * in the queue.
+	 */
 	public void instakill() {
 		Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
 		Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
@@ -497,6 +514,10 @@ public class Environment implements Serializable{
 		setHealth(this.health + 3);
 	}
 	
+	/**
+	 * Method to give the player a second chance if they're
+	 * in danger of losing for the first time.
+	 */
 	public void checkProgress()
 	{
 		if(getHealth() < 5 && secondChance)
@@ -553,6 +574,10 @@ public class Environment implements Serializable{
 		return obj;
 	}
 
+	/**
+	 * Getters and setters.
+	 * @return
+	 */
 	public int getNumStew() {
 		return numStew;
 	}

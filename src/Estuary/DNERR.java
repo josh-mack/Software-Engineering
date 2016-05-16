@@ -130,6 +130,12 @@ public class DNERR extends JComponent implements Serializable
 		
 	}
 	
+	/**
+	 * Method to load the DNERR clickable menu, including
+	 * all its buttons and the health bar.
+	 * @param x
+	 * @param y
+	 */
 	void loadDNERR(int x, int y){
 		dnerr = new JFrame();
 		dnerr.setUndecorated(true);

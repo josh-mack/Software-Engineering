@@ -176,7 +176,8 @@ public class Menu{
 	 * 
 	 * When you click on a character in the drop-down menu,
 	 * you create that draggable character on the board and
-	 * can release the mouse to place the character on the board.
+	 * can release the mouse to place the character on the board, 
+	 * in addition to buying a new Steward.
 	 * 
 	 * Also creates the 'Main Menu' and 'Exit' buttons.
 	 */
@@ -638,18 +639,6 @@ public class Menu{
 	}
 	
 
-	public void nukePane(eQuad quad)
-	{
-		loadQuad(quad);				
-		Component[] junkLayer = main.getLayeredPane().getComponentsInLayer(0);
-		for(Component del: junkLayer){
-			main.getLayeredPane().remove(del);
-			//main.revalidate();
-			//main.repaint();
-		Game.drawOnScreen(main.getLayeredPane(), quad, true);
-		}
-	}
-	
 	/**
 	 * Accessor methods for the panels and quadrants.
 	 * @return

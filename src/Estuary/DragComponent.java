@@ -283,6 +283,10 @@ public class DragComponent extends JComponent {
 		return false;
 	}
 
+	/**
+	 * Getters and setters.
+	 * @return
+	 */
 	public int getOldi() {
 		return oldi;
 	}

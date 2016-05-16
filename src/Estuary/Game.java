@@ -96,6 +96,10 @@ public class Game {
 	
 	
 	}
+	
+	/**
+	 * 
+	 */
 	static void startTimers(){
 		ActionListener timerAction = new ActionListener(){
 			@Override
