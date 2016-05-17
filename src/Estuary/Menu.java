@@ -138,8 +138,6 @@ public class Menu{
 	QuadPanel hilightQ2;
 	QuadPanel hilightQ3;
 	QuadPanel hilightQ4;
-	QuadPanel hilightMain;
-	
 	boolean charMenuOpen = false;
 	private JLabel timeLabel;
 	private JLabel scoreLabel;
@@ -353,7 +351,7 @@ public class Menu{
 		mainPanel.add(hilightQ2, c);
 		
 
-		//Adding Hilighted Pane to Q3
+		//Adding Hilighted Pane to Q4
 		hilightQ4 = new QuadPanel(eQuad.W);
 		hilightQ4.setPreferredSize(quadSize);
 		hilightQ4.setBackground(hilightedColor);
@@ -367,7 +365,7 @@ public class Menu{
 		mainPanel.add(hilightQ4, c);
 		
 		
-		//Adding Hilighted Pane to Q4
+		//Adding Hilighted Pane to Q3
 		hilightQ3 = new QuadPanel(eQuad.S);
 		hilightQ3.setPreferredSize(quadSize);
 		hilightQ3.setBackground(hilightedColor);
@@ -611,14 +609,7 @@ public class Menu{
 		c.anchor = GridBagConstraints.SOUTHWEST;
 		botL.setVisible(false);
 		mainPanel.add(botL, c);
-		
-		hilightMain = new QuadPanel(eQuad.MAIN);
-		hilightMain.setPreferredSize(botL.getSize());
-		hilightMain.setBackground(hilightedColor);
-		hilightMain.setOpaque(true);
-		
-		hilightMain.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightMain, c);
+
 		makeLayeredPane();
 	
 		mainWindow.add(layeringPanel);
@@ -706,8 +697,6 @@ public class Menu{
 		}
 		if(currentQuad == eQuad.MAIN)
 			resumeHilight();
-		else
-			hilightMain.hilightOn();
 	}
 	
 	/**
