@@ -4,9 +4,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
+import java.util.ArrayList;
 import java.util.Random;
 
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
@@ -34,6 +35,8 @@ public class Game {
 	static int spawnRate;
 	
 	static boolean secondChance = true;
+	
+	static ArrayList<SpeciesComponent> resolvingSpecies = new ArrayList<SpeciesComponent>();
 
 
 	
@@ -274,19 +277,19 @@ public class Game {
 					case STEWARD:
 						if(drag){
 							charPlace = new DragComponent(gameFrame.stewardImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
-							gameFrame.placeComp(charPlace);
+							gameFrame.placeComp2(charPlace);
 						}
 						break;
 					case RESEARCHER:
 						if(drag){
 							charPlace = new DragComponent(gameFrame.researcherImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
-							gameFrame.placeComp(charPlace);
+							gameFrame.placeComp2(charPlace);
 						}
 						break;
 					case VOLUNTEER:
 						if(drag){
 							charPlace = new DragComponent(gameFrame.volunteerImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
-							gameFrame.placeComp(charPlace);
+							gameFrame.placeComp2(charPlace);
 						}
 						break;
 					case DNREC:
@@ -496,8 +499,26 @@ public class Game {
 	}
 	
 	public static boolean collision(int x, int y, DragComponent drag1) {
+		boolean alreadyBeingResolved = false;
 		int a = y/24;
 		int b = x/38;
+		eQuad whatQuad = eQuad.N;
+		if (a==1) {
+			if (b==1) {
+				whatQuad = eQuad.S;
+			}
+			else {
+				whatQuad = eQuad.E;
+			}
+		}
+		else {
+			if (b==1) {
+				whatQuad = eQuad.W;
+			}
+			else {
+				whatQuad = eQuad.N;
+			}
+		}
 		for (int i = 0; i < 4; i++ ) {
 			for (int j = -2; j < 3; j++) {
 				if (((j!=0) || (i!=0)) && (24*a<=y+i) && (y+i<24+24*a) && (38*b<=x+j) && (x+j<38+38*b)) {
@@ -505,15 +526,25 @@ public class Game {
 						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)
 						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)
 						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.FISHERMAN)) {
-							//canDrag = false;
-							Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1);
-							//Game.deleteComponent(y+i, x+j);
-							drag1.setDrag(false);
-							return true;
+							for (int k = 0; k < resolvingSpecies.size(); k++) {
+								if ((resolvingSpecies.get(k).getI()==y+i) && (resolvingSpecies.get(k).getJ()==x+j) && (resolvingSpecies.get(k).isInvasive())){
+									alreadyBeingResolved = true;
+								}
+							}
+							if (alreadyBeingResolved == false) {
+								SpeciesComponent invasiveSpecies = new SpeciesComponent(whatQuad, Game.board[y+i][x+j], (x%38)*width, (y%24)*height);
+								resolvingSpecies.add(invasiveSpecies);
+								Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1, invasiveSpecies);
+								//Game.deleteComponent(y+i, x+j);
+								drag1.setDrag(false);
+								return true;
+							}
+							alreadyBeingResolved = false;
+							
 					}
 					else if ((drag1.getCharacter() == eChar.STEWARD) && (Game.board[y+i][x+j] == eChar.CITY)) {
 						drag1.setDrag(false);
-						Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1);
+						Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1, null);
 						return true;
 					}
 				}
@@ -523,5 +554,3 @@ public class Game {
 		return false;
 	}
 }
-
-
