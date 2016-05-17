@@ -1,17 +1,12 @@
 package Estuary;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 /**
@@ -299,19 +294,19 @@ public class Game {
 					switch(board[i][j]){
 					case STEWARD:
 						if(drag){
-							charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0C.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(gameFrame.stewardImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							gameFrame.placeComp(charPlace);
 						}
 						break;
 					case RESEARCHER:
 						if(drag){
-							charPlace = new DragComponent("imgs/researcher_withClipboardC.png",quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(gameFrame.researcherImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
 							gameFrame.placeComp(charPlace);
 						}
 						break;
 					case VOLUNTEER:
 						if(drag){
-							charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0C.png",quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(gameFrame.volunteerImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							gameFrame.placeComp(charPlace);
 						}
 						break;
@@ -372,14 +367,7 @@ public class Game {
 		gameFrame.removeComp(dnerrComp);
 		dnerrComp = new DNERR(x,y, dnrecLevel);
 		gameFrame.placeComp(dnerrComp);
-		switch(dnrecLevel){
-			case 2:
-				gameFrame.changeOverview("imgs/overview2.png");
-			break;
-			case 3:
-				gameFrame.changeOverview("imgs/overview2.png");
-			break;
-		}
+		gameFrame.changeOverview(dnrecLevel);
 	}
 
 	public static void refresh(){
@@ -411,5 +399,14 @@ public class Game {
 		return 0;
 	}
 
+	public static ImageIcon getImage(eChar character) {
+		return gameFrame.getImage(character);
+	}
 
+	public static ImageIcon getDNERRImage(int level) {
+		if(level == 1)
+			return gameFrame.DNERRLvl1Image;
+		gameFrame.changeDNERR(level);
+		return (level == 2)?gameFrame.DNERRLvl2Image:gameFrame.DNERRLvl3Image;
+	}
 }

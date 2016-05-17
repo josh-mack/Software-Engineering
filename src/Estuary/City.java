@@ -1,11 +1,6 @@
 package Estuary;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,24 +10,22 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class City extends JComponent implements Serializable{
 
 
 
 	private static final long serialVersionUID = 600;
-	
-	String city;
 	int x;
 	int y;
+	@SuppressWarnings("unused")
 	private MouseListener pressListener;
 	
+	@SuppressWarnings("unused")
 	private eChar character;
+	@SuppressWarnings("unused")
 	private eQuad whatQuad;
 	
 	/**
@@ -46,9 +39,8 @@ public class City extends JComponent implements Serializable{
 	{
 		this.x = x;
 		this.y = y;
-		city = "imgs/city.png";
 		setLayout(new BorderLayout());
-		ImageIcon image = new ImageIcon(city);
+		ImageIcon image = Game.getImage(eChar.CITY);
 		JLabel label = new JLabel(image);
 		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
@@ -56,7 +48,7 @@ public class City extends JComponent implements Serializable{
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);
 		this.whatQuad = eQuad.E;
-		this.character = eChar.FISHERMAN;
+		this.character = eChar.CITY;
 		setLocation(x,y);
 
 	

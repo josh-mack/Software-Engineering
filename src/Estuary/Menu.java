@@ -1,25 +1,19 @@
 package Estuary;
 
-import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.LayoutManager;
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -34,10 +28,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
-import javax.swing.Timer;
 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
@@ -49,6 +41,56 @@ import javax.swing.Timer;
 public class Menu{
 	ArrayList<JComponent> placedChars = new ArrayList<JComponent>();
 
+	//Pre-loaded Image Variables
+	BufferedImage titleImage;
+	BufferedImage backgroundOverview1Image;
+	BufferedImage backgroundOverview2Image;
+	BufferedImage backgroundOverview3Image;
+	
+	BufferedImage backgroundNorthImage;
+	BufferedImage backgroundEastImage;
+	BufferedImage backgroundSouthImage;
+	BufferedImage backgroundWestImage;
+
+	ImageIcon stewardImage;
+	ImageIcon researcherImage;
+	ImageIcon volunteerImage;
+	
+	ImageIcon stewardImageIcon;
+	ImageIcon researcherImageIcon;
+	ImageIcon volunteerImageIcon;
+	
+	ImageIcon startButtonImageIcon;
+	ImageIcon topLImageIcon;
+	ImageIcon topRImageIcon;
+	ImageIcon botLImageIcon;
+	ImageIcon botRImageIcon;
+	
+	ImageIcon DNERRLvl1Image;
+	ImageIcon DNERRLvl2Image;
+	ImageIcon DNERRLvl3Image;
+	
+	ImageIcon cityImage;
+	ImageIcon fishermanImage;
+	
+	ImageIcon blueCrabImage;
+	ImageIcon horseshoeCrabImage;
+	ImageIcon mittenCrabImage;
+	ImageIcon zebraMusselImage;
+	ImageIcon bambooImage;
+	ImageIcon blackEyedSusanImage;
+	ImageIcon blazingStarImage;
+	ImageIcon phragmitesImage;
+
+
+	
+
+
+	
+	BufferedImage backgroundImage;   //Which Overview to use based on DNERR Level
+	ImageIcon dnerrImage = DNERRLvl1Image;
+	
+	
 	public JPanel mainPanel;
 	public JFrame mainWindow;
 	public JPanel layeringPanel;
@@ -58,7 +100,6 @@ public class Menu{
 	private JLabel stewardLabel;
 	private JLabel researcherLabel;
 	private JLabel volunteerLabel;
-	String backgroundFilename = "imgs/overview1.png";
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
@@ -92,6 +133,8 @@ public class Menu{
 	 * Constructs the drop-down window pane.
 	 */
 	public Menu(){
+		loadImages();
+		backgroundImage = backgroundOverview1Image;
 		mainWindow = new JFrame();
 
 		mainPanel = new JPanel();
@@ -113,9 +156,9 @@ public class Menu{
 		OverlayLayout over = new OverlayLayout(overAll);
 		overAll.setLayout(over);
 
-		BackgroundPanel titleBack = new BackgroundPanel("imgs/TitleScreen.png", width+50, height);
+		BackgroundPanel titleBack = new BackgroundPanel(titleImage, width+50, height);
 		titleBack.setSize(width, height);
-		JLabel start = new JLabel(new ImageIcon("imgs/StartButton.png"));
+		JLabel start = new JLabel(startButtonImageIcon);
 		JPanel startPanel = new JPanel();
 		
 		startPanel.setLayout(new BorderLayout());
@@ -174,9 +217,9 @@ public class Menu{
 		OverlayLayout over = new OverlayLayout(overAll);
 		overAll.setLayout(over);
 
-		BackgroundPanel titleBack = new BackgroundPanel("imgs/TitleScreen.png", width+50, height);
+		BackgroundPanel titleBack = new BackgroundPanel(titleImage, width+50, height);
 		titleBack.setSize(width, height);
-		JLabel start = new JLabel(new ImageIcon("imgs/StartButton.png"));
+		JLabel start = new JLabel(startButtonImageIcon);
 		JPanel startPanel = new JPanel();
 		
 		startPanel.setLayout(new BorderLayout());
@@ -241,6 +284,7 @@ public class Menu{
 			public void mouseEntered(MouseEvent me){
 				charSel.setVisible(true);	
 			}
+			@SuppressWarnings("unused")
 			public void mouseExit(MouseEvent me){
 				charSel.setVisible(false);	
 			}
@@ -313,7 +357,7 @@ public class Menu{
 		mainPanel.add(hilightQ4, c);
 		
 
-		backgroundPanel = new BackgroundPanel(backgroundFilename, width, height);
+		backgroundPanel = new BackgroundPanel(backgroundOverview1Image, width, height);
 
 		
 		
@@ -334,15 +378,8 @@ public class Menu{
 		
 		stewardLabel = new JLabel("Stewards: 2");
 		//charSelection.add(stewardLabel);
-		BufferedImage stewardIcon = null;
-		try {
-			stewardIcon = ImageIO.read(new File("imgs/volunteer_blueshirt_front_0.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Image scaledSteward = stewardIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH);
-		JLabel stewardImage = new CharLabel(new ImageIcon(scaledSteward), eChar.STEWARD);
+	
+		JLabel stewardImage = new CharLabel(stewardImageIcon, eChar.STEWARD);
 		stewardImage.addMouseListener(addCompOnClick);
 	//	charSelection.add(stewardImage);
 		
@@ -383,31 +420,17 @@ public class Menu{
 		
 		researcherLabel = new JLabel("Researchers: 1");
 		charSelection.add(researcherLabel);
-		BufferedImage researcherIcon = null;
-		try {
-			researcherIcon = ImageIO.read(new File("imgs/researcher_withClipboard.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Image scaledResearcher = researcherIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH);
-		JLabel researcherImage = new CharLabel(new ImageIcon(scaledResearcher), eChar.RESEARCHER);
+		
+		JLabel researcherImage = new CharLabel(researcherImageIcon, eChar.RESEARCHER);
 		researcherImage.addMouseListener(addCompOnClick);
 		charSelection.add(researcherImage);
 		
 		
 		volunteerLabel = new JLabel("Volunteers: 3");
-		charSelection.add(volunteerLabel);
-		BufferedImage volunteerIcon = null;
-		try {
-			volunteerIcon = ImageIO.read(new File("imgs/volunteer_redshirt_walk_front_0.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Image scaledVolunteer = volunteerIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH);
-		JLabel volunteerImage = new CharLabel(new ImageIcon(scaledVolunteer), eChar.VOLUNTEER);
+		
+		JLabel volunteerImage = new CharLabel(volunteerImageIcon, eChar.VOLUNTEER);
 		volunteerImage.addMouseListener(addCompOnClick);
+		charSelection.add(volunteerLabel);
 		charSelection.add(volunteerImage);
 		
 		
@@ -452,7 +475,7 @@ public class Menu{
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
@@ -474,6 +497,7 @@ public class Menu{
 				// TODO Auto-generated method stub
 				
 			}
+			
 		});
 		botL.addMouseListener(new MouseListener(){
 			@Override
@@ -515,7 +539,7 @@ public class Menu{
 		topR.add(timeFrame);
 		
 		
-		topL.add(new JLabel(new ImageIcon("imgs/TLCorner.png")));
+		topL.add(new JLabel(topLImageIcon));
 		topL.setOpaque(false);
 		c.fill = GridBagConstraints.VERTICAL;
 		c.gridx = 0;
@@ -527,7 +551,7 @@ public class Menu{
 		mainPanel.add(topL, c);
 		
 		
-		botR.add(new JLabel(new ImageIcon("imgs/BRCorner.png")));
+		botR.add(new JLabel(botRImageIcon));
 		botR.setOpaque(false);
 		c.fill = 0;
 		c.gridx = 2;
@@ -540,7 +564,7 @@ public class Menu{
 		
 		
 
-		topR.add(new JLabel(new ImageIcon("imgs/TRCorner.png")));
+		topR.add(new JLabel(topRImageIcon));
 		topR.setOpaque(false);
 		c.fill = 0;
 		c.gridx = 2;
@@ -552,7 +576,7 @@ public class Menu{
 		mainPanel.add(topR, c);
 
 		
-		botL.add(new JLabel(new ImageIcon("imgs/BLCorner.png")));
+		botL.add(new JLabel(botLImageIcon));
 		botL.setOpaque(false);
 		c.fill = 0;
 		c.gridx = 0;
@@ -636,6 +660,8 @@ public class Menu{
 	 * @param quad
 	 */
 	private void loadQuad(eQuad quad) {
+		System.out.println("Background is "+backgroundImage);
+		
 		if(inQuad && (quad != eQuad.MAIN)){
 			//Don't listen in quadrants
 			return;
@@ -647,7 +673,7 @@ public class Menu{
 
 				inQuad = false;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, backgroundFilename);
+				backgroundPanel.paintComponent(null, backgroundImage);
 				topL.setVisible(false);
 				botL.setVisible(false);
 				mainWindow.repaint();
@@ -658,7 +684,7 @@ public class Menu{
 
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/N1.png");
+				backgroundPanel.paintComponent(null, backgroundNorthImage);
 				topL.setVisible(true);
 				botL.setVisible(true);
 				mainWindow.repaint();
@@ -669,7 +695,7 @@ public class Menu{
 
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/W1.png");
+				backgroundPanel.paintComponent(null, backgroundWestImage);
 				topL.setVisible(true);
 				botL.setVisible(true);
 				mainWindow.repaint();
@@ -680,7 +706,7 @@ public class Menu{
 
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/S1.png");
+				backgroundPanel.paintComponent(null, backgroundSouthImage);
 				topL.setVisible(true);
 				botL.setVisible(true);
 				mainWindow.repaint();
@@ -691,14 +717,13 @@ public class Menu{
 
 				inQuad = true;
 				currentQuad = quad;
-				backgroundPanel.paintComponent(null, "imgs/E1.png");
+				backgroundPanel.paintComponent(null, backgroundEastImage);
 				topL.setVisible(true);
 				botL.setVisible(true);
 				mainWindow.repaint();
 				mainWindow.revalidate();
 			break;
 		}
-		mainWindow.repaint();
 
 		
 	}
@@ -722,19 +747,19 @@ public class Menu{
 		switch(eChar){
 		case STEWARD:
 			if (Game.mainEnviro.getNumStew() > 0) {
-				charPlace = new DragComponent("imgs/volunteer_blueshirt_front_0C.png",currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(stewardImageIcon,currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseStew(false);
 			}
 			break;
 		case RESEARCHER:
 			if (Game.mainEnviro.getNumRes() > 0) {
-				charPlace = new DragComponent("imgs/researcher_withClipboardC.png",currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(researcherImageIcon,currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseRes(false);
 			}
 			break;
 		case VOLUNTEER:
 			if (Game.mainEnviro.getNumVol() > 0) {
-				charPlace = new DragComponent("imgs/volunteer_redshirt_walk_front_0C.png",currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(volunteerImageIcon,currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseVol(false);
 			}
 			break;
@@ -836,9 +861,93 @@ public class Menu{
 		return;
 	}
 	
-	public void changeOverview(String filename){
-		backgroundFilename = filename;
+	public void changeOverview(int dnerrLvl){
+		backgroundImage = (dnerrLvl == 2)?backgroundOverview2Image:backgroundOverview3Image;
 	}
+	public void loadImages(){
+		try{
+		titleImage = ImageIO.read(new File("imgs/titleScreen.png"));
+		
+		BufferedImage charIcon = ImageIO.read(new File("imgs/stewardIcon.png"));
+		stewardImageIcon = new ImageIcon(charIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH));
+		
+		charIcon = ImageIO.read(new File("imgs/researcherIcon.png"));
+		researcherImageIcon = new ImageIcon(charIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH));
+		
+		charIcon = ImageIO.read(new File("imgs/volunteerIcon.png"));
+		volunteerImageIcon = new ImageIcon(charIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH));
+
+		
+		stewardImage= new ImageIcon("imgs/steward.png");
+		researcherImage= new ImageIcon("imgs/researcher.png");
+		volunteerImage= new ImageIcon("imgs/volunteer.png");
+		
+		backgroundOverview1Image= ImageIO.read(new File("imgs/overview1.png"));
+		backgroundOverview2Image= ImageIO.read(new File("imgs/overview2.png"));
+		backgroundOverview3Image= ImageIO.read(new File("imgs/overview3.png"));
+		
+		backgroundNorthImage= ImageIO.read(new File("imgs/north.png"));
+		backgroundEastImage= ImageIO.read(new File("imgs/east.png"));
+		backgroundSouthImage= ImageIO.read(new File("imgs/south.png"));
+		backgroundWestImage= ImageIO.read(new File("imgs/west.png"));
+		
+		startButtonImageIcon= new ImageIcon("imgs/start.png");
+		topLImageIcon= new ImageIcon("imgs/TLCorner.png");
+		topRImageIcon= new ImageIcon("imgs/TRCorner.png");
+		botLImageIcon= new ImageIcon("imgs/BLCorner.png");
+		botRImageIcon= new ImageIcon("imgs/BRCorner.png");
+		
+		DNERRLvl1Image= new ImageIcon("imgs/level1.png");
+		DNERRLvl2Image= new ImageIcon("imgs/level2.png");
+		DNERRLvl3Image= new ImageIcon("imgs/level3.png");
+		
+		fishermanImage= new ImageIcon("imgs/fisherman.png");
+		cityImage = new ImageIcon("imgs/city.png");
+		
+		mittenCrabImage = new ImageIcon("imgs/mittenCrab.png");
+		phragmitesImage = new ImageIcon("imgs/phragmites.png");
+		bambooImage = new ImageIcon("imgs/bamboo.png");
+		zebraMusselImage = new ImageIcon("imgs/zebraMussel.png");
+		blazingStarImage = new ImageIcon("imgs/blazingStar.png");
+		horseshoeCrabImage = new ImageIcon("imgs/horseShoeCrab.png");
+		blackEyedSusanImage = new ImageIcon("imgs/blackEyedSusan.png");
+		blueCrabImage = new ImageIcon("imgs/blueCrab.png");
+		}catch(IOException e){
+			System.out.println("Error: Some images weren't found");
+		}
+	}
+	
+	public ImageIcon getImage(eChar select) {
+		switch(select){
+			case MCRAB:
+				return mittenCrabImage;// = "imgs/mittencrab_0.png";
+			case PHRAG:
+				return phragmitesImage;//  = "imgs/phragmite_spawning3.png";
+			case BAMBOO:
+				return bambooImage;// = "imgs/bamboo.png";
+			case ZEBRA:
+				return zebraMusselImage;// = "imgs/zebramussel.png";
+			case BLAZINGSTAR:
+				return blazingStarImage; //filename = "imgs/blazingstarplant.png";
+			case HCRAB:
+				return horseshoeCrabImage; //filename = "imgs/horseshoe_crab_left_1.png";
+			case BLACKEYEDSUSAN:
+				return blackEyedSusanImage;//filename = "imgs/susan.png";
+			case BCRAB:
+				return blueCrabImage;//filename = "imgs/bluecrab_0.png";
+			case CITY:
+				return cityImage;
+			case FISHERMAN:
+				return fishermanImage;
+			default:
+				return null;
+			
+			}
+	}
+	public void changeDNERR(int level){
+		dnerrImage = (level == 2)?DNERRLvl2Image:DNERRLvl2Image;
+	}
+
 }
 	
 	

@@ -11,6 +11,10 @@ import javax.swing.JLabel;
  */
 
 public class CharLabel extends JLabel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private eChar type;
 	CharLabel(ImageIcon img, eChar type){
 		super(img);
