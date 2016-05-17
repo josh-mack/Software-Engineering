@@ -588,49 +588,7 @@ public class Game {
 		}
 		
 		mainEnviro.setHealth(mainEnviro.getHealth() + 1);
-		mainEnviro.setNumNative(mainEnviro.getNumNative()+1);
-//		Native nativeAdded = new Native(eChar.HCRAB, 3, 10, 10, 5);
-//		
-//		Random rand = new Random();
-//		int rowEnd,colEnd;
-//		int x =0,y =0;
-//		switch(quad){
-//		case N:
-//			rowEnd = 24;
-//			colEnd = 38;
-//			x = (rand.nextInt(colEnd)%38);
-//			y = (rand.nextInt(rowEnd)%24);
-//			nativeAdded= new Native(eChar.HCRAB, 3, x, y, 5);
-//			break;
-//		case E:
-//			rowEnd = 24;
-//			colEnd = 76;
-//			x = (rand.nextInt(colEnd)%38)+38;
-//			y = (rand.nextInt(rowEnd)%24);
-//			nativeAdded= new Native(eChar.BLAZINGSTAR, 3, x, y, 5);
-//			break;
-//		case S:
-//			rowEnd = 48;
-//			colEnd = 76;
-//			x = (rand.nextInt(colEnd)%38)+38;
-//			y = (rand.nextInt(rowEnd)%24)+24;
-//			nativeAdded= new Native(eChar.BLACKEYEDSUSAN, 3, x, y, 5);
-//			break;
-//		case W:
-//			rowEnd = 48;
-//			colEnd = 38;
-//			x = (rand.nextInt(colEnd)%38);
-//			y = (rand.nextInt(rowEnd)%24)+24;
-//			nativeAdded= new Native(eChar.BCRAB, 3, x, y, 5);
-//			break;
-//			
-//		default:
-//			rowEnd = 0;
-//			colEnd = 0;
-//		}
-//		
-//		numNative++;
-//		return nativeAdded;		
+		mainEnviro.setNumNative(mainEnviro.getNumNative()+1);	
 	}
 	
 	
