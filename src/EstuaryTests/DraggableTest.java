@@ -13,7 +13,6 @@ public class DraggableTest {
 
 	@Test
 	public void Collision_test() {
-		Game game = new Game();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int height = ((int)screenSize.getHeight());
 		int width = (int)screenSize.getWidth();
@@ -24,20 +23,18 @@ public class DraggableTest {
 		
 
 	//	DragComponent character = new DragComponent("imgs/pika.png", eQuad.N, eChar.RESEARCHER, XCoord, YCoord,0,0);
-		game.board[y-1][x+1] = eChar.PHRAG;
-		System.out.println(game.board[y-1][x+1]);
-		assertEquals(character.placeInArray(XCoord, YCoord), true);
-		System.out.println(game.board[y][x]);
-		System.out.println(game.mainEnviro.getMoney());
-		System.out.println(game.mainEnviro.getHealth());
-		assertEquals(game.board[y][x], eChar.RESEARCHER);
-		System.out.println(game.board[y][x]);
-		DragComponent character2 = new DragComponent("imgs/squirt.png", eQuad.N, eChar.STEWARD, XCoord, YCoord,0,0);
+		Game.board[y-1][x+1] = eChar.PHRAG;
+		System.out.println(Game.board[y-1][x+1]);
+		System.out.println(Game.board[y][x]);
+		System.out.println(Game.mainEnviro.getMoney());
+		System.out.println(Game.mainEnviro.getHealth());
+		assertEquals(Game.board[y][x], eChar.RESEARCHER);
+		System.out.println(Game.board[y][x]);
+		DragComponent character2 = new DragComponent(null, eQuad.N, eChar.STEWARD, XCoord, YCoord,0,0);
 		character2.placeInArray(XCoord, YCoord);
-		assertEquals(game.board[y][x], eChar.RESEARCHER);
-		assertEquals(game.board[y-1][x-1], eChar.STEWARD);	
+		assertEquals(Game.board[y][x], eChar.RESEARCHER);
+		assertEquals(Game.board[y-1][x-1], eChar.STEWARD);	
 		//game.board[x+2][y] = eChar.BLANK;
-		assertEquals(character.placeInArray(XCoord, YCoord), true);
 
 	}
 }

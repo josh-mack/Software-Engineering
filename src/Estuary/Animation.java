@@ -1,7 +1,7 @@
 package Estuary;
 //T Harvey
 //based loosely on http://www.java2s.com/Code/JavaAPI/java.awt/GraphicsdrawImageImageimgintxintyImageObserverob.htm
- 
+ package Estuary;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
