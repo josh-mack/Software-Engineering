@@ -25,6 +25,16 @@ public class SpeciesComponent extends JComponent {
 	
 	private eChar character;
 	
+	private boolean beingResolved;
+	
+	public boolean isBeingResolved() {
+		return beingResolved;
+	}
+
+	public void setBeingResolved(boolean beingResolved) {
+		this.beingResolved = beingResolved;
+	}
+
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
 	int width = (int)screenSize.getWidth();
@@ -95,6 +105,7 @@ public class SpeciesComponent extends JComponent {
 		
 		this.whatQuad = thisQuad;
 		this.character = character;
+		this.beingResolved=false;
 		
 	}
 

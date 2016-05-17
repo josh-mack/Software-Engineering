@@ -110,13 +110,8 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()>80){
-					if(gameFrame.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
-						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						
-						Game.placeComp(retVal.getX(),retVal.getY());
-						Game.refresh(); 
-					}
+					Game.makeEvent(gameFrame.getQuadrant());
+
 				}
 		}};
 		
@@ -124,13 +119,8 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=80 && mainEnviro.getHealth()>60){
-					if(gameFrame.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
-						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						
-						Game.placeComp(retVal.getX(),retVal.getY());
-						Game.refresh();
-					}
+					Game.makeEvent(gameFrame.getQuadrant());
+
 				}
 		}};
 		
@@ -138,13 +128,8 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=60 && mainEnviro.getHealth()>30){
-					if(gameFrame.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
-						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						
-						Game.placeComp(retVal.getX(),retVal.getY());
-						Game.refresh();
-					}
+					Game.makeEvent(gameFrame.getQuadrant());
+
 				}
 		}};
 		
@@ -152,13 +137,7 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=30 && mainEnviro.getHealth()>10){
-					if(gameFrame.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
-						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						
-						Game.placeComp(retVal.getX(),retVal.getY());
-						Game.refresh();
-					}
+					Game.makeEvent(gameFrame.getQuadrant());
 				}
 		}};
 		
@@ -166,13 +145,8 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=10){
-					if(gameFrame.getQuadrant()!=eQuad.MAIN){
-						Event retVal = mainEnviro.makeEvent(gameFrame.getQuadrant());
-						Game.board[retVal.getY()][retVal.getX()] = retVal.getType();
-						
-						Game.placeComp(retVal.getY(),retVal.getX());
-						Game.refresh();
-					}
+					Game.makeEvent(gameFrame.getQuadrant());
+
 				}
 		}};
 		
@@ -202,11 +176,11 @@ public class Game {
 		//Create an Invasive species every 10 seconds
 		
 		
-		new Timer(4000, Spawn80).start();
-		new Timer(6000, Spawn60).start();
-		new Timer(8000, Spawn30).start();
-		new Timer(12000, SpawnBetterMarcosButton).start();
-		new Timer(15000, Spawn10).start();
+		new Timer(2000, Spawn80).start();
+		new Timer(3000, Spawn60).start();
+		new Timer(4000, Spawn30).start();
+		new Timer(6000, SpawnBetterMarcosButton).start();
+		new Timer(75000, Spawn10).start();
 		
 		new Timer(40000, nativeSpawn).start();
 	}
@@ -357,12 +331,15 @@ public class Game {
 	}
 	
 	public static void deleteComponent(int i, int j) {
-		while (gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20) instanceof SpeciesComponent){
-			gameFrame.getMainWindow().getLayeredPane().remove(gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-			gameFrame.getMainWindow().getLayeredPane().repaint();
-			gameFrame.getMainWindow().getLayeredPane().revalidate();
-			System.out.println("Still works better than Marco's button");
-		}
+		gameFrame.removeComp((JComponent)gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
+//		gameFrame.getMainWindow().getLayeredPane().remove(gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
+//		gameFrame.getMainWindow().getLayeredPane().repaint();
+//		gameFrame.getMainWindow().getLayeredPane().revalidate();
+		System.out.println("Still works better than Marco's button");
+		
+	}
+	public static JComponent getJComponentAt(int i, int j) {
+		return ((JComponent)gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
 	}
 	public static void placeComp(int x, int y) {
 		gameFrame.placeComp(new SpeciesComponent(gameFrame.getQuadrant(), board[y][x], x%38*width, y%24*height));
@@ -392,10 +369,10 @@ public class Game {
 	}
 	
 	public static int updateNatives(int numInvasives, int numNatives) {
-		System.out.print("invasive: ");
-		System.out.println(numInvasives);
-		System.out.print("natives: ");
-		System.out.println(numNatives);
+//		System.out.print("invasive: ");
+//		System.out.println(numInvasives);
+//		System.out.print("natives: ");
+//		System.out.println(numNatives);
 		if (numInvasives > numNatives + 5){
 			for (int i = 0; i < gameFrame.getPlacedChars().size(); i++) {
 				if (gameFrame.getPlacedChars().get(i) instanceof SpeciesComponent) {
@@ -411,5 +388,77 @@ public class Game {
 		return 0;
 	}
 
+	/**
+	 * Method to create game events. This involves placing
+	 * an invasive species on the board depending on which
+	 * quadrant the player is zoomed into.
+	 * 
+	 * North quad - Phragmites
+	 * East quad - Bamboo
+	 * South quad - MittenCrab
+	 * West quad - Pollution
+	 * 
+	 * @param quad
+	 * @return new Event
+	 */
+	public static void makeEvent(eQuad quad){
+		//Invasive invasiveAdded = new Invasive(eChar.PHRAG, 3, 10, 10, 5, 10);
+		
+		Random rand = new Random();
+		int rowEnd,colEnd;
+		int x = rand.nextInt(76);
+		int y = rand.nextInt(48);
+		int e = x/38;
+		int s = y/24;
+		
+		eQuad place;
+		if (e==1) {
+			if (s==1) {
+				place = eQuad.S;
+			}
+			else {
+				place = eQuad.E;
+			}
+		}
+		else {
+			if (s==1) {
+				place = eQuad.W;
+			}
+			else {
+				place = eQuad.N;
+			}
+		}
+		System.out.println(place);
+
+		int XCoord = height*(x%38);
+		int YCoord = width*(y%24);
+		eChar type = eChar.PHRAG;
+		switch (place) {
+		case N:
+			type = eChar.PHRAG;
+			break;
+		case E:
+			type = eChar.BAMBOO;
+			break;
+		case S:
+			type = eChar.MCRAB;
+			break;
+		case W:
+			type = eChar.ZEBRA;
+			break;
+		}
+		
+		Game.board[y][x] = type;
+		
+		if (place == quad) {
+			SpeciesComponent invasiveAdded = new SpeciesComponent(place, type, XCoord, YCoord);
+			gameFrame.placeComp(invasiveAdded);
+		}
+		
+		mainEnviro.setHealth(mainEnviro.getHealth() - 1);
+		mainEnviro.setNumInvasive(mainEnviro.getNumInvasive()+1);
+	}
+	
+	
 
 }

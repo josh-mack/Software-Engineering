@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Random;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 /**
@@ -146,68 +147,91 @@ public class Environment implements Serializable{
 	 * @param quad
 	 * @return new Event
 	 */
-	public Event makeEvent(eQuad quad){
-		Invasive invasiveAdded = new Invasive(eChar.PHRAG, 3, 10, 10, 5, 10);
-		
-		Random rand = new Random();
-		int rowEnd,colEnd;
-		int x =0,y =0;
-		switch(quad){
-		case N:
-			rowEnd = 24;
-			colEnd = 38;
-			x = (rand.nextInt(colEnd)%38);
-			y = (rand.nextInt(rowEnd)%24);
-			invasiveAdded= new Invasive(eChar.PHRAG, 3, x, y, 5, 10);
-			events.insertFront(invasiveAdded);
-			events.setX(x);
-			events.setY(y);
-			break;
-		case E:
-			rowEnd = 24;
-			colEnd = 76;
-			x = (rand.nextInt(colEnd)%38)+38;
-			y = (rand.nextInt(rowEnd)%24);
-			invasiveAdded= new Invasive(eChar.BAMBOO, 3, x, y, 5, 10);
-			events.insertFront(invasiveAdded);
-			events.setX(x);
-			events.setY(y);
-			break;
-		case S:
-			rowEnd = 48;
-			colEnd = 76;
-			x = (rand.nextInt(colEnd)%38)+38;
-			y = (rand.nextInt(rowEnd)%24)+24;
-			invasiveAdded= new Invasive(eChar.MCRAB, 3, x, y, 5, 10);
-			events.insertFront(invasiveAdded);
-			events.setX(x);
-			events.setY(y);
-			break;
-		case W:
-			rowEnd = 48;
-			colEnd = 38;
-			x = (rand.nextInt(colEnd)%38);
-			y = (rand.nextInt(rowEnd)%24)+24;
-			invasiveAdded= new Invasive(eChar.ZEBRA, 3, x, y, 5, 10);
-			events.insertFront(invasiveAdded);
-			events.setX(x);
-			events.setY(y);
-			break;
-			
-		default:
-			rowEnd = 0;
-			colEnd = 0;
-			invasiveAdded= new Invasive(eChar.POLLUTER, 3, x, y, 5, 10);
-			events.insertFront(invasiveAdded);
-			events.setX(x);
-			events.setY(y);
-		}
-		
-		setHealth(getHealth() - 1);
-		numInvasive++;
-		return new Event(x, y, invasiveAdded.getType());
-	}
-	
+//	public Event makeEvent(eQuad quad){
+//		Invasive invasiveAdded = new Invasive(eChar.PHRAG, 3, 10, 10, 5, 10);
+//		
+//		Random rand = new Random();
+//		int rowEnd,colEnd;
+//		int x = rand.nextInt(76);
+//		int y = rand.nextInt(48);
+//		int e = x/38;
+//		int s = y/24;
+//		
+//		eQuad place;
+//		if (e==1) {
+//			if (s==1) {
+//				place = eQuad.S;
+//			}
+//			else {
+//				place = eQuad.E;
+//			}
+//		}
+//		else {
+//			if (s==1) {
+//				place = eQuad.W;
+//			}
+//			else {
+//				place = eQuad.N;
+//			}
+//		}
+//
+//		
+//		switch(quad){
+//		case N:
+//			rowEnd = 24;
+//			colEnd = 38;
+//			x = (rand.nextInt(colEnd)%38);
+//			y = (rand.nextInt(rowEnd)%24);
+//			invasiveAdded= new Invasive(eChar.PHRAG, 3, x, y, 5, 10);
+//			events.insertFront(invasiveAdded);
+//			events.setX(x);
+//			events.setY(y);
+//			break;
+//		case E:
+//			rowEnd = 24;
+//			colEnd = 76;
+//			x = (rand.nextInt(colEnd)%38)+38;
+//			y = (rand.nextInt(rowEnd)%24);
+//			invasiveAdded= new Invasive(eChar.BAMBOO, 3, x, y, 5, 10);
+//			events.insertFront(invasiveAdded);
+//			events.setX(x);
+//			events.setY(y);
+//			break;
+//		case S:
+//			rowEnd = 48;
+//			colEnd = 76;
+//			x = (rand.nextInt(colEnd)%38)+38;
+//			y = (rand.nextInt(rowEnd)%24)+24;
+//			invasiveAdded= new Invasive(eChar.MCRAB, 3, x, y, 5, 10);
+//			events.insertFront(invasiveAdded);
+//			events.setX(x);
+//			events.setY(y);
+//			break;
+//		case W:
+//			rowEnd = 48;
+//			colEnd = 38;
+//			x = (rand.nextInt(colEnd)%38);
+//			y = (rand.nextInt(rowEnd)%24)+24;
+//			invasiveAdded= new Invasive(eChar.ZEBRA, 3, x, y, 5, 10);
+//			events.insertFront(invasiveAdded);
+//			events.setX(x);
+//			events.setY(y);
+//			break;
+//			
+//		default:
+//			rowEnd = 0;
+//			colEnd = 0;
+//			invasiveAdded= new Invasive(eChar.POLLUTER, 3, x, y, 5, 10);
+//			events.insertFront(invasiveAdded);
+//			events.setX(x);
+//			events.setY(y);
+//		}
+//		
+//		setHealth(getHealth() - 1);
+//		numInvasive++;
+//		return new Event(x, y, invasiveAdded.getType());
+//	}
+//	
 	/**
 	 * Method to spawn the native species on the board.
 	 * These do not move.
@@ -361,6 +385,7 @@ public class Environment implements Serializable{
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(i);
 				System.out.println(j);
+				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
 				Game.deleteComponent(i, j);
 				numInvasive--;
 				Game.board[i][j] = eChar.BLANK; 
@@ -390,7 +415,6 @@ public class Environment implements Serializable{
 				
 				
 				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
-				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
 				
 				System.out.println("Resolve 2 done");
 				
@@ -398,12 +422,14 @@ public class Environment implements Serializable{
 				((Timer)e.getSource()).stop();
 				}
 		};
+
 		
 		temp = new Timer(resolveTime*1000, timerAction);
 		temp.start();
-		
+				
 		temp2 = new Timer(2000 + (resolveTime*1000), nativeSpawn);
 		temp2.start();
+
 	}
 
 	/**

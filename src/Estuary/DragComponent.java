@@ -259,16 +259,17 @@ public class DragComponent extends JComponent {
 	public boolean Collision(int x, int y) {
 		int a = y/24;
 		int b = x/38;
-		for (int i = -2; i < 3; i++ ) {
+		for (int i = 0; i < 4; i++ ) {
 			for (int j = -2; j < 3; j++) {
 				if (((j!=0) || (i!=0)) && (24*a<=y+i) && (y+i<24+24*a) && (38*b<=x+j) && (x+j<38+38*b)) {
 					if ((Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
 						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)
 						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)
 						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.FISHERMAN)) {
-							canDrag = false;
+							//canDrag = false;
 							Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, this);
 							//Game.deleteComponent(y+i, x+j);
+							canDrag = false;
 							return true;
 					}
 					else if ((this.character == eChar.STEWARD) && (Game.board[y+i][x+j] == eChar.CITY)) {
@@ -281,6 +282,14 @@ public class DragComponent extends JComponent {
 		}
 		
 		return false;
+	}
+
+	public boolean isCanDrag() {
+		return canDrag;
+	}
+
+	public void setCanDrag(boolean canDrag) {
+		this.canDrag = canDrag;
 	}
 
 	/**
