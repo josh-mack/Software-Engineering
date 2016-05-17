@@ -747,19 +747,19 @@ public class Menu{
 		switch(eChar){
 		case STEWARD:
 			if (Game.mainEnviro.getNumStew() > 0) {
-				charPlace = new DragComponent(stewardImageIcon,currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(stewardImage,currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseStew(false);
 			}
 			break;
 		case RESEARCHER:
 			if (Game.mainEnviro.getNumRes() > 0) {
-				charPlace = new DragComponent(researcherImageIcon,currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(researcherImage,currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseRes(false);
 			}
 			break;
 		case VOLUNTEER:
 			if (Game.mainEnviro.getNumVol() > 0) {
-				charPlace = new DragComponent(volunteerImageIcon,currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseVol(false);
 			}
 			break;
