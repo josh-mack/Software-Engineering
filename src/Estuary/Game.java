@@ -4,11 +4,13 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
+ 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
  * @version 1.0
@@ -29,6 +31,8 @@ public class Game {
 	static int dnrecLevel = 1;
 	
 	static int spawnRate;
+	
+	static boolean secondChance = true;
 
 
 	
@@ -195,7 +199,7 @@ public class Game {
 		
 		
 		}
-		mainEnviro.checkProgress();
+		checkProgress();
 		mainFrame.getMainWindow().repaint();
 		mainFrame.getMainWindow().revalidate();
 	}
@@ -367,9 +371,38 @@ public class Game {
 					SpeciesComponent animal = (SpeciesComponent)gameFrame.getPlacedChars().get(i);
 					if (animal.isInvasive() == false) {
 						gameFrame.removeComp(animal);
-						mainEnviro.setNumNative(mainEnviro.getNumInvasive()-1);
+						mainEnviro.setNumNative(mainEnviro.getNumNative()-1);
 						return 0;
 					}
+				}
+			}
+		}
+		return 0;
+	}
+	
+	public static void checkProgress()
+	{
+		if(mainEnviro.getHealth() < 5 && secondChance)
+		{
+			for(int i =0; i<5;i++)
+				instakill();
+			secondChance = false;
+		}
+		if(mainEnviro.getHealth() < 5)
+			Game.gameFrame.endScreen();
+			
+		if(mainEnviro.getHealth() > 95)
+			Game.gameFrame.endScreen();
+	}
+	
+	public static int instakill() {
+		for (int i = 0; i < gameFrame.getPlacedChars().size(); i++) {
+			if (gameFrame.getPlacedChars().get(i) instanceof SpeciesComponent) {
+				SpeciesComponent animal = (SpeciesComponent)gameFrame.getPlacedChars().get(i);
+				if (animal.isInvasive() == true) {
+					gameFrame.removeComp(animal);
+					mainEnviro.setNumInvasive(mainEnviro.getNumInvasive()-1);
+					return 0;
 				}
 			}
 		}
@@ -433,6 +466,8 @@ public class Game {
 			break;
 		case W:
 			type = eChar.ZEBRA;
+			break;
+		default:
 			break;
 		}
 		

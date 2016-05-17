@@ -28,8 +28,7 @@ public class Environment implements Serializable{
 	private int newHealth = 10;
 	private int oldHealth = 5;
 	public int money;
-	Queue events = new Queue();
-	private boolean secondChance = true;
+	//private boolean secondChance = true;
 	
 	private int numStew;
 	private int numVol;
@@ -441,13 +440,13 @@ public class Environment implements Serializable{
 	public void resolve(eChar species, eChar character, int i, int j, DragComponent drag) {
 		System.out.println("Resolve 1 Method Active");
 		switch(species) {
-		case SLOWGROWTH:
-			Iterator<Invasive> it = events.iterator();
-			while(it.hasNext()) {
-				Invasive monster = it.next();
-				monster.setGrowthRate(monster.getGrowthRate()/2);
-			}
-			break;
+//		case SLOWGROWTH:
+//			Iterator<Invasive> it = events.iterator();
+//			while(it.hasNext()) {
+//				Invasive monster = it.next();
+//				monster.setGrowthRate(monster.getGrowthRate()/2);
+//			}
+//			break;
 //		case FASTCHARACTER:
 //			break;
 		case INSTAKILL:
@@ -526,14 +525,14 @@ public class Environment implements Serializable{
 	 * Method for the InstaKill powerup. Removes the first invasive species
 	 * in the queue.
 	 */
-	public void instakill() {
-		Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
-		Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
-		events.removeback();
-		calcHealth();
-		numInvasive--;
-	}
-		
+//	public void instakill() {
+//		Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
+//		Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
+//		events.removeback();
+//		calcHealth();
+//		numInvasive--;
+//	}
+//		
 	
 	public void calcGrowth() {
 		
@@ -557,20 +556,20 @@ public class Environment implements Serializable{
 	 * Method to give the player a second chance if they're
 	 * in danger of losing for the first time.
 	 */
-	public void checkProgress()
-	{
-		if(getHealth() < 5 && secondChance)
-		{
-			for(int i =0; i<5;i++)
-				instakill();
-			secondChance = false;
-		}
-		if(getHealth() < 5)
-			Game.gameFrame.endScreen();
-			
-		if(getHealth() > 95)
-			Game.gameFrame.endScreen();
-	}
+//	public void checkProgress()
+//	{
+//		if(getHealth() < 5 && secondChance)
+//		{
+//			for(int i =0; i<5;i++)
+//				instakill();
+//			secondChance = false;
+//		}
+//		if(getHealth() < 5)
+//			Game.gameFrame.endScreen();
+//			
+//		if(getHealth() > 95)
+//			Game.gameFrame.endScreen();
+//	}
 	
 	/**
 	 * Method to serialize Environment, which takes care of all the

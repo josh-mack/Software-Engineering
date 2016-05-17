@@ -195,7 +195,7 @@ public class DNERR extends JComponent implements Serializable
 					return;
 				
 				try{
-				Game.mainEnviro.instakill();
+				Game.instakill();
 				}catch(IndexOutOfBoundsException e){
 					return;
 				}
