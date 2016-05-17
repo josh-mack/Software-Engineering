@@ -1,7 +1,4 @@
 package Estuary;
-
-
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -61,6 +58,7 @@ public class Queue{
 	{
 		if(que.isEmpty())
 			return;
+		@SuppressWarnings("unused")
 		Invasive hold = que.remove(0);
     }
 
@@ -69,6 +67,7 @@ public class Queue{
 	{
 		if(que.isEmpty())
 			return;
+		@SuppressWarnings("unused")
 		Invasive hold = que.remove(que.size()-1);
     }
 

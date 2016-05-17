@@ -9,6 +9,10 @@ import javax.swing.JPanel;
  * Handles the location storage of the quadrants.
  */
 public class QuadPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	eQuad loc;
 	
 	/**

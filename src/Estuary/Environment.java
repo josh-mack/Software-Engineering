@@ -1,5 +1,4 @@
 package Estuary;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -12,8 +11,6 @@ import java.util.Iterator;
 import java.util.Random;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
-
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
  * @version 1.0

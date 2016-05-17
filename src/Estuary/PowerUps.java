@@ -1,8 +1,6 @@
 package Estuary;
 
 import java.util.Iterator;
-import java.util.Collection;
-import java.util.ArrayList;
 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla

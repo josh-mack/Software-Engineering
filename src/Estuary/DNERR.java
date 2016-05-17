@@ -1,29 +1,19 @@
 package Estuary;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,14 +34,15 @@ public class DNERR extends JComponent implements Serializable
 
 	private static final long serialVersionUID = 600;
 	Boolean frameUp;
-	String building;
 	JFrame dnerr;
 	JProgressBar bar;
 	int x;
 	int y;
 	private MouseListener pressListener;
 	
+	@SuppressWarnings("unused")
 	private eChar character;
+	@SuppressWarnings("unused")
 	private eQuad whatQuad;
 	
 	/**
@@ -66,20 +57,9 @@ public class DNERR extends JComponent implements Serializable
 		frameUp = false;
 		this.x = x;
 		this.y = y;
-		switch(level)
-		{
-		case 1:
-			building = "imgs/level1.png";
-			break;
-		case 2:
-			building = "imgs/level2.png";
-			break;
-		case 3:
-			building = "imgs/level3.png";
-			break;
-		}
+		
+		ImageIcon image = Game.getDNERRImage(level);
 		setLayout(new BorderLayout());
-		ImageIcon image = new ImageIcon(building);
 		JLabel label = new JLabel(image);
 		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());

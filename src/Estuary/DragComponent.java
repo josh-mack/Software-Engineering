@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
@@ -12,6 +11,10 @@ import javax.swing.border.*;
  * Handles all the objects that require dragging in the game.
  */
 public class DragComponent extends JComponent {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int XOnScreen;
 	private int YOnScreen;
 	private int XCoord;
@@ -46,7 +49,7 @@ public class DragComponent extends JComponent {
 	
 	/**
 	 * Constructor for the DragComponent.
-	 * @param imageName
+	 * @param charIcon
 	 * @param thisQuad
 	 * @param character
 	 * @param x
@@ -55,14 +58,13 @@ public class DragComponent extends JComponent {
 	 * @param j
 	 */
 	
-	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y, int i, int j) {
+	public DragComponent(ImageIcon charIcon, eQuad thisQuad, eChar character, int x, int y, int i, int j) {
 		oldi = i;
 		oldj = j;
 		setLayout(new BorderLayout());
-		ImageIcon image = new ImageIcon(imageName);
-		JLabel label = new JLabel(image);
-		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());	
-		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
+		JLabel label = new JLabel(charIcon);
+		label.setBounds(0, 0, charIcon.getIconWidth(), charIcon.getIconHeight());	
+		setBounds(0,0,charIcon.getIconWidth(), charIcon.getIconHeight());
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);	
@@ -70,7 +72,6 @@ public class DragComponent extends JComponent {
 		canDrag = true;
 		
 		setLocation(x,y);
-		//setOpaque(false);
 		
 		this.whatQuad = thisQuad;
 		this.character = character;
@@ -245,6 +246,8 @@ public class DragComponent extends JComponent {
 					Collision(x + 38, y + 24); 
 				}
 				return false;
+		default:
+			break;
 		}
 		return false;
 	}
