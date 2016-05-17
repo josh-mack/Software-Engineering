@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -40,7 +41,28 @@ import javax.swing.OverlayLayout;
  */
 public class Menu{
 	ArrayList<JComponent> placedChars = new ArrayList<JComponent>();
-
+	ActionListener hilightListener = new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == hilightTimer1){
+				hilightQ1.hilight();
+			}
+			else if(e.getSource() == hilightTimer2){
+				hilightQ2.hilight();
+			}
+			else if(e.getSource() == hilightTimer3){
+				hilightQ3.hilight();
+			}
+			else if(e.getSource() == hilightTimer4){
+				hilightQ4.hilight();
+			}
+	}};
+	
+	Timer hilightTimer1 = new Timer(500,hilightListener);
+	Timer hilightTimer2 = new Timer(500,hilightListener);
+	Timer hilightTimer3 = new Timer(500,hilightListener);
+	Timer hilightTimer4 = new Timer(500,hilightListener);
+	
 	//Pre-loaded Image Variables
 	BufferedImage titleImage;
 	BufferedImage backgroundOverview1Image;
@@ -112,10 +134,12 @@ public class Menu{
 	
 	eQuad currentQuad = eQuad.MAIN;
 	
-	JPanel hilightQ1;
-	JPanel hilightQ2;
-	JPanel hilightQ3;
-	JPanel hilightQ4;
+	QuadPanel hilightQ1;
+	QuadPanel hilightQ2;
+	QuadPanel hilightQ3;
+	QuadPanel hilightQ4;
+	QuadPanel hilightMain;
+	
 	boolean charMenuOpen = false;
 	private JLabel timeLabel;
 	private JLabel scoreLabel;
@@ -330,31 +354,31 @@ public class Menu{
 		
 
 		//Adding Hilighted Pane to Q3
-		hilightQ3 = new QuadPanel(eQuad.W);
-		hilightQ3.setPreferredSize(quadSize);
-		hilightQ3.setBackground(hilightedColor);
-		hilightQ3.setOpaque(false);
+		hilightQ4 = new QuadPanel(eQuad.W);
+		hilightQ4.setPreferredSize(quadSize);
+		hilightQ4.setBackground(hilightedColor);
+		hilightQ4.setOpaque(false);
 		
 		c.fill = GridBagConstraints.WEST;
 		c.gridx = 0;
 		c.gridy = 3;
 		
-		hilightQ3.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightQ3, c);
+		hilightQ4.addMouseListener(switchQuadOnClick);
+		mainPanel.add(hilightQ4, c);
 		
 		
 		//Adding Hilighted Pane to Q4
-		hilightQ4 = new QuadPanel(eQuad.S);
-		hilightQ4.setPreferredSize(quadSize);
-		hilightQ4.setBackground(hilightedColor);
-		hilightQ4.setOpaque(false);
+		hilightQ3 = new QuadPanel(eQuad.S);
+		hilightQ3.setPreferredSize(quadSize);
+		hilightQ3.setBackground(hilightedColor);
+		hilightQ3.setOpaque(false);
 		
 		c.fill = GridBagConstraints.SOUTH;
 		c.gridx = 1;
 		c.gridy = 4;
 		
-		hilightQ4.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightQ4, c);
+		hilightQ3.addMouseListener(switchQuadOnClick);
+		mainPanel.add(hilightQ3, c);
 		
 
 		backgroundPanel = new BackgroundPanel(backgroundOverview1Image, width, height);
@@ -587,11 +611,14 @@ public class Menu{
 		c.anchor = GridBagConstraints.SOUTHWEST;
 		botL.setVisible(false);
 		mainPanel.add(botL, c);
-
 		
+		hilightMain = new QuadPanel(eQuad.MAIN);
+		hilightMain.setPreferredSize(botL.getSize());
+		hilightMain.setBackground(hilightedColor);
+		hilightMain.setOpaque(true);
 		
-		
-		
+		hilightMain.addMouseListener(switchQuadOnClick);
+		mainPanel.add(hilightMain, c);
 		makeLayeredPane();
 	
 		mainWindow.add(layeringPanel);
@@ -616,42 +643,71 @@ public class Menu{
 	 * @param sel
 	 * @param main
 	 */
-	public void hilight(int sel,Menu main){
-		switch(sel){
-		case 0:
-			main.hilightQ1.setOpaque(true);
-			main.hilightQ1.getRootPane().repaint();
+	public void hilightOff(eQuad quad){
+		switch(quad){
+		case N:
+			hilightTimer1.stop();
+			hilightQ1.hilightOff();
 			break;
-		case 1:
-			main.hilightQ1.setOpaque(false);
-			main.hilightQ1.getRootPane().repaint();
+		case E:
+			hilightTimer2.stop();
+			hilightQ2.hilightOff();
 			break;
-		case 2:
-			main.hilightQ2.setOpaque(true);
-			main.hilightQ2.getRootPane().repaint();
+		case S:
+			hilightTimer3.stop();
+			hilightQ3.hilightOff();
 			break;
-		case 3:
-			main.hilightQ2.setOpaque(false);
-			main.hilightQ2.getRootPane().repaint();
+		case W:
+			hilightTimer4.stop();
+			hilightQ4.hilightOff();
 			break;
-		case 4:
-			main.hilightQ3.setOpaque(true);
-			main.hilightQ3.getRootPane().repaint();
+		default:
 			break;
-		case 5:
-			main.hilightQ3.setOpaque(false);
-			main.hilightQ3.getRootPane().repaint();
-			break;
-		case 6:
-			main.hilightQ4.setOpaque(true);
-			main.hilightQ4.getRootPane().repaint();
-			break;
-		case 7:
-			main.hilightQ4.setOpaque(false);
-			main.hilightQ4.getRootPane().repaint();
-			break;
-			
 		}
+	}
+	public void pauseHilight(){
+			hilightTimer1.stop();
+			hilightTimer2.stop();
+			hilightTimer3.stop();
+			hilightTimer4.stop();
+			hilightQ1.setOpaque(false);
+			hilightQ2.setOpaque(false);
+			hilightQ3.setOpaque(false);
+			hilightQ4.setOpaque(false);
+
+	}
+	public void resumeHilight(){
+		if(hilightQ1.checkHilight())
+			hilightTimer1.start();
+		else if(hilightQ2.checkHilight())
+			hilightTimer2.start();
+		else if(hilightQ3.checkHilight())
+			hilightTimer3.start();
+		else if(hilightQ4.checkHilight())
+			hilightTimer4.start();
+	}
+	
+	public void hilightOn(eQuad quad){
+		switch(quad){
+		case N:
+			hilightQ1.hilightOn();
+			break;
+		case E:
+			hilightQ2.hilightOn();
+			break;
+		case S:
+			hilightQ3.hilightOn();
+			break;
+		case W:
+			hilightQ4.hilightOn();
+			break;
+		default:
+			break;
+		}
+		if(currentQuad == eQuad.MAIN)
+			resumeHilight();
+		else
+			hilightMain.hilightOn();
 	}
 	
 	/**
@@ -660,17 +716,21 @@ public class Menu{
 	 * @param quad
 	 */
 	private void loadQuad(eQuad quad) {
-		System.out.println("Background is "+backgroundImage);
-		
+		System.out.println("quadtoLoad is "+quad);
 		if(inQuad && (quad != eQuad.MAIN)){
 			//Don't listen in quadrants
 			return;
 		}
+		pauseHilight();
+
+		if(quad!=eQuad.MAIN){
+			hilightOff(quad);
+		}
 
 		switch(quad){
 			case MAIN:
+				resumeHilight();
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, false);	
-
 				inQuad = false;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, backgroundImage);
@@ -681,7 +741,6 @@ public class Menu{
 			break;
 			case N:
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
-
 				inQuad = true;
 				currentQuad = quad;
 				backgroundPanel.paintComponent(null, backgroundNorthImage);
@@ -954,6 +1013,7 @@ public class Menu{
 	public void changeDNERR(int level){
 		dnerrImage = (level == 2)?DNERRLvl2Image:DNERRLvl2Image;
 	}
+
 
 }
 	

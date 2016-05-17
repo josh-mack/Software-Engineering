@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
  
@@ -317,14 +317,14 @@ public class Game {
 					}
 				}
 				else{
-					/*Grid Layout Testing
-					JLabel holdTest = new JLabel(new ImageIcon("imgs/test.png"));
-					ImageIcon image = new ImageIcon("imgs/test.png");
-					holdTest.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
-					holdTest.setVisible(true);
-					holdTest.setLocation(j%38*width, i%24*height);
-					pane.add(holdTest, 0);*/
-					
+//					//Grid Layout Testing
+//					JLabel holdTest = new JLabel(new ImageIcon("imgs/test.png"));
+//					ImageIcon image = new ImageIcon("imgs/test.png");
+//					holdTest.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
+//					holdTest.setVisible(true);
+//					holdTest.setLocation(j%38*width, i%24*height);
+//					pane.add(holdTest, 0);
+//					
 		
 				}
 			}
@@ -431,14 +431,14 @@ public class Game {
 		
 		Random rand = new Random();
 		int rowEnd,colEnd;
-		int x = rand.nextInt(76);
-		int y = rand.nextInt(48);
-		int e = x/38;
-		int s = y/24;
+		int j = rand.nextInt(76);
+		int i = rand.nextInt(48);
+		int x = j/38;
+		int y = i/24;
 		
 		eQuad place;
-		if (e==1) {
-			if (s==1) {
+		if (x==1) {
+			if (y==1) {
 				place = eQuad.S;
 			}
 			else {
@@ -446,17 +446,17 @@ public class Game {
 			}
 		}
 		else {
-			if (s==1) {
+			if (y==1) {
 				place = eQuad.W;
 			}
 			else {
 				place = eQuad.N;
 			}
 		}
-		System.out.println(place);
+		if(quad != place){gameFrame.hilightOn(place);}
 
-		int XCoord = height*(x%38);
-		int YCoord = width*(y%24);
+		int XCoord = height*(j%38);
+		int YCoord = width*(i%24);
 		eChar type = eChar.PHRAG;
 		switch (place) {
 		case N:
@@ -474,8 +474,9 @@ public class Game {
 		default:
 			break;
 		}
-		
-		Game.board[y][x] = type;
+		System.out.println("Making " + type + " in " + place);
+
+		Game.board[i][j] = type;
 		
 		if (place == quad) {
 			SpeciesComponent invasiveAdded = new SpeciesComponent(place, type, XCoord, YCoord);

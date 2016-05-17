@@ -10,7 +10,8 @@ public class InvasiveTest {
 		Invasive crab1 = new Invasive(eChar.MCRAB, 5, 10, 10, 1, 150);
 		crab1.setAmount(3);
 		crab1.setXCoord(15);
-		assert(crab1.getAmount() == 3 && crab1.getXCoord() == 15);
+		assert(crab1.getAmount() == 3);
+		assert(crab1.getXCoord() == 15);
 		
 //		ZebraMussel mussel =new ZebraMussel(2, 10, 3, 2, 60);
 //		mussel.setEcoReward(50);
