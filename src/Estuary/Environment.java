@@ -330,7 +330,7 @@ public class Environment implements Serializable{
 	 * Method used to remove an event from the front of the queue.
 	 * This is called when an even is supposed to be completed.
 	 */
-	public void resolve2(eChar character, int i, int j, DragComponent drag) {
+	public void resolve2(eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
 		if (character == eChar.RESEARCHER) {
 			resolveTime /= 2; 
 		}
@@ -381,8 +381,8 @@ public class Environment implements Serializable{
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(i);
 				System.out.println(j);
-				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
 				Game.deleteComponent(i, j);
+				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
 				numInvasive--;
 				Game.board[i][j] = eChar.BLANK; 
 				money += 100;
@@ -412,6 +412,8 @@ public class Environment implements Serializable{
 				
 				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
 				
+				Game.resolvingSpecies.remove(invasiveSpecies);
+				
 				System.out.println("Resolve 2 done");
 				
 				
@@ -437,7 +439,7 @@ public class Environment implements Serializable{
 	 * Fastharacter - 
 	 * Instakill - resolves the last event in the queue immediately.
 	 */
-	public void resolve(eChar species, eChar character, int i, int j, DragComponent drag) {
+	public void resolve(eChar species, eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
 		System.out.println("Resolve 1 Method Active");
 		switch(species) {
 //		case SLOWGROWTH:
@@ -474,22 +476,22 @@ public class Environment implements Serializable{
 			break;
 		case MCRAB:
 			resolveTime = 4;
-			resolve2(character, i, j, drag);
+			resolve2(character, i, j, drag, invasiveSpecies);
 			break;
 		case PHRAG:
 			resolveTime = 6;
-			resolve2(character, i, j, drag);
+			resolve2(character, i, j, drag, invasiveSpecies);
 			break;
 		case BAMBOO:
 			resolveTime = 8;
-			resolve2(character, i, j, drag);
+			resolve2(character, i, j, drag, invasiveSpecies);
 			break;
 		case ZEBRA:
 			resolveTime = 10;
-			resolve2(character, i, j, drag);
+			resolve2(character, i, j, drag, invasiveSpecies);
 			break;
 		default:
-			resolve2(character, i, j, drag);
+			resolve2(character, i, j, drag, invasiveSpecies);
 
 		}
 		

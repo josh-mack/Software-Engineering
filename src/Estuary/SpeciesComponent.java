@@ -45,6 +45,8 @@ public class SpeciesComponent extends JComponent {
 	
 	private eQuad whatQuad;
 	private boolean invasive;
+	private int i;
+	private int j;
 	
 	/**
 	 * Constructor for SpeciesComponent.
@@ -74,6 +76,46 @@ public class SpeciesComponent extends JComponent {
 		this.character = character;
 		this.beingResolved=false;
 		
+		
+		switch (thisQuad) {
+		case N:
+			this.i = y/(height/24);
+			this.j = x/(width/38);
+			break;
+		case E:
+			this.i = y/(height/24);
+			this.j = x/(width/38)+38;
+			break;
+		case S:
+			this.i = y/(height/24)+24;
+			this.j = x/(width/38)+38;
+			break;
+		case W:
+			this.i = y/(height/24)+24;
+			this.j = x/(width/38);
+			break;
+		default:
+			this.i = y/(height/24);
+			this.j = x/(width/38);
+			break;
+		}
+		
+	}
+
+	public int getI() {
+		return i;
+	}
+
+	public void setI(int i) {
+		this.i = i;
+	}
+
+	public int getJ() {
+		return j;
+	}
+
+	public void setJ(int j) {
+		this.j = j;
 	}
 
 	public boolean isInvasive() {

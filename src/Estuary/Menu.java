@@ -815,7 +815,7 @@ public class Menu{
 			break;
 		}
 		
-		placeComp(charPlace);
+		placeComp2(charPlace);
 
 		return charPlace;
 	}
@@ -885,6 +885,13 @@ public class Menu{
 	
 	public void placeComp(JComponent toAdd){
 		mainWindow.getLayeredPane().add(toAdd,0);
+		placedChars.add(toAdd);
+		mainWindow.repaint();
+		mainWindow.revalidate();
+		return;
+	}
+	public void placeComp2(JComponent toAdd){
+		mainWindow.getLayeredPane().add(toAdd,-1);
 		placedChars.add(toAdd);
 		mainWindow.repaint();
 		mainWindow.revalidate();
