@@ -5,8 +5,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-
 import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
@@ -494,4 +494,34 @@ public class Game {
 		gameFrame.changeDNERR(level);
 		return (level == 2)?gameFrame.DNERRLvl2Image:gameFrame.DNERRLvl3Image;
 	}
+	
+	public static boolean collision(int x, int y, DragComponent drag1) {
+		int a = y/24;
+		int b = x/38;
+		for (int i = 0; i < 4; i++ ) {
+			for (int j = -2; j < 3; j++) {
+				if (((j!=0) || (i!=0)) && (24*a<=y+i) && (y+i<24+24*a) && (38*b<=x+j) && (x+j<38+38*b)) {
+					if ((Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
+						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)
+						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)
+						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.FISHERMAN)) {
+							//canDrag = false;
+							Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1);
+							//Game.deleteComponent(y+i, x+j);
+							drag1.setDrag(false);
+							return true;
+					}
+					else if ((drag1.getCharacter() == eChar.STEWARD) && (Game.board[y+i][x+j] == eChar.CITY)) {
+						drag1.setDrag(false);
+						Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1);
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
 }
+
+
