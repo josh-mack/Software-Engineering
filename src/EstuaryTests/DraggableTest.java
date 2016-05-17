@@ -23,7 +23,7 @@ public class DraggableTest {
 		int y = 7;
 		
 
-		DragComponent character = new DragComponent("imgs/pika.png", eQuad.N, eChar.RESEARCHER, XCoord, YCoord,0,0);
+	//	DragComponent character = new DragComponent("imgs/pika.png", eQuad.N, eChar.RESEARCHER, XCoord, YCoord,0,0);
 		game.board[y-1][x+1] = eChar.PHRAG;
 		System.out.println(game.board[y-1][x+1]);
 		assertEquals(character.placeInArray(XCoord, YCoord), true);

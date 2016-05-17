@@ -10,21 +10,24 @@ package Estuary;
 public enum eChar {
 	//x13 characters
 	
-	BAMBOO("BAMB"), BLAZINGSTAR("BLAZ"), BLACKEYEDSUSAN("BEYS"), BLANK("NONE"), BCRAB("BCRB"),
-	DNREC("DNREC"),FISHERMAN("FMAN"), HCRAB("HCRB"), MCRAB("MCRB"), PHRAG("PHRG"),POLLUTER("POLL"),
-	RESEARCHER("(RH)"), STEWARD("(ST)"), VOLUNTEER("(VL)"), ZEBRA("ZEBR"), SLOWGROWTH("SLOW"), FASTCHARACTER("FAST"), INSTAKILL("INST"),
-	CITY("CITY"), NOTHING("nothing");
+	BAMBOO("BAMB", true), BLAZINGSTAR("BLAZ", false), BLACKEYEDSUSAN("BEYS", false), BLANK("NONE", false), BCRAB("BCRB", false),
+	DNREC("DNREC", false),FISHERMAN("FMAN", true), HCRAB("HCRB", false), MCRAB("MCRB", true), PHRAG("PHRG",true),POLLUTER("POLL", true),
+	RESEARCHER("(RH)", false), STEWARD("(ST)",false), VOLUNTEER("(VL)",false), ZEBRA("ZEBR",true), SLOWGROWTH("SLOW",false), FASTCHARACTER("FAST",false), INSTAKILL("INST",false),
+	CITY("CITY",false), NOTHING("noth",false);
 	
 	private String testVal;
 	private int xLoc;
 	private int yLoc;
-
+	private boolean invasive;
 	/**
 	 * Getters and setters.
 	 * Setters set the X and Y locations of the eChar's on the game board.
 	 * @param x
 	 * @param y
 	 */
+	public boolean checkInvasive(){
+		return this.invasive;
+	}
 	
 	public void setXLoc(int x)
 	{
@@ -52,8 +55,9 @@ public enum eChar {
 	 * @param val
 	 */
 	
-	eChar(String val){
+	eChar(String val, boolean invasive){
 		this.testVal = val;
+		this.invasive = invasive;
 	}
 	
 	/**

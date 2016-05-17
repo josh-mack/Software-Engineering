@@ -2,9 +2,7 @@ package Estuary;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -21,10 +19,26 @@ import Estuary.eQuad;
  * Handles the creation of a species on the board.
  */
 public class SpeciesComponent extends JComponent {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private MouseListener pressListener;
 	
+	@SuppressWarnings("unused")
 	private eChar character;
 	
+	private boolean beingResolved;
+	
+	public boolean isBeingResolved() {
+		return beingResolved;
+	}
+
+	public void setBeingResolved(boolean beingResolved) {
+		this.beingResolved = beingResolved;
+	}
+
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
 	int width = (int)screenSize.getWidth();
@@ -41,47 +55,10 @@ public class SpeciesComponent extends JComponent {
 	 * @param x
 	 * @param y
 	 */
-	public SpeciesComponent(eQuad thisQuad, eChar character, int x, int y) {
-		String filename = null;
-			switch(character){
-			case MCRAB:
-				filename = "imgs/mittencrab_0.png";
-				this.invasive = true;
-				break;
-			case PHRAG:
-				filename = "imgs/phragmite_spawning3.png";
-				this.invasive = true;
-				break;
-			case BAMBOO:
-				filename = "imgs/bamboo.png";
-				this.invasive = true;
-				break;
-			case ZEBRA:
-				filename = "imgs/zebramussel.png";
-				this.invasive = true;
-				break;
-			case BLAZINGSTAR:
-				filename = "imgs/blazingstarplant.png";
-				this.invasive = false;
-				break;
-			case HCRAB:
-				filename = "imgs/horseshoe_crab_left_1.png";
-				this.invasive = false;
-				break;
-			case BLACKEYEDSUSAN:
-				filename = "imgs/susan.png";
-				this.invasive = false;
-				break;
-			case BCRAB:
-				filename = "imgs/bluecrab_0.png";
-				this.invasive = false;
-				break;
-			default:
-				filename = null;
-			}
-			
+	public SpeciesComponent(eQuad thisQuad, eChar character, int x, int y) {	
+		this.invasive = character.checkInvasive();
 		setLayout(new BorderLayout());
-		ImageIcon image = new ImageIcon(filename);
+		ImageIcon image = Game.getImage(character);
 		JLabel label = new JLabel(image);
 		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
@@ -95,6 +72,7 @@ public class SpeciesComponent extends JComponent {
 		
 		this.whatQuad = thisQuad;
 		this.character = character;
+		this.beingResolved=false;
 		
 	}
 

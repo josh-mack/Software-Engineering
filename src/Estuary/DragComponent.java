@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
@@ -12,6 +11,10 @@ import javax.swing.border.*;
  * Handles all the objects that require dragging in the game.
  */
 public class DragComponent extends JComponent {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int XOnScreen;
 	private int YOnScreen;
 	private int XCoord;
@@ -35,8 +38,28 @@ public class DragComponent extends JComponent {
 	public void setYOnScreen(int yOnScreen) {
 		YOnScreen = yOnScreen;
 	}
+	
+	public boolean getDrag()
+	{
+		return canDrag;
+	}
+	
+	public void setDrag(boolean drag)
+	{
+		canDrag = drag;
+	}
 
 	private eChar character;
+	
+	public eChar getCharacter()
+	{
+		return character;
+	}
+	
+	public void setCharacter(eChar chara)
+	{
+		character = chara;
+	}
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
@@ -46,7 +69,7 @@ public class DragComponent extends JComponent {
 	
 	/**
 	 * Constructor for the DragComponent.
-	 * @param imageName
+	 * @param charIcon
 	 * @param thisQuad
 	 * @param character
 	 * @param x
@@ -55,14 +78,13 @@ public class DragComponent extends JComponent {
 	 * @param j
 	 */
 	
-	public DragComponent(String imageName, eQuad thisQuad, eChar character, int x, int y, int i, int j) {
+	public DragComponent(ImageIcon charIcon, eQuad thisQuad, eChar character, int x, int y, int i, int j) {
 		oldi = i;
 		oldj = j;
 		setLayout(new BorderLayout());
-		ImageIcon image = new ImageIcon(imageName);
-		JLabel label = new JLabel(image);
-		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());	
-		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
+		JLabel label = new JLabel(charIcon);
+		label.setBounds(0, 0, charIcon.getIconWidth(), charIcon.getIconHeight());	
+		setBounds(0,0,charIcon.getIconWidth(), charIcon.getIconHeight());
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);	
@@ -70,7 +92,6 @@ public class DragComponent extends JComponent {
 		canDrag = true;
 		
 		setLocation(x,y);
-		//setOpaque(false);
 		
 		this.whatQuad = thisQuad;
 		this.character = character;
@@ -160,7 +181,7 @@ public class DragComponent extends JComponent {
 								Game.board[y+i][x+j] = this.character;
 								oldi = y+i;
 								oldj = x+j;
-								return Collision(x+j,y+i); // can be changed to return true
+								return Game.collision(x+j,y+i,this); // can be changed to return true
 							}
 						}
 					}
@@ -171,7 +192,7 @@ public class DragComponent extends JComponent {
 					Game.board[y][x] = this.character;
 					oldi = y;
 					oldj = x;
-					Collision(x, y); 
+					Game.collision(x, y,this); 
 				}
 				
 				return false;
@@ -185,7 +206,7 @@ public class DragComponent extends JComponent {
 								Game.board[y+i][x+j+38] = this.character;
 								oldi = y+i;
 								oldj = x+j+38;
-								return Collision(x+j+38,y+i); // can be changed to return true
+								return Game.collision(x+j+38,y+i,this); // can be changed to return true
 							}
 						}
 					}
@@ -196,7 +217,7 @@ public class DragComponent extends JComponent {
 					Game.board[y][x+38] = this.character;
 					oldi = y;
 					oldj = x + 38;
-					Collision(x + 38, y); 
+					Game.collision(x + 38, y,this); 
 				}
 				return false;
 		case W:
@@ -208,7 +229,7 @@ public class DragComponent extends JComponent {
 								Game.board[y+i+24][x+j] = this.character;
 								oldi = y+i+24;
 								oldj = x+j;
-								return Collision(x+j,y+i+24); // can be changed to return true
+								return Game.collision(x+j,y+i+24,this); // can be changed to return true
 							}
 						}
 					}
@@ -219,7 +240,7 @@ public class DragComponent extends JComponent {
 					Game.board[y+24][x] = this.character;
 					oldi = y + 24;
 					oldj = x;
-					Collision(x, y + 24); 
+					Game.collision(x, y + 24,this); 
 				}
 				return false;
 		case S:
@@ -231,7 +252,7 @@ public class DragComponent extends JComponent {
 								Game.board[y+i+24][x+j+38] = this.character;
 								oldi = y+i+24;
 								oldj = x+j+38;
-								return Collision(x+j+38,y+i+24); // can be changed to return true
+								return Game.collision(x+j+38,y+i+24,this); // can be changed to return true
 							}
 						}
 					}
@@ -242,9 +263,11 @@ public class DragComponent extends JComponent {
 					Game.board[y+24][x+38] = this.character;
 					oldi = y + 24;
 					oldj = x + 38;
-					Collision(x + 38, y + 24); 
+					Game.collision(x + 38, y + 24, this); 
 				}
 				return false;
+		default:
+			break;
 		}
 		return false;
 	}
@@ -256,31 +279,13 @@ public class DragComponent extends JComponent {
 	 * @return true - if there's a collision
 	 */
 	
-	public boolean Collision(int x, int y) {
-		int a = y/24;
-		int b = x/38;
-		for (int i = -2; i < 3; i++ ) {
-			for (int j = -2; j < 3; j++) {
-				if (((j!=0) || (i!=0)) && (24*a<=y+i) && (y+i<24+24*a) && (38*b<=x+j) && (x+j<38+38*b)) {
-					if ((Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
-						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)
-						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)
-						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.FISHERMAN)) {
-							canDrag = false;
-							Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, this);
-							//Game.deleteComponent(y+i, x+j);
-							return true;
-					}
-					else if ((this.character == eChar.STEWARD) && (Game.board[y+i][x+j] == eChar.CITY)) {
-						canDrag = false;
-						Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, this);
-						return true;
-					}
-				}
-			}
-		}
-		
-		return false;
+
+	public boolean isCanDrag() {
+		return canDrag;
+	}
+
+	public void setCanDrag(boolean canDrag) {
+		this.canDrag = canDrag;
 	}
 
 	/**
