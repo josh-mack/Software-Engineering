@@ -409,6 +409,7 @@ public class Game {
 					if (animal.isInvasive() == false) {
 						gameFrame.removeComp(animal);
 						mainEnviro.setNumNative(mainEnviro.getNumNative()-1);
+						mainEnviro.setHealth(mainEnviro.getHealth() - 1);
 						return 0;
 					}
 				}

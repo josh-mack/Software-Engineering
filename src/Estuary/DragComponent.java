@@ -1,7 +1,6 @@
 package Estuary;
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 /**
@@ -22,6 +21,7 @@ public class DragComponent extends JComponent {
 	private MouseListener pressListener;
 	private int oldi , oldj;
 	private boolean canDrag;
+	
 	
 	public int getXOnScreen() {
 		return XOnScreen;
@@ -364,15 +364,7 @@ public class DragComponent extends JComponent {
 			break;
 		}
 		return false;
-	}
-	
-	/**
-	 * Method to check collisions within a certain distance from another object.
-	 * @param x
-	 * @param y
-	 * @return true - if there's a collision
-	 */
-	
+	}	
 
 	public boolean isCanDrag() {
 		return canDrag;

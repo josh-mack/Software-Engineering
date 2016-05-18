@@ -109,5 +109,10 @@ public class Tutorial extends Game
 		gameFrame.startScreen();
 	}
 	
+	public void step()
+	{
+		
+	}
+	
 }
 

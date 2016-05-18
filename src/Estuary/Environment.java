@@ -20,7 +20,7 @@ import javax.swing.JComponent;
 
 import javax.swing.Timer;
 public class Environment implements Serializable{
-	private static final long serialVersionUID = 0;
+	private static final long serialVersionUID = 0L;
 	
 	private int health;
 	public int money;
@@ -94,7 +94,7 @@ public class Environment implements Serializable{
 	
 	/**
 	 * Method used to remove an event from the front of the queue.
-	 * This is called when an even is supposed to be completed.
+	 * This is called when an event is supposed to be completed.
 	 */
 	public void resolve2(eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
 		if (character == eChar.RESEARCHER) {
@@ -130,7 +130,6 @@ public class Environment implements Serializable{
 				if(Game.gameFrame.getQuadrant()!=eQuad.MAIN){
 					for (int k = 0; k < numSpawn; k++) {
 						Game.makeNativeSpecies(Game.gameFrame.getQuadrant(), false);
-						
 					}
 				}
 				((Timer)e.getSource()).stop();
@@ -152,7 +151,7 @@ public class Environment implements Serializable{
 				else {
 					Game.board[i][j] = eChar.BLANK;
 				}
-				money += 100;
+				money += 75;
 				calcHealth();
 				switch(character){
 				case STEWARD:

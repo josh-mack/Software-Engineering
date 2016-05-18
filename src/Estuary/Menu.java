@@ -203,6 +203,8 @@ public class Menu{
 		JPanel overAll = new JPanel();
 		OverlayLayout over = new OverlayLayout(overAll);
 		overAll.setLayout(over);
+		
+		//GridBagConstraints c = new GridBagConstraints();
 
 		BackgroundPanel titleBack = new BackgroundPanel(titleImage, width+50, height);
 		titleBack.setSize(width, height);
@@ -216,15 +218,15 @@ public class Menu{
 		JPanel tutorialPanel = new JPanel();
 		
 		startPanel.setLayout(new BorderLayout());
-		startPanel.add(start,BorderLayout.CENTER);
+		startPanel.add(start,BorderLayout.EAST);
 		startPanel.setOpaque(false);
 		
 		howToPanel.setLayout(new BorderLayout());
-		howToPanel.add(start,BorderLayout.CENTER);
+		howToPanel.add(howTo,BorderLayout.WEST);
 		howToPanel.setOpaque(false);
 		
 		tutorialPanel.setLayout(new BorderLayout());
-		tutorialPanel.add(start,BorderLayout.CENTER);
+		tutorialPanel.add(tutorial,BorderLayout.SOUTH);
 		tutorialPanel.setOpaque(false);
 		
 		overAll.add(startPanel);
@@ -308,6 +310,7 @@ public class Menu{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Tutorial tut = new Tutorial();
+				ifNotTutorial = false;
 			}
 
 			@Override
@@ -521,11 +524,11 @@ public class Menu{
 		JButton buySteward = new JButton("Buy a Steward!");
 		buySteward.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				if (Game.mainEnviro.money < 50) {
-					System.out.println("Not enough money");
+				if (Game.mainEnviro.money < 700) {
+					System.out.println("Not enough money.");
 					return;
 				}
-				Game.mainEnviro.money -= 50;
+				Game.mainEnviro.money -= 700;
 				Game.mainEnviro.increaseStew(true);
 			}
 		});
@@ -1062,6 +1065,8 @@ public class Menu{
 	public void changeOverview(int dnerrLvl){
 		backgroundImage = (dnerrLvl == 2)?backgroundOverview2Image:backgroundOverview3Image;
 	}
+	
+	
 	public void loadImages(){
 		try{
 		titleImage = ImageIO.read(new File("imgs/titleScreen.png"));
@@ -1090,6 +1095,9 @@ public class Menu{
 		backgroundWestImage= ImageIO.read(new File("imgs/west.png"));
 		
 		startButtonImageIcon= new ImageIcon("imgs/start.png");
+		howToImageIcon = new ImageIcon("imgs/HowtoPlay.png");
+		tutorialImageIcon = new ImageIcon("imgs/TutorialButton.png");
+		
 		topLImageIcon= new ImageIcon("imgs/TLCorner.png");
 		topRImageIcon= new ImageIcon("imgs/TRCorner.png");
 		botLImageIcon= new ImageIcon("imgs/BLCorner.png");
@@ -1112,12 +1120,12 @@ public class Menu{
 		horseshoeCrabImage = new ImageIcon("imgs/horseShoeCrab.png");
 		blackEyedSusanImage = new ImageIcon("imgs/blackEyedSusan.png");
 		blueCrabImage = new ImageIcon("imgs/blueCrab.png");
-		trash = new ImageIcon("imgs/x.png");
 		howToImage1 = new ImageIcon("imgs/howTo.png");
 		howToImage2 = new ImageIcon("imgs/howTo2.png");
 		howToImage3 = new ImageIcon("imgs/howTo3.png");
 		howToImage4 = new ImageIcon("imgs/howTo4.png");
 
+		trash = new ImageIcon("imgs/recycle_open.png");
 		}catch(IOException e){
 			System.out.println("Error: Some images weren't found");
 		}
