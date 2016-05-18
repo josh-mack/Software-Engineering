@@ -306,7 +306,9 @@ public class Menu{
 		});
 		tutorial.addMouseListener(new MouseListener(){
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent arg0) 
+			{
+				overAll.setVisible(false);
 				Tutorial tut = new Tutorial();
 				overAll.setVisible(false);
 				ifNotTutorial = false;
