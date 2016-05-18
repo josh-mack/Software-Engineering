@@ -88,6 +88,8 @@ public class Menu{
 	ImageIcon volunteerImageIcon;
 	
 	ImageIcon startButtonImageIcon;
+	ImageIcon howToImageIcon;
+	ImageIcon tutorialImageIcon;
 	ImageIcon topLImageIcon;
 	ImageIcon topRImageIcon;
 	ImageIcon botLImageIcon;
@@ -115,6 +117,7 @@ public class Menu{
 
 	ImageIcon trash;
 
+	
 
 	
 	BufferedImage backgroundImage;   //Which Overview to use based on DNERR Level
@@ -137,7 +140,7 @@ public class Menu{
 	Dimension topBarSize = new Dimension(width/4, 500);
 	Dimension quadSize = new Dimension(width/3, (height/3)-(height/20));
 	Dimension mainSize = new Dimension(width, height);
-	Color hilightedColor = new Color(0,0,0, 100);
+	Color hilightedColor = new Color(216,72,72, 100);
 	Color alphaLayer = new Color(0, 0, 0, 0);
 	
 	eQuad currentQuad = eQuad.MAIN;
@@ -157,6 +160,7 @@ public class Menu{
 	JPanel botL = new JPanel();   //Bottom Left Corner Panel
 	JPanel botR = new JPanel();   //Bottom Right Corner Panel
 	
+	boolean ifNotTutorial = true;
 	
 	/**
 	 * Constructor for the Menu class.
@@ -176,7 +180,8 @@ public class Menu{
 			}
 		});
 		
-		startScreen();
+		if(ifNotTutorial)
+			startScreen();
 	}	
 	
 	
@@ -191,9 +196,27 @@ public class Menu{
 		JLabel start = new JLabel(startButtonImageIcon);
 		JPanel startPanel = new JPanel();
 		
+		JLabel howTo = new JLabel(howToImageIcon);
+		JPanel howToPanel = new JPanel();
+		
+		JLabel tutorial = new JLabel(tutorialImageIcon);
+		JPanel tutorialPanel = new JPanel();
+		
 		startPanel.setLayout(new BorderLayout());
 		startPanel.add(start,BorderLayout.CENTER);
 		startPanel.setOpaque(false);
+		
+		howToPanel.setLayout(new BorderLayout());
+		howToPanel.add(start,BorderLayout.CENTER);
+		howToPanel.setOpaque(false);
+		
+		tutorialPanel.setLayout(new BorderLayout());
+		tutorialPanel.add(start,BorderLayout.CENTER);
+		tutorialPanel.setOpaque(false);
+		
+		overAll.add(startPanel);
+		overAll.add(howToPanel);
+		overAll.add(tutorialPanel);
 		overAll.add(startPanel);
 		overAll.add(titleBack);
 		
@@ -206,6 +229,72 @@ public class Menu{
 				mainWindow.revalidate();
 				mainWindow.remove(overAll);
 				Game.startTimers();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		howTo.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				overAll.setVisible(false);
+				loadMenu();
+				mainWindow.revalidate();
+				mainWindow.remove(overAll);
+				Game.startTimers();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		tutorial.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Tutorial tut = new Tutorial();
 			}
 
 			@Override
@@ -252,9 +341,11 @@ public class Menu{
 		JLabel start = new JLabel(startButtonImageIcon);
 		JPanel startPanel = new JPanel();
 		
+		
 		startPanel.setLayout(new BorderLayout());
 		startPanel.add(start,BorderLayout.CENTER);
 		startPanel.setOpaque(false);
+		
 		overAll.add(startPanel);
 		overAll.add(titleBack);
 		
@@ -688,6 +779,7 @@ public class Menu{
 	}
 	
 	public void hilightOn(eQuad quad){
+		hilightMainTimer.start();
 		switch(quad){
 		case N:
 			hilightQ1.hilightOn();
@@ -724,7 +816,6 @@ public class Menu{
 		if(quad!=eQuad.MAIN){
 			hilightOff(quad);
 			botLImageLabel.setIcon(botLImageIcon);
-
 		}
 
 		switch(quad){
@@ -742,6 +833,7 @@ public class Menu{
 				mainWindow.revalidate();
 			break;
 			case N:
+				
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
 				inQuad = true;
 				currentQuad = quad;
@@ -819,6 +911,24 @@ public class Menu{
 			}
 			break;
 		case VOLUNTEER:
+			if (Game.mainEnviro.getNumVol() > 0) {
+				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0);
+				Game.mainEnviro.increaseVol(false);
+			}
+			break;
+		case WETSTEWARD:
+			if (Game.mainEnviro.getNumStew() > 0) {
+				charPlace = new DragComponent(stewardImage,currentQuad, eChar, x, y,0,0);
+				Game.mainEnviro.increaseStew(false);
+			}
+			break;
+		case WETRESEARCHER:
+			if (Game.mainEnviro.getNumRes() > 0) {
+				charPlace = new DragComponent(researcherImage,currentQuad, eChar, x, y,0,0);
+				Game.mainEnviro.increaseRes(false);
+			}
+			break;
+		case WETVOLUNTEER:
 			if (Game.mainEnviro.getNumVol() > 0) {
 				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0);
 				Game.mainEnviro.increaseVol(false);
@@ -1021,6 +1131,12 @@ public class Menu{
 				return fishermanImage;
 			case TRASH:
 				return trash;
+			case WETMCRAB:
+				return mittenCrabImage;
+			case WETHCRAB:
+				return horseshoeCrabImage;
+			case WETBCRAB:
+				return blueCrabImage;
 			default:
 				return null;
 			
