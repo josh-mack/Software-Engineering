@@ -113,8 +113,7 @@ public class Menu{
 	ImageIcon blazingStarImage;
 	ImageIcon phragmitesImage;
 
-
-	
+	ImageIcon trash;
 
 
 	
@@ -911,6 +910,13 @@ public class Menu{
 		mainWindow.revalidate();
 		return;
 	}
+	public void placeComp3(JComponent toAdd){
+		mainWindow.getLayeredPane().add(toAdd,-2);
+		placedChars.add(toAdd);
+		mainWindow.repaint();
+		mainWindow.revalidate();
+		return;
+	}
 	public void removeComp(JComponent toRemove){
 		if(placedChars.remove(toRemove)){
 			mainWindow.getLayeredPane().remove(toRemove);
@@ -983,6 +989,7 @@ public class Menu{
 		horseshoeCrabImage = new ImageIcon("imgs/horseShoeCrab.png");
 		blackEyedSusanImage = new ImageIcon("imgs/blackEyedSusan.png");
 		blueCrabImage = new ImageIcon("imgs/blueCrab.png");
+		trash = new ImageIcon("imgs/x.png");
 		}catch(IOException e){
 			System.out.println("Error: Some images weren't found");
 		}
@@ -1010,6 +1017,8 @@ public class Menu{
 				return cityImage;
 			case FISHERMAN:
 				return fishermanImage;
+			case TRASH:
+				return trash;
 			default:
 				return null;
 			
