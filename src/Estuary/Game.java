@@ -35,6 +35,7 @@ public class Game {
 	static int spawnRate;
 	
 	static boolean secondChance = true;
+	static boolean fishFlag = true;
 	
 	static ArrayList<SpeciesComponent> resolvingSpecies = new ArrayList<SpeciesComponent>();
 
@@ -159,20 +160,37 @@ public class Game {
 				
 				makeNativeSpecies(gameFrame.getQuadrant(), true);
 					
+<<<<<<< Upstream, based on branch 'master' of https://github.com/CISC275-S2016/Section-10-Group-3.git
 
+=======
+					Game.placeComp(retVal.getXCoord(),retVal.getYCoord());
+					Game.refresh();
+					mainEnviro.setHealth(mainEnviro.getHealth() + 1);
+				}
+>>>>>>> dba4ee5 Made a fisherman event
 		}};
+		
+		ActionListener fishEvent = new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				Fisherman.boatsEvent();
+			}
+		};
+		
 		new Timer(1000, timerAction).start();
 		
 		//Create an Invasive species every 10 seconds
-		
 		
 		new Timer(2000, Spawn80).start();
 		new Timer(3000, Spawn60).start();
 		new Timer(4000, Spawn30).start();
 		new Timer(6000, SpawnBetterMarcosButton).start();
-		new Timer(75000, Spawn10).start();
+		new Timer(7500, Spawn10).start();
 		
 		new Timer(40000, nativeSpawn).start();
+		new Timer(60000, fishEvent).start();
 	}
 	
 	/**
@@ -594,6 +612,12 @@ public class Game {
 	
 	public static ImageIcon getImage(eChar character) {
 		return gameFrame.getImage(character);
+	}
+	
+	
+	public static ImageIcon getFishImage(boolean fishFlag)
+	{
+		return (fishFlag)?gameFrame.fishermanImage:gameFrame.fishermanOverFlowImage;
 	}
 	
 	public static ImageIcon getDNERRImage(int level) {

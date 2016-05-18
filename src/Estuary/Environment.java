@@ -22,14 +22,9 @@ import javax.swing.Timer;
 public class Environment implements Serializable{
 	private static final long serialVersionUID = 0;
 	
-	private Species[] animals;
-	private Character[] characters;
 	private int health;
-	private int newHealth = 10;
-	private int oldHealth = 5;
 	public int money;
 	//private boolean secondChance = true;
-	
 	private int numStew;
 	private int numVol;
 	private int numRes;
@@ -68,9 +63,8 @@ public class Environment implements Serializable{
 	 * Sets the player's health to below the maximum.
 	 * Sets the player's starting money to 200.
 	 */
-	public Environment() {
-		this.animals = null;
-		this.characters = null;
+	public Environment() 
+	{
 		this.health = 30;
 		this.money = 200;
 		this.numStew = 2;
@@ -80,45 +74,14 @@ public class Environment implements Serializable{
 	}
 	
 	/**
-	 * Returns an array of animals on the board.
-	 * @return animals
-	 */
-	public Species[] getAnimals() {
-		return animals;
-	}
-	
-	/**
-	 * Returns an array of characters on the board.
-	 * @return
-	 */
-	public Character[] getCharacters() {
-		return characters;
-	}
-	
-	/**
 	 * Other Getters and setters.
 	 * @return
 	 */
 	public int getHealth() {
 		return health;
 	}
-	public int getNewHealth(){
-		return this.newHealth;
-	}
-	public int getOldHealth(){
-		return this.oldHealth;
-	}
-	
 	public int getMoney() {
 		return this.money;
-	}
-	
-	public void setAnimals(Species[] animals) {
-		this.animals = animals;
-	}
-	
-	public void setCharacters(Character[] characters) {
-		this.characters = characters;
 	}
 	
 	public void setHealth(int health) {
@@ -129,6 +92,7 @@ public class Environment implements Serializable{
 		this.money = money;
 	}
 	
+<<<<<<< Upstream, based on branch 'master' of https://github.com/CISC275-S2016/Section-10-Group-3.git
 
 
 	
@@ -176,6 +140,57 @@ public class Environment implements Serializable{
 		}
 		
 		return new Event(x, y, powerType);
+=======
+	/**
+	 * Method to spawn the native species on the board.
+	 * These do not move.
+	 * @param quad
+	 * @return
+	 */
+	public Native makeNativeSpecies(eQuad quad) {
+		Native nativeAdded = new Native(eChar.HCRAB, 3, 10, 10, 5);
+		
+		Random rand = new Random();
+		int rowEnd,colEnd;
+		int x =0,y =0;
+		switch(quad){
+		case N:
+			rowEnd = 24;
+			colEnd = 38;
+			x = (rand.nextInt(colEnd)%38);
+			y = (rand.nextInt(rowEnd)%24);
+			nativeAdded= new Native(eChar.HCRAB, 3, x, y, 5);
+			break;
+		case E:
+			rowEnd = 24;
+			colEnd = 76;
+			x = (rand.nextInt(colEnd)%38)+38;
+			y = (rand.nextInt(rowEnd)%24);
+			nativeAdded= new Native(eChar.BLAZINGSTAR, 3, x, y, 5);
+			break;
+		case S:
+			rowEnd = 48;
+			colEnd = 76;
+			x = (rand.nextInt(colEnd)%38)+38;
+			y = (rand.nextInt(rowEnd)%24)+24;
+			nativeAdded= new Native(eChar.BLACKEYEDSUSAN, 3, x, y, 5);
+			break;
+		case W:
+			rowEnd = 48;
+			colEnd = 38;
+			x = (rand.nextInt(colEnd)%38);
+			y = (rand.nextInt(rowEnd)%24)+24;
+			nativeAdded= new Native(eChar.BCRAB, 3, x, y, 5);
+			break;
+			
+		default:
+			rowEnd = 0;
+			colEnd = 0;
+		}
+		
+		numNative++;
+		return nativeAdded;		
+>>>>>>> dba4ee5 Made a fisherman event
 	}
 	
 	/**
@@ -187,7 +202,7 @@ public class Environment implements Serializable{
 			resolveTime /= 2; 
 		}
 		if (character == eChar.VOLUNTEER) {
-			resolveTime *= 2;
+			resolveTime += 4;
 		}
 		System.out.println("Resolve 2 Method Active");
 		
@@ -235,7 +250,10 @@ public class Environment implements Serializable{
 				Game.board[i][j] = eChar.BLANK; 
 				money += 100;
 				calcHealth();
+<<<<<<< Upstream, based on branch 'master' of https://github.com/CISC275-S2016/Section-10-Group-3.git
 
+=======
+>>>>>>> dba4ee5 Made a fisherman event
 				switch(character){
 				case STEWARD:
 					numStew++;
@@ -284,23 +302,8 @@ public class Environment implements Serializable{
 	public void resolve(eChar species, eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
 		System.out.println("Resolve 1 Method Active");
 		switch(species) {
-//		case SLOWGROWTH:
-//			Iterator<Invasive> it = events.iterator();
-//			while(it.hasNext()) {
-//				Invasive monster = it.next();
-//				monster.setGrowthRate(monster.getGrowthRate()/2);
-//			}
-//			break;
-//		case FASTCHARACTER:
-//			break;
 		case INSTAKILL:
 			break;
-//		case RESEARCHER:
-//			break;
-//		case STEWARD:
-//			break;
-//		case VOLUNTEER:
-//			break;
 		case DNREC:
 			break;
 		case HCRAB:
@@ -312,6 +315,8 @@ public class Environment implements Serializable{
 		case BCRAB:
 			break;
 		case FISHERMAN:
+			if(character == eChar.STEWARD && Game.fishFlag == false)
+				Fisherman.boatsResolve(character, i, j, drag, invasiveSpecies);
 			break;
 		case CITY:
 			enteredTheCity(character, drag);
@@ -364,56 +369,15 @@ public class Environment implements Serializable{
 		temp = new Timer(5000, cityAction);
 		temp.start();
 	}
-	
-	/**
-	 * Method for the InstaKill powerup. Removes the first invasive species
-	 * in the queue.
-	 */
-//	public void instakill() {
-//		Game.deleteComponent(events.peakBack().getYCoord(), events.peakBack().getXCoord());
-//		Game.board[events.peakBack().getYCoord()][events.peakBack().getXCoord()] = eChar.BLANK; 
-//		events.removeback();
-//		calcHealth();
-//		numInvasive--;
-//	}
-//		
-	
-	public void calcGrowth() {
-		
-	}
-	
+
 	/**
 	 * Method to calculate the health change,
 	 * based off current health.
 	 */
-	public void calcHealth() {
-		/*double y = (this.health - 19/20)*(this.health - 20)/10;
-		double num  = ( 1 + Math.pow( Math.exp(1.0), y));
-		double formula = 1/(num);
-		setHealth((int)formula);
-		System.out.println(formula);*/
-		//setHealth((int)(this.health * 2));
+	public void calcHealth() 
+	{
 		setHealth(this.health + 3);
 	}
-	
-	/**
-	 * Method to give the player a second chance if they're
-	 * in danger of losing for the first time.
-	 */
-//	public void checkProgress()
-//	{
-//		if(getHealth() < 5 && secondChance)
-//		{
-//			for(int i =0; i<5;i++)
-//				instakill();
-//			secondChance = false;
-//		}
-//		if(getHealth() < 5)
-//			Game.gameFrame.endScreen();
-//			
-//		if(getHealth() > 95)
-//			Game.gameFrame.endScreen();
-//	}
 	
 	/**
 	 * Method to serialize Environment, which takes care of all the
@@ -512,9 +476,4 @@ public class Environment implements Serializable{
 			numRes--;
 		}
 	}
-	
-	
-	
-	
-	
 }
