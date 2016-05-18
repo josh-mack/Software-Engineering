@@ -21,12 +21,13 @@ import javax.swing.Timer;
  */
 public class Game {
 	static DNERR dnerrComp;
-	static Fisherman fishComp;
 	public static Environment mainEnviro = new Environment();
 
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	static int height = ((int)screenSize.getHeight())/24;
 	static int width = (int)screenSize.getWidth()/38;
+	
+	static Fisherman fishComp;
 	
 	static int seconds;
 	
@@ -93,8 +94,9 @@ public class Game {
 			
 		}
 
+
 		gameFrame = new Menu();
-		
+		fishComp = new Fisherman(5%38*width, 35%24*height);
 	
 	}
 	
@@ -188,7 +190,7 @@ public class Game {
 		new Timer(7500, Spawn10).start();
 		
 		new Timer(40000, nativeSpawn).start();
-		new Timer(60000, fishEvent).start();
+		new Timer(6000, fishEvent).start();
 	}
 	
 	/**
@@ -198,14 +200,14 @@ public class Game {
 	 */
 	static void updateTime(Menu mainFrame, int seconds){
 	
-		if (seconds%60 < 10) {
-			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":0" + seconds%60);
-		}
-		else {
-			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":" + seconds%60);
-		
-		
-		}
+//		if (seconds%60 < 10) {
+//			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":0" + seconds%60);
+//		}
+//		else {
+//			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":" + seconds%60);
+//		
+//		
+//		}
 		checkProgress();
 		mainFrame.getMainWindow().repaint();
 		mainFrame.getMainWindow().revalidate();
@@ -217,7 +219,7 @@ public class Game {
 	 * @param money
 	 */
 	static void updateMoney(Menu mainFrame, int money) {
-		mainFrame.getScoreLabel().setText("MONEY: $" + money);
+		mainFrame.getScoreLabel().setText("ESTUARY POINTS: " + money);
 	}
 	
 	static void updateCharacters(Menu mainFrame, int numStewards, int numResearchers, int numVolunteers) {
@@ -385,7 +387,11 @@ public class Game {
 	{
 		gameFrame.removeComp(fishComp);
 		fishComp = new Fisherman(x,y);
-		gameFrame.placeComp(fishComp);
+		if (Game.gameFrame.getQuadrant() == eQuad.W) {
+			gameFrame.placeComp(fishComp);
+		}
+		gameFrame.hilightOn(eQuad.W);
+
 	}
 
 	public static void refresh(){

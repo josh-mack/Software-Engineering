@@ -98,6 +98,7 @@ public class Fisherman extends JComponent implements Serializable{
 				Game.fishFlag = true;
 				Game.replaceFisherman(x,y);
 				Game.refresh();
+				Game.mainEnviro.increaseStew(true);
 				((Timer)e.getSource()).stop();
 			}
 		};
