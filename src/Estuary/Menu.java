@@ -56,12 +56,17 @@ public class Menu{
 			else if(e.getSource() == hilightTimer4){
 				hilightQ4.hilight();
 			}
+			else if(e.getSource() == hilightMainTimer){
+				flashMainMap();
+			}
 	}};
 	
 	Timer hilightTimer1 = new Timer(500,hilightListener);
 	Timer hilightTimer2 = new Timer(500,hilightListener);
 	Timer hilightTimer3 = new Timer(500,hilightListener);
 	Timer hilightTimer4 = new Timer(500,hilightListener);
+	Timer hilightMainTimer = new Timer(500,hilightListener);
+
 	
 	//Pre-loaded Image Variables
 	BufferedImage titleImage;
@@ -86,7 +91,10 @@ public class Menu{
 	ImageIcon topLImageIcon;
 	ImageIcon topRImageIcon;
 	ImageIcon botLImageIcon;
+	ImageIcon botLImageIconHilight;
+	boolean mainMapHilighted;
 	ImageIcon botRImageIcon;
+	JLabel botLImageLabel;
 	
 	ImageIcon DNERRLvl1Image;
 	ImageIcon DNERRLvl2Image;
@@ -555,6 +563,7 @@ public class Menu{
 		
 		
 		
+		
 
 		timeFrame.add(timeLabel);
 		timeFrame.add(scoreLabel);
@@ -597,8 +606,8 @@ public class Menu{
 		c.anchor = GridBagConstraints.NORTHEAST;
 		mainPanel.add(topR, c);
 
-		
-		botL.add(new JLabel(botLImageIcon));
+		botLImageLabel = new JLabel(botLImageIcon);
+		botL.add(botLImageLabel);
 		botL.setOpaque(false);
 		c.fill = 0;
 		c.gridx = 0;
@@ -714,10 +723,14 @@ public class Menu{
 
 		if(quad!=eQuad.MAIN){
 			hilightOff(quad);
+			botLImageLabel.setIcon(botLImageIcon);
+
 		}
 
 		switch(quad){
 			case MAIN:
+				
+				hilightMainTimer.stop();
 				resumeHilight();
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, false);	
 				inQuad = false;
@@ -957,6 +970,7 @@ public class Menu{
 		topLImageIcon= new ImageIcon("imgs/TLCorner.png");
 		topRImageIcon= new ImageIcon("imgs/TRCorner.png");
 		botLImageIcon= new ImageIcon("imgs/BLCorner.png");
+		botLImageIconHilight = new ImageIcon("imgs/BLCornerHilighted.png");
 		botRImageIcon= new ImageIcon("imgs/BRCorner.png");
 		
 		DNERRLvl1Image= new ImageIcon("imgs/level1.png");
@@ -1012,6 +1026,16 @@ public class Menu{
 	}
 	public void changeDNERR(int level){
 		dnerrImage = (level == 2)?DNERRLvl2Image:DNERRLvl2Image;
+	}
+	public void flashMainMap(){
+		if(mainMapHilighted){
+			botLImageLabel.setIcon(botLImageIcon);
+		}
+		else{
+			botLImageLabel.setIcon(botLImageIconHilight);
+		}
+		mainMapHilighted = !mainMapHilighted;
+		botL.repaint();
 	}
 
 

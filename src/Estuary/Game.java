@@ -21,6 +21,7 @@ import javax.swing.Timer;
  */
 public class Game {
 	static DNERR dnerrComp;
+	static Fisherman fishComp;
 	public static Environment mainEnviro = new Environment();
 
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -77,10 +78,10 @@ public class Game {
 				{eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING},
 				{eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING}};
 			for(int i = 0; i < 48; i++){
-			for(int j = 0; j < 76; j++)
-			{
-				board[i][j] = testboard[i%24][j%38];
-			}
+				for(int j = 0; j < 76; j++)
+				{
+					board[i][j] = testboard[i%24][j%38];
+				}
 			board[3][7] = eChar.DNREC;
 			board[35][5] = eChar.FISHERMAN;
 			board[1][23] = eChar.CITY;
@@ -172,7 +173,7 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Fisherman.boatsEvent();
+				fishComp.boatsEvent();
 			}
 		};
 		
@@ -302,8 +303,8 @@ public class Game {
 						break;
 					case FISHERMAN:
 						if(drag){
-							newComponent = new Fisherman(j%38*width, i%24*height);
-							gameFrame.placeComp(newComponent);
+							fishComp = new Fisherman(j%38*width, i%24*height);
+							gameFrame.placeComp(fishComp);
 						}
 						break;
 					case CITY:
@@ -360,6 +361,13 @@ public class Game {
 		dnerrComp = new DNERR(x,y, dnrecLevel);
 		gameFrame.placeComp(dnerrComp);
 		gameFrame.changeOverview(dnrecLevel);
+	}
+	
+	public static void replaceFisherman(int x, int y)
+	{
+		gameFrame.removeComp(fishComp);
+		fishComp = new Fisherman(x,y);
+		gameFrame.placeComp(fishComp);
 	}
 
 	public static void refresh(){
@@ -656,8 +664,7 @@ public class Game {
 					if ((Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
 						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)
 						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)
-						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.FISHERMAN)
-						&& (Game.board[y+i][x+j] != eChar.TRASH)) {
+						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.TRASH)) {
 							for (int k = 0; k < resolvingSpecies.size(); k++) {
 								if ((resolvingSpecies.get(k).getI()==y+i) && (resolvingSpecies.get(k).getJ()==x+j) && (resolvingSpecies.get(k).isInvasive())){
 									alreadyBeingResolved = true;

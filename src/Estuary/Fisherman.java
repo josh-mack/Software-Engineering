@@ -31,6 +31,26 @@ public class Fisherman extends JComponent implements Serializable{
 	@SuppressWarnings("unused")
 	private eQuad whatQuad;
 	
+	public int getX()
+	{
+		return x;
+	}
+	
+	public int getY()
+	{
+		return y;
+	}
+	
+	public void setX(int x)
+	{
+		this.x = x;
+	}
+	
+	public void setY(int y)
+	{
+		this.y = y;
+	}
+	
 	/**
 	 * Constructor for DNERR. Sets the position of the object to
 	 * [10][3] in the game board. This object acts as a game modifier,
@@ -56,12 +76,14 @@ public class Fisherman extends JComponent implements Serializable{
 		
 	}
 	
-	public static void boatsEvent()
+	public void boatsEvent()
 	{
 		Game.fishFlag = false;
+		Game.refresh();
+		Game.replaceFisherman(x,y);
 	}
 	
-	public static void boatsResolve(eChar character2, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies)
+	public void boatsResolve(eChar character2, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies)
 	{
 		
 		ActionListener timerAction = new ActionListener(){
@@ -70,12 +92,12 @@ public class Fisherman extends JComponent implements Serializable{
 			{
 				Game.deleteComponent(i, j);
 				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
-				Game.mainEnviro.setNumInvasive(Game.mainEnviro.getNumInvasive()- 1);
-				Game.board[i][j] = eChar.BLANK; 
-				Game.mainEnviro.money += 100;
+				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+				Game.mainEnviro.money += 200;
 				Game.mainEnviro.setHealth(Game.mainEnviro.getHealth() + 5);
 				Game.fishFlag = true;
-				
+				Game.replaceFisherman(x,y);
+				Game.refresh();
 				((Timer)e.getSource()).stop();
 			}
 		};
