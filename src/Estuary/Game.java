@@ -217,7 +217,7 @@ public class Game {
 		new Timer(7500, Spawn10).start();
 		
 		new Timer(40000, nativeSpawn).start();
-		new Timer(6000, fishEvent).start();
+		new Timer(60000, fishEvent).start();
 	}
 	
 	/**
