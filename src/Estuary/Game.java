@@ -153,21 +153,13 @@ public class Game {
 
 				}
 		}};
-		
 		ActionListener nativeSpawn = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				makeNativeSpecies(gameFrame.getQuadrant(), true);
 					
-<<<<<<< Upstream, based on branch 'master' of https://github.com/CISC275-S2016/Section-10-Group-3.git
 
-=======
-					Game.placeComp(retVal.getXCoord(),retVal.getYCoord());
-					Game.refresh();
-					mainEnviro.setHealth(mainEnviro.getHealth() + 1);
-				}
->>>>>>> dba4ee5 Made a fisherman event
 		}};
 		
 		ActionListener fishEvent = new ActionListener() 

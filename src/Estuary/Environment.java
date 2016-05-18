@@ -92,107 +92,6 @@ public class Environment implements Serializable{
 		this.money = money;
 	}
 	
-<<<<<<< Upstream, based on branch 'master' of https://github.com/CISC275-S2016/Section-10-Group-3.git
-
-
-	
-	/**
-	 * This method is called when an event is completed, 
-	 * removing the event from the event queue and
-	 * giving money to the player as a reward.
-	 */
-	public Event makePowerUp(eQuad quad, eChar powerType) {
-		//Invasive invasiveAdded = new Phragmites(3, 10, 10, 5, 10);
-		
-		Random rand = new Random();
-		int rowEnd,colEnd;
-		int x =0,y =0;
-		switch(quad){
-		case N:
-			rowEnd = 24;
-			colEnd = 38;
-			x = (rand.nextInt(colEnd)%38);
-			y = (rand.nextInt(rowEnd)%24);
-			break;
-		case E:
-			rowEnd = 24;
-			colEnd = 76;
-			x = (rand.nextInt(colEnd)%38)+38;
-			y = (rand.nextInt(rowEnd)%24);
-			
-			break;
-		case S:
-			rowEnd = 48;
-			colEnd = 76;
-			x = (rand.nextInt(colEnd)%38)+38;
-			y = (rand.nextInt(rowEnd)%24)+24;
-			break;
-		case W:
-			rowEnd = 48;
-			colEnd = 38;
-			x = (rand.nextInt(colEnd)%38);
-			y = (rand.nextInt(rowEnd)%24)+24;
-			break;
-			
-		default:
-			rowEnd = 0;
-			colEnd = 0;
-		}
-		
-		return new Event(x, y, powerType);
-=======
-	/**
-	 * Method to spawn the native species on the board.
-	 * These do not move.
-	 * @param quad
-	 * @return
-	 */
-	public Native makeNativeSpecies(eQuad quad) {
-		Native nativeAdded = new Native(eChar.HCRAB, 3, 10, 10, 5);
-		
-		Random rand = new Random();
-		int rowEnd,colEnd;
-		int x =0,y =0;
-		switch(quad){
-		case N:
-			rowEnd = 24;
-			colEnd = 38;
-			x = (rand.nextInt(colEnd)%38);
-			y = (rand.nextInt(rowEnd)%24);
-			nativeAdded= new Native(eChar.HCRAB, 3, x, y, 5);
-			break;
-		case E:
-			rowEnd = 24;
-			colEnd = 76;
-			x = (rand.nextInt(colEnd)%38)+38;
-			y = (rand.nextInt(rowEnd)%24);
-			nativeAdded= new Native(eChar.BLAZINGSTAR, 3, x, y, 5);
-			break;
-		case S:
-			rowEnd = 48;
-			colEnd = 76;
-			x = (rand.nextInt(colEnd)%38)+38;
-			y = (rand.nextInt(rowEnd)%24)+24;
-			nativeAdded= new Native(eChar.BLACKEYEDSUSAN, 3, x, y, 5);
-			break;
-		case W:
-			rowEnd = 48;
-			colEnd = 38;
-			x = (rand.nextInt(colEnd)%38);
-			y = (rand.nextInt(rowEnd)%24)+24;
-			nativeAdded= new Native(eChar.BCRAB, 3, x, y, 5);
-			break;
-			
-		default:
-			rowEnd = 0;
-			colEnd = 0;
-		}
-		
-		numNative++;
-		return nativeAdded;		
->>>>>>> dba4ee5 Made a fisherman event
-	}
-	
 	/**
 	 * Method used to remove an event from the front of the queue.
 	 * This is called when an even is supposed to be completed.
@@ -250,10 +149,6 @@ public class Environment implements Serializable{
 				Game.board[i][j] = eChar.BLANK; 
 				money += 100;
 				calcHealth();
-<<<<<<< Upstream, based on branch 'master' of https://github.com/CISC275-S2016/Section-10-Group-3.git
-
-=======
->>>>>>> dba4ee5 Made a fisherman event
 				switch(character){
 				case STEWARD:
 					numStew++;
