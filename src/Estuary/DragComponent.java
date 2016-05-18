@@ -173,7 +173,7 @@ public class DragComponent extends JComponent {
 		switch(whatQuad)
 		{
 		case N:
-				if (Game.board[y][x] != eChar.BLANK) {
+				if ((Game.board[y][x] != eChar.BLANK) && (Game.board[y][x] != eChar.NOTHING)) {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i][x+j] == eChar.BLANK) {
@@ -187,18 +187,19 @@ public class DragComponent extends JComponent {
 					}
 					return false;
 				}
-				else if(Game.board[y][x] == eChar.BLANK){
+				else if((Game.board[y][x] == eChar.BLANK) || (Game.board[y][x] == eChar.NOTHING)) {
 					Game.board[oldi][oldj] = eChar.BLANK;
 					Game.board[y][x] = this.character;
 					oldi = y;
 					oldj = x;
 					Game.collision(x, y,this); 
 				}
+
 				
 				return false;
 		case E:
 			
-				if (Game.board[y][x+38] != eChar.BLANK) {
+				if ((Game.board[y][x+38] != eChar.BLANK) && (Game.board[y][x+38] != eChar.NOTHING)){
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i][x+j+38] == eChar.BLANK) {
@@ -221,7 +222,7 @@ public class DragComponent extends JComponent {
 				}
 				return false;
 		case W:
-				if (Game.board[y+24][x] != eChar.BLANK) {
+				if ((Game.board[y+24][x] != eChar.BLANK) && (Game.board[y+24][x] != eChar.NOTHING)){
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i+24][x+j] == eChar.BLANK) {
@@ -245,7 +246,7 @@ public class DragComponent extends JComponent {
 				return false;
 		case S:
 			
-				if (Game.board[y+24][x+38] != eChar.BLANK) {
+				if ((Game.board[y+24][x+38] != eChar.BLANK) && (Game.board[y+24][x+38] != eChar.NOTHING)){
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i+24][x+j+38] == eChar.BLANK) {

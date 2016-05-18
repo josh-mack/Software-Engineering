@@ -13,7 +13,7 @@ public enum eChar {
 	BAMBOO("BAMB", true), BLAZINGSTAR("BLAZ", false), BLACKEYEDSUSAN("BEYS", false), BLANK("NONE", false), BCRAB("BCRB", false),
 	DNREC("DNREC", false),FISHERMAN("FMAN", true), HCRAB("HCRB", false), MCRAB("MCRB", true), PHRAG("PHRG",true),POLLUTER("POLL", true),
 	RESEARCHER("(RH)", false), STEWARD("(ST)",false), VOLUNTEER("(VL)",false), ZEBRA("ZEBR",true), SLOWGROWTH("SLOW",false), FASTCHARACTER("FAST",false), INSTAKILL("INST",false),
-	CITY("CITY",false), NOTHING("noth",false);
+	CITY("CITY",false), NOTHING("noth",false), TRASH("TRASH", false);
 	
 	private String testVal;
 	private int xLoc;
