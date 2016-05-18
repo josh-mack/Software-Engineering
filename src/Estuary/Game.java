@@ -442,7 +442,12 @@ public class Game {
 				place = eQuad.N;
 			}
 		}
-		if(quad != place){gameFrame.hilightOn(place);}
+		if(quad != place){
+			gameFrame.hilightOn(place);
+			if(gameFrame.currentQuad!=eQuad.MAIN){
+				gameFrame.hilightMainTimer.start();
+			}
+		}
 
 		int XCoord = height*(j%38);
 		int YCoord = width*(i%24);
