@@ -71,6 +71,7 @@ public class Menu{
 	
 	//Pre-loaded Image Variables
 	BufferedImage titleImage;
+	BufferedImage endImage;
 	BufferedImage backgroundOverview1Image;
 	BufferedImage backgroundOverview2Image;
 	BufferedImage backgroundOverview3Image;
@@ -355,49 +356,7 @@ public class Menu{
 		OverlayLayout over = new OverlayLayout(overAll);
 		overAll.setLayout(over);
 
-		BackgroundPanel titleBack = new BackgroundPanel(titleImage, width+50, height);
-		titleBack.setSize(width, height);
-		JLabel start = new JLabel(startButtonImageIcon);
-		JPanel startPanel = new JPanel();
-		
-		
-		startPanel.setLayout(new BorderLayout());
-		startPanel.add(start,BorderLayout.CENTER);
-		startPanel.setOpaque(false);
-		
-		overAll.add(startPanel);
-		overAll.add(titleBack);
-		
-		start.addMouseListener(new MouseListener(){
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.exit(0);
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		BackgroundPanel endScreen = new BackgroundPanel(endImage, width+50, height);
 		
 		overAll.setSize(mainSize);
 		overAll.setVisible(true);
@@ -1082,6 +1041,7 @@ public class Menu{
 	public void loadImages(){
 		try{
 		titleImage = ImageIO.read(new File("imgs/titleScreen.png"));
+		endImage = ImageIO.read(new File("imgs/endScreen.png"));
 		
 		BufferedImage charIcon = ImageIO.read(new File("imgs/stewardIcon.png"));
 		stewardImageIcon = new ImageIcon(charIcon.getScaledInstance(width/14, height/14, Image.SCALE_SMOOTH));
