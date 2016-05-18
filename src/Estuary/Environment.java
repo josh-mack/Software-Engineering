@@ -221,8 +221,6 @@ public class Environment implements Serializable{
 				break;
 			}
 			break;
-		case INSTAKILL:
-			break;
 		case DNREC:
 			break;
 		case HCRAB:
