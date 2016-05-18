@@ -365,9 +365,11 @@ public class Game {
 							newComponent = new Trash(j%38*width, i%24*height);
 							gameFrame.placeComp3(newComponent);
 						}
+					case WATER:
+						break;
 					default:
-						//newComponent = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
-						//gameFrame.placeComp(newComponent);
+						newComponent = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
+						gameFrame.placeComp(newComponent);
 						break;
 					}
 				}
