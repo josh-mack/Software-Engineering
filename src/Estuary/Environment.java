@@ -146,7 +146,12 @@ public class Environment implements Serializable{
 				Game.deleteComponent(i, j);
 				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
 				numInvasive--;
-				Game.board[i][j] = eChar.BLANK; 
+				if (Game.board[i][j].isWet()) {
+					Game.board[i][j] = eChar.WATER;
+				}
+				else {
+					Game.board[i][j] = eChar.BLANK;
+				}
 				money += 100;
 				calcHealth();
 				switch(character){
@@ -163,9 +168,12 @@ public class Environment implements Serializable{
 					break;
 				}
 				
-				
-				
-				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+				if (Game.board[drag.getOldi()][drag.getOldj()].isWet()) {
+					Game.board[drag.getOldi()][drag.getOldj()] = eChar.WATER;
+				}
+				else {
+					Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+				}
 				
 				Game.resolvingSpecies.remove(invasiveSpecies);
 				
@@ -214,17 +222,19 @@ public class Environment implements Serializable{
 				break;
 			}
 			break;
-		case INSTAKILL:
-			break;
 		case DNREC:
 			break;
 		case HCRAB:
+			break;
+		case WETHCRAB:
 			break;
 		case BLAZINGSTAR:
 			break;
 		case BLACKEYEDSUSAN:
 			break;
 		case BCRAB:
+			break;
+		case WETBCRAB:
 			break;
 		case FISHERMAN:
 			if(character == eChar.STEWARD && Game.fishFlag == false)
@@ -237,6 +247,9 @@ public class Environment implements Serializable{
 			resolveTime = 4;
 			resolve2(character, i, j, drag, invasiveSpecies);
 			break;
+		case WETMCRAB:
+			resolveTime = 4;
+			resolve2(character, i, j, drag, invasiveSpecies);
 		case PHRAG:
 			resolveTime = 6;
 			resolve2(character, i, j, drag, invasiveSpecies);
