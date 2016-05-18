@@ -101,6 +101,7 @@ public class Environment implements Serializable{
 			resolveTime /= 2; 
 		}
 		if (character == eChar.VOLUNTEER) {
+			
 			resolveTime += 4;
 		}
 		System.out.println("Resolve 2 Method Active");
@@ -161,6 +162,15 @@ public class Environment implements Serializable{
 					numRes++;
 					break;
 				case VOLUNTEER:
+					numVol++;
+					break;
+				case WETSTEWARD:
+					numStew++;
+					break;
+				case WETRESEARCHER:
+					numRes++;
+					break;
+				case WETVOLUNTEER:
 					numVol++;
 					break;
 				default:

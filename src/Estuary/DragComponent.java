@@ -326,7 +326,7 @@ public class DragComponent extends JComponent {
 					}
 					return false;
 				}
-				else if((Game.board[y][x] == eChar.BLANK) || (Game.board[y][x] == eChar.NOTHING)) {
+				else if((Game.board[y][x+38] == eChar.BLANK) || (Game.board[y][x+38] == eChar.NOTHING)) {
 					if (this.character.isWet()) {
 						Game.board[oldi][oldj] = eChar.WATER;
 					}
@@ -334,13 +334,13 @@ public class DragComponent extends JComponent {
 						Game.board[oldi][oldj] = eChar.BLANK;
 					}
 					this.character = dryVersion;
-					Game.board[y][x] = this.character;
+					Game.board[y][x+38] = this.character;
 					oldi = y;
-					oldj = x;
-					return Game.collision(x,y,this);
+					oldj = x+38;
+					return Game.collision(x+38,y,this);
 				}
 				
-				else if (Game.board[y][x] == eChar.WATER) {
+				else if (Game.board[y][x+38] == eChar.WATER) {
 					if (this.character.isWet()) {
 						Game.board[oldi][oldj] = eChar.WATER;
 					}
@@ -350,8 +350,8 @@ public class DragComponent extends JComponent {
 					this.character = wetVersion;
 					Game.board[y][x] = this.character;
 					oldi = y;
-					oldj = x;
-					return Game.collision(x,y,this);
+					oldj = x+38;
+					return Game.collision(x+38,y,this);
 				}
 		case W:
 				if ((Game.board[y+24][x] != eChar.BLANK) && (Game.board[y+24][x] != eChar.NOTHING)){
@@ -387,7 +387,7 @@ public class DragComponent extends JComponent {
 					}
 					return false;
 				}
-				else if((Game.board[y][x] == eChar.BLANK) || (Game.board[y][x] == eChar.NOTHING)) {
+				else if((Game.board[y+24][x] == eChar.BLANK) || (Game.board[y+24][x] == eChar.NOTHING)) {
 					if (this.character.isWet()) {
 						Game.board[oldi][oldj] = eChar.WATER;
 					}
@@ -395,13 +395,13 @@ public class DragComponent extends JComponent {
 						Game.board[oldi][oldj] = eChar.BLANK;
 					}
 					this.character = dryVersion;
-					Game.board[y][x] = this.character;
-					oldi = y;
+					Game.board[y+24][x] = this.character;
+					oldi = y+24;
 					oldj = x;
-					return Game.collision(x,y,this);
+					return Game.collision(x,y+24,this);
 				}
 				
-				else if (Game.board[y][x] == eChar.WATER) {
+				else if (Game.board[y+24][x] == eChar.WATER) {
 					if (this.character.isWet()) {
 						Game.board[oldi][oldj] = eChar.WATER;
 					}
@@ -409,10 +409,10 @@ public class DragComponent extends JComponent {
 						Game.board[oldi][oldj] = eChar.BLANK;
 					}
 					this.character = wetVersion;
-					Game.board[y][x] = this.character;
-					oldi = y;
+					Game.board[y+24][x] = this.character;
+					oldi = y+24;
 					oldj = x;
-					return Game.collision(x,y,this);
+					return Game.collision(x,y+24,this);
 				}
 				return false;
 		case S:
@@ -448,7 +448,7 @@ public class DragComponent extends JComponent {
 					}
 					return false;
 				}
-				else if((Game.board[y][x] == eChar.BLANK) || (Game.board[y][x] == eChar.NOTHING)) {
+				else if((Game.board[y+24][x+38] == eChar.BLANK) || (Game.board[y+24][x+38] == eChar.NOTHING)) {
 					if (this.character.isWet()) {
 						Game.board[oldi][oldj] = eChar.WATER;
 					}
@@ -456,13 +456,13 @@ public class DragComponent extends JComponent {
 						Game.board[oldi][oldj] = eChar.BLANK;
 					}
 					this.character = dryVersion;
-					Game.board[y][x] = this.character;
-					oldi = y;
-					oldj = x;
-					return Game.collision(x,y,this);
+					Game.board[y+24][x+38] = this.character;
+					oldi = y+24;
+					oldj = x+38;
+					return Game.collision(x+38,y+24,this);
 				}
 				
-				else if (Game.board[y][x] == eChar.WATER) {
+				else if (Game.board[y+24][x+38] == eChar.WATER) {
 					if (this.character.isWet()) {
 						Game.board[oldi][oldj] = eChar.WATER;
 					}
@@ -470,10 +470,10 @@ public class DragComponent extends JComponent {
 						Game.board[oldi][oldj] = eChar.BLANK;
 					}
 					this.character = wetVersion;
-					Game.board[y][x] = this.character;
-					oldi = y;
-					oldj = x;
-					return Game.collision(x,y,this);
+					Game.board[y+24][x+38] = this.character;
+					oldi = y+24;
+					oldj = x+38;
+					return Game.collision(x+38,y+24,this);
 				}
 				return false;
 		default:

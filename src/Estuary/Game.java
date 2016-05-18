@@ -856,7 +856,7 @@ public class Game {
 					else if (Game.board[y+i][x+j] == eChar.TRASH) {
 						Game.gameFrame.getMainWindow().getLayeredPane().remove(drag1);
 						Game.board[drag1.getOldi()][drag1.getOldj()] = eChar.NOTHING;
-						switch(drag1.getCharacter()){
+						switch(drag1.getDryVersion()){
 						case STEWARD:
 							mainEnviro.increaseStew(true);
 							break;

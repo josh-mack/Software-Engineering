@@ -231,12 +231,12 @@ public class Menu{
 		howToPanel.setOpaque(false);
 		
 		tutorialPanel.setLayout(new BorderLayout());
-		//tutorialPanel.add(tutorial,BorderLayout.SOUTH);
+		tutorialPanel.add(tutorial,BorderLayout.SOUTH);
 		tutorialPanel.setOpaque(false);
 		
 		overAll.add(startPanel);
 		overAll.add(howToPanel);
-		overAll.add(tutorialPanel);
+		//overAll.add(tutorialPanel);
 		overAll.add(startPanel);
 		overAll.add(titleBack);
 		

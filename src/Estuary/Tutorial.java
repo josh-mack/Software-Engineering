@@ -15,7 +15,7 @@ public class Tutorial extends Game
 	public Tutorial()
 	{
 		game = new Game();
-		game.gameFrame.loadImages();
+		Game.gameFrame.loadImages();
 		loadQuad();
 		placeInvasive();
 		placeSteward();
@@ -27,14 +27,14 @@ public class Tutorial extends Game
 	
 	public void loadQuad()
 	{
-		drawOnScreen(gameFrame.mainWindow.getLayeredPane(),quad, true);	
-		gameFrame.inQuad = true;
-		gameFrame.loadMenu();
-		gameFrame.backgroundPanel.paintComponent(null, gameFrame.backgroundNorthImage);
-		gameFrame.topL.setVisible(true);
-		gameFrame.botL.setVisible(true);
-		gameFrame.mainWindow.repaint();
-		gameFrame.mainWindow.revalidate();
+		drawOnScreen(Game.gameFrame.mainWindow.getLayeredPane(),quad, true);	
+		Game.gameFrame.inQuad = true;
+		Game.gameFrame.loadMenu();
+		Game.gameFrame.backgroundPanel.paintComponent(null, Game.gameFrame.backgroundNorthImage);
+		Game.gameFrame.topL.setVisible(true);
+		Game.gameFrame.botL.setVisible(true);
+		Game.gameFrame.mainWindow.repaint();
+		Game.gameFrame.mainWindow.revalidate();
 	}
 	
 	public void placeInvasive()
@@ -78,7 +78,7 @@ public class Tutorial extends Game
 		}
 		Game.board[i][j] = type;
 		SpeciesComponent invasiveAdded = new SpeciesComponent(quad, type, XCoord, YCoord);
-		gameFrame.placeComp(invasiveAdded);
+		Game.gameFrame.placeComp(invasiveAdded);
 
 		mainEnviro.setHealth(mainEnviro.getHealth() - 1);
 		mainEnviro.setNumInvasive(mainEnviro.getNumInvasive()+1);
@@ -87,8 +87,8 @@ public class Tutorial extends Game
 	public void placeSteward()
 	{
 		Game.board[5][9] = eChar.STEWARD;
-		DragComponent steward =  new DragComponent(gameFrame.stewardImage, quad, eChar.STEWARD, 9%38*width, 5%24*height, 5, 9);
-		gameFrame.placeComp2(steward);
+		DragComponent steward =  new DragComponent(Game.gameFrame.stewardImage, quad, eChar.STEWARD, 9%38*width, 5%24*height, 5, 9);
+		Game.gameFrame.placeComp2(steward);
 	}
 	
 	public void resolve()
@@ -111,7 +111,7 @@ public class Tutorial extends Game
 	{
 		if(dnrecLevel== 2)
 			upgraded = true;
-		gameFrame.startScreen();
+		Game.gameFrame.startScreen();
 	}
 	
 	public void startTimer()
@@ -133,7 +133,7 @@ public class Tutorial extends Game
 	public void completed()
 	{
 		if(volunteer && upgraded && resolved)
-			gameFrame.startScreen();
+			Game.gameFrame.startScreen();
 	}
 }
 
