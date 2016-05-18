@@ -137,7 +137,7 @@ public class Menu{
 	Dimension topBarSize = new Dimension(width/4, 500);
 	Dimension quadSize = new Dimension(width/3, (height/3)-(height/20));
 	Dimension mainSize = new Dimension(width, height);
-	Color hilightedColor = new Color(0,0,0, 100);
+	Color hilightedColor = new Color(216,72,72, 100);
 	Color alphaLayer = new Color(0, 0, 0, 0);
 	
 	eQuad currentQuad = eQuad.MAIN;
@@ -688,6 +688,7 @@ public class Menu{
 	}
 	
 	public void hilightOn(eQuad quad){
+		hilightMainTimer.start();
 		switch(quad){
 		case N:
 			hilightQ1.hilightOn();
@@ -724,7 +725,6 @@ public class Menu{
 		if(quad!=eQuad.MAIN){
 			hilightOff(quad);
 			botLImageLabel.setIcon(botLImageIcon);
-
 		}
 
 		switch(quad){
@@ -742,6 +742,7 @@ public class Menu{
 				mainWindow.revalidate();
 			break;
 			case N:
+				
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
 				inQuad = true;
 				currentQuad = quad;

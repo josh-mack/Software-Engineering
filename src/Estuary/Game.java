@@ -470,7 +470,9 @@ public class Game {
 				place = eQuad.N;
 			}
 		}
-		if(quad != place){gameFrame.hilightOn(place);}
+		if(quad != place){
+			gameFrame.hilightOn(place);
+			}
 
 		int XCoord = height*(j%38);
 		int YCoord = width*(i%24);
