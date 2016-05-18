@@ -88,6 +88,8 @@ public class Menu{
 	ImageIcon volunteerImageIcon;
 	
 	ImageIcon startButtonImageIcon;
+	ImageIcon howToImageIcon;
+	ImageIcon tutorialImageIcon;
 	ImageIcon topLImageIcon;
 	ImageIcon topRImageIcon;
 	ImageIcon botLImageIcon;
@@ -115,6 +117,7 @@ public class Menu{
 
 	ImageIcon trash;
 
+	
 
 	
 	BufferedImage backgroundImage;   //Which Overview to use based on DNERR Level
@@ -157,6 +160,7 @@ public class Menu{
 	JPanel botL = new JPanel();   //Bottom Left Corner Panel
 	JPanel botR = new JPanel();   //Bottom Right Corner Panel
 	
+	boolean ifNotTutorial = true;
 	
 	/**
 	 * Constructor for the Menu class.
@@ -176,7 +180,8 @@ public class Menu{
 			}
 		});
 		
-		startScreen();
+		if(ifNotTutorial)
+			startScreen();
 	}	
 	
 	
@@ -191,9 +196,27 @@ public class Menu{
 		JLabel start = new JLabel(startButtonImageIcon);
 		JPanel startPanel = new JPanel();
 		
+		JLabel howTo = new JLabel(howToImageIcon);
+		JPanel howToPanel = new JPanel();
+		
+		JLabel tutorial = new JLabel(tutorialImageIcon);
+		JPanel tutorialPanel = new JPanel();
+		
 		startPanel.setLayout(new BorderLayout());
 		startPanel.add(start,BorderLayout.CENTER);
 		startPanel.setOpaque(false);
+		
+		howToPanel.setLayout(new BorderLayout());
+		howToPanel.add(start,BorderLayout.CENTER);
+		howToPanel.setOpaque(false);
+		
+		tutorialPanel.setLayout(new BorderLayout());
+		tutorialPanel.add(start,BorderLayout.CENTER);
+		tutorialPanel.setOpaque(false);
+		
+		overAll.add(startPanel);
+		overAll.add(howToPanel);
+		overAll.add(tutorialPanel);
 		overAll.add(startPanel);
 		overAll.add(titleBack);
 		
@@ -206,6 +229,72 @@ public class Menu{
 				mainWindow.revalidate();
 				mainWindow.remove(overAll);
 				Game.startTimers();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		howTo.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				overAll.setVisible(false);
+				loadMenu();
+				mainWindow.revalidate();
+				mainWindow.remove(overAll);
+				Game.startTimers();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		tutorial.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Tutorial tut = new Tutorial();
 			}
 
 			@Override
@@ -252,9 +341,11 @@ public class Menu{
 		JLabel start = new JLabel(startButtonImageIcon);
 		JPanel startPanel = new JPanel();
 		
+		
 		startPanel.setLayout(new BorderLayout());
 		startPanel.add(start,BorderLayout.CENTER);
 		startPanel.setOpaque(false);
+		
 		overAll.add(startPanel);
 		overAll.add(titleBack);
 		
