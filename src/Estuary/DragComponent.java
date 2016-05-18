@@ -296,7 +296,27 @@ public class DragComponent extends JComponent {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i][x+j+38] == eChar.BLANK) {
-								Game.board[oldi][oldj] = eChar.BLANK;
+								if (this.character.isWet()) {
+									Game.board[oldi][oldj] = eChar.WATER;
+								}
+								else {
+									Game.board[oldi][oldj] = eChar.BLANK;
+								}
+								this.character = dryVersion;
+								Game.board[y+i][x+j+38] = this.character;
+								oldi = y+i;
+								oldj = x+j+38;
+								return Game.collision(x+j+38,y+i,this); // can be changed to return true
+							}
+							if (Game.board[y+i][x+j+38] == eChar.WATER) {
+
+								if (this.character.isWet()) {
+									Game.board[oldi][oldj] = eChar.WATER;
+								}
+								else {
+									Game.board[oldi][oldj] = eChar.BLANK;
+								}
+								this.character = wetVersion;
 								Game.board[y+i][x+j+38] = this.character;
 								oldi = y+i;
 								oldj = x+j+38;
@@ -306,20 +326,58 @@ public class DragComponent extends JComponent {
 					}
 					return false;
 				}
-				else {
-					Game.board[oldi][oldj] = eChar.BLANK;
-					Game.board[y][x+38] = this.character;
+				else if((Game.board[y][x] == eChar.BLANK) || (Game.board[y][x] == eChar.NOTHING)) {
+					if (this.character.isWet()) {
+						Game.board[oldi][oldj] = eChar.WATER;
+					}
+					else {
+						Game.board[oldi][oldj] = eChar.BLANK;
+					}
+					this.character = dryVersion;
+					Game.board[y][x] = this.character;
 					oldi = y;
-					oldj = x + 38;
-					Game.collision(x + 38, y,this); 
+					oldj = x;
+					return Game.collision(x,y,this);
 				}
-				return false;
+				
+				else if (Game.board[y][x] == eChar.WATER) {
+					if (this.character.isWet()) {
+						Game.board[oldi][oldj] = eChar.WATER;
+					}
+					else {
+						Game.board[oldi][oldj] = eChar.BLANK;
+					}
+					this.character = wetVersion;
+					Game.board[y][x] = this.character;
+					oldi = y;
+					oldj = x;
+					return Game.collision(x,y,this);
+				}
 		case W:
 				if ((Game.board[y+24][x] != eChar.BLANK) && (Game.board[y+24][x] != eChar.NOTHING)){
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i+24][x+j] == eChar.BLANK) {
-								Game.board[oldi][oldj] = eChar.BLANK;
+								if (this.character.isWet()) {
+									Game.board[oldi][oldj] = eChar.WATER;
+								}
+								else {
+									Game.board[oldi][oldj] = eChar.BLANK;
+								}
+								this.character = dryVersion;
+								Game.board[y+i+24][x+j] = this.character;
+								oldi = y+i+24;
+								oldj = x+j;
+								return Game.collision(x+j,y+i+24,this); // can be changed to return true
+							}
+							if (Game.board[y+i+24][x+j] == eChar.WATER) {
+								if (this.character.isWet()) {
+									Game.board[oldi][oldj] = eChar.WATER;
+								}
+								else {
+									Game.board[oldi][oldj] = eChar.BLANK;
+								}
+								this.character = wetVersion;
 								Game.board[y+i+24][x+j] = this.character;
 								oldi = y+i+24;
 								oldj = x+j;
@@ -329,12 +387,32 @@ public class DragComponent extends JComponent {
 					}
 					return false;
 				}
-				else {
-					Game.board[oldi][oldj] = eChar.BLANK;
-					Game.board[y+24][x] = this.character;
-					oldi = y + 24;
+				else if((Game.board[y][x] == eChar.BLANK) || (Game.board[y][x] == eChar.NOTHING)) {
+					if (this.character.isWet()) {
+						Game.board[oldi][oldj] = eChar.WATER;
+					}
+					else {
+						Game.board[oldi][oldj] = eChar.BLANK;
+					}
+					this.character = dryVersion;
+					Game.board[y][x] = this.character;
+					oldi = y;
 					oldj = x;
-					Game.collision(x, y + 24,this); 
+					return Game.collision(x,y,this);
+				}
+				
+				else if (Game.board[y][x] == eChar.WATER) {
+					if (this.character.isWet()) {
+						Game.board[oldi][oldj] = eChar.WATER;
+					}
+					else {
+						Game.board[oldi][oldj] = eChar.BLANK;
+					}
+					this.character = wetVersion;
+					Game.board[y][x] = this.character;
+					oldi = y;
+					oldj = x;
+					return Game.collision(x,y,this);
 				}
 				return false;
 		case S:
@@ -343,7 +421,25 @@ public class DragComponent extends JComponent {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i+24][x+j+38] == eChar.BLANK) {
-								Game.board[y+i+24][x+j+38] = this.character;
+								if (this.character.isWet()) {
+									Game.board[oldi][oldj] = eChar.WATER;
+								}
+								else {
+									Game.board[oldi][oldj] = eChar.BLANK;
+								}
+								this.character = dryVersion;
+								oldi = y+i+24;
+								oldj = x+j+38;
+								return Game.collision(x+j+38,y+i+24,this); // can be changed to return true
+							}
+							if (Game.board[y+i+24][x+j+38] == eChar.WATER) {
+								if (this.character.isWet()) {
+									Game.board[oldi][oldj] = eChar.WATER;
+								}
+								else {
+									Game.board[oldi][oldj] = eChar.BLANK;
+								}
+								this.character = wetVersion;
 								oldi = y+i+24;
 								oldj = x+j+38;
 								return Game.collision(x+j+38,y+i+24,this); // can be changed to return true
@@ -352,12 +448,32 @@ public class DragComponent extends JComponent {
 					}
 					return false;
 				}
-				else {
-					Game.board[oldi][oldj] = eChar.BLANK;
-					Game.board[y+24][x+38] = this.character;
-					oldi = y + 24;
-					oldj = x + 38;
-					Game.collision(x + 38, y + 24, this); 
+				else if((Game.board[y][x] == eChar.BLANK) || (Game.board[y][x] == eChar.NOTHING)) {
+					if (this.character.isWet()) {
+						Game.board[oldi][oldj] = eChar.WATER;
+					}
+					else {
+						Game.board[oldi][oldj] = eChar.BLANK;
+					}
+					this.character = dryVersion;
+					Game.board[y][x] = this.character;
+					oldi = y;
+					oldj = x;
+					return Game.collision(x,y,this);
+				}
+				
+				else if (Game.board[y][x] == eChar.WATER) {
+					if (this.character.isWet()) {
+						Game.board[oldi][oldj] = eChar.WATER;
+					}
+					else {
+						Game.board[oldi][oldj] = eChar.BLANK;
+					}
+					this.character = wetVersion;
+					Game.board[y][x] = this.character;
+					oldi = y;
+					oldj = x;
+					return Game.collision(x,y,this);
 				}
 				return false;
 		default:
