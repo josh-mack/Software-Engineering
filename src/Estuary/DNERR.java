@@ -211,6 +211,7 @@ public class DNERR extends JComponent implements Serializable
 		c.gridx = 0;
 		c.gridy = 3;
 		JButton upgrade = new JButton("UPGRADE");
+		
 		upgrade.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				upgrade();
