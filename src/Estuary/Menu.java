@@ -160,7 +160,20 @@ public class Menu{
 	JPanel botL = new JPanel();   //Bottom Left Corner Panel
 	JPanel botR = new JPanel();   //Bottom Right Corner Panel
 	
+	int howToPage = 1;
 	boolean ifNotTutorial = true;
+	
+	
+	JFrame howToFrame;
+	JPanel howTo1;
+	JPanel howTo2;
+	JPanel howTo3;
+	JPanel howTo4;
+	ImageIcon howToImage1;
+	ImageIcon howToImage2;
+	ImageIcon howToImage3;
+	ImageIcon howToImage4;
+	
 	
 	/**
 	 * Constructor for the Menu class.
@@ -1100,6 +1113,11 @@ public class Menu{
 		blackEyedSusanImage = new ImageIcon("imgs/blackEyedSusan.png");
 		blueCrabImage = new ImageIcon("imgs/blueCrab.png");
 		trash = new ImageIcon("imgs/x.png");
+		howToImage1 = new ImageIcon("imgs/howTo.png");
+		howToImage2 = new ImageIcon("imgs/howTo2.png");
+		howToImage3 = new ImageIcon("imgs/howTo3.png");
+		howToImage4 = new ImageIcon("imgs/howTo4.png");
+
 		}catch(IOException e){
 			System.out.println("Error: Some images weren't found");
 		}
@@ -1152,6 +1170,86 @@ public class Menu{
 		}
 		mainMapHilighted = !mainMapHilighted;
 		botL.repaint();
+	}
+	
+	
+	public void loadHowtoPlay(){				
+		MouseListener nextPageListener = new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				changePage();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+		};
+			howToFrame = new JFrame();
+			howTo1 = new JPanel();
+			howTo1.add(new JLabel(howToImage1));
+			howTo1.addMouseListener(nextPageListener);
+			
+			howTo2 = new JPanel();
+			howTo2.add(new JLabel(howToImage2));
+			howTo2.addMouseListener(nextPageListener);
+			
+			howTo3 = new JPanel();
+			howTo3.add(new JLabel(howToImage4));
+			howTo3.addMouseListener(nextPageListener);
+			
+			howTo4 = new JPanel();
+			howTo4.add(new JLabel(howToImage4));
+			howTo4.addMouseListener(nextPageListener);
+			
+			howToFrame.addMouseListener(nextPageListener);
+			
+	}
+	
+	public void changePage(){
+		switch(howToPage){
+		case 0:
+			howToPage = 1;
+			howToFrame.add(howTo1);
+		case 1:
+			howToPage = 2;
+			howToFrame.add(howTo2);
+			break;
+		case 2:
+			howToPage = 3;
+			howToFrame.add(howTo3);
+			break;
+		case 3:
+			howToPage = 4;
+			howToFrame.add(howTo4);
+			break;
+		case 4:
+			howToPage = 0;
+			howToFrame.dispose();
+		}
+		howToFrame.revalidate();
+
 	}
 
 
