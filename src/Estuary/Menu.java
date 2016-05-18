@@ -160,10 +160,11 @@ public class Menu{
 	JPanel botL = new JPanel();   //Bottom Left Corner Panel
 	JPanel botR = new JPanel();   //Bottom Right Corner Panel
 	
-	int howToPage = 1;
+	int howToPage = 0;
 	boolean ifNotTutorial = true;
 	
 	
+	JPanel overAll;
 	JFrame howToFrame;
 	JPanel howTo1;
 	JPanel howTo2;
@@ -173,6 +174,7 @@ public class Menu{
 	ImageIcon howToImage2;
 	ImageIcon howToImage3;
 	ImageIcon howToImage4;
+	JPanel howToPanel;
 	
 	
 	/**
@@ -200,7 +202,7 @@ public class Menu{
 	
 	public void startScreen()
 	{
-		JPanel overAll = new JPanel();
+		overAll = new JPanel();
 		OverlayLayout over = new OverlayLayout(overAll);
 		overAll.setLayout(over);
 		
@@ -212,7 +214,7 @@ public class Menu{
 		JPanel startPanel = new JPanel();
 		
 		JLabel howTo = new JLabel(howToImageIcon);
-		JPanel howToPanel = new JPanel();
+		howToPanel = new JPanel();
 		
 		JLabel tutorial = new JLabel(tutorialImageIcon);
 		JPanel tutorialPanel = new JPanel();
@@ -275,11 +277,7 @@ public class Menu{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				overAll.setVisible(false);
-				loadMenu();
-				mainWindow.revalidate();
-				mainWindow.remove(overAll);
-				Game.startTimers();
+				loadHowtoPlay();
 			}
 
 			@Override
@@ -310,6 +308,7 @@ public class Menu{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Tutorial tut = new Tutorial();
+				overAll.setVisible(false);
 				ifNotTutorial = false;
 			}
 
@@ -1214,24 +1213,41 @@ public class Menu{
 			}
 
 		};
+			Dimension size = new Dimension(578,646);
 			howToFrame = new JFrame();
 			howTo1 = new JPanel();
 			howTo1.add(new JLabel(howToImage1));
 			howTo1.addMouseListener(nextPageListener);
+			howTo1.setSize(size);
+			howTo1.setOpaque(false);
+
 			
 			howTo2 = new JPanel();
 			howTo2.add(new JLabel(howToImage2));
 			howTo2.addMouseListener(nextPageListener);
-			
+			howTo2.setSize(size);
+			howTo2.setOpaque(false);
+
 			howTo3 = new JPanel();
-			howTo3.add(new JLabel(howToImage4));
+			howTo3.add(new JLabel(howToImage3));
 			howTo3.addMouseListener(nextPageListener);
-			
+			howTo3.setSize(size);
+			howTo3.setOpaque(false);
+
 			howTo4 = new JPanel();
 			howTo4.add(new JLabel(howToImage4));
 			howTo4.addMouseListener(nextPageListener);
-			
+			howTo4.setSize(size);
+			howTo4.setOpaque(false);
+
+			howToFrame.setUndecorated(true);
+			howToFrame.setBackground(alphaLayer);
+			howToFrame.setSize(size);
+			howToFrame.setVisible(true);
 			howToFrame.addMouseListener(nextPageListener);
+			howToFrame.setLocation(howToPanel.getLocation());
+			changePage();
+
 			
 	}
 	
@@ -1240,21 +1256,26 @@ public class Menu{
 		case 0:
 			howToPage = 1;
 			howToFrame.add(howTo1);
+			break;
 		case 1:
 			howToPage = 2;
+			howToFrame.remove(howTo1);
 			howToFrame.add(howTo2);
 			break;
 		case 2:
 			howToPage = 3;
+			howToFrame.remove(howTo2);
 			howToFrame.add(howTo3);
 			break;
 		case 3:
 			howToPage = 4;
+			howToFrame.remove(howTo3);
 			howToFrame.add(howTo4);
 			break;
 		case 4:
 			howToPage = 0;
 			howToFrame.dispose();
+			overAll.setVisible(true);
 		}
 		howToFrame.revalidate();
 
