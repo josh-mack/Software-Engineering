@@ -825,6 +825,24 @@ public class Menu{
 				Game.mainEnviro.increaseVol(false);
 			}
 			break;
+		case WETSTEWARD:
+			if (Game.mainEnviro.getNumStew() > 0) {
+				charPlace = new DragComponent(stewardImage,currentQuad, eChar, x, y,0,0);
+				Game.mainEnviro.increaseStew(false);
+			}
+			break;
+		case WETRESEARCHER:
+			if (Game.mainEnviro.getNumRes() > 0) {
+				charPlace = new DragComponent(researcherImage,currentQuad, eChar, x, y,0,0);
+				Game.mainEnviro.increaseRes(false);
+			}
+			break;
+		case WETVOLUNTEER:
+			if (Game.mainEnviro.getNumVol() > 0) {
+				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0);
+				Game.mainEnviro.increaseVol(false);
+			}
+			break;
 		default:
 			break;
 		}
@@ -1020,6 +1038,12 @@ public class Menu{
 				return fishermanImage;
 			case TRASH:
 				return trash;
+			case WETMCRAB:
+				return mittenCrabImage;
+			case WETHCRAB:
+				return horseshoeCrabImage;
+			case WETBCRAB:
+				return blueCrabImage;
 			default:
 				return null;
 			

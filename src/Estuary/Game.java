@@ -295,6 +295,24 @@ public class Game {
 							gameFrame.placeComp2(charPlace);
 						}
 						break;
+					case WETSTEWARD:
+						if(drag){
+							charPlace = new DragComponent(gameFrame.stewardImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							gameFrame.placeComp2(charPlace);
+						}
+						break;
+					case WETRESEARCHER:
+						if(drag){
+							charPlace = new DragComponent(gameFrame.researcherImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							gameFrame.placeComp2(charPlace);
+						}
+						break;
+					case WETVOLUNTEER:
+						if(drag){
+							charPlace = new DragComponent(gameFrame.volunteerImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							gameFrame.placeComp2(charPlace);
+						}
+						break;
 					case DNREC:
 						if(drag){
 							dnerrComp = new DNERR(j%38*width, i%24*height,dnrecLevel);
@@ -441,7 +459,7 @@ public class Game {
 	 * @param quad
 	 * @return new Event
 	 */
-	public static void makeEvent(eQuad quad){
+	public static int makeEvent(eQuad quad){
 		//Invasive invasiveAdded = new Invasive(eChar.PHRAG, 3, 10, 10, 5, 10);
 		
 		Random rand = new Random();
@@ -451,7 +469,19 @@ public class Game {
 		int x = j/38;
 		int y = i/24;
 		
-		int r = rand.nextInt(2);
+		boolean wet = false;
+		
+		if (board[i][j] == eChar.WATER) {
+			wet = true;
+		}
+		else if (board[i][j] == eChar.BLANK) {
+			wet = false;
+		}
+		else {
+			return makeEvent(quad);
+		}
+		
+		int random = rand.nextInt(2);
 		
 		eQuad place;
 		if (x==1) {
@@ -479,35 +509,75 @@ public class Game {
 		eChar type = eChar.PHRAG;
 		switch (place) {
 		case N:
-			if (r == 1) {
-				type = eChar.PHRAG;
+			if (random == 1) {
+				if (wet) {
+					type = eChar.WETMCRAB;
+				}
+				else {
+					type = eChar.PHRAG;
+				}
 			}
 			else {
-				type = eChar.MCRAB;
+				if (wet) {
+					type = eChar.WETMCRAB;
+				}
+				else {
+					type = eChar.MCRAB;
+				}
 			}
 			break;
 		case E:
-			if (r == 1) {
-				type = eChar.PHRAG;
+			if (random == 1) {
+				if (wet) {
+					type = eChar.WETMCRAB;
+				}
+				else {
+					type = eChar.PHRAG;
+				}
 			}
 			else {
-				type = eChar.MCRAB;
+				if (wet) {
+					type = eChar.WETMCRAB;
+				}
+				else {
+					type = eChar.MCRAB;
+				}
 			}
 			break;
 		case S:
-			if (r == 1) {
-				type = eChar.PHRAG;
+			if (random == 1) {
+				if (wet) {
+					return makeEvent(quad);
+				}
+				else {
+					type = eChar.PHRAG;
+				}
 			}
 			else {
-				type = eChar.BAMBOO;
+				if (wet) {
+					return makeEvent(quad);
+				}
+				else {
+					type = eChar.BAMBOO;
+				}
 			}
 			break;
 		case W:
-			if (r == 1) {
-				type = eChar.ZEBRA;
+			if (random == 1) {
+				if (wet) {
+					type = eChar.ZEBRA;
+				}
+				else {
+					type = eChar.MCRAB;
+				}
 			}
 			else {
-				type = eChar.MCRAB;
+				if (wet) {
+					type = eChar.WETMCRAB;
+				}
+				else {
+					type = eChar.MCRAB;
+				}
 			}
 			break;
 		default:
@@ -524,6 +594,7 @@ public class Game {
 		
 		mainEnviro.setHealth(mainEnviro.getHealth() - 1);
 		mainEnviro.setNumInvasive(mainEnviro.getNumInvasive()+1);
+		return 0;
 	}
 	
 	
@@ -533,7 +604,7 @@ public class Game {
 	 * @param quad
 	 * @return
 	 */
-	public static void makeNativeSpecies(eQuad quad, boolean randomQuad) {
+	public static int makeNativeSpecies(eQuad quad, boolean randomQuad) {
 		Random rand = new Random();
 		int rowEnd,colEnd;
 		int j = rand.nextInt(76);
@@ -541,9 +612,20 @@ public class Game {
 		int x = j/38;
 		int y = i/24;
 		
+		boolean wet = false;
+		if (board[i][j] == eChar.WATER) {
+			wet = true;
+		}
+		else if (board[i][j] == eChar.BLANK) {
+			wet = false;
+		}
+		else {
+			return makeNativeSpecies(quad, randomQuad);
+		}
+		
 		eQuad place;
 		
-		int r = rand.nextInt(2);
+		int random = rand.nextInt(2);
 
 		if (randomQuad) {			
 			if (x==1) {
@@ -574,35 +656,75 @@ public class Game {
 		eChar type = eChar.HCRAB;
 		switch (place) {
 		case N:
-			if (r == 1) {
-				type = eChar.HCRAB;
+			if (random == 1) {
+				if (wet) {
+					type = eChar.WETHCRAB;
+				}
+				else {
+					type = eChar.HCRAB;
+				}
 			}
 			else {
-				type = eChar.BLACKEYEDSUSAN;
+				if (wet) {
+					type = eChar.WETHCRAB;
+				}
+				else {
+					type = eChar.BLACKEYEDSUSAN;
+				}
 			}
 			break;
 		case E:
-			if (r == 1) {
-				type = eChar.BCRAB;
+			if (random == 1) {
+				if (wet) {
+					type = eChar.WETBCRAB;
+				}
+				else {
+					type = eChar.BCRAB;
+				}
 			}
 			else {
-				type = eChar.BLAZINGSTAR;
+				if (wet) {
+					type = eChar.WETBCRAB;
+				}
+				else {
+					type = eChar.BLAZINGSTAR;
+				}
 			}
 			break;
 		case S:
-			if (r == 1) {
-				type = eChar.BLACKEYEDSUSAN;
+			if (random == 1) {
+				if (wet) {
+					return makeNativeSpecies(quad, randomQuad);
+				}
+				else {
+					type = eChar.BLACKEYEDSUSAN;
+				}
 			}
 			else {
-				type = eChar.BLAZINGSTAR;
+				if (wet) {
+					return makeNativeSpecies(quad, randomQuad);
+				}
+				else {
+					type = eChar.BLAZINGSTAR;
+				}
 			}
 			break;
 		case W:
-			if (r == 1) {
-				type = eChar.HCRAB;
+			if (random == 1) {
+				if (wet) {
+					type = eChar.WETHCRAB;
+				}
+				else {
+					type = eChar.HCRAB;
+				}
 			}
 			else {
-				type = eChar.BCRAB;
+				if (wet) {
+					type = eChar.WETBCRAB;
+				}
+				else {
+					type = eChar.BCRAB;
+				}
 			}
 			break;
 		default:
@@ -619,6 +741,7 @@ public class Game {
 		
 		mainEnviro.setHealth(mainEnviro.getHealth() + 1);
 		mainEnviro.setNumNative(mainEnviro.getNumNative()+1);	
+		return 0;
 	}
 	
 	
@@ -663,24 +786,33 @@ public class Game {
 		for (int i = 0; i < 4; i++ ) {
 			for (int j = -2; j < 3; j++) {
 				if (((j!=0) || (i!=0)) && (24*a<=y+i) && (y+i<24+24*a) && (38*b<=x+j) && (x+j<38+38*b)) {
-					if ((Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
+					if (/*(Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
 						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)
 						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)
-						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.TRASH)) {
-							for (int k = 0; k < resolvingSpecies.size(); k++) {
-								if ((resolvingSpecies.get(k).getI()==y+i) && (resolvingSpecies.get(k).getJ()==x+j) && (resolvingSpecies.get(k).isInvasive())){
-									alreadyBeingResolved = true;
+						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.TRASH)
+						&& (Game.board[y+i][x+j] != eChar.WETRESEARCHER) && (Game.board[y+i][x+j] != eChar.WETVOLUNTEER) && (Game.board[y+i][x+j] != eChar.WETSTEWARD)*/
+							Game.board[y+i][x+j].isInvasive()) {
+							if (Game.board[y+i][x+j] != eChar.FISHERMAN) {
+								for (int k = 0; k < resolvingSpecies.size(); k++) {
+									if ((resolvingSpecies.get(k).getI()==y+i) && (resolvingSpecies.get(k).getJ()==x+j) && (resolvingSpecies.get(k).isInvasive())){
+										alreadyBeingResolved = true;
+									}
 								}
+								if (alreadyBeingResolved == false) {
+									SpeciesComponent invasiveSpecies = new SpeciesComponent(whatQuad, Game.board[y+i][x+j], (x%38)*width, (y%24)*height);
+									resolvingSpecies.add(invasiveSpecies);
+									Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1, invasiveSpecies);
+									//Game.deleteComponent(y+i, x+j);
+									drag1.setDrag(false);
+									return true;
+								}
+								alreadyBeingResolved = false;
 							}
-							if (alreadyBeingResolved == false) {
-								SpeciesComponent invasiveSpecies = new SpeciesComponent(whatQuad, Game.board[y+i][x+j], (x%38)*width, (y%24)*height);
-								resolvingSpecies.add(invasiveSpecies);
-								Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1, invasiveSpecies);
-								//Game.deleteComponent(y+i, x+j);
+							else if ((Game.board[y+i][x+j] == eChar.FISHERMAN) && (drag1.getDryVersion() == eChar.STEWARD) && (fishFlag == false)) {
+								fishComp.boatsResolve(Game.board[y][x], y+i, x+j, drag1, null);
 								drag1.setDrag(false);
 								return true;
 							}
-							alreadyBeingResolved = false;
 							
 					}
 					else if (Game.board[y+i][x+j] == eChar.TRASH) {
@@ -700,7 +832,7 @@ public class Game {
 							break;
 						}
 					}
-					else if ((drag1.getCharacter() == eChar.STEWARD) && (Game.board[y+i][x+j] == eChar.CITY)) {
+					else if ((drag1.getDryVersion() == eChar.STEWARD) && (Game.board[y+i][x+j] == eChar.CITY)) {
 						drag1.setDrag(false);
 						Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1, null);
 						return true;

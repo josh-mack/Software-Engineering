@@ -50,6 +50,24 @@ public class DragComponent extends JComponent {
 	}
 
 	private eChar character;
+	private eChar dryVersion;
+	public eChar getDryVersion() {
+		return dryVersion;
+	}
+
+	public void setDryVersion(eChar dryVersion) {
+		this.dryVersion = dryVersion;
+	}
+
+	public eChar getWetVersion() {
+		return wetVersion;
+	}
+
+	public void setWetVersion(eChar wetVersion) {
+		this.wetVersion = wetVersion;
+	}
+
+	private eChar wetVersion;
 	
 	public eChar getCharacter()
 	{
@@ -96,6 +114,36 @@ public class DragComponent extends JComponent {
 		this.whatQuad = thisQuad;
 		this.character = character;
 		
+		switch(character) {
+		case STEWARD:
+			dryVersion = eChar.STEWARD;
+			wetVersion = eChar.WETSTEWARD;
+			break;
+		case WETSTEWARD:
+			dryVersion = eChar.STEWARD;
+			wetVersion = eChar.WETSTEWARD;
+			break;
+		case RESEARCHER:
+			dryVersion = eChar.RESEARCHER;
+			wetVersion = eChar.WETRESEARCHER;
+			break;
+		case WETRESEARCHER:
+			dryVersion = eChar.RESEARCHER;
+			wetVersion = eChar.WETRESEARCHER;
+			break;
+		case VOLUNTEER:
+			dryVersion = eChar.VOLUNTEER;
+			wetVersion = eChar.WETVOLUNTEER;
+			break;
+		case WETVOLUNTEER:
+			dryVersion = eChar.VOLUNTEER;
+			wetVersion = eChar.WETVOLUNTEER;
+			break;
+		default:
+			break;
+		}
+		
+
 		pressListener = new MouseListener() {
 	
 			@Override
@@ -126,12 +174,18 @@ public class DragComponent extends JComponent {
 			public void mouseReleased(MouseEvent e) 
 			{
 				if(canDrag) {
-					placeInArray(getX(), getY());
+					try {
+						placeInArray(getX(), getY());
+					}
+					catch (NullPointerException e1) {
+						
+					}
 					getRootPane().repaint();
 					getRootPane().revalidate();
 				}
 			}
 		};
+		
 		addMouseListener(pressListener);
 		
 		/**
@@ -173,26 +227,65 @@ public class DragComponent extends JComponent {
 		switch(whatQuad)
 		{
 		case N:
-				if ((Game.board[y][x] != eChar.BLANK) && (Game.board[y][x] != eChar.NOTHING)) {
+				if ((Game.board[y][x] != eChar.BLANK) && (Game.board[y][x] != eChar.NOTHING) && (Game.board[y][x] != eChar.WATER)) {
 					for (int i = -1; i < 2; i++) {
 						for (int j = -1; j < 2; j++) {
 							if (Game.board[y+i][x+j] == eChar.BLANK) {
-								Game.board[oldi][oldj] = eChar.BLANK;
+								if (this.character.isWet()) {
+									Game.board[oldi][oldj] = eChar.WATER;
+								}
+								else {
+									Game.board[oldi][oldj] = eChar.BLANK;
+								}
+								this.character = dryVersion;
 								Game.board[y+i][x+j] = this.character;
 								oldi = y+i;
 								oldj = x+j;
 								return Game.collision(x+j,y+i,this); // can be changed to return true
+							}
+							if (Game.board[y+i][x+j] == eChar.WATER) {
+								if (this.character.isWet()) {
+									Game.board[oldi][oldj] = eChar.WATER;
+								}
+								else {
+									Game.board[oldi][oldj] = eChar.BLANK;
+								}
+								this.character = wetVersion;
+								Game.board[y+i][x+j] = this.character;
+								oldi = y+i;
+								oldj = x+j;
+								return Game.collision(x+j,y+i,this);
 							}
 						}
 					}
 					return false;
 				}
 				else if((Game.board[y][x] == eChar.BLANK) || (Game.board[y][x] == eChar.NOTHING)) {
-					Game.board[oldi][oldj] = eChar.BLANK;
+					if (this.character.isWet()) {
+						Game.board[oldi][oldj] = eChar.WATER;
+					}
+					else {
+						Game.board[oldi][oldj] = eChar.BLANK;
+					}
+					this.character = dryVersion;
 					Game.board[y][x] = this.character;
 					oldi = y;
 					oldj = x;
-					Game.collision(x, y,this); 
+					return Game.collision(x,y,this);
+				}
+				
+				else if (Game.board[y][x] == eChar.WATER) {
+					if (this.character.isWet()) {
+						Game.board[oldi][oldj] = eChar.WATER;
+					}
+					else {
+						Game.board[oldi][oldj] = eChar.BLANK;
+					}
+					this.character = wetVersion;
+					Game.board[y][x] = this.character;
+					oldi = y;
+					oldj = x;
+					return Game.collision(x,y,this);
 				}
 
 				
