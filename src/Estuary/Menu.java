@@ -417,11 +417,11 @@ public class Menu{
 		JButton buySteward = new JButton("Buy a Steward!");
 		buySteward.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				if (Game.mainEnviro.money < 50) {
-					System.out.println("Not enough money");
+				if (Game.mainEnviro.money < 700) {
+					System.out.println("Not enough money.");
 					return;
 				}
-				Game.mainEnviro.money -= 50;
+				Game.mainEnviro.money -= 700;
 				Game.mainEnviro.increaseStew(true);
 			}
 		});
@@ -939,6 +939,8 @@ public class Menu{
 	public void changeOverview(int dnerrLvl){
 		backgroundImage = (dnerrLvl == 2)?backgroundOverview2Image:backgroundOverview3Image;
 	}
+	
+	
 	public void loadImages(){
 		try{
 		titleImage = ImageIO.read(new File("imgs/titleScreen.png"));
@@ -989,7 +991,7 @@ public class Menu{
 		horseshoeCrabImage = new ImageIcon("imgs/horseShoeCrab.png");
 		blackEyedSusanImage = new ImageIcon("imgs/blackEyedSusan.png");
 		blueCrabImage = new ImageIcon("imgs/blueCrab.png");
-		trash = new ImageIcon("imgs/x.png");
+		trash = new ImageIcon("imgs/recycle_open.png");
 		}catch(IOException e){
 			System.out.println("Error: Some images weren't found");
 		}

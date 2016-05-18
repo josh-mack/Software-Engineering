@@ -187,11 +187,11 @@ public class DNERR extends JComponent implements Serializable
 		c.gridx = 0;
 		c.gridy = 2;
 		c.weighty = .5;
-		JButton instaKill = new JButton("INSTAKILL");
+		JButton instaKill = new JButton("PACIFY");
 		instaKill.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent args0)
 			{
-				if(Game.mainEnviro.money < 50)
+				if(Game.mainEnviro.money < 200)
 					return;
 				
 				try{
@@ -199,7 +199,7 @@ public class DNERR extends JComponent implements Serializable
 				}catch(IndexOutOfBoundsException e){
 					return;
 				}
-				Game.mainEnviro.money -= 50;
+				Game.mainEnviro.money -= 200;
 				dnerr.setVisible(false);
 				
 			}
@@ -239,26 +239,26 @@ public class DNERR extends JComponent implements Serializable
 		switch(Game.dnrecLevel)
 		{
 		case 1:
-			if(Game.mainEnviro.money < 100)
+			if(Game.mainEnviro.money < 1800)
 			{
 				System.out.println("Not Enough money, Can't Upgrade");
 				break;
 			}
 			Game.dnrecLevel++;
 			Game.mainEnviro.setNumRes(Game.mainEnviro.getNumRes() + 1);
-			Game.mainEnviro.money -= 100;
+			Game.mainEnviro.money -= 1800;
 			Game.replaceDNERR(x, y);
 			
 			break;
 		case 2:
-			if(Game.mainEnviro.money < 100)
+			if(Game.mainEnviro.money < 4000)
 			{
 				System.out.println("Not Enough money, Can't Upgrade");
 				break;
 			}
 			Game.dnrecLevel++;
 			Game.mainEnviro.setNumRes(Game.mainEnviro.getNumRes() + 1);
-			Game.mainEnviro.money -= 100;
+			Game.mainEnviro.money -= 4000;
 			Game.replaceDNERR(x, y);
 
 			break;

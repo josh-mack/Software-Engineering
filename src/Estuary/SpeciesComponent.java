@@ -2,11 +2,15 @@ package Estuary;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 import Estuary.Game;
 import Estuary.eChar;
@@ -38,7 +42,7 @@ public class SpeciesComponent extends JComponent {
 	public void setBeingResolved(boolean beingResolved) {
 		this.beingResolved = beingResolved;
 	}
-
+	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = ((int)screenSize.getHeight());
 	int width = (int)screenSize.getWidth();
@@ -66,9 +70,7 @@ public class SpeciesComponent extends JComponent {
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
-		add(label);
-		
-		
+		add(label);		
 		setLocation(x,y);
 		//setOpaque(false);
 		
@@ -99,7 +101,26 @@ public class SpeciesComponent extends JComponent {
 			this.j = x/(width/38);  
 			break;
 		}
+
+		//animate();
 		
+	}
+	
+	void animate() {
+		System.out.println("saaah dood");
+		ActionListener moveTimer = new ActionListener() {
+			Random rand = new Random();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int num = rand.nextInt(10);
+				if(num < 4) {
+					setLocation(getX()-num, getY());
+				} else {
+					setLocation(getX()+num, getY());
+				}
+				Game.refresh();
+		}};
+		new Timer(2000, moveTimer).start();
 	}
 
 	public int getI() {
