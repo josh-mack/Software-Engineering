@@ -129,156 +129,8 @@ public class Environment implements Serializable{
 		this.money = money;
 	}
 	
-	
-	/**
-	 * Method to create game events. This involves placing
-	 * an invasive species on the board depending on which
-	 * quadrant the player is zoomed into.
-	 * 
-	 * North quad - Phragmites
-	 * East quad - Bamboo
-	 * South quad - MittenCrab
-	 * West quad - Pollution
-	 * 
-	 * @param quad
-	 * @return new Event
-	 */
-//	public Event makeEvent(eQuad quad){
-//		Invasive invasiveAdded = new Invasive(eChar.PHRAG, 3, 10, 10, 5, 10);
-//		
-//		Random rand = new Random();
-//		int rowEnd,colEnd;
-//		int x = rand.nextInt(76);
-//		int y = rand.nextInt(48);
-//		int e = x/38;
-//		int s = y/24;
-//		
-//		eQuad place;
-//		if (e==1) {
-//			if (s==1) {
-//				place = eQuad.S;
-//			}
-//			else {
-//				place = eQuad.E;
-//			}
-//		}
-//		else {
-//			if (s==1) {
-//				place = eQuad.W;
-//			}
-//			else {
-//				place = eQuad.N;
-//			}
-//		}
-//
-//		
-//		switch(quad){
-//		case N:
-//			rowEnd = 24;
-//			colEnd = 38;
-//			x = (rand.nextInt(colEnd)%38);
-//			y = (rand.nextInt(rowEnd)%24);
-//			invasiveAdded= new Invasive(eChar.PHRAG, 3, x, y, 5, 10);
-//			events.insertFront(invasiveAdded);
-//			events.setX(x);
-//			events.setY(y);
-//			break;
-//		case E:
-//			rowEnd = 24;
-//			colEnd = 76;
-//			x = (rand.nextInt(colEnd)%38)+38;
-//			y = (rand.nextInt(rowEnd)%24);
-//			invasiveAdded= new Invasive(eChar.BAMBOO, 3, x, y, 5, 10);
-//			events.insertFront(invasiveAdded);
-//			events.setX(x);
-//			events.setY(y);
-//			break;
-//		case S:
-//			rowEnd = 48;
-//			colEnd = 76;
-//			x = (rand.nextInt(colEnd)%38)+38;
-//			y = (rand.nextInt(rowEnd)%24)+24;
-//			invasiveAdded= new Invasive(eChar.MCRAB, 3, x, y, 5, 10);
-//			events.insertFront(invasiveAdded);
-//			events.setX(x);
-//			events.setY(y);
-//			break;
-//		case W:
-//			rowEnd = 48;
-//			colEnd = 38;
-//			x = (rand.nextInt(colEnd)%38);
-//			y = (rand.nextInt(rowEnd)%24)+24;
-//			invasiveAdded= new Invasive(eChar.ZEBRA, 3, x, y, 5, 10);
-//			events.insertFront(invasiveAdded);
-//			events.setX(x);
-//			events.setY(y);
-//			break;
-//			
-//		default:
-//			rowEnd = 0;
-//			colEnd = 0;
-//			invasiveAdded= new Invasive(eChar.POLLUTER, 3, x, y, 5, 10);
-//			events.insertFront(invasiveAdded);
-//			events.setX(x);
-//			events.setY(y);
-//		}
-//		
-//		setHealth(getHealth() - 1);
-//		numInvasive++;
-//		return new Event(x, y, invasiveAdded.getType());
-//	}
-//	
-	/**
-	 * Method to spawn the native species on the board.
-	 * These do not move.
-	 * @param quad
-	 * @return
-	 */
-	public Native makeNativeSpecies(eQuad quad) {
-		Native nativeAdded = new Native(eChar.HCRAB, 3, 10, 10, 5);
-		
-		Random rand = new Random();
-		int rowEnd,colEnd;
-		int x =0,y =0;
-		switch(quad){
-		case N:
-			rowEnd = 24;
-			colEnd = 38;
-			x = (rand.nextInt(colEnd)%38);
-			y = (rand.nextInt(rowEnd)%24);
-			nativeAdded= new Native(eChar.HCRAB, 3, x, y, 5);
-			break;
-		case E:
-			rowEnd = 24;
-			colEnd = 76;
-			x = (rand.nextInt(colEnd)%38)+38;
-			y = (rand.nextInt(rowEnd)%24);
-			nativeAdded= new Native(eChar.BLAZINGSTAR, 3, x, y, 5);
-			break;
-		case S:
-			rowEnd = 48;
-			colEnd = 76;
-			x = (rand.nextInt(colEnd)%38)+38;
-			y = (rand.nextInt(rowEnd)%24)+24;
-			nativeAdded= new Native(eChar.BLACKEYEDSUSAN, 3, x, y, 5);
-			break;
-		case W:
-			rowEnd = 48;
-			colEnd = 38;
-			x = (rand.nextInt(colEnd)%38);
-			y = (rand.nextInt(rowEnd)%24)+24;
-			nativeAdded= new Native(eChar.BCRAB, 3, x, y, 5);
-			break;
-			
-		default:
-			rowEnd = 0;
-			colEnd = 0;
-		}
-		
-		numNative++;
-		return nativeAdded;		
-	}
-	
+
+
 	
 	/**
 	 * This method is called when an event is completed, 
@@ -363,12 +215,8 @@ public class Environment implements Serializable{
 				// TODO Auto-generated method stub
 				if(Game.gameFrame.getQuadrant()!=eQuad.MAIN){
 					for (int k = 0; k < numSpawn; k++) {
-						Native retVal = makeNativeSpecies(Game.gameFrame.getQuadrant());
-						Game.board[retVal.getYCoord()][retVal.getXCoord()] = retVal.getType();
-						System.out.println(Game.board[retVal.getYCoord()][retVal.getXCoord()]);
+						Game.makeNativeSpecies(Game.gameFrame.getQuadrant(), false);
 						
-						Game.placeComp(retVal.getXCoord(),retVal.getYCoord());
-						Game.refresh();
 					}
 				}
 				((Timer)e.getSource()).stop();
@@ -387,13 +235,7 @@ public class Environment implements Serializable{
 				Game.board[i][j] = eChar.BLANK; 
 				money += 100;
 				calcHealth();
-//				Iterator<Invasive> it = events.iterator();
-//				while(it.hasNext()) {
-//					Invasive monster = it.next();
-//					if ((monster.getXCoord() == j) && (monster.getYCoord() == i)) {
-//						it.remove();
-//					}
-//				}
+
 				switch(character){
 				case STEWARD:
 					numStew++;

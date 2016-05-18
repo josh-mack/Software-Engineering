@@ -157,22 +157,9 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(gameFrame.getQuadrant()!=eQuad.MAIN){
-					Native retVal = mainEnviro.makeNativeSpecies(gameFrame.getQuadrant());
-					Game.board[retVal.getYCoord()][retVal.getXCoord()] = retVal.getType();
-					System.out.println(Game.board[retVal.getYCoord()][retVal.getXCoord()]);
+				makeNativeSpecies(gameFrame.getQuadrant(), true);
 					
-					Game.placeComp(retVal.getXCoord(),retVal.getYCoord());
-					Game.refresh();
-					mainEnviro.setHealth(mainEnviro.getHealth() + 1);
-//					for(int i = 0; i < 48; i++){
-//						for(int j = 0; j < 76; j++){
-//							if(Game.board[i][j] != eChar.BLANK)
-//							System.out.println(Game.board[i][j]);;
-//
-//						}
-//					}
-				}
+
 		}};
 		new Timer(1000, timerAction).start();
 		
@@ -436,6 +423,8 @@ public class Game {
 		int x = j/38;
 		int y = i/24;
 		
+		int r = rand.nextInt(2);
+		
 		eQuad place;
 		if (x==1) {
 			if (y==1) {
@@ -460,16 +449,36 @@ public class Game {
 		eChar type = eChar.PHRAG;
 		switch (place) {
 		case N:
-			type = eChar.PHRAG;
+			if (r == 1) {
+				type = eChar.PHRAG;
+			}
+			else {
+				type = eChar.MCRAB;
+			}
 			break;
 		case E:
-			type = eChar.BAMBOO;
+			if (r == 1) {
+				type = eChar.PHRAG;
+			}
+			else {
+				type = eChar.MCRAB;
+			}
 			break;
 		case S:
-			type = eChar.MCRAB;
+			if (r == 1) {
+				type = eChar.PHRAG;
+			}
+			else {
+				type = eChar.BAMBOO;
+			}
 			break;
 		case W:
-			type = eChar.ZEBRA;
+			if (r == 1) {
+				type = eChar.ZEBRA;
+			}
+			else {
+				type = eChar.MCRAB;
+			}
 			break;
 		default:
 			break;
@@ -485,6 +494,101 @@ public class Game {
 		
 		mainEnviro.setHealth(mainEnviro.getHealth() - 1);
 		mainEnviro.setNumInvasive(mainEnviro.getNumInvasive()+1);
+	}
+	
+	
+	/**
+	 * Method to spawn the native species on the board.
+	 * These do not move.
+	 * @param quad
+	 * @return
+	 */
+	public static void makeNativeSpecies(eQuad quad, boolean randomQuad) {
+		Random rand = new Random();
+		int rowEnd,colEnd;
+		int j = rand.nextInt(76);
+		int i = rand.nextInt(48);
+		int x = j/38;
+		int y = i/24;
+		
+		eQuad place;
+		
+		int r = rand.nextInt(2);
+
+		if (randomQuad) {			
+			if (x==1) {
+				if (y==1) {
+					place = eQuad.S;
+				}
+				else {
+					place = eQuad.E;
+				}
+			}
+			else {
+				if (y==1) {
+					place = eQuad.W;
+				}
+				else {
+					place = eQuad.N;
+				}
+			}
+		}
+		
+		else {
+			place = quad;
+		}
+
+
+		int XCoord = height*(j%38);
+		int YCoord = width*(i%24);
+		eChar type = eChar.HCRAB;
+		switch (place) {
+		case N:
+			if (r == 1) {
+				type = eChar.HCRAB;
+			}
+			else {
+				type = eChar.BLACKEYEDSUSAN;
+			}
+			break;
+		case E:
+			if (r == 1) {
+				type = eChar.BCRAB;
+			}
+			else {
+				type = eChar.BLAZINGSTAR;
+			}
+			break;
+		case S:
+			if (r == 1) {
+				type = eChar.BLACKEYEDSUSAN;
+			}
+			else {
+				type = eChar.BLAZINGSTAR;
+			}
+			break;
+		case W:
+			if (r == 1) {
+				type = eChar.HCRAB;
+			}
+			else {
+				type = eChar.BCRAB;
+			}
+			break;
+		default:
+			break;
+		}
+		System.out.println("Making " + type + " in " + place);
+
+		Game.board[i][j] = type;
+		
+		if (place == quad) {
+			SpeciesComponent nativeAdded = new SpeciesComponent(place, type, XCoord, YCoord);
+			gameFrame.placeComp(nativeAdded);
+		}
+		
+		mainEnviro.setHealth(mainEnviro.getHealth() + 1);
+		mainEnviro.setNumNative(mainEnviro.getNumNative()+1);	
 	}
 	
 	

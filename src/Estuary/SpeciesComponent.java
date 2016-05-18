@@ -96,7 +96,7 @@ public class SpeciesComponent extends JComponent {
 			break;
 		default:
 			this.i = y/(height/24);
-			this.j = x/(width/38);
+			this.j = x/(width/38);  
 			break;
 		}
 		
