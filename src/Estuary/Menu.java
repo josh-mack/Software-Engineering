@@ -152,7 +152,7 @@ public class Menu{
 	QuadPanel hilightQ3;
 	QuadPanel hilightQ4;
 	boolean charMenuOpen = false;
-	private JLabel timeLabel;
+	//private JLabel timeLabel;
 	private JLabel scoreLabel;
 	boolean inQuad = false;
 	
@@ -308,7 +308,9 @@ public class Menu{
 		});
 		tutorial.addMouseListener(new MouseListener(){
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent arg0) 
+			{
+				overAll.setVisible(false);
 				Tutorial tut = new Tutorial();
 				overAll.setVisible(false);
 				ifNotTutorial = false;
@@ -501,8 +503,8 @@ public class Menu{
 		
 		////////////////////////////////////////////////////////
 		////////////////////////////////////////////OLD CODE
-		timeLabel = new JLabel("TIME: 0:00", JLabel.CENTER);
-		scoreLabel = new JLabel("MONEY: $200", JLabel.CENTER);
+		//timeLabel = new JLabel("TIME: 0:00", JLabel.CENTER);
+		scoreLabel = new JLabel("ESTUARY POINTS: 200", JLabel.CENTER);
 		
 		
 		
@@ -598,9 +600,9 @@ public class Menu{
 		
 		
 		JPanel timeFrame = new JPanel();
-		timeFrame.setBackground(Color.BLACK);
-		timeLabel.setForeground(Color.white);
-		scoreLabel.setForeground(Color.white);
+		timeFrame.setBackground(Color.WHITE);
+		//timeLabel.setForeground(Color.white);
+		scoreLabel.setForeground(Color.BLACK);
 		timeFrame.setSize(width/5, height/10);
 		
 		
@@ -673,9 +675,11 @@ public class Menu{
 		
 		
 
-		timeFrame.add(timeLabel);
+		//timeFrame.add(timeLabel);
 		timeFrame.add(scoreLabel);
 		topR.add(timeFrame);
+		
+		//topR.setLocation(15*(width/38), 2*(height/24));
 		
 		
 		topL.add(new JLabel(topLImageIcon));
@@ -703,7 +707,7 @@ public class Menu{
 		
 		
 
-		topR.add(new JLabel(topRImageIcon));
+		//stopR.add(new JLabel(topRImageIcon));
 		topR.setOpaque(false);
 		c.fill = 0;
 		c.gridx = 2;
@@ -713,6 +717,10 @@ public class Menu{
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.NORTHEAST;
 		mainPanel.add(topR, c);
+		
+		//topR.add(timeFrame);
+		//topR.setLocation(15*(width/38), 2*(height/24));
+
 
 		Image scaledImage = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
 
@@ -735,6 +743,7 @@ public class Menu{
 		mainWindow.setSize(mainSize);
 		mainWindow.setVisible(true);
 		
+
 		}
 
 	public ArrayList<JComponent> getPlacedChars() {
@@ -993,10 +1002,10 @@ public class Menu{
 	 * Accessor methods for the panels and quadrants.
 	 * @return
 	 */
-	public JLabel getTimeLabel() {
-		// TODO Auto-generated method stub
-		return this.timeLabel;
-	}
+//	public JLabel getTimeLabel() {
+//		// TODO Auto-generated method stub
+//		return this.timeLabel;
+//	}
 	public JFrame getMainWindow() {
 		// TODO Auto-generated method stub
 		return mainWindow;
