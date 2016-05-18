@@ -102,6 +102,7 @@ public class Menu{
 	
 	ImageIcon cityImage;
 	ImageIcon fishermanImage;
+	ImageIcon fishermanOverFlowImage;
 	
 	ImageIcon blueCrabImage;
 	ImageIcon horseshoeCrabImage;
@@ -971,6 +972,7 @@ public class Menu{
 		DNERRLvl3Image= new ImageIcon("imgs/level3.png");
 		
 		fishermanImage= new ImageIcon("imgs/fisherman.png");
+		fishermanOverFlowImage = new ImageIcon("imgs/fishermanOverfishing.png");
 		cityImage = new ImageIcon("imgs/city.png");
 		
 		mittenCrabImage = new ImageIcon("imgs/mittenCrab.png");
