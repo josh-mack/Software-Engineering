@@ -190,6 +190,8 @@ public class Menu{
 		JPanel overAll = new JPanel();
 		OverlayLayout over = new OverlayLayout(overAll);
 		overAll.setLayout(over);
+		
+		//GridBagConstraints c = new GridBagConstraints();
 
 		BackgroundPanel titleBack = new BackgroundPanel(titleImage, width+50, height);
 		titleBack.setSize(width, height);
@@ -203,15 +205,15 @@ public class Menu{
 		JPanel tutorialPanel = new JPanel();
 		
 		startPanel.setLayout(new BorderLayout());
-		startPanel.add(start,BorderLayout.CENTER);
+		startPanel.add(start,BorderLayout.EAST);
 		startPanel.setOpaque(false);
 		
 		howToPanel.setLayout(new BorderLayout());
-		howToPanel.add(start,BorderLayout.CENTER);
+		howToPanel.add(howTo,BorderLayout.WEST);
 		howToPanel.setOpaque(false);
 		
 		tutorialPanel.setLayout(new BorderLayout());
-		tutorialPanel.add(start,BorderLayout.CENTER);
+		tutorialPanel.add(tutorial,BorderLayout.SOUTH);
 		tutorialPanel.setOpaque(false);
 		
 		overAll.add(startPanel);
@@ -295,6 +297,7 @@ public class Menu{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Tutorial tut = new Tutorial();
+				ifNotTutorial = false;
 			}
 
 			@Override
