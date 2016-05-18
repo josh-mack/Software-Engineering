@@ -3,6 +3,7 @@ package Estuary;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -93,6 +94,7 @@ public class Menu{
 	ImageIcon topLImageIcon;
 	ImageIcon topRImageIcon;
 	ImageIcon botLImageIcon;
+	Image botLImage;
 	ImageIcon botLImageIconHilight;
 	boolean mainMapHilighted;
 	ImageIcon botRImageIcon;
@@ -208,7 +210,7 @@ public class Menu{
 		
 		//GridBagConstraints c = new GridBagConstraints();
 
-		BackgroundPanel titleBack = new BackgroundPanel(titleImage, width+50, height);
+		BackgroundPanel titleBack = new BackgroundPanel(titleImage, width, height);
 		titleBack.setSize(width, height);
 		JLabel start = new JLabel(startButtonImageIcon);
 		JPanel startPanel = new JPanel();
@@ -712,7 +714,9 @@ public class Menu{
 		c.anchor = GridBagConstraints.NORTHEAST;
 		mainPanel.add(topR, c);
 
-		botLImageLabel = new JLabel(botLImageIcon);
+		Image scaledImage = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
+
+		botLImageLabel = new JLabel(new ImageIcon(scaledImage));
 		botL.add(botLImageLabel);
 		botL.setOpaque(false);
 		c.fill = 0;
@@ -1098,8 +1102,12 @@ public class Menu{
 		tutorialImageIcon = new ImageIcon("imgs/TutorialButton.png");
 		
 		topLImageIcon= new ImageIcon("imgs/TLCorner.png");
+		
+		
 		topRImageIcon= new ImageIcon("imgs/TRCorner.png");
 		botLImageIcon= new ImageIcon("imgs/BLCorner.png");
+		botLImage= ImageIO.read(new File("imgs/BLCorner.png"));
+
 		botLImageIconHilight = new ImageIcon("imgs/BLCornerHilighted.png");
 		botRImageIcon= new ImageIcon("imgs/BRCorner.png");
 		
