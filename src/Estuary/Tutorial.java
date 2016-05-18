@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class Tutorial extends Game
 {
@@ -14,19 +15,21 @@ public class Tutorial extends Game
 	public Tutorial()
 	{
 		game = new Game();
+		game.gameFrame.loadImages();
 		loadQuad();
 		placeInvasive();
 		placeSteward();
 		mainEnviro.setNumRes(0);
 		mainEnviro.setNumStew(0);
 		mainEnviro.setNumVol(0);
+		mainEnviro.setMoney(4000);
 	}
 	
 	public void loadQuad()
 	{
 		drawOnScreen(gameFrame.mainWindow.getLayeredPane(),quad, true);	
 		gameFrame.inQuad = true;
-		gameFrame.currentQuad = quad;
+		gameFrame.loadMenu();
 		gameFrame.backgroundPanel.paintComponent(null, gameFrame.backgroundNorthImage);
 		gameFrame.topL.setVisible(true);
 		gameFrame.botL.setVisible(true);
@@ -90,16 +93,18 @@ public class Tutorial extends Game
 	
 	public void resolve()
 	{
-		if(mainEnviro.money == 275)
+		if(mainEnviro.money == 4075)
 		{
 			resolved = true;
 		}
+		placeSteward();
 	}
 	
 	public void enterCity()
 	{
 		if(mainEnviro.getNumVol() == 1)
 			volunteer = true;
+		placeSteward();
 	}
 	
 	public void upgradeDNREC()
@@ -109,10 +114,26 @@ public class Tutorial extends Game
 		gameFrame.startScreen();
 	}
 	
-	public void step()
+	public void startTimer()
 	{
-		
+		Timer t = new Timer();
+		t.schedule(new TimerTask() {
+
+            @Override
+            public void run() 
+            {
+                resolve();
+                enterCity();
+                upgradeDNREC();
+                completed();
+            }
+        }, 1000);
 	}
 	
+	public void completed()
+	{
+		if(volunteer && upgraded && resolved)
+			gameFrame.startScreen();
+	}
 }
 
