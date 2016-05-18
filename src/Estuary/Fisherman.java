@@ -59,6 +59,7 @@ public class Fisherman extends JComponent implements Serializable{
 	public static void boatsEvent()
 	{
 		Game.fishFlag = false;
+		Game.refresh();
 	}
 	
 	public static void boatsResolve(eChar character2, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies)
@@ -68,14 +69,12 @@ public class Fisherman extends JComponent implements Serializable{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Game.deleteComponent(i, j);
 				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
-				Game.mainEnviro.setNumInvasive(Game.mainEnviro.getNumInvasive()- 1);
-				Game.board[i][j] = eChar.BLANK; 
-				Game.mainEnviro.money += 100;
+				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+				Game.mainEnviro.money += 200;
 				Game.mainEnviro.setHealth(Game.mainEnviro.getHealth() + 5);
 				Game.fishFlag = true;
-				
+				Game.refresh();
 				((Timer)e.getSource()).stop();
 			}
 		};
