@@ -1079,6 +1079,9 @@ public class Menu{
 		backgroundWestImage= ImageIO.read(new File("imgs/west.png"));
 		
 		startButtonImageIcon= new ImageIcon("imgs/start.png");
+		howToImageIcon = new ImageIcon("imgs/HowtoPlay.png");
+		tutorialImageIcon = new ImageIcon("imgs/TutorialButton.png");
+		
 		topLImageIcon= new ImageIcon("imgs/TLCorner.png");
 		topRImageIcon= new ImageIcon("imgs/TRCorner.png");
 		botLImageIcon= new ImageIcon("imgs/BLCorner.png");
