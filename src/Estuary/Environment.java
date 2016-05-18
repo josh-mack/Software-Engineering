@@ -197,6 +197,23 @@ public class Environment implements Serializable{
 	public void resolve(eChar species, eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
 		System.out.println("Resolve 1 Method Active");
 		switch(species) {
+		case TRASH:
+			Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
+			Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+			switch(character){
+			case STEWARD:
+				numStew++;
+				break;
+			case RESEARCHER:
+				numRes++;
+				break;
+			case VOLUNTEER:
+				numVol++;
+				break;
+			default:
+				break;
+			}
+			break;
 		case INSTAKILL:
 			break;
 		case DNREC:

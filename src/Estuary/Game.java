@@ -85,6 +85,11 @@ public class Game {
 			board[35][5] = eChar.FISHERMAN;
 			board[1][23] = eChar.CITY;
 			
+			board[1][34] = eChar.TRASH;
+			board[25][72] = eChar.TRASH;
+			board[1][72] = eChar.TRASH;
+			board[25][34] = eChar.TRASH;
+			
 		}
 
 		gameFrame = new Menu();
@@ -307,6 +312,11 @@ public class Game {
 							gameFrame.placeComp(newComponent);
 						}
 						break;
+					case TRASH:
+						if(drag){
+							newComponent = new Trash(j%38*width, i%24*height);
+							gameFrame.placeComp3(newComponent);
+						}
 					default:
 						newComponent = new SpeciesComponent(quad, board[i][j],j%38*width, i%24*height);
 						gameFrame.placeComp(newComponent);
@@ -646,7 +656,8 @@ public class Game {
 					if ((Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
 						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)
 						&& (Game.board[y+i][x+j] != eChar.RESEARCHER) && (Game.board[y+i][x+j] != eChar.STEWARD) && (Game.board[y+i][x+j] != eChar.DNREC)
-						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.FISHERMAN)) {
+						&& (Game.board[y+i][x+j] != eChar.NOTHING) && (Game.board[y+i][x+j] != eChar.CITY) && (Game.board[y+i][x+j] != eChar.FISHERMAN)
+						&& (Game.board[y+i][x+j] != eChar.TRASH)) {
 							for (int k = 0; k < resolvingSpecies.size(); k++) {
 								if ((resolvingSpecies.get(k).getI()==y+i) && (resolvingSpecies.get(k).getJ()==x+j) && (resolvingSpecies.get(k).isInvasive())){
 									alreadyBeingResolved = true;
@@ -662,6 +673,23 @@ public class Game {
 							}
 							alreadyBeingResolved = false;
 							
+					}
+					else if (Game.board[y+i][x+j] == eChar.TRASH) {
+						Game.gameFrame.getMainWindow().getLayeredPane().remove(drag1);
+						Game.board[drag1.getOldi()][drag1.getOldj()] = eChar.NOTHING;
+						switch(drag1.getCharacter()){
+						case STEWARD:
+							mainEnviro.increaseStew(true);
+							break;
+						case RESEARCHER:
+							mainEnviro.increaseRes(true);
+							break;
+						case VOLUNTEER:
+							mainEnviro.increaseVol(true);
+							break;
+						default:
+							break;
+						}
 					}
 					else if ((drag1.getCharacter() == eChar.STEWARD) && (Game.board[y+i][x+j] == eChar.CITY)) {
 						drag1.setDrag(false);
