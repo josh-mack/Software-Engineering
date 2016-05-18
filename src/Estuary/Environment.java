@@ -211,7 +211,7 @@ public class Environment implements Serializable{
 			break;
 		case FISHERMAN:
 			if(character == eChar.STEWARD && Game.fishFlag == false)
-				Fisherman.boatsResolve(character, i, j, drag, invasiveSpecies);
+				Game.fishComp.boatsResolve(character, i, j, drag, invasiveSpecies);
 			break;
 		case CITY:
 			enteredTheCity(character, drag);

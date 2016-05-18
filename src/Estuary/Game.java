@@ -21,6 +21,7 @@ import javax.swing.Timer;
  */
 public class Game {
 	static DNERR dnerrComp;
+	static Fisherman fishComp;
 	public static Environment mainEnviro = new Environment();
 
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -167,7 +168,7 @@ public class Game {
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Fisherman.boatsEvent();
+				fishComp.boatsEvent();
 			}
 		};
 		
@@ -297,8 +298,8 @@ public class Game {
 						break;
 					case FISHERMAN:
 						if(drag){
-							newComponent = new Fisherman(j%38*width, i%24*height);
-							gameFrame.placeComp(newComponent);
+							fishComp = new Fisherman(j%38*width, i%24*height);
+							gameFrame.placeComp(fishComp);
 						}
 						break;
 					case CITY:
@@ -350,6 +351,13 @@ public class Game {
 		dnerrComp = new DNERR(x,y, dnrecLevel);
 		gameFrame.placeComp(dnerrComp);
 		gameFrame.changeOverview(dnrecLevel);
+	}
+	
+	public static void replaceFisherman(int x, int y)
+	{
+		gameFrame.removeComp(fishComp);
+		fishComp = new Fisherman(x,y);
+		gameFrame.placeComp(fishComp);
 	}
 
 	public static void refresh(){
