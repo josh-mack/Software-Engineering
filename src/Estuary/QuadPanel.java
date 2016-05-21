@@ -14,7 +14,7 @@ public class QuadPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	eQuad loc;
-	boolean hilighted;   //is this currently being hilighted?
+	boolean highlighted;   //is this currently being highlighted?
 	
 	/**
 	 * Constructor for the QuadPanel.
@@ -23,7 +23,7 @@ public class QuadPanel extends JPanel {
 	QuadPanel(eQuad loc){
 		this.loc = loc;
 	}
-	public void hilight(){
+	public void highlight(){
 		if(this.isOpaque())
 			this.setOpaque(false);
 		else
@@ -32,15 +32,15 @@ public class QuadPanel extends JPanel {
 		this.getRootPane().repaint();
 
 	}
-	public void hilightOn(){
-		this.hilighted = true;
+	public void highlightOn(){
+		this.highlighted = true;
 	}
-	public void hilightOff(){
+	public void highlightOff(){
 		this.setOpaque(false);
-		this.hilighted = false;
+		this.highlighted = false;
 	}
-	public boolean checkHilight(){
-		return this.hilighted;
+	public boolean checkHighlight(){
+		return this.highlighted;
 	}
 	/**
 	 * Getter.

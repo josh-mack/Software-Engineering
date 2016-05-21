@@ -104,7 +104,6 @@ public class Game {
 				{eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.WATER,eChar.WATER,eChar.WATER,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING}};
 
 
-				//System.out.println(testboard[i].length);
 			for(int i = 0; i < 48; i++){
 				for(int j = 0; j < 76; j++)
 				{
@@ -134,16 +133,16 @@ public class Game {
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//test.hilight(test.sel, test);
-			//	test.sel = (test.sel+1)%8;
-				updateTime(gameFrame, seconds++);
+				checkProgress();
+				Game.gameFrame.getMainWindow().repaint();
+				Game.gameFrame.getMainWindow().revalidate();
 				updateMoney(gameFrame, mainEnviro.getMoney());
 				updateCharacters(gameFrame, mainEnviro.getNumStew(), mainEnviro.getNumRes(), mainEnviro.getNumVol());
+				seconds++;
 				if (seconds%(5) == 0) {
 					updateNatives(mainEnviro.getNumInvasive(), mainEnviro.getNumNative());
 				}
 				
-			//	mainEnviro.setMoney(mainEnviro.getMoney()+20);
 		}};
 		ActionListener Spawn80 = new ActionListener(){
 			@Override
@@ -172,7 +171,7 @@ public class Game {
 				}
 		}};
 		
-		ActionListener SpawnBetterMarcosButton = new ActionListener(){
+		ActionListener Spawn10 = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=30 && mainEnviro.getHealth()>10){
@@ -180,7 +179,7 @@ public class Game {
 				}
 		}};
 		
-		ActionListener Spawn10 = new ActionListener(){
+		ActionListener Spawn0 = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(mainEnviro.getHealth()<=10){
@@ -208,37 +207,17 @@ public class Game {
 		
 		new Timer(1000, timerAction).start();
 		
-		//Create an Invasive species every 10 seconds
 		
 		new Timer(2000, Spawn80).start();
 		new Timer(3000, Spawn60).start();
 		new Timer(4000, Spawn30).start();
-		new Timer(6000, SpawnBetterMarcosButton).start();
-		new Timer(7500, Spawn10).start();
+		new Timer(6000, Spawn10).start();
+		new Timer(7500, Spawn0).start();
 		
 		new Timer(40000, nativeSpawn).start();
 		new Timer(60000, fishEvent).start();
 	}
-	
-	/**
-	 * Method to update the in-game timer every one(1) real-time second.
-	 * @param mainFrame
-	 * @param seconds
-	 */
-	static void updateTime(View mainFrame, int seconds){
-	
-//		if (seconds%60 < 10) {
-//			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":0" + seconds%60);
-//		}
-//		else {
-//			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":" + seconds%60);
-//		
-//		
-//		}
-		checkProgress();
-		mainFrame.getMainWindow().repaint();
-		mainFrame.getMainWindow().revalidate();
-	}
+
 	
 	/**
 	 * Method to update the player's available spending money onto the game screen.
@@ -416,7 +395,7 @@ public class Game {
 		if (Game.gameFrame.getQuadrant() == eQuad.W) {
 			gameFrame.placeComp(fishComp);
 		}
-		gameFrame.hilightOn(eQuad.W);
+		gameFrame.highlightOn(eQuad.W);
 
 	}
 
@@ -430,10 +409,6 @@ public class Game {
 	}
 	
 	public static int updateNatives(int numInvasives, int numNatives) {
-//		System.out.print("invasive: ");
-//		System.out.println(numInvasives);
-//		System.out.print("natives: ");
-//		System.out.println(numNatives);
 		if (numInvasives > numNatives + 5){
 			for (int i = 0; i < gameFrame.getPlacedChars().size(); i++) {
 				if (gameFrame.getPlacedChars().get(i) instanceof SpeciesComponent) {
@@ -492,11 +467,8 @@ public class Game {
 	 * @param quad
 	 * @return new Event
 	 */
-	public static int makeEvent(eQuad quad){
-		//Invasive invasiveAdded = new Invasive(eChar.PHRAG, 3, 10, 10, 5, 10);
-		
+	public static int makeEvent(eQuad quad){		
 		Random rand = new Random();
-		int rowEnd,colEnd;
 		int j = rand.nextInt(76);
 		int i = rand.nextInt(48);
 		int x = j/38;
@@ -534,8 +506,8 @@ public class Game {
 			}
 		}
 		if(quad != place){
-			gameFrame.hilightOn(place);
-			}
+			gameFrame.highlightOn(place);
+		}
 
 		int XCoord = height*(j%38);
 		int YCoord = width*(i%24);
@@ -640,7 +612,6 @@ public class Game {
 	 */
 	public static int makeNativeSpecies(eQuad quad, boolean randomQuad) {
 		Random rand = new Random();
-		int rowEnd,colEnd;
 		int j = rand.nextInt(76);
 		int i = rand.nextInt(48);
 		int x = j/38;

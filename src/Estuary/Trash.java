@@ -28,12 +28,7 @@ public class Trash extends JComponent implements Serializable{
 	@SuppressWarnings("unused")
 	private eQuad whatQuad;
 	
-	/**
-	 * Constructor for DNERR. Sets the position of the object to
-	 * [10][3] in the game board. This object acts as a game modifier,
-	 * in benefit for the player to accomplish the game's goal.
-	 * @param thisQuad - 
-	 */
+
 	
 	public Trash(int x, int y)
 	{
@@ -57,7 +52,7 @@ public class Trash extends JComponent implements Serializable{
 	
 	
 	/**
-	 * Method to serialize the DNERR object.
+	 * Method to serialize the Trash object.
 	 * @param obj
 	 * @param fileName
 	 * 
@@ -79,7 +74,7 @@ public class Trash extends JComponent implements Serializable{
 	 * @param fileName
 	 * @throws IOException
 	 * @throws ClassNotFoundException
-	 * @return DNERR object
+	 * @return Trash object
 	 */
 	public static Object deserialize(String fileName) {
 		DNERR obj = null ;

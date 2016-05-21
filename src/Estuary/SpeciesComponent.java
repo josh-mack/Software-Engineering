@@ -51,6 +51,8 @@ public class SpeciesComponent extends JComponent {
 	private boolean invasive;
 	private int i;     //Current Array index of related enum, used to identify which to remove
 	private int j;
+	private int x;
+	private int y;
 	
 	/**
 	 * Constructor for SpeciesComponent.
@@ -72,7 +74,8 @@ public class SpeciesComponent extends JComponent {
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);		
 		setLocation(x,y);
-		//setOpaque(false);
+		this.x = x;
+		this.y = y;
 		
 		this.whatQuad = thisQuad;
 		this.character = character;
@@ -101,25 +104,22 @@ public class SpeciesComponent extends JComponent {
 			break;
 		}
 
-		//animate();
-		
+		if (character.isAnimal()) {
+			animate();
+		}
 	}
 	
 	void animate() {
-		System.out.println("saaah dood");
 		ActionListener moveTimer = new ActionListener() {
 			Random rand = new Random();
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int num = rand.nextInt(10);
-				if(num < 4) {
-					setLocation(getX()-num, getY());
-				} else {
-					setLocation(getX()+num, getY());
-				}
+				int numx = 4 - rand.nextInt(9);
+				int numy = 4 - rand.nextInt(9);
+				setLocation(x+numx, y+numy);
 				Game.refresh();
 		}};
-		new Timer(2000, moveTimer).start();
+		new Timer(500, moveTimer).start();
 	}
 
 	public int getI() {
