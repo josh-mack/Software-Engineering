@@ -88,7 +88,7 @@ public class Tutorial extends Game
 	{
 		Game.board[5][9] = eChar.STEWARD;
 		DragComponent steward =  new DragComponent(Game.gameFrame.stewardImage, quad, eChar.STEWARD, 9%38*width, 5%24*height, 5, 9);
-		Game.gameFrame.placeComp2(steward);
+		Game.gameFrame.placeCompAtLayer(steward, -1);
 	}
 	
 	public void resolve()

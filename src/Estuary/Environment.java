@@ -96,7 +96,7 @@ public class Environment implements Serializable{
 	 * Method used to remove an event from the front of the queue.
 	 * This is called when an event is supposed to be completed.
 	 */
-	public void resolve2(eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
+	public void resolveInvasive(eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
 		if (character == eChar.RESEARCHER) {
 			resolveTime /= 2; 
 		}
@@ -214,65 +214,65 @@ public class Environment implements Serializable{
 	public void resolve(eChar species, eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
 		System.out.println("Resolve 1 Method Active");
 		switch(species) {
-		case TRASH:
-			Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
-			Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
-			switch(character){
-			case STEWARD:
-				numStew++;
-				break;
-			case RESEARCHER:
-				numRes++;
-				break;
-			case VOLUNTEER:
-				numVol++;
-				break;
-			default:
-				break;
-			}
-			break;
-		case DNREC:
-			break;
-		case HCRAB:
-			break;
-		case WETHCRAB:
-			break;
-		case BLAZINGSTAR:
-			break;
-		case BLACKEYEDSUSAN:
-			break;
-		case BCRAB:
-			break;
-		case WETBCRAB:
-			break;
+//		case TRASH:
+//			Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
+//			Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+//			switch(character){
+//			case STEWARD:
+//				numStew++;
+//				break;
+//			case RESEARCHER:
+//				numRes++;
+//				break;
+//			case VOLUNTEER:
+//				numVol++;
+//				break;
+//			default:
+//				break;
+//			}
+//			break;
+//		case DNREC:
+//			break;
+//		case HCRAB:
+//			break;
+//		case WETHCRAB:
+//			break;
+//		case BLAZINGSTAR:
+//			break;
+//		case BLACKEYEDSUSAN:
+//			break;
+//		case BCRAB:
+//			break;
+//		case WETBCRAB:
+//			break;
 		case FISHERMAN:
-			if(character == eChar.STEWARD && Game.fishFlag == false)
-				Game.fishComp.boatsResolve(character, i, j, drag, invasiveSpecies);
+			Game.fishComp.boatsResolve(character, i, j, drag);
 			break;
 		case CITY:
 			enteredTheCity(character, drag);
 			break;
 		case MCRAB:
 			resolveTime = 4;
-			resolve2(character, i, j, drag, invasiveSpecies);
+			resolveInvasive(character, i, j, drag, invasiveSpecies);
 			break;
 		case WETMCRAB:
 			resolveTime = 4;
-			resolve2(character, i, j, drag, invasiveSpecies);
+			resolveInvasive(character, i, j, drag, invasiveSpecies);
+			break;
 		case PHRAG:
 			resolveTime = 6;
-			resolve2(character, i, j, drag, invasiveSpecies);
+			resolveInvasive(character, i, j, drag, invasiveSpecies);
 			break;
 		case BAMBOO:
 			resolveTime = 8;
-			resolve2(character, i, j, drag, invasiveSpecies);
+			resolveInvasive(character, i, j, drag, invasiveSpecies);
 			break;
 		case ZEBRA:
 			resolveTime = 10;
-			resolve2(character, i, j, drag, invasiveSpecies);
+			resolveInvasive(character, i, j, drag, invasiveSpecies);
 			break;
 		default:
-			resolve2(character, i, j, drag, invasiveSpecies);
+			resolveInvasive(character, i, j, drag, invasiveSpecies);
 
 		}
 		
@@ -291,7 +291,7 @@ public class Environment implements Serializable{
 		ActionListener cityAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (character == eChar.STEWARD) {
+				if ((character == eChar.STEWARD) || (character == eChar.WETSTEWARD)){
 					numVol++;
 					Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
 					Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);

@@ -671,7 +671,7 @@ public class View{
 		c.gridheight = 2;
 		c.gridy = 4;
 		c.anchor = GridBagConstraints.SOUTHEAST;
-		mainPanel.add(botR, c);
+		//mainPanel.add(botR, c);
 		
 		
 
@@ -934,7 +934,7 @@ public class View{
 			break;
 		}
 		
-		placeComp2(charPlace);
+		placeCompAtLayer(charPlace, -1);
 
 		return charPlace;
 	}
@@ -1009,15 +1009,8 @@ public class View{
 		mainWindow.revalidate();
 		return;
 	}
-	public void placeComp2(JComponent toAdd){
-		mainWindow.getLayeredPane().add(toAdd,-1);
-		placedChars.add(toAdd);
-		mainWindow.repaint();
-		mainWindow.revalidate();
-		return;
-	}
-	public void placeComp3(JComponent toAdd){
-		mainWindow.getLayeredPane().add(toAdd,-2);
+	public void placeCompAtLayer(JComponent toAdd, int layer){
+		mainWindow.getLayeredPane().add(toAdd, layer);
 		placedChars.add(toAdd);
 		mainWindow.repaint();
 		mainWindow.revalidate();
