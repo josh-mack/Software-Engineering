@@ -671,7 +671,7 @@ public class View{
 		c.gridheight = 2;
 		c.gridy = 4;
 		c.anchor = GridBagConstraints.SOUTHEAST;
-		//mainPanel.add(botR, c);
+		mainPanel.add(botR, c);
 		
 		
 
