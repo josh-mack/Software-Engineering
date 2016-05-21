@@ -1,6 +1,9 @@
 package EstuaryTests;
 
 import Estuary.*;
+import Model.eChar;
+import Model.eQuad;
+import View.DragComponent;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import org.junit.Test;
+
+import Controller.Game;
 
 public class DraggableTest {
 

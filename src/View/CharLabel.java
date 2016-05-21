@@ -1,7 +1,9 @@
-package Estuary;
+package View;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import Model.eChar;
 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla

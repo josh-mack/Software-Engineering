@@ -1,4 +1,4 @@
-package Estuary;
+package Model;
 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla

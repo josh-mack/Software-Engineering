@@ -1,4 +1,4 @@
-package Estuary;
+package View;
 
 import java.awt.BorderLayout;
 import java.awt.event.MouseListener;
@@ -13,7 +13,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-public class Trash extends JComponent implements Serializable{
+import Controller.Game;
+import Model.eChar;
+import Model.eQuad;
+
+public class City extends JComponent implements Serializable{
 
 
 
@@ -28,14 +32,19 @@ public class Trash extends JComponent implements Serializable{
 	@SuppressWarnings("unused")
 	private eQuad whatQuad;
 	
-
+	/**
+	 * Constructor for DNERR. Sets the position of the object to
+	 * [10][3] in the game board. This object acts as a game modifier,
+	 * in benefit for the player to accomplish the game's goal.
+	 * @param thisQuad - 
+	 */
 	
-	public Trash(int x, int y)
+	public City(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
 		setLayout(new BorderLayout());
-		ImageIcon image = Game.getImage(eChar.TRASH);
+		ImageIcon image = Game.getImage(eChar.CITY);
 		JLabel label = new JLabel(image);
 		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
@@ -43,7 +52,7 @@ public class Trash extends JComponent implements Serializable{
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);
 		this.whatQuad = eQuad.E;
-		this.character = eChar.TRASH;
+		this.character = eChar.CITY;
 		setLocation(x,y);
 
 	
@@ -52,7 +61,7 @@ public class Trash extends JComponent implements Serializable{
 	
 	
 	/**
-	 * Method to serialize the Trash object.
+	 * Method to serialize the DNERR object.
 	 * @param obj
 	 * @param fileName
 	 * 
@@ -74,7 +83,7 @@ public class Trash extends JComponent implements Serializable{
 	 * @param fileName
 	 * @throws IOException
 	 * @throws ClassNotFoundException
-	 * @return Trash object
+	 * @return DNERR object
 	 */
 	public static Object deserialize(String fileName) {
 		DNERR obj = null ;

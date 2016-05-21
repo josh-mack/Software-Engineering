@@ -1,4 +1,4 @@
-package Estuary;
+package Model;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -19,6 +19,10 @@ import javax.swing.JComponent;
  */
 
 import javax.swing.Timer;
+
+import Controller.Game;
+import View.DragComponent;
+import View.SpeciesComponent;
 public class Environment implements Serializable{
 	private static final long serialVersionUID = 0L;
 	
@@ -126,9 +130,9 @@ public class Environment implements Serializable{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(Game.gameFrame.getQuadrant()!=eQuad.MAIN){
+				if(Game.getGameFrame().getQuadrant()!=eQuad.MAIN){
 					for (int k = 0; k < numSpawn; k++) {
-						Game.makeNativeSpecies(Game.gameFrame.getQuadrant(), false);
+						Game.makeNativeSpecies(Game.getGameFrame().getQuadrant(), false);
 					}
 				}
 				((Timer)e.getSource()).stop();
@@ -182,7 +186,7 @@ public class Environment implements Serializable{
 					Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
 				}
 				
-				Game.resolvingSpecies.remove(invasiveSpecies);
+				Game.removeFromResolvingSpeciesArray(invasiveSpecies);
 				
 				
 				
@@ -210,9 +214,6 @@ public class Environment implements Serializable{
 	 */
 	public void resolve(eChar species, eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
 		switch(species) {
-		case FISHERMAN:
-			Game.fishComp.boatsResolve(character, i, j, drag);
-			break;
 		case CITY:
 			enteredTheCity(character, drag);
 			break;
@@ -258,7 +259,7 @@ public class Environment implements Serializable{
 				if ((character == eChar.STEWARD) || (character == eChar.WETSTEWARD)){
 					numVol++;
 					Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
-					Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
+					Game.removeComponent(drag);
 					numStew++;
 				}
 				temp.stop();

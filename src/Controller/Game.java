@@ -1,4 +1,4 @@
-package Estuary;
+package Controller;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -12,6 +12,17 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
+
+import Model.Environment;
+import Model.eChar;
+import Model.eQuad;
+import View.City;
+import View.DNERR;
+import View.DragComponent;
+import View.Fisherman;
+import View.SpeciesComponent;
+import View.Trash;
+import View.View;
  
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
@@ -24,6 +35,13 @@ public class Game {
 	public static Environment mainEnviro = new Environment();
 
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static boolean isFishFlag() {
+		return fishFlag;
+	}
+
+	public static void setFishFlag(boolean fishFlag) {
+		Game.fishFlag = fishFlag;
+	}
 	static int height = ((int)screenSize.getHeight())/24;
 	static int width = (int)screenSize.getWidth()/38;
 	
@@ -129,7 +147,7 @@ public class Game {
 	/**
 	 * 
 	 */
-	static void startTimers(){
+	public static void startTimers(){
 		ActionListener timerAction = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -240,7 +258,7 @@ public class Game {
 	 * @param pane
 	 * @param quad
 	 */
-	static void drawOnScreen(JLayeredPane pane, eQuad quad, boolean drag){
+	public static void drawOnScreen(JLayeredPane pane, eQuad quad, boolean drag){
 
 		int rowStart;
 		int colStart;
@@ -284,40 +302,41 @@ public class Game {
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK && board[i][j]!=eChar.NOTHING){
 					DragComponent charPlace = null;
-					switch(board[i][j]){
+					ImageIcon drawImage = gameFrame.getImage(board[i][j]);
+					switch(board[i][j]) {
 					case STEWARD:
 						if(drag){
-							charPlace = new DragComponent(gameFrame.stewardImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case RESEARCHER:
 						if(drag){
-							charPlace = new DragComponent(gameFrame.researcherImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case VOLUNTEER:
 						if(drag){
-							charPlace = new DragComponent(gameFrame.volunteerImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case WETSTEWARD:
 						if(drag){
-							charPlace = new DragComponent(gameFrame.stewardImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case WETRESEARCHER:
 						if(drag){
-							charPlace = new DragComponent(gameFrame.researcherImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case WETVOLUNTEER:
 						if(drag){
-							charPlace = new DragComponent(gameFrame.volunteerImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
@@ -756,17 +775,7 @@ public class Game {
 	}
 	
 	
-	public static ImageIcon getFishImage(boolean fishFlag)
-	{
-		return (fishFlag)?gameFrame.fishermanImage:gameFrame.fishermanOverFlowImage;
-	}
-	
-	public static ImageIcon getDNERRImage(int level) {
-		if(level == 1)
-			return gameFrame.DNERRLvl1Image;
-		gameFrame.changeDNERR(level);
-		return (level == 2)?gameFrame.DNERRLvl2Image:gameFrame.DNERRLvl3Image;
-	}
+
 	
 	public static boolean collision(int x, int y, DragComponent drag1) {
 		boolean alreadyBeingResolved = false;
@@ -843,5 +852,105 @@ public class Game {
 		}
 		
 		return false;
+	}
+	/**
+	 * Method to place an image after being dragged, and check for collisions.
+	 * @param XCoord
+	 * @param YCoord
+	 * @return true/false
+	 */
+	
+	public static boolean placeInArray(int XCoord, int YCoord, DragComponent drag)
+	{
+
+		int xinArray = XCoord/(width/38);
+		int yinArray = YCoord/(height/24);
+		int xQuadoffset = (xinArray/38)*38;
+		int yQuadoffset = (yinArray/24)*24;
+		int x = yinArray + yQuadoffset;
+		int y = xinArray + xQuadoffset;
+
+		if ((Game.board[y][x] != eChar.BLANK) && (Game.board[y][x] != eChar.NOTHING) && (Game.board[y][x] != eChar.WATER)) {
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					if (Game.board[y+i][x+j] == eChar.BLANK) {
+						if (drag.getCharacter().isWet()) {
+							Game.board[drag.getOldi()][drag.getOldj()] = eChar.WATER;
+						}
+						else {
+							Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+						}
+						drag.setCharacter(drag.getDryVersion());
+						Game.board[y+i][x+j] = drag.getCharacter();
+						drag.setOldi(y+i);
+						drag.setOldj(x+j);
+						return Game.collision(x+j,y+i,drag); 
+					}
+					if (Game.board[y+i][x+j] == eChar.WATER) {
+						if (drag.getCharacter().isWet()) {
+							Game.board[drag.getOldi()][drag.getOldj()] = eChar.WATER;
+						}
+						else {
+							Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+						}
+						drag.setCharacter(drag.getWetVersion());
+						Game.board[y+i][x+j] = drag.getCharacter();
+						drag.setOldi(y+i);
+						drag.setOldj(x+j);
+						return Game.collision(x+j,y+i,drag);
+					}
+				}
+			}
+			return false;
+		}
+		else if((Game.board[y][x] == eChar.BLANK) || (Game.board[y][x] == eChar.NOTHING)) {
+			if (drag.getCharacter().isWet()) {
+				Game.board[drag.getOldi()][drag.getOldj()] = eChar.WATER;
+			}
+			else {
+				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+			}
+			drag.setCharacter(drag.getDryVersion());
+			Game.board[y][x] = drag.getCharacter();
+			drag.setOldi(y);
+			drag.setOldj(x);
+			return Game.collision(x,y,drag);
+		}
+		
+		else if (Game.board[y][x] == eChar.WATER) {
+			if (drag.getCharacter().isWet()) {
+				Game.board[drag.getOldi()][drag.getOldj()] = eChar.WATER;
+			}
+			else {
+				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+			}
+			drag.setCharacter(drag.getWetVersion());
+			Game.board[y][x] = drag.getCharacter();
+			drag.setOldi(y);
+			drag.setOldj(x);
+			return Game.collision(x,y,drag);
+		}
+
+		return false;
+	}
+
+	public static View getGameFrame() {
+		return gameFrame;
+	}
+
+	public static void setGameFrame(View gameFrame) {
+		Game.gameFrame = gameFrame;
+	}
+
+	public static int getDnrecLevel() {
+		return dnrecLevel;
+	}
+
+	public static void setDnrecLevel(int dnrecLevel) {
+		Game.dnrecLevel = dnrecLevel;
+	}
+	
+	public static void removeFromResolvingSpeciesArray(SpeciesComponent invasiveSpecies) {
+		resolvingSpecies.remove(invasiveSpecies);
 	}
 }

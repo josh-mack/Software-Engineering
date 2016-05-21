@@ -1,4 +1,4 @@
-package Estuary;
+package View;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -14,6 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+
+import Controller.Game;
+import Model.eChar;
+import Model.eQuad;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -58,7 +63,7 @@ public class DNERR extends JComponent implements Serializable
 		this.x = x;
 		this.y = y;
 		
-		ImageIcon image = Game.getDNERRImage(level);
+		ImageIcon image = View.getDNERRImage(level);
 		setLayout(new BorderLayout());
 		JLabel label = new JLabel(image);
 		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
@@ -237,7 +242,7 @@ public class DNERR extends JComponent implements Serializable
 	
 	void upgrade()
 	{
-		switch(Game.dnrecLevel)
+		switch(Game.getDnrecLevel())
 		{
 		case 1:
 			if(Game.mainEnviro.money < 1800)
@@ -245,7 +250,7 @@ public class DNERR extends JComponent implements Serializable
 				System.out.println("Not Enough money, Can't Upgrade");
 				break;
 			}
-			Game.dnrecLevel++;
+			Game.setDnrecLevel(Game.getDnrecLevel()+1);
 			Game.mainEnviro.setNumRes(Game.mainEnviro.getNumRes() + 1);
 			Game.mainEnviro.money -= 1800;
 			Game.replaceDNERR(x, y);
@@ -257,7 +262,7 @@ public class DNERR extends JComponent implements Serializable
 				System.out.println("Not Enough money, Can't Upgrade");
 				break;
 			}
-			Game.dnrecLevel++;
+			Game.setDnrecLevel(Game.getDnrecLevel()+1);
 			Game.mainEnviro.setNumRes(Game.mainEnviro.getNumRes() + 1);
 			Game.mainEnviro.money -= 4000;
 			Game.replaceDNERR(x, y);

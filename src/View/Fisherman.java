@@ -1,6 +1,8 @@
-package Estuary;
+package View;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,8 +14,13 @@ import java.io.Serializable;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
-public class City extends JComponent implements Serializable{
+import Controller.Game;
+import Model.eChar;
+import Model.eQuad;
+
+public class Fisherman extends JComponent implements Serializable{
 
 
 
@@ -28,19 +35,33 @@ public class City extends JComponent implements Serializable{
 	@SuppressWarnings("unused")
 	private eQuad whatQuad;
 	
-	/**
-	 * Constructor for DNERR. Sets the position of the object to
-	 * [10][3] in the game board. This object acts as a game modifier,
-	 * in benefit for the player to accomplish the game's goal.
-	 * @param thisQuad - 
-	 */
-	
-	public City(int x, int y)
+	public int getX()
 	{
+		return x;
+	}
+	
+	public int getY()
+	{
+		return y;
+	}
+	
+	public void setX(int x)
+	{
+		this.x = x;
+	}
+	
+	public void setY(int y)
+	{
+		this.y = y;
+	}
+
+	
+	public Fisherman(int x, int y)
+	{
+		ImageIcon image = View.getFishImage(Game.isFishFlag());
 		this.x = x;
 		this.y = y;
 		setLayout(new BorderLayout());
-		ImageIcon image = Game.getImage(eChar.CITY);
 		JLabel label = new JLabel(image);
 		label.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
 		setBounds(0,0,image.getIconWidth(), image.getIconHeight());
@@ -48,16 +69,50 @@ public class City extends JComponent implements Serializable{
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);
 		this.whatQuad = eQuad.E;
-		this.character = eChar.CITY;
+		this.character = eChar.FISHERMAN;
 		setLocation(x,y);
-
-	
 		
 	}
 	
+	public void boatsEvent()
+	{
+		Game.setFishFlag(false);
+		Game.refresh();
+		Game.replaceFisherman(x,y);
+	}
+	
+	public void boatsResolve(eChar character2, int i, int j, DragComponent drag)
+	{
+		
+		ActionListener timerAction = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				Game.deleteComponentAt(i, j);
+				Game.removeComponent(drag);
+				if (drag.getCharacter() == eChar.STEWARD) {
+					Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
+				}
+				else {
+					Game.board[drag.getOldi()][drag.getOldj()] = eChar.WATER;
+				}
+				Game.mainEnviro.money += 200;
+				Game.mainEnviro.setHealth(Game.mainEnviro.getHealth() + 5);
+				Game.setFishFlag(true);
+				Game.replaceFisherman(x,y);
+				Game.refresh();
+				Game.mainEnviro.increaseStew(true);
+				((Timer)e.getSource()).stop();
+			}
+		};
+		
+		Timer temp = new Timer(10000, timerAction);
+		temp.start();
+		
+	}
 	
 	/**
-	 * Method to serialize the DNERR object.
+	 * Method to serialize the Fisherman object.
 	 * @param obj
 	 * @param fileName
 	 * 
@@ -79,7 +134,7 @@ public class City extends JComponent implements Serializable{
 	 * @param fileName
 	 * @throws IOException
 	 * @throws ClassNotFoundException
-	 * @return DNERR object
+	 * @return Fisherman object
 	 */
 	public static Object deserialize(String fileName) {
 		DNERR obj = null ;
@@ -97,6 +152,7 @@ public class City extends JComponent implements Serializable{
 		}
 		return obj;
 	}
+
 }
 
 

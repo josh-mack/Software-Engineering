@@ -1,6 +1,8 @@
-package Estuary;
+package View;
 
 import javax.swing.JPanel;
+
+import Model.eQuad;
 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla

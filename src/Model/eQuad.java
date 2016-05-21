@@ -1,4 +1,4 @@
-package Estuary;
+package Model;
 
 
 /**

@@ -1,4 +1,4 @@
-package Estuary;
+package View;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -12,9 +12,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-import Estuary.Game;
-import Estuary.eChar;
-import Estuary.eQuad;
+import Controller.Game;
+import Model.eChar;
+import Model.eQuad;
 
 /**
  * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla

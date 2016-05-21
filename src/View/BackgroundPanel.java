@@ -1,4 +1,4 @@
-package Estuary;
+package View;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
