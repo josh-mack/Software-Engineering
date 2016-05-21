@@ -49,7 +49,7 @@ public class SpeciesComponent extends JComponent {
 	
 	private eQuad whatQuad;
 	private boolean invasive;
-	private int i;
+	private int i;     //Current Array index of related enum, used to identify which to remove
 	private int j;
 	
 	/**
@@ -97,8 +97,7 @@ public class SpeciesComponent extends JComponent {
 			this.j = x/(width/38);
 			break;
 		default:
-			this.i = y/(height/24);
-			this.j = x/(width/38);  
+		
 			break;
 		}
 

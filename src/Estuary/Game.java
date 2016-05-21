@@ -31,7 +31,7 @@ public class Game {
 	
 	static int seconds;
 	
-	static Menu gameFrame;
+	static View gameFrame;
 	static int dnrecLevel = 1;
 	
 	static int spawnRate;
@@ -122,7 +122,7 @@ public class Game {
 			board[1][72] = eChar.TRASH;
 			board[25][34] = eChar.TRASH;
 			
-		gameFrame = new Menu();
+		gameFrame = new View();
 		fishComp = new Fisherman(5%38*width, 35%24*height);
 	
 	}
@@ -225,7 +225,7 @@ public class Game {
 	 * @param mainFrame
 	 * @param seconds
 	 */
-	static void updateTime(Menu mainFrame, int seconds){
+	static void updateTime(View mainFrame, int seconds){
 	
 //		if (seconds%60 < 10) {
 //			mainFrame.getTimeLabel().setText("TIME: " + seconds/60 + ":0" + seconds%60);
@@ -245,11 +245,11 @@ public class Game {
 	 * @param mainFrame
 	 * @param money
 	 */
-	static void updateMoney(Menu mainFrame, int money) {
+	static void updateMoney(View mainFrame, int money) {
 		mainFrame.getScoreLabel().setText("ESTUARY POINTS: " + money);
 	}
 	
-	static void updateCharacters(Menu mainFrame, int numStewards, int numResearchers, int numVolunteers) {
+	static void updateCharacters(View mainFrame, int numStewards, int numResearchers, int numVolunteers) {
 		mainFrame.getStewardLabel().setText("Stewards: " + numStewards);
 		mainFrame.getResearcherLabel().setText("Researchers: " + numResearchers);
 		mainFrame.getVolunteerLabel().setText("Volunteers: " + numVolunteers);
@@ -390,17 +390,14 @@ public class Game {
 		System.out.println("\n------------------------Pane Drawn------------------------");
 	}
 	
-	public static void deleteComponent(int i, int j) {
-		gameFrame.removeComp((JComponent)gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-//		gameFrame.getMainWindow().getLayeredPane().remove(gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
-//		gameFrame.getMainWindow().getLayeredPane().repaint();
-//		gameFrame.getMainWindow().getLayeredPane().revalidate();
-		System.out.println("Still works better than Marco's button");
-		
+	public static void removeComponent(JComponent toRemove) {
+		gameFrame.removeComp(toRemove);
 	}
-	public static JComponent getJComponentAt(int i, int j) {
-		return ((JComponent)gameFrame.getMainWindow().getLayeredPane().getComponentAt(j%38*width + 20, i%24*height + 20));
+	
+	public static void deleteComponentAt(int i, int j) {
+		gameFrame.removeSpecies(i, j);
 	}
+	
 	public static void placeComp(int x, int y) {
 		gameFrame.placeComp(new SpeciesComponent(gameFrame.getQuadrant(), board[y][x], x%38*width, y%24*height));
 	}
@@ -821,8 +818,8 @@ public class Game {
 				whatQuad = eQuad.N;
 			}
 		}
-		for (int i = 0; i < 4; i++ ) {
-			for (int j = -2; j < 3; j++) {
+		for (int i = 0; i < 6; i++ ) {
+			for (int j = -3; j < 4; j++) {
 				if (((j!=0) || (i!=0)) && (24*a<=y+i) && (y+i<24+24*a) && (38*b<=x+j) && (x+j<38+38*b)) {
 					if (/*(Game.board[y+i][x+j] != eChar.BLANK) && (Game.board[y+i][x+j] != eChar.BLACKEYEDSUSAN) && (Game.board[y+i][x+j] != eChar.BLAZINGSTAR)
 						&& (Game.board[y+i][x+j] != eChar.HCRAB) && (Game.board[y+i][x+j] != eChar.BCRAB) && (Game.board[y+i][x+j] != eChar.VOLUNTEER)

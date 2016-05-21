@@ -40,7 +40,7 @@ import javax.swing.OverlayLayout;
  * In-game window where the player selects a character to drop into the game,
  * so long as the player has characters to spend.
  */
-public class Menu{
+public class View{
 	ArrayList<JComponent> placedChars = new ArrayList<JComponent>();
 	ActionListener hilightListener = new ActionListener(){
 		@Override
@@ -184,7 +184,7 @@ public class Menu{
 	 * Constructor for the Menu class.
 	 * Constructs the drop-down window pane.
 	 */
-	public Menu(){
+	public View(){
 		loadImages();
 		backgroundImage = backgroundOverview1Image;
 		mainWindow = new JFrame();
@@ -315,6 +315,8 @@ public class Menu{
 				Tutorial tut = new Tutorial();
 				overAll.setVisible(false);
 				ifNotTutorial = false;
+				
+				
 			}
 
 			@Override
@@ -363,6 +365,13 @@ public class Menu{
 		mainWindow.add(overAll);
 		mainWindow.setSize(mainSize);
 		mainWindow.setVisible(true);
+		
+		
+		overAll.setVisible(false);
+		loadMenu();
+		mainWindow.revalidate();
+		mainWindow.remove(overAll);
+		Game.startTimers();
 	}
 	
 	/**
@@ -1019,6 +1028,22 @@ public class Menu{
 			mainWindow.getLayeredPane().remove(toRemove);
 			mainWindow.repaint();
 			mainWindow.revalidate();
+		}
+	}
+	public void removeSpecies(int removeI, int removeJ){
+		SpeciesComponent toRemove = null;
+		
+		System.out.println("Removing Species at " + removeI +" , "+ removeJ);
+		for(JComponent comp: placedChars){
+			if(comp instanceof SpeciesComponent){
+				if((removeI == ((SpeciesComponent)comp).getI())&&(((SpeciesComponent)comp).getJ()==removeJ)){
+					toRemove = (SpeciesComponent) comp;
+					break;
+				}
+			}
+		}
+		if(toRemove != null){
+			removeComp(toRemove);
 		}
 	}
 	public void clearList(){

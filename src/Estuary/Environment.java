@@ -143,8 +143,8 @@ public class Environment implements Serializable{
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(i);
 				System.out.println(j);
-				Game.deleteComponent(i, j);
-				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
+				Game.deleteComponentAt(i, j);
+				Game.removeComponent(drag);
 				numInvasive--;
 				if (Game.board[i][j].isWet()) {
 					Game.board[i][j] = eChar.WATER;

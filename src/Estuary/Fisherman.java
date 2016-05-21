@@ -90,7 +90,7 @@ public class Fisherman extends JComponent implements Serializable{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Game.deleteComponent(i, j);
+				Game.deleteComponentAt(i, j);
 				Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
 				Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
 				Game.mainEnviro.money += 200;
