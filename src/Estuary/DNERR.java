@@ -173,7 +173,7 @@ public class DNERR extends JComponent implements Serializable
 		c.gridx = 0;
 		c.gridy = 1;
 		c.weighty = 5;
-		JLabel info = new JLabel("<html><center>DNREC<br>1st Upgrade Cost: $1800<br>2nd Upgrade Cost: $4000</center></html>");
+		JLabel info = new JLabel("<html><center>DNREC<br>1st Upgrade Cost: 1800 Estuary Points<br>2nd Upgrade Cost: 4000 Estuary Points</center></html>");
 		info.setSize(190, 100);
 		dnerrPanel.add(info,c);
 		
@@ -187,7 +187,7 @@ public class DNERR extends JComponent implements Serializable
 		c.gridx = 0;
 		c.gridy = 2;
 		c.weighty = .5;
-		JButton instaKill = new JButton("PACIFY ($200)");
+		JButton instaKill = new JButton("PACIFY (200 Estuary Points)");
 		instaKill.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent args0)
 			{

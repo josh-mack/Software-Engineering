@@ -8,35 +8,35 @@ package Estuary;
  */
 
 public enum eChar {
-	//x13 characters
+	//x24
 	
-	BAMBOO("BAMB", true, false), BLAZINGSTAR("BLAZ", false, false), BLACKEYEDSUSAN("BEYS", false, false), BLANK("NONE", false, false), BCRAB("BCRB", false, false),
-	DNREC("DNREC", false, false),FISHERMAN("FMAN", true, true), HCRAB("HCRB", false, true), MCRAB("MCRB", true, false), PHRAG("PHRG",true, false),POLLUTER("POLL", true,false),
-	RESEARCHER("(RH)", false, false), STEWARD("(ST)",false,false), VOLUNTEER("(VL)",false,false), ZEBRA("ZEBR",true,true),
-	CITY("CITY",false,false), NOTHING("noth",false,false), TRASH("TRASH", false, false), WETRESEARCHER("WRH", false, true), WETSTEWARD("WST", false, true), WETVOLUNTEER("WVL", false, true),
-	NOTHINGSTEWARD("NST", false, false), NOTHINGRESEARCHER("NRH", false, false), NOTHINGVOLUNTEER("NVL", false, false),
-	WETHCRAB("WHC", true, true), WETMCRAB("WMC", true, true), WETBCRAB("WBC", true, true), WATER("WAT", false, true);
+	BAMBOO("BAMB", true, false, false), BLAZINGSTAR("BLAZ", false, false, false), BLACKEYEDSUSAN("BEYS", false, false, false), BLANK("NONE", false, false, false), BCRAB("BCRB", false, false, true),
+	DNREC("DNREC", false, false, false),FISHERMAN("FMAN", true, true, true), HCRAB("HCRB", false, true, true), MCRAB("MCRB", true, false, true), PHRAG("PHRG",true, false, false),
+	RESEARCHER("(RH)", false, false, false), STEWARD("(ST)",false,false,false), VOLUNTEER("(VL)",false,false, false), ZEBRA("ZEBR",true,true,true),
+	CITY("CITY",false,false, false), NOTHING("noth",false,false,false), TRASH("TRASH", false, false,false), WETRESEARCHER("WRH", false, true, false), WETSTEWARD("WST", false, true, false), WETVOLUNTEER("WVL", false, true, false),
+	WETHCRAB("WHC", true, true, true), WETMCRAB("WMC", true, true, true), WETBCRAB("WBC", true, true, true), WATER("WAT", false, true, false);
 	
-	public boolean isWet() {
-		return wet;
+	private String testVal;
+	private int xLoc;
+	private int yLoc;
+	private boolean invasive;
+	private boolean wet;
+	private boolean animal;
+	
+	public boolean isAnimal() {
+		return animal;
 	}
 
-	public void setWet(boolean wet) {
-		this.wet = wet;
+
+	public boolean isWet() {
+		return wet;
 	}
 
 	public boolean isInvasive() {
 		return invasive;
 	}
 
-	public void setInvasive(boolean invasive) {
-		this.invasive = invasive;
-	}
-	private String testVal;
-	private int xLoc;
-	private int yLoc;
-	private boolean invasive;
-	private boolean wet;
+
 	/**
 	 * Getters and setters.
 	 * Setters set the X and Y locations of the eChar's on the game board.
@@ -73,10 +73,11 @@ public enum eChar {
 	 * @param val
 	 */
 	
-	eChar(String val, boolean invasive, boolean wet){
+	eChar(String val, boolean invasive, boolean wet, boolean animal){
 		this.testVal = val;
 		this.invasive = invasive;
 		this.wet = wet;
+		this.animal = animal;
 	}
 	
 	/**

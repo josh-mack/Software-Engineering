@@ -241,7 +241,7 @@ public class DragComponent extends JComponent {
 								Game.board[y+i][x+j] = this.character;
 								oldi = y+i;
 								oldj = x+j;
-								return Game.collision(x+j,y+i,this); // can be changed to return true
+								return Game.collision(x+j,y+i,this); 
 							}
 							if (Game.board[y+i][x+j] == eChar.WATER) {
 								if (this.character.isWet()) {
@@ -306,7 +306,7 @@ public class DragComponent extends JComponent {
 								Game.board[y+i][x+j+38] = this.character;
 								oldi = y+i;
 								oldj = x+j+38;
-								return Game.collision(x+j+38,y+i,this); // can be changed to return true
+								return Game.collision(x+j+38,y+i,this); 
 							}
 							if (Game.board[y+i][x+j+38] == eChar.WATER) {
 
@@ -320,7 +320,7 @@ public class DragComponent extends JComponent {
 								Game.board[y+i][x+j+38] = this.character;
 								oldi = y+i;
 								oldj = x+j+38;
-								return Game.collision(x+j+38,y+i,this); // can be changed to return true
+								return Game.collision(x+j+38,y+i,this); 
 							}
 						}
 					}
@@ -368,7 +368,7 @@ public class DragComponent extends JComponent {
 								Game.board[y+i+24][x+j] = this.character;
 								oldi = y+i+24;
 								oldj = x+j;
-								return Game.collision(x+j,y+i+24,this); // can be changed to return true
+								return Game.collision(x+j,y+i+24,this); 
 							}
 							if (Game.board[y+i+24][x+j] == eChar.WATER) {
 								if (this.character.isWet()) {
@@ -381,7 +381,7 @@ public class DragComponent extends JComponent {
 								Game.board[y+i+24][x+j] = this.character;
 								oldi = y+i+24;
 								oldj = x+j;
-								return Game.collision(x+j,y+i+24,this); // can be changed to return true
+								return Game.collision(x+j,y+i+24,this); 
 							}
 						}
 					}
@@ -430,7 +430,7 @@ public class DragComponent extends JComponent {
 								this.character = dryVersion;
 								oldi = y+i+24;
 								oldj = x+j+38;
-								return Game.collision(x+j+38,y+i+24,this); // can be changed to return true
+								return Game.collision(x+j+38,y+i+24,this); 
 							}
 							if (Game.board[y+i+24][x+j+38] == eChar.WATER) {
 								if (this.character.isWet()) {
@@ -442,7 +442,7 @@ public class DragComponent extends JComponent {
 								this.character = wetVersion;
 								oldi = y+i+24;
 								oldj = x+j+38;
-								return Game.collision(x+j+38,y+i+24,this); // can be changed to return true
+								return Game.collision(x+j+38,y+i+24,this); 
 							}
 						}
 					}

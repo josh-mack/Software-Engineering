@@ -24,7 +24,6 @@ public class Environment implements Serializable{
 	
 	private int health;
 	public int money;
-	//private boolean secondChance = true;
 	private int numStew;
 	private int numVol;
 	private int numRes;
@@ -104,7 +103,6 @@ public class Environment implements Serializable{
 			
 			resolveTime += 4;
 		}
-		System.out.println("Resolve 2 Method Active");
 		
 		if (health <= 10) {
 			numSpawn = 3;
@@ -186,7 +184,6 @@ public class Environment implements Serializable{
 				
 				Game.resolvingSpecies.remove(invasiveSpecies);
 				
-				System.out.println("Resolve 2 done");
 				
 				
 				((Timer)e.getSource()).stop();
@@ -212,39 +209,7 @@ public class Environment implements Serializable{
 	 * Instakill - resolves the last event in the queue immediately.
 	 */
 	public void resolve(eChar species, eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
-		System.out.println("Resolve 1 Method Active");
 		switch(species) {
-//		case TRASH:
-//			Game.gameFrame.getMainWindow().getLayeredPane().remove(drag);
-//			Game.board[drag.getOldi()][drag.getOldj()] = eChar.BLANK;
-//			switch(character){
-//			case STEWARD:
-//				numStew++;
-//				break;
-//			case RESEARCHER:
-//				numRes++;
-//				break;
-//			case VOLUNTEER:
-//				numVol++;
-//				break;
-//			default:
-//				break;
-//			}
-//			break;
-//		case DNREC:
-//			break;
-//		case HCRAB:
-//			break;
-//		case WETHCRAB:
-//			break;
-//		case BLAZINGSTAR:
-//			break;
-//		case BLACKEYEDSUSAN:
-//			break;
-//		case BCRAB:
-//			break;
-//		case WETBCRAB:
-//			break;
 		case FISHERMAN:
 			Game.fishComp.boatsResolve(character, i, j, drag);
 			break;
@@ -272,11 +237,10 @@ public class Environment implements Serializable{
 			resolveInvasive(character, i, j, drag, invasiveSpecies);
 			break;
 		default:
-			resolveInvasive(character, i, j, drag, invasiveSpecies);
+			break;
 
 		}
 		
-	System.out.println("Resolve 1 Done");
 	}
 	
 	/**
