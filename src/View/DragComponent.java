@@ -179,7 +179,7 @@ public class DragComponent extends JComponent {
 			{
 				if(canDrag) {
 					try {
-						Game.placeInArray(getX(), getY(),(DragComponent)e.getSource());
+						Game.placeInArray(getX(), getY(),(DragComponent)e.getSource(), thisQuad);
 					}
 					catch (NullPointerException e1) {
 						

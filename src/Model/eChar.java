@@ -11,8 +11,8 @@ public enum eChar {
 	//x24
 	
 	BAMBOO("BAMB", true, false, false), BLAZINGSTAR("BLAZ", false, false, false), BLACKEYEDSUSAN("BEYS", false, false, false), BLANK("NONE", false, false, false), BCRAB("BCRB", false, false, true),
-	DNREC("DNREC", false, false, false),FISHERMAN("FMAN", true, true, true), HCRAB("HCRB", false, true, true), MCRAB("MCRB", true, false, true), PHRAG("PHRG",true, false, false),
-	RESEARCHER("(RH)", false, false, false), STEWARD("(ST)",false,false,false), VOLUNTEER("(VL)",false,false, false), ZEBRA("ZEBR",true,true,true),
+	DNREC("DNREC", false, false, false),FISHERMAN("FMAN", true, true, false), HCRAB("HCRB", false, true, true), MCRAB("MCRB", true, false, true), PHRAG("PHRG",true, false, false),
+	RESEARCHER("(RH)", false, false, false), STEWARD("(ST)",false,false,false), VOLUNTEER("(VL)",false,false, false), ZEBRA("ZEBR",true,true,false),
 	CITY("CITY",false,false, false), NOTHING("noth",false,false,false), TRASH("TRASH", false, false,false), WETRESEARCHER("WRH", false, true, false), WETSTEWARD("WST", false, true, false), WETVOLUNTEER("WVL", false, true, false),
 	WETHCRAB("WHC", true, true, true), WETMCRAB("WMC", true, true, true), WETBCRAB("WBC", true, true, true), WATER("WAT", false, true, false);
 	
@@ -21,10 +21,10 @@ public enum eChar {
 	private int yLoc;
 	private boolean invasive;
 	private boolean wet;
-	private boolean animal;
+	private boolean animated;
 	
-	public boolean isAnimal() {
-		return animal;
+	public boolean isAnimated() {
+		return animated;
 	}
 
 
@@ -73,11 +73,11 @@ public enum eChar {
 	 * @param val
 	 */
 	
-	eChar(String val, boolean invasive, boolean wet, boolean animal){
+	eChar(String val, boolean invasive, boolean wet, boolean animated){
 		this.testVal = val;
 		this.invasive = invasive;
 		this.wet = wet;
-		this.animal = animal;
+		this.animated = animated;
 	}
 	
 	/**

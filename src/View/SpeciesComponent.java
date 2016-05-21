@@ -104,7 +104,7 @@ public class SpeciesComponent extends JComponent {
 			break;
 		}
 
-		if (character.isAnimal()) {
+		if (character.isAnimated()) {
 			animate();
 		}
 	}
