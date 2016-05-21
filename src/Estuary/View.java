@@ -96,10 +96,17 @@ public class View{
 	ImageIcon topRImageIcon;
 	ImageIcon botLImageIcon;
 	Image botLImage;
+	Image botRImage;
+	Image topLImage;
+	Image botLImageHighlight;
+
 	ImageIcon botLImageIconHilight;
 	boolean mainMapHilighted;
 	ImageIcon botRImageIcon;
 	JLabel botLImageLabel;
+	JLabel botRImageLabel;
+	JLabel topLImageLabel;
+	JLabel topRImageLabel;
 	
 	ImageIcon DNERRLvl1Image;
 	ImageIcon DNERRLvl2Image;
@@ -141,7 +148,7 @@ public class View{
 	int height = ((int)screenSize.getHeight());
 	int width = (int)screenSize.getWidth();
 	Dimension topBarSize = new Dimension(width/4, 500);
-	Dimension quadSize = new Dimension(width/3, (height/3)-(height/20));
+	Dimension quadSize = new Dimension(width/3, (height/3));
 	Dimension mainSize = new Dimension(width, height);
 	Color hilightedColor = new Color(216,72,72, 100);
 	Color alphaLayer = new Color(0, 0, 0, 0);
@@ -190,7 +197,8 @@ public class View{
 		mainWindow = new JFrame();
 
 		mainPanel = new JPanel();
-		mainPanel.setLayout(new GridBagLayout());
+		mainPanel.setLayout(new GridLayout(3, 3));
+		mainPanel.setSize(mainSize);
 		mainWindow.setUndecorated(true);
 		mainWindow.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent windowEvent){
@@ -385,7 +393,12 @@ public class View{
 	 * Also creates the 'Main Menu' and 'Exit' buttons.
 	 */
 	public void loadMenu(){
+		botL.setSize(quadSize);
+		botR.setSize(quadSize);
+		topL.setSize(quadSize);
+		topR.setSize(quadSize);
 		layeringPanel = new JPanel(); //Main Layering Panel
+		layeringPanel.setSize(mainSize);
 		GridBagConstraints c = new GridBagConstraints();
 		
 		MouseAdapter addCompOnClick = new MouseAdapter(){
@@ -409,60 +422,7 @@ public class View{
 			}
 		};
 		
-		//Adding Hilighted Pane to Q1
-		hilightQ1 = new QuadPanel(eQuad.N);
-		hilightQ1.setPreferredSize(quadSize);
-		hilightQ1.setBackground(hilightedColor);
-		hilightQ1.setOpaque(false);
-		
-		c.fill = GridBagConstraints.NORTH;
-		c.gridx = 1;
-		c.gridy = 1;
-		
-		hilightQ1.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightQ1, c);
 
-		
-		//Adding Hilighted Pane to Q2
-		hilightQ2 = new QuadPanel(eQuad.E);
-		hilightQ2.setPreferredSize(quadSize);
-		hilightQ2.setBackground(hilightedColor);
-		hilightQ2.setOpaque(false);
-		
-		c.fill = GridBagConstraints.EAST;
-		c.gridx = 2;
-		c.gridy = 3;
-		
-		hilightQ2.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightQ2, c);
-		
-
-		//Adding Hilighted Pane to Q4
-		hilightQ4 = new QuadPanel(eQuad.W);
-		hilightQ4.setPreferredSize(quadSize);
-		hilightQ4.setBackground(hilightedColor);
-		hilightQ4.setOpaque(false);
-		
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 0;
-		c.gridy = 3;
-		
-		hilightQ4.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightQ4, c);
-		
-		
-		//Adding Hilighted Pane to Q3
-		hilightQ3 = new QuadPanel(eQuad.S);
-		hilightQ3.setPreferredSize(quadSize);
-		hilightQ3.setBackground(hilightedColor);
-		hilightQ3.setOpaque(false);
-		
-		c.fill = GridBagConstraints.SOUTH;
-		c.gridx = 1;
-		c.gridy = 4;
-		
-		hilightQ3.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightQ3, c);
 		
 
 		backgroundPanel = new BackgroundPanel(backgroundOverview1Image, width, height);
@@ -643,67 +603,74 @@ public class View{
 		
 		
 
-		//timeFrame.add(timeLabel);
 		timeFrame.add(scoreLabel);
 		topR.add(timeFrame);
 		
-		//topR.setLocation(15*(width/38), 2*(height/24));
 		
-		
-		topL.add(new JLabel(topLImageIcon));
+		Image scaledImage = topLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
+		topLImageLabel = new JLabel(new ImageIcon(scaledImage));
+		topL.add(topLImageLabel);
 		topL.setOpaque(false);
-		c.fill = GridBagConstraints.VERTICAL;
-		c.gridx = 0;
-		c.weightx = 1;
-		c.gridwidth = 2;
-		c.gridy = 0;
-		c.anchor = GridBagConstraints.NORTHWEST;
 		topL.setVisible(false);
-		mainPanel.add(topL, c);
+		mainPanel.add(topL);
 		
 		
-		botR.add(new JLabel(botRImageIcon));
-		botR.setOpaque(false);
-		c.fill = 0;
-		c.gridx = 2;
-		c.weightx = 0;
-		c.weighty = 5;
-		c.gridheight = 2;
-		c.gridy = 4;
-		c.anchor = GridBagConstraints.SOUTHEAST;
-		mainPanel.add(botR, c);
 		
 		
 
-		//stopR.add(new JLabel(topRImageIcon));
+		hilightQ1 = new QuadPanel(eQuad.N);
+		hilightQ1.setSize(quadSize);
+		hilightQ1.setBackground(hilightedColor);
+		hilightQ1.addMouseListener(switchQuadOnClick);
+		mainPanel.add(hilightQ1);
+
 		topR.setOpaque(false);
-		c.fill = 0;
-		c.gridx = 2;
-		c.weightx = 0;
-		c.weighty = 5;
-		c.gridheight = 2;
-		c.gridy = 0;
-		c.anchor = GridBagConstraints.NORTHEAST;
-		mainPanel.add(topR, c);
+		mainPanel.add(topR);
 		
-		//topR.add(timeFrame);
-		//topR.setLocation(15*(width/38), 2*(height/24));
+		//Adding Hilighted Pane to Q4
+				hilightQ4 = new QuadPanel(eQuad.W);
+				hilightQ4.setSize(quadSize);
+				hilightQ4.setBackground(hilightedColor);
+				hilightQ4.addMouseListener(switchQuadOnClick);
+				mainPanel.add(hilightQ4);
+		
+		
+		QuadPanel center = new QuadPanel(eQuad.MAIN);
+		center.setSize(quadSize);
+		center.setOpaque(false);
+		mainPanel.add(center);
+		//Adding Hilighted Pane to Q2
+		hilightQ2 = new QuadPanel(eQuad.E);
+		hilightQ2.setSize(quadSize);
+		hilightQ2.setBackground(hilightedColor);
+		hilightQ2.addMouseListener(switchQuadOnClick);
+		mainPanel.add(hilightQ2);
+		
 
-
-		Image scaledImage = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
-
-		botLImageLabel = new JLabel(new ImageIcon(scaledImage));
+		Image scaledImage2 = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
+		botLImageLabel = new JLabel(new ImageIcon(scaledImage2));
 		botL.add(botLImageLabel);
 		botL.setOpaque(false);
-		c.fill = 0;
-		c.gridx = 0;
-		c.weightx = 0;
-		c.weighty = 5;
-		c.gridheight = 2;
-		c.gridy = 4;
-		c.anchor = GridBagConstraints.SOUTHWEST;
 		botL.setVisible(false);
-		mainPanel.add(botL, c);
+		mainPanel.add(botL);
+
+		
+		
+		
+		//Adding Hilighted Pane to Q3
+		hilightQ3 = new QuadPanel(eQuad.S);
+		hilightQ3.setSize(quadSize);
+		hilightQ3.setBackground(hilightedColor);
+		hilightQ3.addMouseListener(switchQuadOnClick);
+		mainPanel.add(hilightQ3);
+		
+		
+		Image scaledImage3 = botRImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
+		botRImageLabel = new JLabel(new ImageIcon(scaledImage3));
+		botR.add(botRImageLabel);
+		botR.setOpaque(false);
+		mainPanel.add(botR);
+	
 
 		makeLayeredPane();
 	
@@ -811,7 +778,8 @@ public class View{
 
 		if(quad!=eQuad.MAIN){
 			hilightOff(quad);
-			botLImageLabel.setIcon(botLImageIcon);
+			Image scaledImage = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
+			botLImageLabel.setIcon(new ImageIcon(scaledImage));
 		}
 
 		switch(quad){
@@ -1094,8 +1062,10 @@ public class View{
 		topRImageIcon= new ImageIcon("imgs/TRCorner.png");
 		botLImageIcon= new ImageIcon("imgs/BLCorner.png");
 		botLImage= ImageIO.read(new File("imgs/BLCorner.png"));
+		botRImage= ImageIO.read(new File("imgs/BRCorner.png"));
+		topLImage = ImageIO.read(new File("imgs/TLCorner.png"));
 
-		botLImageIconHilight = new ImageIcon("imgs/BLCornerHilighted.png");
+		botLImageHighlight = ImageIO.read(new File("imgs/BLCornerHilighted.png"));
 		botRImageIcon= new ImageIcon("imgs/BRCorner.png");
 		
 		DNERRLvl1Image= new ImageIcon("imgs/level1.png");
@@ -1165,10 +1135,12 @@ public class View{
 	}
 	public void flashMainMap(){
 		if(mainMapHilighted){
-			botLImageLabel.setIcon(botLImageIcon);
+			Image scaledImage = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
+			botLImageLabel.setIcon(new ImageIcon(scaledImage));
 		}
 		else{
-			botLImageLabel.setIcon(botLImageIconHilight);
+			Image scaledImage = botLImageHighlight.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
+			botLImageLabel.setIcon(new ImageIcon(scaledImage));
 		}
 		mainMapHilighted = !mainMapHilighted;
 		botL.repaint();
