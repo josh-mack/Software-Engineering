@@ -42,31 +42,31 @@ import javax.swing.OverlayLayout;
  */
 public class View{
 	ArrayList<JComponent> placedChars = new ArrayList<JComponent>();
-	ActionListener hilightListener = new ActionListener(){
+	ActionListener highlightListener = new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == hilightTimer1){
-				hilightQ1.hilight();
+			if(e.getSource() == highlightTimer1){
+				highlightQ1.highlight();
 			}
-			else if(e.getSource() == hilightTimer2){
-				hilightQ2.hilight();
+			else if(e.getSource() == highlightTimer2){
+				highlightQ2.highlight();
 			}
-			else if(e.getSource() == hilightTimer3){
-				hilightQ3.hilight();
+			else if(e.getSource() == highlightTimer3){
+				highlightQ3.highlight();
 			}
-			else if(e.getSource() == hilightTimer4){
-				hilightQ4.hilight();
+			else if(e.getSource() == highlightTimer4){
+				highlightQ4.highlight();
 			}
-			else if(e.getSource() == hilightMainTimer){
+			else if(e.getSource() == highlightMainTimer){
 				flashMainMap();
 			}
 	}};
 	
-	Timer hilightTimer1 = new Timer(500,hilightListener);
-	Timer hilightTimer2 = new Timer(500,hilightListener);
-	Timer hilightTimer3 = new Timer(500,hilightListener);
-	Timer hilightTimer4 = new Timer(500,hilightListener);
-	Timer hilightMainTimer = new Timer(500,hilightListener);
+	Timer highlightTimer1 = new Timer(500,highlightListener);
+	Timer highlightTimer2 = new Timer(500,highlightListener);
+	Timer highlightTimer3 = new Timer(500,highlightListener);
+	Timer highlightTimer4 = new Timer(500,highlightListener);
+	Timer highlightMainTimer = new Timer(500,highlightListener);
 
 	
 	//Pre-loaded Image Variables
@@ -100,8 +100,8 @@ public class View{
 	Image topLImage;
 	Image botLImageHighlight;
 
-	ImageIcon botLImageIconHilight;
-	boolean mainMapHilighted;
+	ImageIcon botLImageIconhighlight;
+	boolean mainMaphighlighted;
 	ImageIcon botRImageIcon;
 	JLabel botLImageLabel;
 	JLabel botRImageLabel;
@@ -150,15 +150,15 @@ public class View{
 	Dimension topBarSize = new Dimension(width/4, 500);
 	Dimension quadSize = new Dimension(width/3, (height/3));
 	Dimension mainSize = new Dimension(width, height);
-	Color hilightedColor = new Color(216,72,72, 100);
+	Color highlightedColor = new Color(216,72,72, 100);
 	Color alphaLayer = new Color(0, 0, 0, 0);
 	
 	eQuad currentQuad = eQuad.MAIN;
 	
-	QuadPanel hilightQ1;
-	QuadPanel hilightQ2;
-	QuadPanel hilightQ3;
-	QuadPanel hilightQ4;
+	QuadPanel highlightQ1;
+	QuadPanel highlightQ2;
+	QuadPanel highlightQ3;
+	QuadPanel highlightQ4;
 	boolean charMenuOpen = false;
 	//private JLabel timeLabel;
 	private JLabel scoreLabel;
@@ -618,33 +618,33 @@ public class View{
 		
 		
 
-		hilightQ1 = new QuadPanel(eQuad.N);
-		hilightQ1.setSize(quadSize);
-		hilightQ1.setBackground(hilightedColor);
-		hilightQ1.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightQ1);
+		highlightQ1 = new QuadPanel(eQuad.N);
+		highlightQ1.setSize(quadSize);
+		highlightQ1.setBackground(highlightedColor);
+		highlightQ1.addMouseListener(switchQuadOnClick);
+		mainPanel.add(highlightQ1);
 
 		topR.setOpaque(false);
 		mainPanel.add(topR);
 		
-		//Adding Hilighted Pane to Q4
-				hilightQ4 = new QuadPanel(eQuad.W);
-				hilightQ4.setSize(quadSize);
-				hilightQ4.setBackground(hilightedColor);
-				hilightQ4.addMouseListener(switchQuadOnClick);
-				mainPanel.add(hilightQ4);
+		//Adding highlighted Pane to Q4
+				highlightQ4 = new QuadPanel(eQuad.W);
+				highlightQ4.setSize(quadSize);
+				highlightQ4.setBackground(highlightedColor);
+				highlightQ4.addMouseListener(switchQuadOnClick);
+				mainPanel.add(highlightQ4);
 		
 		
 		QuadPanel center = new QuadPanel(eQuad.MAIN);
 		center.setSize(quadSize);
 		center.setOpaque(false);
 		mainPanel.add(center);
-		//Adding Hilighted Pane to Q2
-		hilightQ2 = new QuadPanel(eQuad.E);
-		hilightQ2.setSize(quadSize);
-		hilightQ2.setBackground(hilightedColor);
-		hilightQ2.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightQ2);
+		//Adding highlighted Pane to Q2
+		highlightQ2 = new QuadPanel(eQuad.E);
+		highlightQ2.setSize(quadSize);
+		highlightQ2.setBackground(highlightedColor);
+		highlightQ2.addMouseListener(switchQuadOnClick);
+		mainPanel.add(highlightQ2);
 		
 
 		Image scaledImage2 = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
@@ -657,12 +657,12 @@ public class View{
 		
 		
 		
-		//Adding Hilighted Pane to Q3
-		hilightQ3 = new QuadPanel(eQuad.S);
-		hilightQ3.setSize(quadSize);
-		hilightQ3.setBackground(hilightedColor);
-		hilightQ3.addMouseListener(switchQuadOnClick);
-		mainPanel.add(hilightQ3);
+		//Adding highlighted Pane to Q3
+		highlightQ3 = new QuadPanel(eQuad.S);
+		highlightQ3.setSize(quadSize);
+		highlightQ3.setBackground(highlightedColor);
+		highlightQ3.addMouseListener(switchQuadOnClick);
+		mainPanel.add(highlightQ3);
 		
 		
 		Image scaledImage3 = botRImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
@@ -697,70 +697,70 @@ public class View{
 	 * @param sel
 	 * @param main
 	 */
-	public void hilightOff(eQuad quad){
+	public void highlightOff(eQuad quad){
 		switch(quad){
 		case N:
-			hilightTimer1.stop();
-			hilightQ1.hilightOff();
+			highlightTimer1.stop();
+			highlightQ1.highlightOff();
 			break;
 		case E:
-			hilightTimer2.stop();
-			hilightQ2.hilightOff();
+			highlightTimer2.stop();
+			highlightQ2.highlightOff();
 			break;
 		case S:
-			hilightTimer3.stop();
-			hilightQ3.hilightOff();
+			highlightTimer3.stop();
+			highlightQ3.highlightOff();
 			break;
 		case W:
-			hilightTimer4.stop();
-			hilightQ4.hilightOff();
+			highlightTimer4.stop();
+			highlightQ4.highlightOff();
 			break;
 		default:
 			break;
 		}
 	}
-	public void pauseHilight(){
-			hilightTimer1.stop();
-			hilightTimer2.stop();
-			hilightTimer3.stop();
-			hilightTimer4.stop();
-			hilightQ1.setOpaque(false);
-			hilightQ2.setOpaque(false);
-			hilightQ3.setOpaque(false);
-			hilightQ4.setOpaque(false);
+	public void pausehighlight(){
+			highlightTimer1.stop();
+			highlightTimer2.stop();
+			highlightTimer3.stop();
+			highlightTimer4.stop();
+			highlightQ1.setOpaque(false);
+			highlightQ2.setOpaque(false);
+			highlightQ3.setOpaque(false);
+			highlightQ4.setOpaque(false);
 
 	}
-	public void resumeHilight(){
-		if(hilightQ1.checkHilight())
-			hilightTimer1.start();
-		else if(hilightQ2.checkHilight())
-			hilightTimer2.start();
-		else if(hilightQ3.checkHilight())
-			hilightTimer3.start();
-		else if(hilightQ4.checkHilight())
-			hilightTimer4.start();
+	public void resumeHighlight(){
+		if(highlightQ1.checkHighlight())
+			highlightTimer1.start();
+		else if(highlightQ2.checkHighlight())
+			highlightTimer2.start();
+		else if(highlightQ3.checkHighlight())
+			highlightTimer3.start();
+		else if(highlightQ4.checkHighlight())
+			highlightTimer4.start();
 	}
 	
-	public void hilightOn(eQuad quad){
-		hilightMainTimer.start();
+	public void highlightOn(eQuad quad){
+		highlightMainTimer.start();
 		switch(quad){
 		case N:
-			hilightQ1.hilightOn();
+			highlightQ1.highlightOn();
 			break;
 		case E:
-			hilightQ2.hilightOn();
+			highlightQ2.highlightOn();
 			break;
 		case S:
-			hilightQ3.hilightOn();
+			highlightQ3.highlightOn();
 			break;
 		case W:
-			hilightQ4.hilightOn();
+			highlightQ4.highlightOn();
 			break;
 		default:
 			break;
 		}
 		if(currentQuad == eQuad.MAIN)
-			resumeHilight();
+			resumeHighlight();
 	}
 	
 	/**
@@ -774,10 +774,10 @@ public class View{
 			//Don't listen in quadrants
 			return;
 		}
-		pauseHilight();
+		pausehighlight();
 
 		if(quad!=eQuad.MAIN){
-			hilightOff(quad);
+			highlightOff(quad);
 			Image scaledImage = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
 			botLImageLabel.setIcon(new ImageIcon(scaledImage));
 		}
@@ -785,8 +785,8 @@ public class View{
 		switch(quad){
 			case MAIN:
 				
-				hilightMainTimer.stop();
-				resumeHilight();
+				highlightMainTimer.stop();
+				resumeHighlight();
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, false);	
 				inQuad = false;
 				currentQuad = quad;
@@ -1065,7 +1065,7 @@ public class View{
 		botRImage= ImageIO.read(new File("imgs/BRCorner.png"));
 		topLImage = ImageIO.read(new File("imgs/TLCorner.png"));
 
-		botLImageHighlight = ImageIO.read(new File("imgs/BLCornerHilighted.png"));
+		botLImageHighlight = ImageIO.read(new File("imgs/BLCornerhighlighted.png"));
 		botRImageIcon= new ImageIcon("imgs/BRCorner.png");
 		
 		DNERRLvl1Image= new ImageIcon("imgs/level1.png");
@@ -1091,7 +1091,8 @@ public class View{
 
 		trash = new ImageIcon("imgs/recycle_open.png");
 		}catch(IOException e){
-			System.out.println("Error: Some images weren't found");
+			//System.out.println("Error: Some images weren't found");
+			e.printStackTrace();
 		}
 	}
 	
@@ -1134,7 +1135,7 @@ public class View{
 		dnerrImage = (level == 2)?DNERRLvl2Image:DNERRLvl2Image;
 	}
 	public void flashMainMap(){
-		if(mainMapHilighted){
+		if(mainMaphighlighted){
 			Image scaledImage = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
 			botLImageLabel.setIcon(new ImageIcon(scaledImage));
 		}
@@ -1142,7 +1143,7 @@ public class View{
 			Image scaledImage = botLImageHighlight.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
 			botLImageLabel.setIcon(new ImageIcon(scaledImage));
 		}
-		mainMapHilighted = !mainMapHilighted;
+		mainMaphighlighted = !mainMaphighlighted;
 		botL.repaint();
 	}
 	
