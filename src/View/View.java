@@ -157,7 +157,7 @@ public class View{
 	Dimension quadSize = new Dimension(width/3, (height/3));
 	Dimension mainSize = new Dimension(width, height);
 	Color highlightedColor = new Color(216,72,72, 100);
-	Color alphaLayer = new Color(0, 0, 0, 0);
+	Color alphaLayer = new Color(0, 0, 0, 1);
 	
 	eQuad currentQuad = eQuad.MAIN;
 	
@@ -433,34 +433,6 @@ public class View{
 
 		backgroundPanel = new BackgroundPanel(backgroundOverview1Image, width, height);
 
-		
-		
-		////////////////////////////////////////////////////////
-		////////////////////////////////////////////OLD CODE
-		//timeLabel = new JLabel("TIME: 0:00", JLabel.CENTER);
-		scoreLabel = new JLabel("ESTUARY POINTS: 200", JLabel.CENTER);
-//		
-//		Font labelFont = scoreLabel.getFont();
-//		String labelText = scoreLabel.getText();
-//
-//		int stringWidth = scoreLabel.getFontMetrics(labelFont).stringWidth(labelText);
-//		int componentWidth = scoreLabel.getWidth();
-//
-//		// Find out how much the font can grow in width.
-//		double widthRatio = (double)componentWidth / (double)stringWidth;
-//
-//		int newFontSize = (int)(labelFont.getSize() * widthRatio);
-//		int componentHeight = scoreLabel.getHeight();
-//
-//		// Pick a new font size so it will not be larger than the height of label.
-//		int fontSizeToUse = Math.min(newFontSize, componentHeight);
-//
-//		// Set the label's font size to the newly determined size.
-//		scoreLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
-//		
-		
-		
-		
 		
 		charSel = new JFrame();
 		charSel.setUndecorated(true);
@@ -1263,6 +1235,7 @@ public class View{
 			howTo4.setOpaque(false);
 
 			howToFrame.setUndecorated(true);
+			howToFrame.setOpacity(1.0f);
 			howToFrame.setBackground(alphaLayer);
 			howToFrame.setSize(size);
 			howToFrame.setVisible(true);
