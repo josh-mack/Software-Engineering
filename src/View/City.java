@@ -33,8 +33,7 @@ public class City extends JComponent implements Serializable{
 	private eQuad whatQuad;
 	
 	/**
-	 * Constructor for DNERR. Sets the position of the object to
-	 * [10][3] in the game board. This object acts as a game modifier,
+	 * Constructor for DNERR. This object acts as a game modifier,
 	 * in benefit for the player to accomplish the game's goal.
 	 * @param thisQuad - 
 	 */

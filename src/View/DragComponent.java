@@ -26,7 +26,10 @@ public class DragComponent extends JComponent {
 	private int oldi , oldj;
 	private boolean canDrag;
 	
-	
+	/**
+	 * Getters and setters.
+	 * @return
+	 */
 	public int getXOnScreen() {
 		return XOnScreen;
 	}

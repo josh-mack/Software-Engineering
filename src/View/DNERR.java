@@ -51,9 +51,11 @@ public class DNERR extends JComponent implements Serializable
 	private eQuad whatQuad;
 	
 	/**
-	 * Constructor for DNERR. Sets the position of the object to
-	 * [10][3] in the game board. This object acts as a game modifier,
+	 * Constructor for DNERR. This object acts as a game modifier,
 	 * in benefit for the player to accomplish the game's goal.
+	 * 
+	 * A menu pops up when the image is clicked. You can upgrade
+	 * the building or buy a powerup.
 	 * @param thisQuad - 
 	 */
 	
@@ -167,9 +169,6 @@ public class DNERR extends JComponent implements Serializable
 			}
 			
 		};
-		
-		
-		
 		
 		
 		dnerrPanel.setLayout(new GridBagLayout());

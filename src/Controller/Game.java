@@ -35,6 +35,11 @@ public class Game {
 	public static Environment mainEnviro = new Environment();
 
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	/**
+	 * Set of methods to determine/set whether the fisherman is overfishing.
+	 * @return
+	 */
 	public static boolean isFishFlag() {
 		return fishFlag;
 	}
@@ -42,6 +47,8 @@ public class Game {
 	public static void setFishFlag(boolean fishFlag) {
 		Game.fishFlag = fishFlag;
 	}
+	
+	
 	static int height = ((int)screenSize.getHeight())/24;
 	static int width = (int)screenSize.getWidth()/38;
 	
@@ -67,6 +74,8 @@ public class Game {
 	/**
 	 * Main method that starts the game's timer and initial starting money,
 	 * and calls the makeEvent() method to initiate the game's primary problem mechanic.
+	 * 
+	 * Hard-coded array of eChars to map placeable elements in the game.
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -145,7 +154,9 @@ public class Game {
 	}
 	
 	/**
-	 * 
+	 * Timers used to direct spawn rates of Invasive species, depending 
+	 * on the health of the estuary. The higher the health percentage
+	 * (30%, 60%, 80%), the faster the Invasive spawn rate.
 	 */
 	public static void startTimers(){
 		ActionListener timerAction = new ActionListener(){
@@ -246,6 +257,14 @@ public class Game {
 		mainFrame.getScoreLabel().setText("ESTUARY POINTS: " + money);
 	}
 	
+	/**
+	 * Method updating the text for the character menu to reflect the current
+	 * amount available to the player.
+	 * @param mainFrame
+	 * @param numStewards
+	 * @param numResearchers
+	 * @param numVolunteers
+	 */
 	static void updateCharacters(View mainFrame, int numStewards, int numResearchers, int numVolunteers) {
 		mainFrame.getStewardLabel().setText("Stewards: " + numStewards);
 		mainFrame.getResearcherLabel().setText("Researchers: " + numResearchers);
@@ -254,7 +273,6 @@ public class Game {
 	/**
 	 * Method used to place each species (when needed) onto the game's screen.
 	 * This is based on the quadrant the player is currently zoomed into.
-	 * Prints the eChar and location of the eChar placed in the console.
 	 * @param pane
 	 * @param quad
 	 */
@@ -388,18 +406,40 @@ public class Game {
 		System.out.println("\n------------------------Pane Drawn------------------------");
 	}
 	
+	/**
+	 * Removes a draggable component.
+	 * @param toRemove
+	 */
 	public static void removeComponent(JComponent toRemove) {
 		gameFrame.removeComp(toRemove);
 	}
 	
+	/**
+	 * Removes a species at the specified array location.
+	 * @param i
+	 * @param j
+	 */
 	public static void deleteComponentAt(int i, int j) {
 		gameFrame.removeSpecies(i, j);
 	}
 	
+	/**
+	 * Creates a new species to place in the game array.
+	 * @param x
+	 * @param y
+	 */
 	public static void placeComp(int x, int y) {
 		gameFrame.placeComp(new SpeciesComponent(gameFrame.getQuadrant(), board[y][x], x%38*width, y%24*height));
 	}
 	
+	/**
+	 * Method to place the image of the DNERR building.
+	 * Used when the building is upgraded during the game.
+	 * Purpose is to change the picture of the DNERR according
+	 * to it's current level.
+	 * @param x
+	 * @param y
+	 */
 	public static void replaceDNERR(int x, int y) {
 		gameFrame.removeComp(dnerrComp);
 		dnerrComp = new DNERR(x,y, dnrecLevel);
@@ -407,6 +447,12 @@ public class Game {
 		gameFrame.changeOverview(dnrecLevel);
 	}
 	
+	/**
+	 * Method to replace the fisherman image when
+	 * it's even happens.
+	 * @param x
+	 * @param y
+	 */
 	public static void replaceFisherman(int x, int y)
 	{
 		gameFrame.removeComp(fishComp);
@@ -419,7 +465,11 @@ public class Game {
 		}
 
 	}
-
+	
+	/**
+	 * Refreshes the game's state to reload/repaint
+	 * its images.
+	 */
 	public static void refresh(){
 		gameFrame.getMainWindow().getLayeredPane().revalidate();
 		gameFrame.getMainWindow().getLayeredPane().repaint();
@@ -429,6 +479,13 @@ public class Game {
 
 	}
 	
+	/**
+	 * Method to decrease native species if there are too many
+	 * invasive species on the board. Also reduces health.
+	 * @param numInvasives
+	 * @param numNatives
+	 * @return
+	 */
 	public static int updateNatives(int numInvasives, int numNatives) {
 		if (numInvasives > numNatives + 5){
 			for (int i = 0; i < gameFrame.getPlacedChars().size(); i++) {
@@ -446,6 +503,11 @@ public class Game {
 		return 0;
 	}
 	
+	/**
+	 * Method to check win/lose conditions.
+	 * Also gives the player a second chance if their health
+	 * goes below 5% the first time.
+	 */
 	public static void checkProgress()
 	{
 		if(mainEnviro.getHealth() < 5 && secondChance)
@@ -461,6 +523,11 @@ public class Game {
 			Game.gameFrame.endScreen();
 	}
 	
+	/**
+	 * Instakill power up. Removes the number of invasives on the 
+	 * board by 1.
+	 * @return
+	 */
 	public static int instakill() {
 		for (int i = 0; i < gameFrame.getPlacedChars().size(); i++) {
 			if (gameFrame.getPlacedChars().get(i) instanceof SpeciesComponent) {
@@ -777,9 +844,14 @@ public class Game {
 		return gameFrame.getImage(character);
 	}
 	
-	
-
-	
+	/**
+	 * Method to check collisions between a DragComponent
+	 * and an object on the board. Calls resolve methods.
+	 * @param x
+	 * @param y
+	 * @param drag1
+	 * @return
+	 */
 	public static boolean collision(int x, int y, DragComponent drag1) {
 		boolean alreadyBeingResolved = false;
 		int a = y/24;
@@ -954,6 +1026,11 @@ public class Game {
 		return false;
 	}
 
+	
+	/**
+	 * Getters and setters.
+	 * @return
+	 */
 	public static View getGameFrame() {
 		return gameFrame;
 	}

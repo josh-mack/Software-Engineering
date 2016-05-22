@@ -19,10 +19,13 @@ import javax.swing.Timer;
 import Controller.Game;
 import Model.eChar;
 import Model.eQuad;
-
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Handles the Fisherman object, its event, and resolve.
+ */
 public class Fisherman extends JComponent implements Serializable{
-
-
 
 	private static final long serialVersionUID = 600;
 	int x;
@@ -35,6 +38,9 @@ public class Fisherman extends JComponent implements Serializable{
 	@SuppressWarnings("unused")
 	private eQuad whatQuad;
 	
+	/**
+	 * Getters and setters.
+	 */
 	public int getX()
 	{
 		return x;
@@ -55,7 +61,12 @@ public class Fisherman extends JComponent implements Serializable{
 		this.y = y;
 	}
 
-	
+	/**
+	 * Constructor for Fisherman class. Places Fisherman
+	 * on the board.
+	 * @param x
+	 * @param y
+	 */
 	public Fisherman(int x, int y)
 	{
 		ImageIcon image = View.getFishImage(Game.isFishFlag());
@@ -74,6 +85,9 @@ public class Fisherman extends JComponent implements Serializable{
 		
 	}
 	
+	/**
+	 * Method handles the activation of the Fisherman event.
+	 */
 	public void boatsEvent()
 	{
 		Game.setFishFlag(false);
@@ -81,6 +95,14 @@ public class Fisherman extends JComponent implements Serializable{
 		Game.replaceFisherman(x,y);
 	}
 	
+	/**
+	 * Resolves method for the Fisherman. Adds money and sets
+	 * Fisherman back to its default.
+	 * @param character2
+	 * @param i
+	 * @param j
+	 * @param drag
+	 */
 	public void boatsResolve(eChar character2, int i, int j, DragComponent drag)
 	{
 		

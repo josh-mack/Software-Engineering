@@ -13,17 +13,24 @@ import Model.eChar;
  */
 
 public class CharLabel extends JLabel{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private eChar type;
+	
+	/**
+	 * Constructor. Each label has an eChar and a corresponding
+	 * image to go with that label.
+	 * @param img
+	 * @param type
+	 */
 	CharLabel(ImageIcon img, eChar type){
 		super(img);
 		this.type = type;
 	}
 	
-	
+	/**
+	 * Getter.
+	 * @return
+	 */
 	public eChar getType(){
 		return this.type;
 	}

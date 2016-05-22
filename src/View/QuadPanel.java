@@ -11,9 +11,6 @@ import Model.eQuad;
  * Handles the location storage of the quadrants.
  */
 public class QuadPanel extends JPanel {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	eQuad loc;
 	boolean highlighted;   //is this currently being highlighted?
@@ -34,6 +31,10 @@ public class QuadPanel extends JPanel {
 		this.getRootPane().repaint();
 
 	}
+	
+	/**
+	 * Methods to regulate the highlighting mechanic.
+	 */
 	public void highlightOn(){
 		this.highlighted = true;
 	}

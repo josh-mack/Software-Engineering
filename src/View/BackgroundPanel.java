@@ -6,7 +6,8 @@ import javax.swing.JPanel;
 
 public class BackgroundPanel extends JPanel{
 	/**
-	 * 
+	 * Main background panels.
+	 * Used for end screen, loadMenu, and start screen.
 	 */
 	private static final long serialVersionUID = 1L;
 	BufferedImage image;

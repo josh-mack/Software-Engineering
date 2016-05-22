@@ -35,6 +35,11 @@ public class Environment implements Serializable{
 	private int numSpawn;
 	private int counter = 0;
 	
+	/**
+	 * Getters and setters for the number of 
+	 * invasive species on the board.
+	 * @return
+	 */
 	public int getNumInvasive() {
 		return numInvasive;
 	}
@@ -96,8 +101,11 @@ public class Environment implements Serializable{
 	}
 	
 	/**
-	 * Method used to remove an event from the front of the queue.
+	 * Method used to remove an event from the board.
 	 * This is called when an event is supposed to be completed.
+	 * 
+	 * Also handles how many native species are spawned after 
+	 * the event is resolved.
 	 */
 	public void resolveInvasive(eChar character, int i, int j, DragComponent drag, SpeciesComponent invasiveSpecies) {
 		if (character == eChar.RESEARCHER) {

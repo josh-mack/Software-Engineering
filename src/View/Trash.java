@@ -16,10 +16,14 @@ import javax.swing.JLabel;
 import Controller.Game;
 import Model.eChar;
 import Model.eQuad;
-
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Handles the trash bin, which is actually a recycling bin.
+ * Used to return characters to the character pool when desired.
+ */
 public class Trash extends JComponent implements Serializable{
-
-
 
 	private static final long serialVersionUID = 600;
 	int x;
@@ -32,8 +36,11 @@ public class Trash extends JComponent implements Serializable{
 	@SuppressWarnings("unused")
 	private eQuad whatQuad;
 	
-
-	
+	/**
+	 * Constructor for the trash. Sets the location.
+	 * @param x
+	 * @param y
+	 */
 	public Trash(int x, int y)
 	{
 		this.x = x;
@@ -81,11 +88,11 @@ public class Trash extends JComponent implements Serializable{
 	 * @return Trash object
 	 */
 	public static Object deserialize(String fileName) {
-		DNERR obj = null ;
+		Trash obj = null ;
 		try {	
 			FileInputStream fis = new FileInputStream(fileName);
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			obj = (DNERR)ois.readObject();
+			obj = (Trash)ois.readObject();
 			ois.close();
 		}
 		catch(IOException e) {

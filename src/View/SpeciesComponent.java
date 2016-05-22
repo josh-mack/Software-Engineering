@@ -23,9 +23,6 @@ import Model.eQuad;
  * Handles the creation of a species on the board.
  */
 public class SpeciesComponent extends JComponent {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private MouseListener pressListener;
@@ -35,6 +32,10 @@ public class SpeciesComponent extends JComponent {
 	
 	private boolean beingResolved;
 	
+	/**
+	 * Resolution helper functions.
+	 * @return
+	 */
 	public boolean isBeingResolved() {
 		return beingResolved;
 	}
@@ -109,6 +110,10 @@ public class SpeciesComponent extends JComponent {
 		}
 	}
 	
+	/**
+	 * Adjusts the position of images by a small amount
+	 * every 500 ticks.
+	 */
 	void animate() {
 		ActionListener moveTimer = new ActionListener() {
 			Random rand = new Random();
@@ -122,6 +127,10 @@ public class SpeciesComponent extends JComponent {
 		new Timer(500, moveTimer).start();
 	}
 
+	/**
+	 * Getters and setters.
+	 * @return
+	 */
 	public int getI() {
 		return i;
 	}
