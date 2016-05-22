@@ -5,7 +5,9 @@ import Controller.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -101,6 +103,7 @@ public class View{
 	Image botLImage;
 	Image botRImage;
 	Image topLImage;
+	Image topRImage;
 	Image botLImageHighlight;
 
 	ImageIcon botLImageIconhighlight;
@@ -436,6 +439,25 @@ public class View{
 		////////////////////////////////////////////OLD CODE
 		//timeLabel = new JLabel("TIME: 0:00", JLabel.CENTER);
 		scoreLabel = new JLabel("ESTUARY POINTS: 200", JLabel.CENTER);
+//		
+//		Font labelFont = scoreLabel.getFont();
+//		String labelText = scoreLabel.getText();
+//
+//		int stringWidth = scoreLabel.getFontMetrics(labelFont).stringWidth(labelText);
+//		int componentWidth = scoreLabel.getWidth();
+//
+//		// Find out how much the font can grow in width.
+//		double widthRatio = (double)componentWidth / (double)stringWidth;
+//
+//		int newFontSize = (int)(labelFont.getSize() * widthRatio);
+//		int componentHeight = scoreLabel.getHeight();
+//
+//		// Pick a new font size so it will not be larger than the height of label.
+//		int fontSizeToUse = Math.min(newFontSize, componentHeight);
+//
+//		// Set the label's font size to the newly determined size.
+//		scoreLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+//		
 		
 		
 		
@@ -531,11 +553,8 @@ public class View{
 		
 		
 		JPanel timeFrame = new JPanel();
-		timeFrame.setBackground(Color.WHITE);
 		//timeLabel.setForeground(Color.white);
-		scoreLabel.setForeground(Color.BLACK);
-		timeFrame.setSize(width/5, height/10);
-		
+
 		
 		
 		botR.addMouseListener(new MouseListener(){
@@ -607,8 +626,21 @@ public class View{
 		
 
 		timeFrame.add(scoreLabel);
+		topR.setLayout(new OverlayLayout(topR));
+
+		Image scaledImage4 = topRImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
+		topRImageLabel = new JLabel(new ImageIcon(scaledImage4));
+		topR.setOpaque(false);
+		timeFrame.setVisible(true);
+		timeFrame.setOpaque(false);
+		topR.setVisible(true);
 		topR.add(timeFrame);
-		
+
+		timeFrame.setAlignmentX(Component.CENTER_ALIGNMENT);
+		timeFrame.setAlignmentY(Component.CENTER_ALIGNMENT);
+		topR.add(topRImageLabel);
+
+
 		
 		Image scaledImage = topLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
 		topLImageLabel = new JLabel(new ImageIcon(scaledImage));
@@ -625,29 +657,35 @@ public class View{
 		highlightQ1.setSize(quadSize);
 		highlightQ1.setBackground(highlightedColor);
 		highlightQ1.addMouseListener(switchQuadOnClick);
+		highlightQ1.setOpaque(false);
 		mainPanel.add(highlightQ1);
 
 		topR.setOpaque(false);
 		mainPanel.add(topR);
 		
-		//Adding highlighted Pane to Q4
-				highlightQ4 = new QuadPanel(eQuad.W);
-				highlightQ4.setSize(quadSize);
-				highlightQ4.setBackground(highlightedColor);
-				highlightQ4.addMouseListener(switchQuadOnClick);
-				mainPanel.add(highlightQ4);
+		//Adding highlighted Pane to Q2
+		highlightQ2 = new QuadPanel(eQuad.W);
+		highlightQ2.setSize(quadSize);
+		highlightQ2.setBackground(highlightedColor);
+		highlightQ2.addMouseListener(switchQuadOnClick);
+		highlightQ2.setOpaque(false);
+
+		mainPanel.add(highlightQ2);
 		
 		
 		QuadPanel center = new QuadPanel(eQuad.MAIN);
 		center.setSize(quadSize);
 		center.setOpaque(false);
 		mainPanel.add(center);
-		//Adding highlighted Pane to Q2
-		highlightQ2 = new QuadPanel(eQuad.E);
-		highlightQ2.setSize(quadSize);
-		highlightQ2.setBackground(highlightedColor);
-		highlightQ2.addMouseListener(switchQuadOnClick);
-		mainPanel.add(highlightQ2);
+		
+		//Adding highlighted Pane to Q3
+		highlightQ3 = new QuadPanel(eQuad.E);
+		highlightQ3.setSize(quadSize);
+		highlightQ3.setBackground(highlightedColor);
+		highlightQ3.addMouseListener(switchQuadOnClick);
+		highlightQ3.setOpaque(false);
+
+		mainPanel.add(highlightQ3);
 		
 
 		Image scaledImage2 = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
@@ -656,16 +694,15 @@ public class View{
 		botL.setOpaque(false);
 		botL.setVisible(false);
 		mainPanel.add(botL);
+		
+		//Adding highlighted Pane to Q4
+		highlightQ4 = new QuadPanel(eQuad.S);
+		highlightQ4.setSize(quadSize);
+		highlightQ4.setBackground(highlightedColor);
+		highlightQ4.addMouseListener(switchQuadOnClick);
+		highlightQ4.setOpaque(false);
 
-		
-		
-		
-		//Adding highlighted Pane to Q3
-		highlightQ3 = new QuadPanel(eQuad.S);
-		highlightQ3.setSize(quadSize);
-		highlightQ3.setBackground(highlightedColor);
-		highlightQ3.addMouseListener(switchQuadOnClick);
-		mainPanel.add(highlightQ3);
+		mainPanel.add(highlightQ4);
 		
 		
 		Image scaledImage3 = botRImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
@@ -1067,6 +1104,8 @@ public class View{
 		botLImage= ImageIO.read(new File("imgs/BLCorner.png"));
 		botRImage= ImageIO.read(new File("imgs/BRCorner.png"));
 		topLImage = ImageIO.read(new File("imgs/TLCorner.png"));
+		topRImage = ImageIO.read(new File("imgs/TRCorner.png"));
+
 
 		botLImageHighlight = ImageIO.read(new File("imgs/BLCornerhighlighted.png"));
 		botRImageIcon= new ImageIcon("imgs/BRCorner.png");

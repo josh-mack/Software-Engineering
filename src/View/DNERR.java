@@ -128,7 +128,7 @@ public class DNERR extends JComponent implements Serializable
 
 		dnerr = new JFrame();
 		dnerr.setUndecorated(true);
-		dnerr.setSize(200,300);
+		dnerr.setSize(300,300);
 		JPanel dnerrPanel = new JPanel();
 		
 		MouseListener stayOn = new MouseListener(){
@@ -179,14 +179,14 @@ public class DNERR extends JComponent implements Serializable
 		c.gridy = 1;
 		c.weighty = 5;
 		JLabel info = new JLabel("<html><center>DNREC<br>1st Upgrade Cost: 1800 Estuary Points<br>2nd Upgrade Cost: 4000 Estuary Points</center></html>");
-		info.setSize(190, 100);
+		info.setSize(290, 100);
 		dnerrPanel.add(info,c);
 		
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weighty =.5;
 		bar = new JProgressBar(JProgressBar.HORIZONTAL);
-		bar.setSize(190,100);
+		bar.setSize(290,100);
 		dnerrPanel.add(bar, c);
 		
 		c.gridx = 0;
@@ -228,7 +228,7 @@ public class DNERR extends JComponent implements Serializable
 		dnerrPanel.add(upgrade,c);
 		dnerrPanel.addMouseListener(stayOn);
 		dnerr.add(dnerrPanel);
-		dnerr.setLocation(x+100, y-100);
+		dnerr.setLocation(x+100, y);
 		dnerr.setVisible(false);
 		dnerr.addMouseListener(stayOn);
 		
