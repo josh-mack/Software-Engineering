@@ -593,7 +593,8 @@ public class View{
 			}
 		});
 		
-		
+		scoreLabel = new JLabel("ESTUARY POINTS: 200", JLabel.CENTER);
+
 		
 		
 
