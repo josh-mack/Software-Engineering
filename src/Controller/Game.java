@@ -860,15 +860,32 @@ public class Game {
 	 * @return true/false
 	 */
 	
-	public static boolean placeInArray(int XCoord, int YCoord, DragComponent drag)
+	public static boolean placeInArray(int XCoord, int YCoord, DragComponent drag, eQuad quad)
 	{
 
-		int xinArray = XCoord/(width/38);
-		int yinArray = YCoord/(height/24);
-		int xQuadoffset = (xinArray/38)*38;
-		int yQuadoffset = (yinArray/24)*24;
-		int x = yinArray + yQuadoffset;
-		int y = xinArray + xQuadoffset;
+		int xinQuad = XCoord/width;
+		int yinQuad = YCoord/height;
+		int x = xinQuad;
+		int y = yinQuad;
+		switch (quad) {
+		case N:
+			x = xinQuad;
+			y = yinQuad;
+			break;
+		case E:
+			x = xinQuad + 38;
+			y = yinQuad;
+			break;
+		case W:
+			x = xinQuad;
+			y = yinQuad + 24;
+			break;
+		case S:
+			x = xinQuad + 38;
+			y = yinQuad + 24;
+		default:
+			break;
+		}
 
 		if ((Game.board[y][x] != eChar.BLANK) && (Game.board[y][x] != eChar.NOTHING) && (Game.board[y][x] != eChar.WATER)) {
 			for (int i = -1; i < 2; i++) {
