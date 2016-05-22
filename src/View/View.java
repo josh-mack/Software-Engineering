@@ -637,13 +637,13 @@ public class View{
 		mainPanel.add(topR);
 		
 		//Adding highlighted Pane to Q2
-		highlightQ2 = new QuadPanel(eQuad.W);
-		highlightQ2.setSize(quadSize);
-		highlightQ2.setBackground(highlightedColor);
-		highlightQ2.addMouseListener(switchQuadOnClick);
-		highlightQ2.setOpaque(false);
+		highlightQ4 = new QuadPanel(eQuad.W);
+		highlightQ4.setSize(quadSize);
+		highlightQ4.setBackground(highlightedColor);
+		highlightQ4.addMouseListener(switchQuadOnClick);
+		highlightQ4.setOpaque(false);
 
-		mainPanel.add(highlightQ2);
+		mainPanel.add(highlightQ4);
 		
 		
 		QuadPanel center = new QuadPanel(eQuad.MAIN);
@@ -652,13 +652,13 @@ public class View{
 		mainPanel.add(center);
 		
 		//Adding highlighted Pane to Q3
-		highlightQ3 = new QuadPanel(eQuad.E);
-		highlightQ3.setSize(quadSize);
-		highlightQ3.setBackground(highlightedColor);
-		highlightQ3.addMouseListener(switchQuadOnClick);
-		highlightQ3.setOpaque(false);
+		highlightQ2 = new QuadPanel(eQuad.E);
+		highlightQ2.setSize(quadSize);
+		highlightQ2.setBackground(highlightedColor);
+		highlightQ2.addMouseListener(switchQuadOnClick);
+		highlightQ2.setOpaque(false);
 
-		mainPanel.add(highlightQ3);
+		mainPanel.add(highlightQ2);
 		
 
 		Image scaledImage2 = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
@@ -669,13 +669,13 @@ public class View{
 		mainPanel.add(botL);
 		
 		//Adding highlighted Pane to Q4
-		highlightQ4 = new QuadPanel(eQuad.S);
-		highlightQ4.setSize(quadSize);
-		highlightQ4.setBackground(highlightedColor);
-		highlightQ4.addMouseListener(switchQuadOnClick);
-		highlightQ4.setOpaque(false);
+		highlightQ3 = new QuadPanel(eQuad.S);
+		highlightQ3.setSize(quadSize);
+		highlightQ3.setBackground(highlightedColor);
+		highlightQ3.addMouseListener(switchQuadOnClick);
+		highlightQ3.setOpaque(false);
 
-		mainPanel.add(highlightQ4);
+		mainPanel.add(highlightQ3);
 		
 		
 		Image scaledImage3 = botRImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);

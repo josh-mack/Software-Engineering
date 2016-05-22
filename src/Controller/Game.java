@@ -411,10 +411,12 @@ public class Game {
 	{
 		gameFrame.removeComp(fishComp);
 		fishComp = new Fisherman(x,y);
-		if (Game.gameFrame.getQuadrant() == eQuad.W) {
+		if (gameFrame.getQuadrant() == eQuad.W) {
 			gameFrame.placeComp(fishComp);
 		}
-		gameFrame.highlightOn(eQuad.W);
+		else{
+			gameFrame.highlightOn(eQuad.W);
+		}
 
 	}
 
@@ -524,9 +526,7 @@ public class Game {
 				place = eQuad.N;
 			}
 		}
-		if(quad != place){
-			gameFrame.highlightOn(place);
-		}
+		
 
 		int XCoord = height*(j%38);
 		int YCoord = width*(i%24);
@@ -605,7 +605,6 @@ public class Game {
 			}
 			break;
 		default:
-			break;
 		}
 		System.out.println("Making " + type + " in " + place);
 
@@ -616,9 +615,13 @@ public class Game {
 			SpeciesComponent invasiveAdded = new SpeciesComponent(place, type, XCoord, YCoord);
 			gameFrame.placeComp(invasiveAdded);
 		}
-		
+		if(quad != place){
+			System.out.println("Quad is " + quad + "Place is " + place);
+			gameFrame.highlightOn(place);
+		}
 		mainEnviro.setHealth(mainEnviro.getHealth() - 1);
 		mainEnviro.setNumInvasive(mainEnviro.getNumInvasive()+1);
+		
 		return 0;
 	}
 	
