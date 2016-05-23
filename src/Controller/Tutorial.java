@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -234,21 +235,26 @@ public class Tutorial extends Game
 	
 	public void howToPlay()
 	{
-		Dimension size = new Dimension(578,646);
+		
 		tutFrame = new JFrame();
 		tutPanel = new JPanel();
-		tutPanel.add(new JLabel("imgs/bubble1.png"));
+		ImageIcon bubble = new ImageIcon("imgs/bubble1.png");
+		int imgWidth = bubble.getIconWidth();
+		int imgHeight = bubble.getIconHeight();
+		
+		tutPanel.add(new JLabel(bubble));
+
 		//howTo1.addMouseListener(nextPageListener);
 		//tutLabel = new JLabel("Info How to Play");
-		//tutPanel.add(tutLabel);
-		tutPanel.setSize(size);
+		tutFrame.add(tutPanel);
+		tutPanel.setSize(imgWidth, imgHeight);
 		tutPanel.setOpaque(false);	
-		
+		tutFrame.setAlwaysOnTop(true);
 		tutFrame.setUndecorated(true);
 		tutFrame.setOpacity(1.0f);
-		//tutFrame.setBackground(alphaLayer);
-		tutFrame.setSize(size);
-		tutFrame.setLocation(steward.getLocation());
+		tutFrame.setBackground(View.alphaLayer);
+		tutFrame.setSize(imgWidth, imgHeight);
+		tutFrame.setLocation(steward.getX()+imgWidth/2, steward.getY()-imgHeight);
 		tutFrame.setVisible(true);
 		
 	}

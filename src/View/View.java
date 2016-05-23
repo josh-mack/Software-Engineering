@@ -161,7 +161,7 @@ public class View{
 	Dimension quadSize = new Dimension(width/3, (height/3));
 	Dimension mainSize = new Dimension(width, height);
 	Color highlightedColor = new Color(216,72,72, 100);
-	Color alphaLayer = new Color(0, 0, 0, 1);
+	public static Color alphaLayer = new Color(0, 0, 0, 1);
 	
 	private eQuad currentQuad = eQuad.MAIN;
 	
