@@ -323,50 +323,108 @@ public class Game {
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK && board[i][j]!=eChar.NOTHING){
 					DragComponent charPlace = null;
-					resolving = false;
-					draggable = true;
-					for (DragComponent dragged: resolvingPeople) {
-						if ((i == dragged.getOldi()) && (j == dragged.getOldj())) {
-							resolving = true;
-							draggable = false;
-						}
-					}
-					ImageIcon drawImage = gameFrame.getPersonImage(board[i][j], resolving);
+					ImageIcon drawImage = gameFrame.getImage(board[i][j]);
 					switch(board[i][j]) {
 					case STEWARD:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, draggable);
-							gameFrame.placeCompAtLayer(charPlace, -1);
+							resolving = false;
+							for (DragComponent dragged: resolvingPeople) {
+								if ((i == dragged.getOldi()) && (j == dragged.getOldj())) {
+									resolving = true;
+									charPlace = dragged;
+									gameFrame.placeCompAtLayer(charPlace, -1);
+								}
+							}
+							drawImage = gameFrame.getPersonImage(board[i][j], resolving);
+							if (resolving == false) {
+								charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, true);
+								gameFrame.placeCompAtLayer(charPlace, -1);
+							}
 						}
 						break;
 					case RESEARCHER:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j, draggable);
-							gameFrame.placeCompAtLayer(charPlace, -1);
+							resolving = false;
+							for (DragComponent dragged: resolvingPeople) {
+								if ((i == dragged.getOldi()) && (j == dragged.getOldj())) {
+									resolving = true;
+									charPlace = dragged;
+									gameFrame.placeCompAtLayer(charPlace, -1);
+								}
+							}
+							drawImage = gameFrame.getPersonImage(board[i][j], resolving);
+							if (resolving == false) {
+								charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, true);
+								gameFrame.placeCompAtLayer(charPlace, -1);
+							}
 						}
 						break;
 					case VOLUNTEER:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, draggable);
-							gameFrame.placeCompAtLayer(charPlace, -1);
+							resolving = false;
+							for (DragComponent dragged: resolvingPeople) {
+								if ((i == dragged.getOldi()) && (j == dragged.getOldj())) {
+									resolving = true;
+									charPlace = dragged;
+									gameFrame.placeCompAtLayer(charPlace, -1);
+								}
+							}
+							drawImage = gameFrame.getPersonImage(board[i][j], resolving);
+							if (resolving == false) {
+								charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, true);
+								gameFrame.placeCompAtLayer(charPlace, -1);
+							}
 						}
 						break;
 					case WETSTEWARD:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, draggable);
-							gameFrame.placeCompAtLayer(charPlace, -1);
+							resolving = false;
+							for (DragComponent dragged: resolvingPeople) {
+								if ((i == dragged.getOldi()) && (j == dragged.getOldj())) {
+									resolving = true;
+									charPlace = dragged;
+									gameFrame.placeCompAtLayer(charPlace, -1);
+								}
+							}
+							drawImage = gameFrame.getPersonImage(board[i][j], resolving);
+							if (resolving == false) {
+								charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, draggable);
+								gameFrame.placeCompAtLayer(charPlace, -1);
+							}
 						}
 						break;
 					case WETRESEARCHER:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j, draggable);
-							gameFrame.placeCompAtLayer(charPlace, -1);
+							resolving = false;
+							for (DragComponent dragged: resolvingPeople) {
+								if ((i == dragged.getOldi()) && (j == dragged.getOldj())) {
+									resolving = true;
+									charPlace = dragged;
+									gameFrame.placeCompAtLayer(charPlace, -1);
+								}
+							}
+							drawImage = gameFrame.getPersonImage(board[i][j], resolving);
+							if (resolving == false) {
+								charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, true);
+								gameFrame.placeCompAtLayer(charPlace, -1);
+							}
 						}
 						break;
 					case WETVOLUNTEER:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, draggable);
-							gameFrame.placeCompAtLayer(charPlace, -1);
+							resolving = false;
+							for (DragComponent dragged: resolvingPeople) {
+								if ((i == dragged.getOldi()) && (j == dragged.getOldj())) {
+									resolving = true;
+									charPlace = dragged;
+									gameFrame.placeCompAtLayer(charPlace, -1);
+								}
+							}
+							drawImage = gameFrame.getPersonImage(board[i][j], resolving);
+							if (resolving == false) {
+								charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, true);
+								gameFrame.placeCompAtLayer(charPlace, -1);
+							}
 						}
 						break;
 					case DNREC:
@@ -909,7 +967,7 @@ public class Game {
 								SpeciesComponent invasiveSpecies = new SpeciesComponent(whatQuad, Game.board[y+i][x+j], (x%38)*width, (y%24)*height);
 								resolvingSpecies.add(invasiveSpecies);
 								gameFrame.removeComp(drag1);
-								drag1 = new DragComponent(gameFrame.getPersonImage(drag1.getCharacter(), true), whatQuad, drag1.getCharacter(), drag1.getX(), drag1.getY(), y, x, false);
+								drag1 = new DragComponent(gameFrame.getPersonImage(drag1.getDryVersion(), true), whatQuad, drag1.getCharacter(), drag1.getX(), drag1.getY(), y, x, false);
 								//drag2.setDrag(false);
 								gameFrame.placeCompAtLayer(drag1, -1);
 								resolvingPeople.add(drag1);

@@ -242,7 +242,7 @@ public class View{
 		JPanel tutorialPanel = new JPanel();
 		
 		startPanel.setLayout(new BorderLayout());
-		startPanel.add(start,BorderLayout.SOUTH);
+		startPanel.add(start,BorderLayout.EAST);
 		startPanel.setOpaque(false);
 		
 		howToPanel.setLayout(new BorderLayout());
@@ -250,14 +250,14 @@ public class View{
 		howToPanel.setOpaque(false);
 		
 		tutorialPanel.setLayout(new BorderLayout());
-		tutorialPanel.add(tutorial,BorderLayout.EAST);
+		tutorialPanel.add(tutorial,BorderLayout.SOUTH);
 		tutorialPanel.setOpaque(false);
 		
 		
 		
 		overAll.add(startPanel);
 		overAll.add(howToPanel);
-	   // overAll.add(tutorialPanel);
+	    overAll.add(tutorialPanel);
 		overAll.add(startPanel);
 		overAll.add(titleBack);
 		
@@ -1007,12 +1007,11 @@ public class View{
 			mainWindow.getLayeredPane().remove(toRemove);
 			mainWindow.repaint();
 			mainWindow.revalidate();
-		}
-		else if (Game.removeFromResolvingPeople((DragComponent)toRemove)) {
-			mainWindow.getLayeredPane().remove(toRemove);
-			mainWindow.repaint();
-			mainWindow.revalidate();
-			System.out.println("hey)");
+			if (toRemove instanceof DragComponent) {
+				if (Game.getResolvingPeople().contains(toRemove)) {
+					Game.removeFromResolvingPeople((DragComponent)toRemove);
+				}
+			}
 		}
 	}
 	public void removeSpecies(int removeI, int removeJ){
@@ -1118,9 +1117,9 @@ public class View{
 		howToImage3 = new ImageIcon("imgs/howTo3.png");
 		howToImage4 = new ImageIcon("imgs/howTo4.png");
 		
-		resolvingSteward = new ImageIcon("imgs/x.png");
-		resolvingResearcher = new ImageIcon("imgs/x.png");
-		resolvingVolunteer = new ImageIcon("imgs/x.png");
+		resolvingSteward = new ImageIcon("imgs/stewardGreen.png");
+		resolvingResearcher = new ImageIcon("imgs/researcherGreen.png");
+		resolvingVolunteer = new ImageIcon("imgs/volunteerGreen.png");
 
 		trash = new ImageIcon("imgs/recycle_open.png");
 		}catch(IOException e){
