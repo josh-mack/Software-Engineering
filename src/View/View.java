@@ -94,6 +94,8 @@ public class View{
 	ImageIcon researcherImageIcon;
 	ImageIcon volunteerImageIcon;
 	
+	
+	ImageIcon exitImageIcon;
 	ImageIcon startButtonImageIcon;
 	ImageIcon howToImageIcon;
 	ImageIcon tutorialImageIcon;
@@ -245,14 +247,18 @@ public class View{
 		howToPanel.setOpaque(false);
 		
 		tutorialPanel.setLayout(new BorderLayout());
-		tutorialPanel.add(tutorial,BorderLayout.SOUTH);
+		tutorialPanel.add(tutorial,BorderLayout.CENTER);
 		tutorialPanel.setOpaque(false);
+		
+		
 		
 		overAll.add(startPanel);
 		overAll.add(howToPanel);
-		//overAll.add(tutorialPanel);
+	    overAll.add(tutorialPanel);
 		overAll.add(startPanel);
 		overAll.add(titleBack);
+		
+		
 		
 		start.addMouseListener(new MouseListener(){
 			@Override
@@ -330,7 +336,6 @@ public class View{
 				overAll.setVisible(false);
 				ifNotTutorial = false;
 				
-				
 			}
 
 			@Override
@@ -373,19 +378,17 @@ public class View{
 		overAll.setLayout(over);
 
 		BackgroundPanel endScreen = new BackgroundPanel(endImage, width+50, height);
+		overAll.add(endScreen);
+		
+		
 		
 		overAll.setSize(mainSize);
 		overAll.setVisible(true);
 		mainWindow.add(overAll);
 		mainWindow.setSize(mainSize);
 		mainWindow.setVisible(true);
-		
-		
-		overAll.setVisible(false);
-		loadMenu();
-		mainWindow.revalidate();
-		mainWindow.remove(overAll);
-		Game.startTimers();
+
+		mainWindow.remove(mainPanel);
 	}
 	
 	/**
@@ -405,7 +408,6 @@ public class View{
 		topR.setSize(quadSize);
 		layeringPanel = new JPanel(); //Main Layering Panel
 		layeringPanel.setSize(mainSize);
-		GridBagConstraints c = new GridBagConstraints();
 		
 		MouseAdapter addCompOnClick = new MouseAdapter(){
 			public void mouseEntered(MouseEvent me){
@@ -1065,6 +1067,7 @@ public class View{
 		backgroundSouthImage= ImageIO.read(new File("imgs/south.png"));
 		backgroundWestImage= ImageIO.read(new File("imgs/west.png"));
 		
+		exitImageIcon = new ImageIcon("imgs/exit.png");
 		startButtonImageIcon= new ImageIcon("imgs/start.png");
 		howToImageIcon = new ImageIcon("imgs/HowtoPlay.png");
 		tutorialImageIcon = new ImageIcon("imgs/TutorialButton.png");
