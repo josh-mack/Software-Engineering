@@ -26,8 +26,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.Timer;
 
+import javax.swing.Timer;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -81,7 +81,7 @@ public class View{
 	BufferedImage backgroundOverview2Image;
 	BufferedImage backgroundOverview3Image;
 	
-	BufferedImage backgroundNorthImage;
+	private BufferedImage backgroundNorthImage;
 	BufferedImage backgroundEastImage;
 	BufferedImage backgroundSouthImage;
 	BufferedImage backgroundWestImage;
@@ -94,8 +94,6 @@ public class View{
 	ImageIcon researcherImageIcon;
 	ImageIcon volunteerImageIcon;
 	
-	
-	ImageIcon exitImageIcon;
 	ImageIcon startButtonImageIcon;
 	ImageIcon howToImageIcon;
 	ImageIcon tutorialImageIcon;
@@ -132,6 +130,7 @@ public class View{
 	ImageIcon blackEyedSusanImage;
 	ImageIcon blazingStarImage;
 	ImageIcon phragmitesImage;
+	ImageIcon exitImageIcon;
 
 	ImageIcon trash;
 	static ImageIcon resolvingSteward;
@@ -149,7 +148,7 @@ public class View{
 	public JFrame mainWindow;
 	public JPanel layeringPanel;
 	JFrame charSel;
-	BackgroundPanel backgroundPanel;
+	private BackgroundPanel backgroundPanel;
 	
 	private JLabel stewardLabel;
 	private JLabel researcherLabel;
@@ -164,7 +163,7 @@ public class View{
 	Color highlightedColor = new Color(216,72,72, 100);
 	Color alphaLayer = new Color(0, 0, 0, 1);
 	
-	eQuad currentQuad = eQuad.MAIN;
+	private eQuad currentQuad = eQuad.MAIN;
 	
 	QuadPanel highlightQ1;
 	QuadPanel highlightQ2;
@@ -173,12 +172,12 @@ public class View{
 	boolean charMenuOpen = false;
 	//private JLabel timeLabel;
 	private JLabel scoreLabel;
-	boolean inQuad = false;
+	private boolean inQuad = false;
 	
 	
-	JPanel topL = new JPanel();   //Top Left Corner Panel
+	private JPanel topL = new JPanel();   //Top Left Corner Panel
 	JPanel topR = new JPanel();   //Top Right Corner Panel
-	JPanel botL = new JPanel();   //Bottom Left Corner Panel
+	private JPanel botL = new JPanel();   //Bottom Left Corner Panel
 	JPanel botR = new JPanel();   //Bottom Right Corner Panel
 	
 	int howToPage = 0;
@@ -196,6 +195,7 @@ public class View{
 	ImageIcon howToImage3;
 	ImageIcon howToImage4;
 	JPanel howToPanel;
+	ImageIcon tutHowTo;
 	
 	
 	/**
@@ -242,7 +242,7 @@ public class View{
 		JPanel tutorialPanel = new JPanel();
 		
 		startPanel.setLayout(new BorderLayout());
-		startPanel.add(start,BorderLayout.EAST);
+		startPanel.add(start,BorderLayout.SOUTH);
 		startPanel.setOpaque(false);
 		
 		howToPanel.setLayout(new BorderLayout());
@@ -250,18 +250,14 @@ public class View{
 		howToPanel.setOpaque(false);
 		
 		tutorialPanel.setLayout(new BorderLayout());
-		tutorialPanel.add(tutorial,BorderLayout.SOUTH);
+		tutorialPanel.add(tutorial,BorderLayout.EAST);
 		tutorialPanel.setOpaque(false);
-		
-		
 		
 		overAll.add(startPanel);
 		overAll.add(howToPanel);
-	    overAll.add(tutorialPanel);
+		overAll.add(tutorialPanel);
 		overAll.add(startPanel);
 		overAll.add(titleBack);
-		
-		
 		
 		start.addMouseListener(new MouseListener(){
 			@Override
@@ -339,6 +335,7 @@ public class View{
 				overAll.setVisible(false);
 				ifNotTutorial = false;
 				
+				
 			}
 
 			@Override
@@ -405,12 +402,13 @@ public class View{
 	 * Also creates the 'Main Menu' and 'Exit' buttons.
 	 */
 	public void loadMenu(){
-		botL.setSize(quadSize);
+		getBotL().setSize(quadSize);
 		botR.setSize(quadSize);
-		topL.setSize(quadSize);
+		getTopL().setSize(quadSize);
 		topR.setSize(quadSize);
 		layeringPanel = new JPanel(); //Main Layering Panel
 		layeringPanel.setSize(mainSize);
+		GridBagConstraints c = new GridBagConstraints();
 		
 		MouseAdapter addCompOnClick = new MouseAdapter(){
 			public void mouseEntered(MouseEvent me){
@@ -436,7 +434,7 @@ public class View{
 
 		
 
-		backgroundPanel = new BackgroundPanel(backgroundOverview1Image, width, height);
+		setBackgroundPanel(new BackgroundPanel(backgroundOverview1Image, width, height));
 
 		
 		charSel = new JFrame();
@@ -446,7 +444,7 @@ public class View{
 		charSelection.setLayout(new GridLayout(3, 2));
 		
 		
-		stewardLabel = new JLabel("Stewards: 2");
+		stewardLabel = new JLabel("Stewards: ");
 		//charSelection.add(stewardLabel);
 	
 		JLabel stewardImage = new CharLabel(stewardImageIcon, eChar.STEWARD);
@@ -488,7 +486,7 @@ public class View{
 		});
 
 		
-		researcherLabel = new JLabel("Researchers: 1");
+		researcherLabel = new JLabel("Researchers: ");
 		charSelection.add(researcherLabel);
 		
 		JLabel researcherImage = new CharLabel(researcherImageIcon, eChar.RESEARCHER);
@@ -496,7 +494,7 @@ public class View{
 		charSelection.add(researcherImage);
 		
 		
-		volunteerLabel = new JLabel("Volunteers: 3");
+		volunteerLabel = new JLabel("Volunteers: ");
 		
 		JLabel volunteerImage = new CharLabel(volunteerImageIcon, eChar.VOLUNTEER);
 		volunteerImage.addMouseListener(addCompOnClick);
@@ -508,11 +506,11 @@ public class View{
 		charSel.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLACK));
 		
 		
-		topL.addMouseListener(new MouseAdapter(){
+		getTopL().addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent me){
-				if(inQuad){
-					charSel.setLocation(topL.getLocationOnScreen());
+				if(isInQuad()){
+					charSel.setLocation(getTopL().getLocationOnScreen());
 					charSel.setVisible(true);
 					
 				}
@@ -566,7 +564,7 @@ public class View{
 			}
 			
 		});
-		botL.addMouseListener(new MouseListener(){
+		getBotL().addMouseListener(new MouseListener(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				clearList();
@@ -598,7 +596,7 @@ public class View{
 			}
 		});
 		
-		scoreLabel = new JLabel("ESTUARY POINTS: 200", JLabel.CENTER);
+		scoreLabel = new JLabel("ESTUARY POINTS: ", JLabel.CENTER);
 
 		
 		
@@ -622,10 +620,10 @@ public class View{
 		
 		Image scaledImage = topLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
 		topLImageLabel = new JLabel(new ImageIcon(scaledImage));
-		topL.add(topLImageLabel);
-		topL.setOpaque(false);
-		topL.setVisible(false);
-		mainPanel.add(topL);
+		getTopL().add(topLImageLabel);
+		getTopL().setOpaque(false);
+		getTopL().setVisible(false);
+		mainPanel.add(getTopL());
 		
 		
 		
@@ -668,10 +666,10 @@ public class View{
 
 		Image scaledImage2 = botLImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
 		botLImageLabel = new JLabel(new ImageIcon(scaledImage2));
-		botL.add(botLImageLabel);
-		botL.setOpaque(false);
-		botL.setVisible(false);
-		mainPanel.add(botL);
+		getBotL().add(botLImageLabel);
+		getBotL().setOpaque(false);
+		getBotL().setVisible(false);
+		mainPanel.add(getBotL());
 		
 		//Adding highlighted Pane to Q4
 		highlightQ3 = new QuadPanel(eQuad.S);
@@ -777,7 +775,7 @@ public class View{
 		default:
 			break;
 		}
-		if(currentQuad == eQuad.MAIN)
+		if(getCurrentQuad() == eQuad.MAIN)
 			resumeHighlight();
 	}
 	
@@ -788,7 +786,7 @@ public class View{
 	 */
 	private void loadQuad(eQuad quad) {
 		System.out.println("quadtoLoad is "+quad);
-		if(inQuad && (quad != eQuad.MAIN)){
+		if(isInQuad() && (quad != eQuad.MAIN)){
 			//Don't listen in quadrants
 			return;
 		}
@@ -806,55 +804,55 @@ public class View{
 				highlightMainTimer.stop();
 				resumeHighlight();
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, false);	
-				inQuad = false;
-				currentQuad = quad;
-				backgroundPanel.paintComponent(null, backgroundImage);
-				topL.setVisible(false);
-				botL.setVisible(false);
+				setInQuad(false);
+				setCurrentQuad(quad);
+				getBackgroundPanel().paintComponent(null, backgroundImage);
+				getTopL().setVisible(false);
+				getBotL().setVisible(false);
 				mainWindow.repaint();
 				mainWindow.revalidate();
 			break;
 			case N:
 				
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
-				inQuad = true;
-				currentQuad = quad;
-				backgroundPanel.paintComponent(null, backgroundNorthImage);
-				topL.setVisible(true);
-				botL.setVisible(true);
+				setInQuad(true);
+				setCurrentQuad(quad);
+				getBackgroundPanel().paintComponent(null, getBackgroundNorthImage());
+				getTopL().setVisible(true);
+				getBotL().setVisible(true);
 				mainWindow.repaint();
 				mainWindow.revalidate();
 			break;
 			case W:
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
 
-				inQuad = true;
-				currentQuad = quad;
-				backgroundPanel.paintComponent(null, backgroundWestImage);
-				topL.setVisible(true);
-				botL.setVisible(true);
+				setInQuad(true);
+				setCurrentQuad(quad);
+				getBackgroundPanel().paintComponent(null, backgroundWestImage);
+				getTopL().setVisible(true);
+				getBotL().setVisible(true);
 				mainWindow.repaint();
 				mainWindow.revalidate();
 			break;
 			case S:
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
 
-				inQuad = true;
-				currentQuad = quad;
-				backgroundPanel.paintComponent(null, backgroundSouthImage);
-				topL.setVisible(true);
-				botL.setVisible(true);
+				setInQuad(true);
+				setCurrentQuad(quad);
+				getBackgroundPanel().paintComponent(null, backgroundSouthImage);
+				getTopL().setVisible(true);
+				getBotL().setVisible(true);
 				mainWindow.repaint();
 				mainWindow.revalidate();
 			break;
 			case E:
 				Game.drawOnScreen(mainWindow.getLayeredPane(),quad, true);	
 
-				inQuad = true;
-				currentQuad = quad;
-				backgroundPanel.paintComponent(null, backgroundEastImage);
-				topL.setVisible(true);
-				botL.setVisible(true);
+				setInQuad(true);
+				setCurrentQuad(quad);
+				getBackgroundPanel().paintComponent(null, backgroundEastImage);
+				getTopL().setVisible(true);
+				getBotL().setVisible(true);
 				mainWindow.repaint();
 				mainWindow.revalidate();
 			break;
@@ -874,7 +872,7 @@ public class View{
 	 * @return
 	 */
 	public DragComponent createChar(eChar eChar, int x, int y){
-		if(!inQuad){
+		if(!isInQuad()){
 			return null;
 		}
 		
@@ -882,37 +880,37 @@ public class View{
 		switch(eChar){
 		case STEWARD:
 			if (Game.mainEnviro.getNumStew() > 0) {
-				charPlace = new DragComponent(stewardImage,currentQuad, eChar, x, y,0,0, true);
+				charPlace = new DragComponent(getStewardImage(),getCurrentQuad(), eChar, x, y,0,0);
 				Game.mainEnviro.increaseStew(false);
 			}
 			break;
 		case RESEARCHER:
 			if (Game.mainEnviro.getNumRes() > 0) {
-				charPlace = new DragComponent(researcherImage,currentQuad, eChar, x, y,0,0, true);
+				charPlace = new DragComponent(researcherImage,getCurrentQuad(), eChar, x, y,0,0);
 				Game.mainEnviro.increaseRes(false);
 			}
 			break;
 		case VOLUNTEER:
 			if (Game.mainEnviro.getNumVol() > 0) {
-				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0, true);
+				charPlace = new DragComponent(volunteerImage,getCurrentQuad(), eChar, x, y,0,0);
 				Game.mainEnviro.increaseVol(false);
 			}
 			break;
 		case WETSTEWARD:
 			if (Game.mainEnviro.getNumStew() > 0) {
-				charPlace = new DragComponent(stewardImage,currentQuad, eChar, x, y,0,0, true);
+				charPlace = new DragComponent(getStewardImage(),getCurrentQuad(), eChar, x, y,0,0);
 				Game.mainEnviro.increaseStew(false);
 			}
 			break;
 		case WETRESEARCHER:
 			if (Game.mainEnviro.getNumRes() > 0) {
-				charPlace = new DragComponent(researcherImage,currentQuad, eChar, x, y,0,0,true);
+				charPlace = new DragComponent(researcherImage,getCurrentQuad(), eChar, x, y,0,0);
 				Game.mainEnviro.increaseRes(false);
 			}
 			break;
 		case WETVOLUNTEER:
 			if (Game.mainEnviro.getNumVol() > 0) {
-				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0, true);
+				charPlace = new DragComponent(volunteerImage,getCurrentQuad(), eChar, x, y,0,0);
 				Game.mainEnviro.increaseVol(false);
 			}
 			break;
@@ -935,13 +933,13 @@ public class View{
 		
 		mainPanel.setOpaque(false);
 		mainPanel.setBackground(alphaLayer);
-		backgroundPanel.setBackground(alphaLayer);
+		getBackgroundPanel().setBackground(alphaLayer);
 		
 
 		layeringPanel.add(mainPanel);
 		layeringPanel.revalidate();
 		
-		layeringPanel.add(backgroundPanel);
+		layeringPanel.add(getBackgroundPanel());
 		
 		
 		mainWindow.add(layeringPanel);
@@ -973,7 +971,7 @@ public class View{
 		return this.scoreLabel;
 	}
 	public eQuad getQuadrant(){
-		return currentQuad;
+		return getCurrentQuad();
 	}
 	
 	public JLabel getStewardLabel() {
@@ -1159,13 +1157,13 @@ public class View{
 			case WETBCRAB:
 				return blueCrabImage;
 			case STEWARD:
-				return stewardImage;
+				return getStewardImage();
 			case RESEARCHER:
 				return researcherImage;
 			case VOLUNTEER:
 				return volunteerImage;
 			case WETSTEWARD:
-				return stewardImage;
+				return getStewardImage();
 			case WETRESEARCHER:
 				return researcherImage;
 			case WETVOLUNTEER:
@@ -1188,7 +1186,7 @@ public class View{
 			botLImageLabel.setIcon(new ImageIcon(scaledImage));
 		}
 		mainMaphighlighted = !mainMaphighlighted;
-		botL.repaint();
+		getBotL().repaint();
 	}
 	
 	
@@ -1320,6 +1318,76 @@ public class View{
 			return resolvingSteward;
 		}
 		
+	}
+
+
+	public boolean isInQuad() {
+		return inQuad;
+	}
+
+
+	public void setInQuad(boolean inQuad) {
+		this.inQuad = inQuad;
+	}
+
+
+	public eQuad getCurrentQuad() {
+		return currentQuad;
+	}
+
+
+	public void setCurrentQuad(eQuad currentQuad) {
+		this.currentQuad = currentQuad;
+	}
+
+
+	public BackgroundPanel getBackgroundPanel() {
+		return backgroundPanel;
+	}
+
+
+	public void setBackgroundPanel(BackgroundPanel backgroundPanel) {
+		this.backgroundPanel = backgroundPanel;
+	}
+
+
+	public BufferedImage getBackgroundNorthImage() {
+		return backgroundNorthImage;
+	}
+
+
+	public void setBackgroundNorthImage(BufferedImage backgroundNorthImage) {
+		this.backgroundNorthImage = backgroundNorthImage;
+	}
+
+
+	public JPanel getTopL() {
+		return topL;
+	}
+
+
+	public void setTopL(JPanel topL) {
+		this.topL = topL;
+	}
+
+
+	public JPanel getBotL() {
+		return botL;
+	}
+
+
+	public void setBotL(JPanel botL) {
+		this.botL = botL;
+	}
+
+
+	public ImageIcon getStewardImage() {
+		return stewardImage;
+	}
+
+
+	public void setStewardImage(ImageIcon stewardImage) {
+		this.stewardImage = stewardImage;
 	}
 }
 	
