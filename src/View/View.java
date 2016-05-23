@@ -247,7 +247,7 @@ public class View{
 		howToPanel.setOpaque(false);
 		
 		tutorialPanel.setLayout(new BorderLayout());
-		tutorialPanel.add(tutorial,BorderLayout.CENTER);
+		tutorialPanel.add(tutorial,BorderLayout.SOUTH);
 		tutorialPanel.setOpaque(false);
 		
 		
