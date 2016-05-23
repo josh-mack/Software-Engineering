@@ -187,8 +187,7 @@ public class DragComponent extends JComponent {
 					catch (NullPointerException e1) {
 						
 					}
-					getRootPane().repaint();
-					getRootPane().revalidate();
+					
 				}
 			}
 		};

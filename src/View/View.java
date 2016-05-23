@@ -529,9 +529,7 @@ public class View{
 		
 		
 		
-		JPanel timeFrame = new JPanel();
-		//timeLabel.setForeground(Color.white);
-
+		
 		
 		
 		botR.addMouseListener(new MouseListener(){
@@ -598,24 +596,27 @@ public class View{
 			}
 		});
 		
-		scoreLabel = new JLabel("ESTUARY POINTS: 200", JLabel.CENTER);
-
 		
 		
-
-		timeFrame.add(scoreLabel);
+		
+		scoreLabel = new JLabel("ESTUARY POINTS: 200");
+		scoreLabel.setFont(new Font(("Kristen ITC"), Font.BOLD, 16));
+		scoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		scoreLabel.setLocation(width-450, 10);
+		scoreLabel.setSize(200,100);
+		scoreLabel.setOpaque(false);
+		mainWindow.getRootPane().getLayeredPane().add(scoreLabel,0);
+		
+		
 		topR.setLayout(new OverlayLayout(topR));
-
 		Image scaledImage4 = topRImage.getScaledInstance(width/3,height/3,Image.SCALE_SMOOTH);
 		topRImageLabel = new JLabel(new ImageIcon(scaledImage4));
 		topR.setOpaque(false);
-		timeFrame.setVisible(true);
-		timeFrame.setOpaque(false);
+		//scorePanel.setOpaque(false);
 		topR.setVisible(true);
-		topR.add(timeFrame);
 
-		timeFrame.setAlignmentX(Component.CENTER_ALIGNMENT);
-		timeFrame.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+		
 		topR.add(topRImageLabel);
 
 
