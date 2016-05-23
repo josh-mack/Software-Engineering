@@ -968,7 +968,6 @@ public class Game {
 								resolvingSpecies.add(invasiveSpecies);
 								gameFrame.removeComp(drag1);
 								drag1 = new DragComponent(gameFrame.getPersonImage(drag1.getDryVersion(), true), whatQuad, drag1.getCharacter(), drag1.getX(), drag1.getY(), y, x, false);
-								//drag2.setDrag(false);
 								gameFrame.placeCompAtLayer(drag1, -1);
 								resolvingPeople.add(drag1);
 								Game.mainEnviro.resolve(Game.board[y+i][x+j], drag1.getCharacter(), y+i, x+j, drag1, invasiveSpecies);
@@ -981,7 +980,6 @@ public class Game {
 						else if ((Game.board[y+i][x+j] == eChar.FISHERMAN) && (drag1.getDryVersion() == eChar.STEWARD) && (fishFlag == false)) {
 							gameFrame.removeComp(drag1);
 							drag1 = new DragComponent(gameFrame.getPersonImage(drag1.getCharacter(), true), whatQuad, drag1.getCharacter(), drag1.getX(), drag1.getY(), y, x, false);
-							drag1.setDrag(false);
 							gameFrame.placeCompAtLayer(drag1, -1);
 							resolvingPeople.add(drag1);
 							fishComp.boatsResolve(Game.board[y][x], y+i, x+j, drag1);
@@ -1010,7 +1008,6 @@ public class Game {
 						gameFrame.removeComp(drag1);
 						drag1 = new DragComponent(gameFrame.getPersonImage(drag1.getCharacter(), true), whatQuad, drag1.getCharacter(), drag1.getX(), drag1.getY(), y, x, false);
 						gameFrame.placeCompAtLayer(drag1,-1);
-						drag1.setDrag(false);
 						resolvingPeople.add(drag1);
 						Game.mainEnviro.resolve(Game.board[y+i][x+j], drag1.getCharacter(), y+i, x+j, drag1, null);
 						return true;
