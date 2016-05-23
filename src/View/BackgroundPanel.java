@@ -24,7 +24,7 @@ public class BackgroundPanel extends JPanel{
 		this.width = width;
 	}
 
-	protected void paintComponent(Graphics g, BufferedImage img){
+	public void paintComponent(Graphics g, BufferedImage img){
 		this.image = img;
 	}
 }
