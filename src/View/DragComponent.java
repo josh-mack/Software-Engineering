@@ -103,7 +103,7 @@ public class DragComponent extends JComponent {
 	 * @param j
 	 */
 	
-	public DragComponent(ImageIcon charIcon, eQuad thisQuad, eChar character, int x, int y, int i, int j) {
+	public DragComponent(ImageIcon charIcon, eQuad thisQuad, eChar character, int x, int y, int i, int j, boolean draggable) {
 		oldi = i;
 		oldj = j;
 		setLayout(new BorderLayout());
@@ -114,7 +114,7 @@ public class DragComponent extends JComponent {
 		label.setVerticalAlignment(JLabel.CENTER);
 		add(label);	
 		
-		canDrag = true;
+		canDrag = draggable;
 		
 		setLocation(x,y);
 		

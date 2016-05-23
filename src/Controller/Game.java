@@ -65,6 +65,7 @@ public class Game {
 	static boolean fishFlag = true;
 	
 	static ArrayList<SpeciesComponent> resolvingSpecies = new ArrayList<SpeciesComponent>();
+	static ArrayList<DragComponent> resolvingPeople = new ArrayList<DragComponent>();
 
 
 	
@@ -316,45 +317,55 @@ public class Game {
 		}
 		JComponent newComponent = null;
 		
+		boolean resolving = false;
+		boolean draggable = true;
 		for(int i = rowStart; i < rowEnd; i++){
 			for(int j = colStart; j < colEnd; j++){
 				if(board[i][j] != eChar.BLANK && board[i][j]!=eChar.NOTHING){
 					DragComponent charPlace = null;
-					ImageIcon drawImage = gameFrame.getImage(board[i][j]);
+					resolving = false;
+					draggable = true;
+					for (DragComponent dragged: resolvingPeople) {
+						if ((i == dragged.getOldi()) && (j == dragged.getOldj())) {
+							resolving = true;
+							draggable = false;
+						}
+					}
+					ImageIcon drawImage = gameFrame.getPersonImage(board[i][j], resolving);
 					switch(board[i][j]) {
 					case STEWARD:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, draggable);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case RESEARCHER:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j, draggable);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case VOLUNTEER:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, draggable);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case WETSTEWARD:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, draggable);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case WETRESEARCHER:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j], j%38*width, i%24*height,i,j, draggable);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
 					case WETVOLUNTEER:
 						if(drag){
-							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j);
+							charPlace = new DragComponent(drawImage,quad, Game.board[i][j],j%38*width, i%24*height,i,j, draggable);
 							gameFrame.placeCompAtLayer(charPlace, -1);
 						}
 						break;
@@ -389,6 +400,8 @@ public class Game {
 						break;
 					}
 				}
+
+
 				else{
 //					//Grid Layout Testing
 //					JLabel holdTest = new JLabel(new ImageIcon("imgs/test.png"));
@@ -423,6 +436,14 @@ public class Game {
 		gameFrame.removeSpecies(i, j);
 	}
 	
+	public static ArrayList<DragComponent> getResolvingPeople() {
+		return resolvingPeople;
+	}
+
+	public static void setResolvingPeople(ArrayList<DragComponent> resolvingPeople) {
+		Game.resolvingPeople = resolvingPeople;
+	}
+
 	/**
 	 * Creates a new species to place in the game array.
 	 * @param x
@@ -465,6 +486,7 @@ public class Game {
 		}
 
 	}
+	
 	
 	/**
 	 * Refreshes the game's state to reload/repaint
@@ -886,15 +908,25 @@ public class Game {
 							if (alreadyBeingResolved == false) {
 								SpeciesComponent invasiveSpecies = new SpeciesComponent(whatQuad, Game.board[y+i][x+j], (x%38)*width, (y%24)*height);
 								resolvingSpecies.add(invasiveSpecies);
-								Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1, invasiveSpecies);
-								drag1.setDrag(false);
+								gameFrame.removeComp(drag1);
+								drag1 = new DragComponent(gameFrame.getPersonImage(drag1.getCharacter(), true), whatQuad, drag1.getCharacter(), drag1.getX(), drag1.getY(), y, x, false);
+								//drag2.setDrag(false);
+								gameFrame.placeCompAtLayer(drag1, -1);
+								resolvingPeople.add(drag1);
+								Game.mainEnviro.resolve(Game.board[y+i][x+j], drag1.getCharacter(), y+i, x+j, drag1, invasiveSpecies);
+								
+								
 								return true;
 							}
 							alreadyBeingResolved = false;
 						}
 						else if ((Game.board[y+i][x+j] == eChar.FISHERMAN) && (drag1.getDryVersion() == eChar.STEWARD) && (fishFlag == false)) {
-							fishComp.boatsResolve(Game.board[y][x], y+i, x+j, drag1);
+							gameFrame.removeComp(drag1);
+							drag1 = new DragComponent(gameFrame.getPersonImage(drag1.getCharacter(), true), whatQuad, drag1.getCharacter(), drag1.getX(), drag1.getY(), y, x, false);
 							drag1.setDrag(false);
+							gameFrame.placeCompAtLayer(drag1, -1);
+							resolvingPeople.add(drag1);
+							fishComp.boatsResolve(Game.board[y][x], y+i, x+j, drag1);
 							return true;
 						}
 							
@@ -917,8 +949,12 @@ public class Game {
 						}
 					}
 					else if ((drag1.getDryVersion() == eChar.STEWARD) && (Game.board[y+i][x+j] == eChar.CITY)) {
+						gameFrame.removeComp(drag1);
+						drag1 = new DragComponent(gameFrame.getPersonImage(drag1.getCharacter(), true), whatQuad, drag1.getCharacter(), drag1.getX(), drag1.getY(), y, x, false);
+						gameFrame.placeCompAtLayer(drag1,-1);
 						drag1.setDrag(false);
-						Game.mainEnviro.resolve(Game.board[y+i][x+j], Game.board[y][x], y+i, x+j, drag1, null);
+						resolvingPeople.add(drag1);
+						Game.mainEnviro.resolve(Game.board[y+i][x+j], drag1.getCharacter(), y+i, x+j, drag1, null);
 						return true;
 					}
 					
@@ -1049,5 +1085,9 @@ public class Game {
 	
 	public static void removeFromResolvingSpeciesArray(SpeciesComponent invasiveSpecies) {
 		resolvingSpecies.remove(invasiveSpecies);
+	}
+	
+	public static boolean removeFromResolvingPeople (DragComponent toRemove) {
+		return(resolvingPeople.remove(toRemove));
 	}
 }

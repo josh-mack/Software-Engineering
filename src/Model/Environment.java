@@ -154,6 +154,13 @@ public class Environment implements Serializable{
 				System.out.println(i);
 				System.out.println(j);
 				Game.deleteComponentAt(i, j);
+//				for (DragComponent draggable: Game.getResolvingPeople()) {
+//					if ((draggable.getOldi() == drag.getOldi()) && (draggable.getOldj() == drag.getOldj())) {
+//						Game.removeComponent(draggable);
+//						System.out.println("WHyyyyyy");
+//						Game.getResolvingPeople().remove(draggable);
+//					}
+//				}
 				Game.removeComponent(drag);
 				numInvasive--;
 				if (Game.board[i][j].isWet()) {

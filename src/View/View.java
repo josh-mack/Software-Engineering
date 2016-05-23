@@ -86,9 +86,9 @@ public class View{
 	BufferedImage backgroundSouthImage;
 	BufferedImage backgroundWestImage;
 
-	ImageIcon stewardImage;
-	ImageIcon researcherImage;
-	ImageIcon volunteerImage;
+	static ImageIcon stewardImage;
+	static ImageIcon researcherImage;
+	static ImageIcon volunteerImage;
 	
 	ImageIcon stewardImageIcon;
 	ImageIcon researcherImageIcon;
@@ -134,6 +134,9 @@ public class View{
 	ImageIcon phragmitesImage;
 
 	ImageIcon trash;
+	static ImageIcon resolvingSteward;
+	static ImageIcon resolvingResearcher;
+	static ImageIcon resolvingVolunteer;
 
 	
 
@@ -239,7 +242,7 @@ public class View{
 		JPanel tutorialPanel = new JPanel();
 		
 		startPanel.setLayout(new BorderLayout());
-		startPanel.add(start,BorderLayout.EAST);
+		startPanel.add(start,BorderLayout.SOUTH);
 		startPanel.setOpaque(false);
 		
 		howToPanel.setLayout(new BorderLayout());
@@ -247,14 +250,14 @@ public class View{
 		howToPanel.setOpaque(false);
 		
 		tutorialPanel.setLayout(new BorderLayout());
-		tutorialPanel.add(tutorial,BorderLayout.CENTER);
+		tutorialPanel.add(tutorial,BorderLayout.EAST);
 		tutorialPanel.setOpaque(false);
 		
 		
 		
 		overAll.add(startPanel);
 		overAll.add(howToPanel);
-	    overAll.add(tutorialPanel);
+	   // overAll.add(tutorialPanel);
 		overAll.add(startPanel);
 		overAll.add(titleBack);
 		
@@ -879,37 +882,37 @@ public class View{
 		switch(eChar){
 		case STEWARD:
 			if (Game.mainEnviro.getNumStew() > 0) {
-				charPlace = new DragComponent(stewardImage,currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(stewardImage,currentQuad, eChar, x, y,0,0, true);
 				Game.mainEnviro.increaseStew(false);
 			}
 			break;
 		case RESEARCHER:
 			if (Game.mainEnviro.getNumRes() > 0) {
-				charPlace = new DragComponent(researcherImage,currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(researcherImage,currentQuad, eChar, x, y,0,0, true);
 				Game.mainEnviro.increaseRes(false);
 			}
 			break;
 		case VOLUNTEER:
 			if (Game.mainEnviro.getNumVol() > 0) {
-				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0, true);
 				Game.mainEnviro.increaseVol(false);
 			}
 			break;
 		case WETSTEWARD:
 			if (Game.mainEnviro.getNumStew() > 0) {
-				charPlace = new DragComponent(stewardImage,currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(stewardImage,currentQuad, eChar, x, y,0,0, true);
 				Game.mainEnviro.increaseStew(false);
 			}
 			break;
 		case WETRESEARCHER:
 			if (Game.mainEnviro.getNumRes() > 0) {
-				charPlace = new DragComponent(researcherImage,currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(researcherImage,currentQuad, eChar, x, y,0,0,true);
 				Game.mainEnviro.increaseRes(false);
 			}
 			break;
 		case WETVOLUNTEER:
 			if (Game.mainEnviro.getNumVol() > 0) {
-				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0);
+				charPlace = new DragComponent(volunteerImage,currentQuad, eChar, x, y,0,0, true);
 				Game.mainEnviro.increaseVol(false);
 			}
 			break;
@@ -1005,6 +1008,12 @@ public class View{
 			mainWindow.repaint();
 			mainWindow.revalidate();
 		}
+		else if (Game.removeFromResolvingPeople((DragComponent)toRemove)) {
+			mainWindow.getLayeredPane().remove(toRemove);
+			mainWindow.repaint();
+			mainWindow.revalidate();
+			System.out.println("hey)");
+		}
 	}
 	public void removeSpecies(int removeI, int removeJ){
 		SpeciesComponent toRemove = null;
@@ -1037,6 +1046,8 @@ public class View{
 	public void changeOverview(int dnerrLvl){
 		backgroundImage = (dnerrLvl == 2)?backgroundOverview2Image:backgroundOverview3Image;
 	}
+	
+
 	
 	
 	public void loadImages(){
@@ -1106,6 +1117,10 @@ public class View{
 		howToImage2 = new ImageIcon("imgs/howTo2.png");
 		howToImage3 = new ImageIcon("imgs/howTo3.png");
 		howToImage4 = new ImageIcon("imgs/howTo4.png");
+		
+		resolvingSteward = new ImageIcon("imgs/x.png");
+		resolvingResearcher = new ImageIcon("imgs/x.png");
+		resolvingVolunteer = new ImageIcon("imgs/x.png");
 
 		trash = new ImageIcon("imgs/recycle_open.png");
 		}catch(IOException e){
@@ -1291,6 +1306,21 @@ public class View{
 	public static ImageIcon getFishImage(boolean fishFlag)
 	{
 		return (fishFlag)?fishermanImage:fishermanOverFlowImage;
+	}
+	
+	public ImageIcon getPersonImage(eChar person, boolean resolving)
+	{
+		switch(person) {
+		case STEWARD:
+			return (resolving)?resolvingSteward:stewardImage;
+		case RESEARCHER:
+			return (resolving)?resolvingResearcher:researcherImage;
+		case VOLUNTEER:
+			return (resolving)?resolvingVolunteer:volunteerImage;
+		default:
+			return resolvingSteward;
+		}
+		
 	}
 }
 	
