@@ -257,16 +257,18 @@ public class View{
 		
 		JLabel tutorial = new JLabel(tutorialImageIcon);
 		JPanel tutorialPanel = new JPanel();
-		
+		startPanel.setMaximumSize(new Dimension(width, height));
 		startPanel.setLayout(new BorderLayout());
 		startPanel.add(start,BorderLayout.SOUTH);
-		startPanel.setOpaque(false);
 		
+		startPanel.setOpaque(false);
+		howToPanel.setMaximumSize(new Dimension(width, height/2));
 		howToPanel.setLayout(new BorderLayout());
 		howToPanel.add(howTo,BorderLayout.WEST);
 		howToPanel.setOpaque(false);
-		
+		tutorialPanel.setMaximumSize(new Dimension(width, height/2));
 		tutorialPanel.setLayout(new BorderLayout());
+		
 		tutorialPanel.add(tutorial,BorderLayout.EAST);
 		tutorialPanel.setOpaque(false);
 		
