@@ -186,14 +186,25 @@ public class View{
 	
 	JPanel overAll;
 	JFrame howToFrame;
+	JPanel howTo0;
 	JPanel howTo1;
 	JPanel howTo2;
 	JPanel howTo3;
 	JPanel howTo4;
+	JPanel howTo5;
+	JPanel howTo6;
+	JPanel howTo7;
+	JPanel howTo8;
+	ImageIcon howToImage0;
 	ImageIcon howToImage1;
 	ImageIcon howToImage2;
 	ImageIcon howToImage3;
 	ImageIcon howToImage4;
+	ImageIcon howToImage5;
+	ImageIcon howToImage6;
+	ImageIcon howToImage7;
+	ImageIcon howToImage8;
+
 	JPanel howToPanel;
 	ImageIcon tutHowTo;
 	
@@ -452,7 +463,7 @@ public class View{
 	//	charSelection.add(stewardImage);
 		
 		//Button to buy a Steward
-		JButton buySteward = new JButton("Buy a Steward!");
+		JButton buySteward = new JButton("<html><center>Buy a Steward! <br>700 EP</center></html>");
 		buySteward.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				if (Game.mainEnviro.money < 700) {
@@ -597,8 +608,8 @@ public class View{
 		scoreLabel = new JLabel("ESTUARY POINTS: 200");
 		scoreLabel.setFont(new Font(("Kristen ITC"), Font.BOLD, 16));
 		scoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		scoreLabel.setLocation(width-450, 10);
-		scoreLabel.setSize(200,100);
+		scoreLabel.setLocation(width-475, 5);
+		scoreLabel.setSize(300,100);
 		scoreLabel.setOpaque(false);
 		mainWindow.getRootPane().getLayeredPane().add(scoreLabel,0);
 		
@@ -1108,10 +1119,17 @@ public class View{
 		horseshoeCrabImage = new ImageIcon("imgs/horseShoeCrab.png");
 		blackEyedSusanImage = new ImageIcon("imgs/blackEyedSusan.png");
 		blueCrabImage = new ImageIcon("imgs/blueCrab.png");
-		howToImage1 = new ImageIcon("imgs/howTo.png");
+		
+		howToImage0 = new ImageIcon("imgs/howTo.png");
+		howToImage1 = new ImageIcon("imgs/howTo1.png");
 		howToImage2 = new ImageIcon("imgs/howTo2.png");
 		howToImage3 = new ImageIcon("imgs/howTo3.png");
 		howToImage4 = new ImageIcon("imgs/howTo4.png");
+		howToImage5 = new ImageIcon("imgs/howTo5.png");
+		howToImage6 = new ImageIcon("imgs/howTo6.png");
+		howToImage7 = new ImageIcon("imgs/howTo7.png");
+		howToImage8 = new ImageIcon("imgs/howTo8.png");
+
 		
 		resolvingSteward = new ImageIcon("imgs/stewardGreen.png");
 		resolvingResearcher = new ImageIcon("imgs/researcherGreen.png");
@@ -1223,12 +1241,17 @@ public class View{
 		};
 			Dimension size = new Dimension(578,646);
 			howToFrame = new JFrame();
+			howTo0 = new JPanel();
+			howTo0.add(new JLabel(howToImage0));
+			howTo0.addMouseListener(nextPageListener);
+			howTo0.setSize(size);
+			howTo0.setOpaque(false);
+
 			howTo1 = new JPanel();
 			howTo1.add(new JLabel(howToImage1));
 			howTo1.addMouseListener(nextPageListener);
 			howTo1.setSize(size);
 			howTo1.setOpaque(false);
-
 			
 			howTo2 = new JPanel();
 			howTo2.add(new JLabel(howToImage2));
@@ -1241,6 +1264,36 @@ public class View{
 			howTo3.addMouseListener(nextPageListener);
 			howTo3.setSize(size);
 			howTo3.setOpaque(false);
+
+			howTo4 = new JPanel();
+			howTo4.add(new JLabel(howToImage4));
+			howTo4.addMouseListener(nextPageListener);
+			howTo4.setSize(size);
+			howTo4.setOpaque(false);
+			
+			howTo5 = new JPanel();
+			howTo5.add(new JLabel(howToImage5));
+			howTo5.addMouseListener(nextPageListener);
+			howTo5.setSize(size);
+			howTo5.setOpaque(false);
+
+			howTo6 = new JPanel();
+			howTo6.add(new JLabel(howToImage6));
+			howTo6.addMouseListener(nextPageListener);
+			howTo6.setSize(size);
+			howTo6.setOpaque(false);
+			
+			howTo7 = new JPanel();
+			howTo7.add(new JLabel(howToImage7));
+			howTo7.addMouseListener(nextPageListener);
+			howTo7.setSize(size);
+			howTo7.setOpaque(false);
+
+			howTo8 = new JPanel();
+			howTo8.add(new JLabel(howToImage8));
+			howTo8.addMouseListener(nextPageListener);
+			howTo8.setSize(size);
+			howTo8.setOpaque(false);
 
 			howTo4 = new JPanel();
 			howTo4.add(new JLabel(howToImage4));
@@ -1264,24 +1317,49 @@ public class View{
 		switch(howToPage){
 		case 0:
 			howToPage = 1;
-			howToFrame.add(howTo1);
+			howToFrame.add(howTo0);
 			break;
 		case 1:
 			howToPage = 2;
-			howToFrame.remove(howTo1);
-			howToFrame.add(howTo2);
+			howToFrame.remove(howTo0);
+			howToFrame.add(howTo1);
 			break;
 		case 2:
 			howToPage = 3;
-			howToFrame.remove(howTo2);
-			howToFrame.add(howTo3);
+			howToFrame.remove(howTo1);
+			howToFrame.add(howTo2);
 			break;
 		case 3:
 			howToPage = 4;
+			howToFrame.remove(howTo2);
+			howToFrame.add(howTo3);
+			break;
+		case 4:
+			howToPage = 5;
 			howToFrame.remove(howTo3);
 			howToFrame.add(howTo4);
 			break;
-		case 4:
+		case 5:
+			howToPage = 6;
+			howToFrame.remove(howTo4);
+			howToFrame.add(howTo5);
+			break;
+		case 6:
+			howToPage = 7;
+			howToFrame.remove(howTo5);
+			howToFrame.add(howTo6);
+			break;
+		case 7:
+			howToPage = 8;
+			howToFrame.remove(howTo6);
+			howToFrame.add(howTo7);
+			break;
+		case 8:
+			howToPage = 9;
+			howToFrame.remove(howTo7);
+			howToFrame.add(howTo8);
+			break;
+		case 9:
 			howToPage = 0;
 			howToFrame.dispose();
 			overAll.setVisible(true);
