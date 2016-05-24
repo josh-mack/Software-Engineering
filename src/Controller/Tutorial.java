@@ -24,11 +24,12 @@ public class Tutorial extends Game
 	eQuad quad = eQuad.N;
 	boolean resolved = false, upgraded= false, volunteer=false;
 	JFrame tutFrame;
-	JPanel tutPanel;
-	JLabel tutLabel;
+	JPanel tutPanel1, tutPanel2, tutPanel3, tutPanel4, tutPanel5, tutPanel6;
+	JLabel tutHowTo1, tutHowTo2, tutHowTo3, tutHowTo4, tutHowTo5, tutHowTo6;
 	DragComponent steward;
 	SpeciesComponent invasiveAdded;
 	Timer timer;
+	int dialogNum = 0;
 	
 	public Tutorial()
 	{
@@ -118,6 +119,7 @@ public class Tutorial extends Game
 			removeComponent(invasiveAdded);
 			resolved = true;
 			placeSteward();
+			changeDialog();
 		}
 	}
 	
@@ -126,6 +128,8 @@ public class Tutorial extends Game
 		if(mainEnviro.getNumVol() == 1 && volunteer == false)
 		{
 			volunteer = true;
+			placeSteward();
+			changeDialog();
 		}	
 	}
 	
@@ -134,6 +138,8 @@ public class Tutorial extends Game
 		if(dnrecLevel== 2 && upgraded == false)
 		{
 			upgraded = true;
+			placeSteward();
+			changeDialog();
 		}
 	}
 	
@@ -237,18 +243,51 @@ public class Tutorial extends Game
 	{
 		
 		tutFrame = new JFrame();
-		tutPanel = new JPanel();
-		ImageIcon bubble = new ImageIcon("imgs/bubble1.png");
-		int imgWidth = bubble.getIconWidth();
-		int imgHeight = bubble.getIconHeight();
 		
-		tutPanel.add(new JLabel(bubble));
-
-		//howTo1.addMouseListener(nextPageListener);
-		//tutLabel = new JLabel("Info How to Play");
-		tutFrame.add(tutPanel);
-		tutPanel.setSize(imgWidth, imgHeight);
-		tutPanel.setOpaque(false);	
+		tutPanel1 = new JPanel();
+		ImageIcon tut1 = gameFrame.getTutHowTo1();
+		int imgWidth = tut1.getIconWidth();
+		int imgHeight = tut1.getIconHeight();
+		tutPanel1.setSize(imgWidth, imgHeight);
+		tutPanel1.add(new JLabel(tut1));
+		
+		tutPanel2 = new JPanel();
+		ImageIcon tut2 = gameFrame.getTutHowTo2();
+		imgWidth = tut2.getIconWidth();
+		imgHeight = tut2.getIconHeight();
+		tutPanel2.setSize(imgWidth, imgHeight);
+		tutPanel2.add(new JLabel(tut2));
+		
+		tutPanel3 = new JPanel();
+		ImageIcon tut3 = gameFrame.getTutHowTo3();
+		imgWidth = tut3.getIconWidth();
+		imgHeight = tut3.getIconHeight();
+		tutPanel3.setSize(imgWidth, imgHeight);
+		tutPanel3.add(new JLabel(tut3));
+		
+		tutPanel4 = new JPanel();
+		ImageIcon tut4 = gameFrame.getTutHowTo4();
+		imgWidth = tut4.getIconWidth();
+		imgHeight = tut4.getIconHeight();
+		tutPanel4.setSize(imgWidth, imgHeight);
+		tutPanel4.add(new JLabel(tut4));
+		
+		tutPanel5 = new JPanel();
+		ImageIcon tut5 = gameFrame.getTutHowTo5();
+		imgWidth = tut5.getIconWidth();
+		imgHeight = tut5.getIconHeight();
+		tutPanel5.setSize(imgWidth, imgHeight);
+		tutPanel5.add(new JLabel(tut5));
+		
+		tutPanel6 = new JPanel();
+		ImageIcon tut6 = gameFrame.getTutHowTo6();
+		imgWidth = tut6.getIconWidth();
+		imgHeight = tut6.getIconHeight();
+		tutPanel6.setSize(imgWidth, imgHeight);
+		tutPanel6.add(new JLabel(tut6));
+		
+		tutFrame.add(tutPanel1);		
+		tutPanel1.setOpaque(false);	
 		tutFrame.setAlwaysOnTop(true);
 		tutFrame.setUndecorated(true);
 		tutFrame.setOpacity(1.0f);
@@ -257,6 +296,58 @@ public class Tutorial extends Game
 		tutFrame.setLocation(steward.getX()+imgWidth/2, steward.getY()-imgHeight);
 		tutFrame.setVisible(true);
 		
+	}
+	
+	public void changeDialog(){
+		switch(dialogNum){
+		case 0:
+			dialogNum = 1;
+			tutFrame.remove(tutPanel1);
+			tutFrame.add(tutPanel2);
+			break;
+		case 1:
+			dialogNum = 2;
+			tutFrame.remove(tutPanel2);
+			tutFrame.add(tutPanel3);
+			changeDialogTimer();
+			break;
+		case 2:
+			dialogNum = 3;
+			tutFrame.remove(tutPanel3);
+			tutFrame.add(tutPanel4);
+			break;
+		case 3:
+			dialogNum = 4;
+			tutFrame.remove(tutPanel4);
+			tutFrame.add(tutPanel5);
+			break;
+		case 4:
+			dialogNum = 5;
+			tutFrame.remove(tutPanel5);
+			tutFrame.add(tutPanel6);
+		case 5:
+			dialogNum = 0;
+			tutFrame.remove(tutPanel5);
+			tutFrame.add(tutPanel6);
+		}
+		tutFrame.revalidate();
+		
+	}
+	
+	public void changeDialogTimer()
+	{
+		ActionListener tick = new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+            	changeDialog();
+            	timer.stop();
+			}
+		};
+		
+		timer = new Timer(5000, tick);
+		timer.start();
 	}
 }
 
