@@ -249,6 +249,7 @@ public class Tutorial extends Game
 		int imgWidth = tut1.getIconWidth();
 		int imgHeight = tut1.getIconHeight();
 		tutPanel1.setSize(imgWidth, imgHeight);
+		tutPanel1.setOpaque(false);	
 		tutPanel1.add(new JLabel(tut1));
 		
 		tutPanel2 = new JPanel();
@@ -256,6 +257,7 @@ public class Tutorial extends Game
 		imgWidth = tut2.getIconWidth();
 		imgHeight = tut2.getIconHeight();
 		tutPanel2.setSize(imgWidth, imgHeight);
+		tutPanel2.setOpaque(false);	
 		tutPanel2.add(new JLabel(tut2));
 		
 		tutPanel3 = new JPanel();
@@ -263,13 +265,15 @@ public class Tutorial extends Game
 		imgWidth = tut3.getIconWidth();
 		imgHeight = tut3.getIconHeight();
 		tutPanel3.setSize(imgWidth, imgHeight);
+		tutPanel3.setOpaque(false);	
 		tutPanel3.add(new JLabel(tut3));
 		
 		tutPanel4 = new JPanel();
 		ImageIcon tut4 = gameFrame.getTutHowTo4();
 		imgWidth = tut4.getIconWidth();
 		imgHeight = tut4.getIconHeight();
-		tutPanel4.setSize(imgWidth, imgHeight);
+		tutPanel4.setSize(imgWidth, imgHeight);		
+		tutPanel4.setOpaque(false);	
 		tutPanel4.add(new JLabel(tut4));
 		
 		tutPanel5 = new JPanel();
@@ -277,6 +281,7 @@ public class Tutorial extends Game
 		imgWidth = tut5.getIconWidth();
 		imgHeight = tut5.getIconHeight();
 		tutPanel5.setSize(imgWidth, imgHeight);
+		tutPanel5.setOpaque(false);	
 		tutPanel5.add(new JLabel(tut5));
 		
 		tutPanel6 = new JPanel();
@@ -284,10 +289,10 @@ public class Tutorial extends Game
 		imgWidth = tut6.getIconWidth();
 		imgHeight = tut6.getIconHeight();
 		tutPanel6.setSize(imgWidth, imgHeight);
+		tutPanel6.setOpaque(false);	
 		tutPanel6.add(new JLabel(tut6));
 		
 		tutFrame.add(tutPanel1);		
-		tutPanel1.setOpaque(false);	
 		tutFrame.setAlwaysOnTop(true);
 		tutFrame.setUndecorated(true);
 		tutFrame.setOpacity(1.0f);
