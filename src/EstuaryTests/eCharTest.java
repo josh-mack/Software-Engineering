@@ -2,7 +2,6 @@ package EstuaryTests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import Estuary.*;
 import Model.eChar;
 
 public class eCharTest {

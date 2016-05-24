@@ -1,6 +1,5 @@
 package EstuaryTests;
 
-import Estuary.*;
 import Model.eChar;
 import Model.eQuad;
 import View.DragComponent;
@@ -35,11 +34,14 @@ public class DraggableTest {
 		System.out.println(Game.mainEnviro.getHealth());
 		assertEquals(Game.board[y][x], eChar.RESEARCHER);
 		System.out.println(Game.board[y][x]);
-		DragComponent character2 = new DragComponent(null, eQuad.N, eChar.STEWARD, XCoord, YCoord,0,0);
-		character2.placeInArray(XCoord, YCoord);
+		//DragComponent character2 = new DragComponent(null, eQuad.N, eChar.STEWARD, XCoord, YCoord,0,0);
+		//character2.placeInArray(XCoord, YCoord);
 		assertEquals(Game.board[y][x], eChar.RESEARCHER);
 		assertEquals(Game.board[y-1][x-1], eChar.STEWARD);	
 		//game.board[x+2][y] = eChar.BLANK;
 
+	}
+	public static void main(String[] args) {
+		new org.junit.runner.JUnitCore().run(DraggableTest.class);
 	}
 }
