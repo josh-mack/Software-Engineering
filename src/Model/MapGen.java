@@ -9,10 +9,20 @@ import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 
- 
+/**
+ * @author Josh Mack, Bill Bartlett, Peter Grillo, Dan Liang and Marco Arcilla
+ * @version 1.0
+ * @since
+ * Creates an array of enums from an image.
+ */
 public class MapGen extends Component {
 	 public static String[][] board =  new String[1080][1920]; 
 	 public static String[][] game = new String[48][76];
+	 
+	 /**
+	  * Main method. Controls i/o.
+	  * @param foo
+	  */
   public static void main(String[] foo) {
 
     new MapGen();
@@ -52,6 +62,11 @@ public class MapGen extends Component {
   }
   
  
+  /**
+   * Finds the blue/green pixels on the screen.
+   * @param pixel
+   * @return
+   */
   public int findBlue(int pixel) {
     int blue = (pixel) & 0xff;
     return blue;
@@ -61,6 +76,10 @@ public class MapGen extends Component {
 	    return green;
 	  }
 	 
+  /**
+   * Labels the map based on the color of the pixels.
+   * @param image
+   */
   private void imageIteration(BufferedImage image) {
     int w = image.getWidth();
     int h = image.getHeight();
@@ -93,6 +112,9 @@ public class MapGen extends Component {
    
   }
  
+  /**
+   * Constructor for MapGen.
+   */
   public MapGen() {
     try {
 
