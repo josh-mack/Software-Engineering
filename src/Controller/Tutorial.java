@@ -18,6 +18,10 @@ import View.Fisherman;
 import View.SpeciesComponent;
 import View.View;
 
+/**
+ * Tutorial class is the class that will help the player learn the ropes of the game
+ */
+
 public class Tutorial extends Game
 {
 	Game game;
@@ -31,6 +35,10 @@ public class Tutorial extends Game
 	Timer mainTimer, timer, endTimer;
 	int dialogNum = 0;
 	
+	/**
+	 * The tutorial constructor
+	 * creates an instance of game and calls the varies methods in Tutorial
+	 */
 	public Tutorial()
 	{
 		game = new Game();
@@ -46,6 +54,10 @@ public class Tutorial extends Game
 		howToPlay();
 	}
 	
+	/**
+	 * loads the northern Quad
+	 * @return nothing
+	 */
 	public void loadQuad()
 	{
 		gameFrame.loadMenu();
@@ -58,6 +70,10 @@ public class Tutorial extends Game
 		gameFrame.mainWindow.revalidate();
 	}
 	
+	/**
+	 * Places an invasive species randomly on the screen
+	 * @return nothing 
+	 */
 	public void placeInvasive()
 	{
 		Random rand = new Random();
@@ -105,6 +121,10 @@ public class Tutorial extends Game
 		mainEnviro.setNumInvasive(mainEnviro.getNumInvasive()+1);
 	}
 	
+	/**
+	 * Places a steward character at a certain location on the screen
+	 */
+	
 	public void placeSteward()
 	{
 		Game.board[5][9] = eChar.STEWARD;
@@ -112,6 +132,10 @@ public class Tutorial extends Game
 		Game.gameFrame.placeCompAtLayer(steward, -1);
 	}
 	
+	/**
+	 * Checks to see if the conditions are met then will change the flag and
+	 * call Tutorial methods 
+	 */
 	public void resolve()
 	{
 		if(mainEnviro.money == 4075 && resolved == false)
@@ -123,6 +147,10 @@ public class Tutorial extends Game
 		}
 	}
 	
+	/**
+	 * Checks to see if the conditions are met then will change the flag and
+	 * call Tutorial methods 
+	 */
 	public void enterCity()
 	{
 		if(mainEnviro.getNumVol() == 1 && volunteer == false)
@@ -133,16 +161,23 @@ public class Tutorial extends Game
 		}	
 	}
 	
+	/**
+	 * Checks to see if the conditions are met then will change the flag and
+	 * call Tutorial methods 
+	 */
 	public void upgradeDNREC()
 	{
 		if(dnrecLevel== 2 && upgraded == false)
 		{
 			upgraded = true;
-			placeSteward();
 			changeDialog();
 		}
 	}
 	
+	/**
+	 * Method that starts the varies timers
+	 * mainTimer will call methods every second
+	 */
 	public void startTimer()
 	{
 		ActionListener tick = new ActionListener()
@@ -163,8 +198,11 @@ public class Tutorial extends Game
 		mainTimer.start();
 	}
 	
-	
-	
+	/**
+	 * Checks to see if the conditions are met then will change the flag and
+	 * call Tutorial methods
+	 * After 5 seconds it will bring the player back to the start screen 
+	 */	
 	public void completed()
 	{
 		ActionListener end = new ActionListener()
@@ -172,6 +210,7 @@ public class Tutorial extends Game
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				changeDialog();
 				eChar[][] testboard = {{eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING},
 						{eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING},
 						{eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.WATER,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.BLANK,eChar.NOTHING,eChar.NOTHING,eChar.NOTHING},
@@ -237,6 +276,10 @@ public class Tutorial extends Game
 						gameFrame = new View();
 						fishComp = new Fisherman(5%38*width, 35%24*height);
 						
+						mainEnviro.setNumRes(1);
+						mainEnviro.setNumStew(2);
+						mainEnviro.setNumVol(3);
+						mainEnviro.setMoney(200);
 						endTimer.stop();
 			}
 		};
@@ -244,13 +287,16 @@ public class Tutorial extends Game
 		endTimer = new Timer(5000, end);
 		if(volunteer && upgraded && resolved)
 		{
-			changeDialog();
 			endTimer.start();
 			mainTimer.stop();
 			System.gc();	
 		}
 	}
 	
+	/**
+	 * A Method that creates the varies panels that will pop up helping the user play
+	 * through the tutorial. It will create the frame and the JLabels
+	 */
 	public void howToPlay()
 	{
 		
@@ -315,7 +361,13 @@ public class Tutorial extends Game
 		
 	}
 	
-	public void changeDialog(){
+	/**
+	 * A method that will change the panel showing on the frame to correspond with what the player
+	 * needs to do
+	 */
+	public void changeDialog()
+	{
+		System.out.println("changeing dialog");
 		switch(dialogNum){
 		case 0:
 			dialogNum = 1;
@@ -342,6 +394,7 @@ public class Tutorial extends Game
 			dialogNum = 5;
 			tutFrame.remove(tutPanel5);
 			tutFrame.add(tutPanel6);
+			break;
 		case 5:
 			dialogNum = 0;
 			tutFrame.dispose();
@@ -350,6 +403,9 @@ public class Tutorial extends Game
 		
 	}
 	
+	/**
+	 * An axilary method that after 5 seconds will change the panel in the JFrame
+	 */
 	public void changeDialogTimer()
 	{
 		ActionListener tick = new ActionListener()
