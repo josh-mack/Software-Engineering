@@ -195,7 +195,13 @@ public class View{
 	ImageIcon howToImage3;
 	ImageIcon howToImage4;
 	JPanel howToPanel;
-	ImageIcon tutHowTo;
+	private ImageIcon tutHowTo1;
+	private ImageIcon tutHowTo2;
+	private ImageIcon tutHowTo3;
+	private ImageIcon tutHowTo4;
+	private ImageIcon tutHowTo5;
+	private ImageIcon tutHowTo6;
+	
 	
 	
 	/**
@@ -1113,6 +1119,13 @@ public class View{
 		howToImage3 = new ImageIcon("imgs/howTo3.png");
 		howToImage4 = new ImageIcon("imgs/howTo4.png");
 		
+		setTutHowTo1(new ImageIcon("imgs/bubble1.png"));
+		setTutHowTo2(new ImageIcon("imgs/bubble2.png"));
+		setTutHowTo3(new ImageIcon("imgs/bubble3.png"));
+		setTutHowTo4(new ImageIcon("imgs/bubble4.png"));
+		setTutHowTo5(new ImageIcon("imgs/bubble5.png"));
+		setTutHowTo6(new ImageIcon("imgs/bubble6.png"));
+		
 		resolvingSteward = new ImageIcon("imgs/stewardGreen.png");
 		resolvingResearcher = new ImageIcon("imgs/researcherGreen.png");
 		resolvingVolunteer = new ImageIcon("imgs/volunteerGreen.png");
@@ -1386,6 +1399,66 @@ public class View{
 
 	public void setStewardImage(ImageIcon stewardImage) {
 		this.stewardImage = stewardImage;
+	}
+
+
+	public ImageIcon getTutHowTo3() {
+		return tutHowTo3;
+	}
+
+
+	public void setTutHowTo3(ImageIcon tutHowTo3) {
+		this.tutHowTo3 = tutHowTo3;
+	}
+
+
+	public ImageIcon getTutHowTo2() {
+		return tutHowTo2;
+	}
+
+
+	public void setTutHowTo2(ImageIcon tutHowTo2) {
+		this.tutHowTo2 = tutHowTo2;
+	}
+
+
+	public ImageIcon getTutHowTo1() {
+		return tutHowTo1;
+	}
+
+
+	public void setTutHowTo1(ImageIcon tutHowTo1) {
+		this.tutHowTo1 = tutHowTo1;
+	}
+
+
+	public ImageIcon getTutHowTo4() {
+		return tutHowTo4;
+	}
+
+
+	public void setTutHowTo4(ImageIcon tutHowTo4) {
+		this.tutHowTo4 = tutHowTo4;
+	}
+
+
+	public ImageIcon getTutHowTo5() {
+		return tutHowTo5;
+	}
+
+
+	public void setTutHowTo5(ImageIcon tutHowTo5) {
+		this.tutHowTo5 = tutHowTo5;
+	}
+
+
+	public ImageIcon getTutHowTo6() {
+		return tutHowTo6;
+	}
+
+
+	public void setTutHowTo6(ImageIcon tutHowTo6) {
+		this.tutHowTo6 = tutHowTo6;
 	}
 }
 	
